@@ -1,0 +1,8 @@
+[submodule "gpu_sandbox"]
+	path = gpu_sandbox
+	url = ../gpu_sandbox
+	branch = main
+[submodule "_matter"]
+	path = _matter
+	url = ../SceneFoundry_matter
+	branch = main
