@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="framework.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vk_tools\vk_descriptor_registry.cpp">
+      <Filter>Source Files\vk_tools</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vk_tools\vk_tools.cpp">
+      <Filter>Source Files\vk_tools</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan_wrapper\vulkan_buffer.cpp">
+      <Filter>Source Files\vulkan_wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan_wrapper\vulkan_descriptor.cpp">
+      <Filter>Source Files\vulkan_wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan_wrapper\vulkan_device.cpp">
+      <Filter>Source Files\vulkan_wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan_wrapper\vulkan_gltf.cpp">
+      <Filter>Source Files\vulkan_wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan_wrapper\vulkan_image.cpp">
+      <Filter>Source Files\vulkan_wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan_wrapper\vulkan_instance.cpp">
+      <Filter>Source Files\vulkan_wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan_wrapper\vulkan_obj.cpp">
+      <Filter>Source Files\vulkan_wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan_wrapper\vulkan_pipeline.cpp">
+      <Filter>Source Files\vulkan_wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan_wrapper\vulkan_renderer.cpp">
+      <Filter>Source Files\vulkan_wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan_wrapper\vulkan_swapchain.cpp">
+      <Filter>Source Files\vulkan_wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan_wrapper\vulkan_texture.cpp">
+      <Filter>Source Files\vulkan_wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan_wrapper\render_systems\gltf_render_system.cpp">
+      <Filter>Source Files\vulkan_wrapper\render_systems</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan_wrapper\render_systems\obj_render_system.cpp">
+      <Filter>Source Files\vulkan_wrapper\render_systems</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan_wrapper\render_systems\point_light_rs.cpp">
+      <Filter>Source Files\vulkan_wrapper\render_systems</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan_wrapper\render_systems\skybox_ibl_rs.cpp">
+      <Filter>Source Files\vulkan_wrapper\render_systems</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan_wrapper\render_passes\gbuffer_pass.cpp">
+      <Filter>Source Files\vulkan_wrapper\render_passes</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{a052d07f-5694-4a78-99d3-dd6804dc0619}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{553e2ad6-0eec-4e39-9937-6581b3f77c18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\common">
+      <UniqueIdentifier>{499c3be5-1205-451d-b9df-9e629b447d4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\vk_tools">
+      <UniqueIdentifier>{aa7afbca-de8e-405c-a200-e572ec466fb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\vulkan_wrapper">
+      <UniqueIdentifier>{01772370-e3de-47dc-b73a-8a682080538d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\vulkan_wrapper\render_passes">
+      <UniqueIdentifier>{f47bf111-56f9-482b-8396-2c8a0c80f042}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\vulkan_wrapper\render_systems">
+      <UniqueIdentifier>{c7c52993-273f-4dc1-a1d7-bb5f343f1d07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\vk_tools">
+      <UniqueIdentifier>{3c8597b2-4e27-44e3-a86c-0b4346cd2210}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\vulkan_wrapper">
+      <UniqueIdentifier>{8445a8d9-64ac-49e8-abc6-10dd634ff605}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\vulkan_wrapper\render_passes">
+      <UniqueIdentifier>{0db2f288-d3d9-43f0-94ae-68b089fb565f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\vulkan_wrapper\render_systems">
+      <UniqueIdentifier>{896fa70e-3acd-4caa-a0c2-c8c2582a9f8f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\vk_tools\vk_init.h">
+      <Filter>Header Files\vk_tools</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vk_tools\vk_tools.h">
+      <Filter>Header Files\vk_tools</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vulkan_wrapper\vulkan_buffer.h">
+      <Filter>Header Files\vulkan_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vulkan_wrapper\vulkan_descriptor.h">
+      <Filter>Header Files\vulkan_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vulkan_wrapper\vulkan_device.h">
+      <Filter>Header Files\vulkan_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vulkan_wrapper\vulkan_gltf.h">
+      <Filter>Header Files\vulkan_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vulkan_wrapper\vulkan_image.h">
+      <Filter>Header Files\vulkan_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vulkan_wrapper\vulkan_instance.h">
+      <Filter>Header Files\vulkan_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vulkan_wrapper\vulkan_obj.h">
+      <Filter>Header Files\vulkan_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vulkan_wrapper\vulkan_pipeline.h">
+      <Filter>Header Files\vulkan_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vulkan_wrapper\vulkan_renderer.h">
+      <Filter>Header Files\vulkan_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vulkan_wrapper\vulkan_swapchain.h">
+      <Filter>Header Files\vulkan_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vulkan_wrapper\vulkan_texture.h">
+      <Filter>Header Files\vulkan_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vulkan_wrapper\render_systems\gltf_render_system.h">
+      <Filter>Header Files\vulkan_wrapper\render_systems</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vulkan_wrapper\render_systems\obj_render_system.h">
+      <Filter>Header Files\vulkan_wrapper\render_systems</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vulkan_wrapper\render_systems\point_light_rs.h">
+      <Filter>Header Files\vulkan_wrapper\render_systems</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vulkan_wrapper\render_systems\skybox_ibl_rs.h">
+      <Filter>Header Files\vulkan_wrapper\render_systems</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vulkan_wrapper\render_passes\gbuffer_pass.h">
+      <Filter>Header Files\vulkan_wrapper\render_passes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\common\exception.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\common\render_data.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="_.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vk_tools\vk_descriptor_registry.h">
+      <Filter>Header Files\vk_tools</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vk_tools\vk_descriptor_requirement.h">
+      <Filter>Header Files\vk_tools</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

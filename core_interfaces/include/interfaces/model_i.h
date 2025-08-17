@@ -1,0 +1,24 @@
+#pragma once
+#include "SceneFoundry/core_interfaces/include/interfaces/renderer_i.h"
+#include <vulkan/vulkan.h>
+
+
+
+struct IModel :
+	virtual public ::particle
+	 {
+public:
+	//virtual ~IModel() = default;
+	virtual void bind(VkCommandBuffer cmd) {};
+
+
+	virtual void draw(VkCommandBuffer cmd) {};
+
+	virtual void gltfDraw(
+		VkCommandBuffer cmd,
+		uint32_t renderFlags = 0,
+		VkPipelineLayout pipelineLayout = VK_NULL_HANDLE,
+		uint32_t bindImageSet = 1
+	) {}
+};
+
