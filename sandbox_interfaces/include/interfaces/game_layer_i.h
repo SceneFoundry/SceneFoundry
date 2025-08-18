@@ -1,6 +1,6 @@
 #pragma once
-#include "SceneFoundry/core_interfaces/include/interfaces/renderer_i.h"
-#include "SceneFoundry/core_interfaces/include/interfaces/scene_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/renderer_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/scene_i.h"
 
 
 class IGameLayer  :

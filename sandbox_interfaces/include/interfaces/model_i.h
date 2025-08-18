@@ -1,5 +1,5 @@
 #pragma once
-#include "SceneFoundry/core_interfaces/include/interfaces/renderer_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/renderer_i.h"
 #include <vulkan/vulkan.h>
 
 

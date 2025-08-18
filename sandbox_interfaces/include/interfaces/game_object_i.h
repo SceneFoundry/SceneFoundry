@@ -1,8 +1,8 @@
 // IGameObject.h
 #pragma once
-#include "SceneFoundry/core_interfaces/include/transform_component.h"
-#include "SceneFoundry/core_interfaces/include/interfaces/renderer_i.h"
-#include "SceneFoundry/core_interfaces/include/interfaces/model_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/transform_component.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/renderer_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/model_i.h"
 //#include <memory>
 #include <optional>
 #include <glm/vec3.hpp>

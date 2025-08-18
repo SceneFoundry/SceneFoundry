@@ -4,8 +4,8 @@
 //#include "common/render_data.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_device.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_descriptor.h"
-#include "SceneFoundry/core_interfaces/include/interfaces/renderer_i.h"
-#include "SceneFoundry/core_interfaces/include/frame_info.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/renderer_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/frame_info.h"
 
 
 struct IRenderSystem  :

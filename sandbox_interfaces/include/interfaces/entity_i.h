@@ -1,8 +1,8 @@
 #pragma once
 #include "renderer_i.h"
 #include <glm/gtc/matrix_transform.hpp>
-#include "SceneFoundry/core_interfaces/include/transform_component.h"
-#include "SceneFoundry/core_interfaces/include/interfaces/camera_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/transform_component.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/camera_i.h"
 
 class IEntity :
 	virtual public ::particle

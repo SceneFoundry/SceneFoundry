@@ -4,7 +4,7 @@
 #include <vulkan/vulkan.h>
 //#include <vector>
 #include <glm/glm.hpp>
-#include "SceneFoundry/core_interfaces/include/frame_info.h"
+#include "SceneFoundry/sandbox_interfaces/include/frame_info.h"
 
 class ISandboxRenderer :
 	virtual public ::particle

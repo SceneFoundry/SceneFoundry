@@ -1,11 +1,11 @@
 // IScene.h
 #pragma once
 
-#include <unordered_map>
+//#include <unordered_map>
 //#include <memory>
-#include "SceneFoundry/core_interfaces/include/interfaces/game_object_i.h"
-#include "SceneFoundry/core_interfaces/include/interfaces/camera_i.h"
-#include "interfaces/renderer_i.h"   // for FrameContext
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/game_object_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/camera_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/renderer_i.h"   // for FrameContext
 #include <optional>
 //////#include <stdexcept>
 

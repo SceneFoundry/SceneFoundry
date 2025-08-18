@@ -2,17 +2,17 @@
 
 
 template < typename TYPE >
-class class_set  :
+class class_set :
    public ::list
 {
 public:
 
-using ARG_TYPE = ::argument_of< TYPE >;
+   using ARG_TYPE = ::argument_of< TYPE >;
 
    void add(ARG_TYPE t)
    {
 
-      auto p= find(t);
+      auto p = find(t);
 
       this->insert_at(p, t);
 
@@ -21,12 +21,12 @@ using ARG_TYPE = ::argument_of< TYPE >;
    iterator find(ARG_TYPE t) const
    {
 
-      auto p  = this->begin();
+      auto p = this->begin();
 
-      while(this->is_ok(p))
+      while (this->is_ok(p))
       {
 
-         if(t < p)
+         if (t < p)
          {
 
             return p;
@@ -49,7 +49,7 @@ using ARG_TYPE = ::argument_of< TYPE >;
 
    }
 
-}
+};
 
 
 

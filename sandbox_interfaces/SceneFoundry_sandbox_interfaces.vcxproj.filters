@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="framework.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="_.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{a052d07f-5694-4a78-99d3-dd6804dc0619}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{553e2ad6-0eec-4e39-9937-6581b3f77c18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\include">
+      <UniqueIdentifier>{1f70beeb-03c8-48a5-bc02-7a611d003743}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\include\interfaces">
+      <UniqueIdentifier>{d617d72e-9147-4c5b-ba05-28798ff8dd3f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\interfaces\asset_provider_i.h">
+      <Filter>Header Files\include\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="include\interfaces\camera_i.h">
+      <Filter>Header Files\include\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="include\interfaces\entity_i.h">
+      <Filter>Header Files\include\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="include\interfaces\game_layer_i.h">
+      <Filter>Header Files\include\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="include\interfaces\game_object_i.h">
+      <Filter>Header Files\include\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="include\interfaces\model_i.h">
+      <Filter>Header Files\include\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="include\interfaces\provider_i.h">
+      <Filter>Header Files\include\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="include\interfaces\render_system_i.h">
+      <Filter>Header Files\include\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="include\interfaces\renderer_i.h">
+      <Filter>Header Files\include\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="include\interfaces\scene_i.h">
+      <Filter>Header Files\include\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="include\interfaces\window_input_i.h">
+      <Filter>Header Files\include\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="include\class_set.h">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\frame_info.h">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\key_codes.h">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\transform_component.h">
+      <Filter>Header Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="_.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
