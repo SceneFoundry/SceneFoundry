@@ -1,7 +1,7 @@
 #include "framework.h"
 // obj_render_system.cpp
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/render_systems/object_render_system.h"
-
+#include ""
 // External
 #define GLM_FORCE_RADIANS	
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
@@ -52,7 +52,7 @@ ObjRenderSystem::~ObjRenderSystem()
 void ObjRenderSystem::render(FrameInfo& frame)
 {
 	m_pipeline->bind(frame.commandBuffer);
-	std::array<VkDescriptorSet, 1> descriptorSets = {
+	::preallocated_array_base< ::array_base <VkDescriptorSet, 1> > descriptorSets = {
 		frame.globalDescriptorSet
 	};
 

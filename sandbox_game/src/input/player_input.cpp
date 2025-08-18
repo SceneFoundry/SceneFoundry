@@ -2,55 +2,65 @@
 // player_input.cpp
 #include "SceneFoundry/core_interfaces/include/input/player_input.h"
 
-SandboxMNKController::SandboxMNKController(float moveSpeed, float mouseSensitivity)
-    : m_moveSpeed(moveSpeed), m_mouseSensitivity(mouseSensitivity), m_yaw(-90.f), m_pitch(0.f)
+namespace sandbox_game
 {
-}
 
-void SandboxMNKController::mouseCallback(glm::vec2 delta) {
-    m_rawDelta = delta;
-}
+   sandbox_mnk_controller::sandbox_mnk_controller(float moveSpeed, float mouseSensitivity)
+      : m_moveSpeed(moveSpeed), m_mouseSensitivity(mouseSensitivity), m_yaw(-90.f), m_pitch(0.f)
+   {
+   }
 
-void SandboxMNKController::update(float dt, ::pointer<IWindowInput> input, TransformComponent& transform) {
+   void sandbox_mnk_controller::mouseCallback(glm::vec2 delta) {
+      m_rawDelta = delta;
+   }
 
-    // 1) Smooth raw mouse delta into m_smoothDelta
-    float alpha = 1.0f - std::exp(-m_smoothing * dt);
-    m_smoothDelta += (m_rawDelta - m_smoothDelta) * alpha;
+   void sandbox_mnk_controller::update(float dt, ::pointer<IWindowInput> input, TransformComponent& transform) {
 
-    // 2) Camera-space movement
-    float pitchDeg = glm::degrees(transform.rotation.x);
-    float yawDeg = glm::degrees(transform.rotation.y);
-    glm::vec3 front{
-        std::cos(glm::radians(yawDeg)) * std::cos(glm::radians(pitchDeg)),
-        std::sin(glm::radians(pitchDeg)),
-        std::sin(glm::radians(yawDeg)) * std::cos(glm::radians(pitchDeg))
-    };
-    front = glm::normalize(front);
-    glm::vec3 right = glm::normalize(glm::cross(front, glm::vec3(0.f, 1.f, 0.f)));
-    glm::vec3 up = glm::vec3(0.f, 1.f, 0.f);
+      // 1) Smooth raw mouse delta into m_smoothDelta
+      float alpha = 1.0f - std::exp(-m_smoothing * dt);
+      m_smoothDelta += (m_rawDelta - m_smoothDelta) * alpha;
 
-    glm::vec3 dir{ 0.f };
-    if (input->isKeyPressed(SandboxKey::W)) dir += front;
-    if (input->isKeyPressed(SandboxKey::S)) dir -= front;
-    if (input->isKeyPressed(SandboxKey::A)) dir -= right;
-    if (input->isKeyPressed(SandboxKey::D)) dir += right;
-    if (input->isKeyPressed(SandboxKey::Q)) dir -= up;
-    if (input->isKeyPressed(SandboxKey::E)) dir += up;
+      // 2) Camera-space movement
+      float pitchDeg = glm::degrees(transform.rotation.x);
+      float yawDeg = glm::degrees(transform.rotation.y);
+      glm::vec3 front{
+          std::cos(glm::radians(yawDeg)) * std::cos(glm::radians(pitchDeg)),
+          std::sin(glm::radians(pitchDeg)),
+          std::sin(glm::radians(yawDeg)) * std::cos(glm::radians(pitchDeg))
+      };
+      front = glm::normalize(front);
+      glm::vec3 right = glm::normalize(glm::cross(front, glm::vec3(0.f, 1.f, 0.f)));
+      glm::vec3 up = glm::vec3(0.f, 1.f, 0.f);
 
-    if (glm::length(dir) > 0.0f)
-        transform.translation += glm::normalize(dir) * m_moveSpeed * dt;
+      glm::vec3 dir{ 0.f };
+      if (input->isKeyPressed(SandboxKey::W)) dir += front;
+      if (input->isKeyPressed(SandboxKey::S)) dir -= front;
+      if (input->isKeyPressed(SandboxKey::A)) dir -= right;
+      if (input->isKeyPressed(SandboxKey::D)) dir += right;
+      if (input->isKeyPressed(SandboxKey::Q)) dir -= up;
+      if (input->isKeyPressed(SandboxKey::E)) dir += up;
 
-    // 3) Apply smoothed mouse-look
-    m_yaw += m_smoothDelta.x * m_mouseSensitivity;
-    m_pitch -= m_smoothDelta.y * m_mouseSensitivity;
-    m_pitch = glm::clamp(m_pitch, -89.f, 89.f);
+      if (glm::length(dir) > 0.0f)
+         transform.translation += glm::normalize(dir) * m_moveSpeed * dt;
 
-    transform.rotation = glm::vec3(
-        glm::radians(m_pitch),
-        glm::radians(m_yaw),
-        0.f
-    );
+      // 3) Apply smoothed mouse-look
+      m_yaw += m_smoothDelta.x * m_mouseSensitivity;
+      m_pitch -= m_smoothDelta.y * m_mouseSensitivity;
+      m_pitch = glm::clamp(m_pitch, -89.f, 89.f);
 
-    // 4) Reset for next frame
-    m_rawDelta = glm::vec2(0.f);
-}
+      transform.rotation = glm::vec3(
+         glm::radians(m_pitch),
+         glm::radians(m_yaw),
+         0.f
+      );
+
+      // 4) Reset for next frame
+      m_rawDelta = glm::vec2(0.f);
+   }
+
+
+
+} // namespace sandbox_game
+
+
+

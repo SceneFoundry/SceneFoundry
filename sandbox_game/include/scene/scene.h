@@ -12,50 +12,62 @@
 //#include <fstream>
 #include <optional>
 
-class SandboxScene : public IScene {
-public:
-	SandboxScene(::pointer<IWindowInput> input, AssetManager& assetManager);      // pass input so your Player can read it
-	void init() override;                 // load models, spawn entities
-	void update(float dt) override;        // advance all entities
-
-	void loadSceneFile(const ::scoped_string & fileName);
-
-	::map<unsigned int, ::pointer<IGameObject>>&
-		getGameObjects() override { return m_gameObjects; }
+namespace sandbox_game
+{
 
 
-	::pair<glm::mat4, glm::mat4> getMainCameraMatrices()const;
+	class sandbox_scene : 
+		virtual public IScene 
+	{
+	public:
+		sandbox_scene(::pointer<IWindowInput> input, AssetManager& assetManager);      // pass input so your Player can read it
+		void init() override;                 // load models, spawn entities
+		void update(float dt) override;        // advance all entities
 
-	void setSkyboxObject(::pointer<IGameObject> obj) {
-		m_skyboxId = obj->getId();
-		m_skyboxObject = std::move(obj);
-	}
+		void loadSceneFile(const ::scoped_string& fileName);
 
-	SandboxCamera& getCamera();
+		::map<unsigned int, ::pointer<IGameObject>>&
+			getGameObjects() override { return m_gameObjects; }
 
-	void addGameObject(uint32_t id, SandboxGameObject obj);
-	void removeGameObject(uint32_t id);
 
-	std::optional<std::reference_wrapper<IGameObject>>
-		getSkyboxObject() const override;
+		::pair<glm::mat4, glm::mat4> getMainCameraMatrices()const;
 
-	std::optional<std::reference_wrapper<SandboxGameObject>>
-		getSkyboxObject();
+		void setSkyboxObject(::pointer<IGameObject> obj) {
+			m_skyboxId = obj->getId();
+			m_skyboxObject = std::move(obj);
+		}
 
-	::string getSkyboxCubemapName() const {
-		return m_skyboxCubemapName;
-	}
+		sandbox_camera& getCamera();
 
-private:
-	::pointer<IWindowInput> m_pInput;
-	AssetManager& m_assetManager;
+		void addGameObject(uint32_t id, sandbox_game_object obj);
+		void removeGameObject(uint32_t id);
 
-	::array_base<::pointer<SandboxPlayer>> m_players;
-	::map<unsigned int, ::pointer<IGameObject>>  m_gameObjects;
-	glm::vec3 m_initialCameraPosition{ 0.f };
-	glm::vec3 m_initialCameraRotation{ 0.f };
+		std::optional<std::reference_wrapper<IGameObject>>
+			getSkyboxObject() const override;
 
-	std::optional<uint32_t> m_skyboxId;
-	::pointer<IGameObject> m_skyboxObject;
-	::string m_skyboxCubemapName = "skybox_hdr";
-};
+		std::optional<std::reference_wrapper<sandbox_game_object>>
+			getSkyboxObject();
+
+		::string getSkyboxCubemapName() const {
+			return m_skyboxCubemapName;
+		}
+
+	private:
+		::pointer<IWindowInput> m_pInput;
+		AssetManager& m_assetManager;
+
+		::array_base<::pointer<sandbox_player>> m_players;
+		::map<unsigned int, ::pointer<IGameObject>>  m_gameObjects;
+		glm::vec3 m_initialCameraPosition{ 0.f };
+		glm::vec3 m_initialCameraRotation{ 0.f };
+
+		std::optional<uint32_t> m_skyboxId;
+		::pointer<IGameObject> m_skyboxObject;
+		::string m_skyboxCubemapName = "skybox_hdr";
+	};
+
+
+} // namespace sandbox_game
+
+
+

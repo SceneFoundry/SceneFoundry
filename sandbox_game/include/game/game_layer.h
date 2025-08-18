@@ -7,19 +7,30 @@
 //#include <iostream>
 //#include <memory>
 
-class MyGameLayer : public IGameLayer {
-public:
+namespace sandbox_game
+{
 
-    MyGameLayer(::pointer<IWindowInput> input, AssetManager& assets);
-    
 
-    void onInit() override;
-    void onUpdate(float dt) override;
+   class MyGameLayer : 
+      public IGameLayer 
+   {
+   public:
 
-    IScene& getSceneInterface() override;
-private:
-    ::pointer<SandboxScene> m_scene;
-    ::pointer<IWindowInput> m_windowInput;
-    AssetManager& m_assetManager;
+      MyGameLayer(::pointer<IWindowInput> input, AssetManager& assets);
 
-};
+
+      void onInit() override;
+      void onUpdate(float dt) override;
+
+      IScene& getSceneInterface() override;
+   private:
+      ::pointer<sandbox_scene> m_scene;
+      ::pointer<IWindowInput> m_windowInput;
+      AssetManager& m_assetManager;
+
+   };
+
+
+} // namespace sandbox_game
+
+

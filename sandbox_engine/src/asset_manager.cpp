@@ -227,7 +227,7 @@ void AssetManager::generateIrradianceMap() {
     subpassDescription.colorAttachmentCount = 1;
     subpassDescription.pColorAttachments = &colorReference;
 
-    std::array<VkSubpassDependency, 2> dependencies;
+    ::preallocated_array_base< ::array_base <VkSubpassDependency, 2> > dependencies;
     dependencies[0].srcSubpass = VK_SUBPASS_EXTERNAL;
     dependencies[0].dstSubpass = 0;
     dependencies[0].srcStageMask = VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT;
@@ -536,7 +536,7 @@ void AssetManager::generateBRDFlut() {
     subpassDescription.pColorAttachments = &colorReference;
 
     // Use subpass dependencies for layout transitions
-    std::array<VkSubpassDependency, 2> dependencies;
+    ::preallocated_array_base< ::array_base <VkSubpassDependency, 2> > dependencies;
     dependencies[0].srcSubpass = VK_SUBPASS_EXTERNAL;
     dependencies[0].dstSubpass = 0;
     dependencies[0].srcStageMask = VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT;
@@ -609,7 +609,7 @@ void AssetManager::generateBRDFlut() {
     ::array_base<VkDynamicState> dynamicStateEnables = { VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR };
     VkPipelineDynamicStateCreateInfo dynamicState = vkinit::pipelineDynamicStateCreateInfo(dynamicStateEnables);
     VkPipelineVertexInputStateCreateInfo emptyInputState = vkinit::pipelineVertexInputStateCreateInfo();
-    std::array<VkPipelineShaderStageCreateInfo, 2> shaderStages;
+    ::preallocated_array_base< ::array_base <VkPipelineShaderStageCreateInfo, 2> > shaderStages;
 
     VkGraphicsPipelineCreateInfo pipelineCI = vkinit::pipelineCreateInfo(pipelinelayout, renderpass);
     pipelineCI.pInputAssemblyState = &inputAssemblyState;

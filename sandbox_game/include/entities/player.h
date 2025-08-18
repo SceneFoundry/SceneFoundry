@@ -11,30 +11,39 @@
 
 #include <glm/glm.hpp>
 //#include <memory>
-
-class SandboxPlayer : public IGameObject
+namespace sandbox_game
 {
-public:
-    SandboxPlayer(::pointer<IWindowInput> input);
 
-	void onInit() override;
-	void onUpdate(float deltaTime) override;
 
-    TransformComponent& getTransform() override;
+   class sandbox_player : public IGameObject
+   {
+   public:
+      sandbox_player(::pointer<IWindowInput> input);
 
-    ::pointer<IModel> getModel() const override;
-    SandboxCamera& getCamera();
+      void onInit() override;
+      void onUpdate(float deltaTime) override;
 
- 
+      TransformComponent& getTransform() override;
 
-private:
-    ::pointer<IWindowInput>       m_pInput;
-    TransformComponent m_transform;
-    SandboxCamera m_camera;
-    SandboxMNKController m_controller;
+      ::pointer<IModel> getModel() const override;
+      sandbox_camera& getCamera();
 
-    // Configuration
-    float m_mouseSensitivity = 0.0025f;
-    float m_moveSpeed = 30.0f;
 
-};
+
+   private:
+      ::pointer<IWindowInput>       m_pInput;
+      TransformComponent m_transform;
+      sandbox_camera m_camera;
+      sandbox_mnk_controller m_controller;
+
+      // Configuration
+      float m_mouseSensitivity = 0.0025f;
+      float m_moveSpeed = 30.0f;
+
+   };
+
+
+
+} // namespace sandbox_game
+
+

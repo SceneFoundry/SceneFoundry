@@ -40,7 +40,7 @@ namespace vulkan
 			VkImageLayout      imageLayout,
 			bool               forceLinear
 		);
-		bool LoadCubemap(const std::array<::string, 6>& faceFilePaths);
+		bool LoadCubemap(const ::preallocated_array_base< ::array_base <::string, 6> >& faceFilePaths);
 		void KtxLoadCubemapFromFile(
 			const ::scoped_string& name,
 			::string filename,

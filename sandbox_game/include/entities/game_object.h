@@ -10,64 +10,72 @@
 #include <unordered_map>
 //////#include <stdexcept>
 
-
-class SandboxGameObject : public IGameObject{
-public:
-
-    using id_t = unsigned int;
-    using Map = ::map<id_t, SandboxGameObject>;
-
-    static ::pointer<SandboxGameObject> createGameObject() {
-        static id_t currentId = 0;
-        return std::make_shared<SandboxGameObject>(currentId++);
-    }
-
-    static ::pointer<SandboxGameObject> makePointLight(float intensity = 10.f, float radius = 0.1f, glm::vec3 color = glm::vec3(1.f)) {
-        auto gameObj = SandboxGameObject::createGameObject();
-        gameObj->m_color = color;
-        gameObj->m_transform.scale.x = radius;
-        gameObj->m_pointLight = std::make_unique<PointLightComponent>();
-        gameObj->m_pointLight->lightIntensity = intensity;
-        return gameObj;
-    }
-
-    SandboxGameObject(id_t objId);
-    SandboxGameObject() = default;
-    SandboxGameObject(const SandboxGameObject&) = delete;
-    SandboxGameObject& operator=(const SandboxGameObject&) = delete;
-    SandboxGameObject(SandboxGameObject&&) = default;
-    SandboxGameObject& operator=(SandboxGameObject&&) = default;
+namespace sandbox_game
+{
 
 
-    uint32_t getId() const override { return m_id; }
+   class sandbox_game_object : public IGameObject {
+   public:
 
-    glm::vec3 getColor() const override { return m_color; }
+      using id_t = unsigned int;
+      using Map = ::map<id_t, sandbox_game_object>;
 
-    PointLightComponent* getPointLight() const override {
-        return m_pointLight.get();
-    }
+      static ::pointer<sandbox_game_object> createGameObject() {
+         static id_t currentId = 0;
+         return __allocate sandbox_game_object(currentId++);
+      }
 
-    TransformComponent& getTransform() override {
-        return m_transform;
-    }
+      static ::pointer<sandbox_game_object> makePointLight(float intensity = 10.f, float radius = 0.1f, glm::vec3 color = glm::vec3(1.f)) {
+         auto gameObj = sandbox_game_object::createGameObject();
+         gameObj->m_color = color;
+         gameObj->m_transform.scale.x = radius;
+         gameObj->m_pointLight = std::make_unique<PointLightComponent>();
+         gameObj->m_pointLight->lightIntensity = intensity;
+         return gameObj;
+      }
 
-    ::pointer<IModel> getModel() const override {
-        return m_pModel;
-    }
+      sandbox_game_object(id_t objId);
+      sandbox_game_object() = default;
+      sandbox_game_object(const sandbox_game_object&) = delete;
+      sandbox_game_object& operator=(const sandbox_game_object&) = delete;
+      sandbox_game_object(sandbox_game_object&&) = default;
+      sandbox_game_object& operator=(sandbox_game_object&&) = default;
 
-    void setModel(const ::pointer<IModel>& model) {
-        m_pModel = model;
-    }
+
+      uint32_t getId() const override { return m_id; }
+
+      glm::vec3 getColor() const override { return m_color; }
+
+      PointLightComponent* getPointLight() const override {
+         return m_pointLight.get();
+      }
+
+      TransformComponent& getTransform() override {
+         return m_transform;
+      }
+
+      ::pointer<IModel> getModel() const override {
+         return m_pModel;
+      }
+
+      void setModel(const ::pointer<IModel>& model) {
+         m_pModel = model;
+      }
 
 
-    TransformComponent m_transform;
-    ::pointer<IModel> m_pModel;
-    glm::vec3 m_color{};
-    bool m_bIsOBJ{ false };
-    ::pointer<PointLightComponent> m_pointLight = nullptr;
+      TransformComponent m_transform;
+      ::pointer<IModel> m_pModel;
+      glm::vec3 m_color{};
+      bool m_bIsOBJ{ false };
+      ::pointer<PointLightComponent> m_pointLight = nullptr;
 
-    ::string m_cubemapTextureName;
-    id_t m_id;
-    bool m_bIsSkybox = false;
+      ::string m_cubemapTextureName;
+      id_t m_id;
+      bool m_bIsSkybox = false;
 
-};
+   };
+
+
+} // namespace sandbox_game
+
+

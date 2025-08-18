@@ -3,26 +3,34 @@
 #include "SceneFoundry/core_interfaces/include/game/game_layer.h"
 //#include <spdlog/spdlog.h>
 
-MyGameLayer::MyGameLayer(::pointer<IWindowInput> input, AssetManager& assets)
-    : m_windowInput(std::move(input))
-    , m_assetManager(assets)
+namespace sandbox_game
 {
-}
 
-void MyGameLayer::onInit()
-{
-    spdlog::info("MyGameLayer::onInit");
-    m_scene = std::make_unique<SandboxScene>(m_windowInput, m_assetManager);
-    m_scene->loadSceneFile("default_scene"); // TODO: Eventually specify which scene file to load in a better way than this probably via UI 
-    m_scene->init();
-}
+   MyGameLayer::MyGameLayer(::pointer<IWindowInput> input, AssetManager& assets)
+      : m_windowInput(std::move(input))
+      , m_assetManager(assets)
+   {
+   }
 
-void MyGameLayer::onUpdate(float dt)
-{
-    m_scene->update(dt);
-}
+   void MyGameLayer::onInit()
+   {
+      spdlog::info("MyGameLayer::onInit");
+      m_scene = std::make_unique<sandbox_scene>(m_windowInput, m_assetManager);
+      m_scene->loadSceneFile("default_scene"); // TODO: Eventually specify which scene file to load in a better way than this probably via UI 
+      m_scene->init();
+   }
+
+   void MyGameLayer::onUpdate(float dt)
+   {
+      m_scene->update(dt);
+   }
 
 
-IScene& MyGameLayer::getSceneInterface() {
-    return *m_scene;
-}
+   IScene& MyGameLayer::getSceneInterface() {
+      return *m_scene;
+   }
+
+
+} // namespace sandbox_game
+
+
