@@ -182,15 +182,15 @@ void AssetManager::generateIrradianceMap() {
     imageCI.tiling = VK_IMAGE_TILING_OPTIMAL;
     imageCI.usage = VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT;
     imageCI.flags = VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT;
-    VK_CHECK_RESULT(vkCreateImage(m_pdevice.device(), &imageCI, nullptr, &irradianceCube->m_image));
+    VK_CHECK_RESULT(vkCreateImage(m_pdevice->device(), &imageCI, nullptr, &irradianceCube->m_image));
 
     VkMemoryRequirements memReqs;
-    vkGetImageMemoryRequirements(m_pdevice.device(), irradianceCube->m_image, &memReqs);
+    vkGetImageMemoryRequirements(m_pdevice->device(), irradianceCube->m_image, &memReqs);
     VkMemoryAllocateInfo memAlloc = vkinit::memoryAllocateInfo();
     memAlloc.allocationSize = memReqs.size;
-    memAlloc.memoryTypeIndex = m_pdevice.getMemoryType(memReqs.memoryTypeBits, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-    VK_CHECK_RESULT(vkAllocateMemory(m_pdevice.device(), &memAlloc, nullptr, &irradianceCube->m_deviceMemory));
-    VK_CHECK_RESULT(vkBindImageMemory(m_pdevice.device(), irradianceCube->m_image, irradianceCube->m_deviceMemory, 0));
+    memAlloc.memoryTypeIndex = m_pdevice->getMemoryType(memReqs.memoryTypeBits, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+    VK_CHECK_RESULT(vkAllocateMemory(m_pdevice->device(), &memAlloc, nullptr, &irradianceCube->m_deviceMemory));
+    VK_CHECK_RESULT(vkBindImageMemory(m_pdevice->device(), irradianceCube->m_image, irradianceCube->m_deviceMemory, 0));
 
     // view & sampler
     VkImageViewCreateInfo viewCI = vkinit::imageViewCreateInfo();
@@ -202,7 +202,7 @@ void AssetManager::generateIrradianceMap() {
     viewCI.subresourceRange.baseArrayLayer = 0;
     viewCI.subresourceRange.layerCount = 6;
     viewCI.image = irradianceCube->m_image;
-    VK_CHECK_RESULT(vkCreateImageView(m_pdevice.device(), &viewCI, nullptr, &irradianceCube->m_view));
+    VK_CHECK_RESULT(vkCreateImageView(m_pdevice->device(), &viewCI, nullptr, &irradianceCube->m_view));
 
     VkSamplerCreateInfo samplerCI = vkinit::samplerCreateInfo();
     samplerCI.magFilter = VK_FILTER_LINEAR;
@@ -214,7 +214,7 @@ void AssetManager::generateIrradianceMap() {
     samplerCI.minLod = 0.0f;
     samplerCI.maxLod = static_cast<float>(numMips);
     samplerCI.borderColor = VK_BORDER_COLOR_FLOAT_OPAQUE_WHITE;
-    VK_CHECK_RESULT(vkCreateSampler(m_pdevice.device(), &samplerCI, nullptr, &irradianceCube->m_sampler));
+    VK_CHECK_RESULT(vkCreateSampler(m_pdevice->device(), &samplerCI, nullptr, &irradianceCube->m_sampler));
 
     irradianceCube->m_descriptor.imageView = irradianceCube->m_view;
     irradianceCube->m_descriptor.sampler = irradianceCube->m_sampler;
@@ -262,7 +262,7 @@ void AssetManager::generateIrradianceMap() {
     renderPassCI.dependencyCount = static_cast<uint32_t>(dependencies.size());
     renderPassCI.pDependencies = dependencies.data();
     VkRenderPass renderpass;
-    VK_CHECK_RESULT(vkCreateRenderPass(m_pdevice.device(), &renderPassCI, nullptr, &renderpass));
+    VK_CHECK_RESULT(vkCreateRenderPass(m_pdevice->device(), &renderPassCI, nullptr, &renderpass));
 
     // offscreen color image (1 mip, reused for all mips/faces)
     struct {
@@ -286,13 +286,13 @@ void AssetManager::generateIrradianceMap() {
         imageCreateInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
         imageCreateInfo.usage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT;
         imageCreateInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
-        VK_CHECK_RESULT(vkCreateImage(m_pdevice.device(), &imageCreateInfo, nullptr, &offscreen.image));
+        VK_CHECK_RESULT(vkCreateImage(m_pdevice->device(), &imageCreateInfo, nullptr, &offscreen.image));
 
-        vkGetImageMemoryRequirements(m_pdevice.device(), offscreen.image, &memReqs);
+        vkGetImageMemoryRequirements(m_pdevice->device(), offscreen.image, &memReqs);
         memAlloc.allocationSize = memReqs.size;
-        memAlloc.memoryTypeIndex = m_pdevice.getMemoryType(memReqs.memoryTypeBits, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-        VK_CHECK_RESULT(vkAllocateMemory(m_pdevice.device(), &memAlloc, nullptr, &offscreen.memory));
-        VK_CHECK_RESULT(vkBindImageMemory(m_pdevice.device(), offscreen.image, offscreen.memory, 0));
+        memAlloc.memoryTypeIndex = m_pdevice->getMemoryType(memReqs.memoryTypeBits, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+        VK_CHECK_RESULT(vkAllocateMemory(m_pdevice->device(), &memAlloc, nullptr, &offscreen.memory));
+        VK_CHECK_RESULT(vkBindImageMemory(m_pdevice->device(), offscreen.image, offscreen.memory, 0));
 
         VkImageViewCreateInfo colorImageView = vkinit::imageViewCreateInfo();
         colorImageView.viewType = VK_IMAGE_VIEW_TYPE_2D;
@@ -303,7 +303,7 @@ void AssetManager::generateIrradianceMap() {
         colorImageView.subresourceRange.baseArrayLayer = 0;
         colorImageView.subresourceRange.layerCount = 1;
         colorImageView.image = offscreen.image;
-        VK_CHECK_RESULT(vkCreateImageView(m_pdevice.device(), &colorImageView, nullptr, &offscreen.view));
+        VK_CHECK_RESULT(vkCreateImageView(m_pdevice->device(), &colorImageView, nullptr, &offscreen.view));
 
         VkFramebufferCreateInfo fbufCreateInfo = vkinit::framebufferCreateInfo();
         fbufCreateInfo.renderPass = renderpass;
@@ -312,11 +312,11 @@ void AssetManager::generateIrradianceMap() {
         fbufCreateInfo.width = dim;
         fbufCreateInfo.height = dim;
         fbufCreateInfo.layers = 1;
-        VK_CHECK_RESULT(vkCreateFramebuffer(m_pdevice.device(), &fbufCreateInfo, nullptr, &offscreen.framebuffer));
+        VK_CHECK_RESULT(vkCreateFramebuffer(m_pdevice->device(), &fbufCreateInfo, nullptr, &offscreen.framebuffer));
 
-        VkCommandBuffer layoutCmd = m_pdevice.createCommandBuffer(VK_COMMAND_BUFFER_LEVEL_PRIMARY, true);
+        VkCommandBuffer layoutCmd = m_pdevice->createCommandBuffer(VK_COMMAND_BUFFER_LEVEL_PRIMARY, true);
         tools::setImageLayout(layoutCmd, offscreen.image, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
-        m_pdevice.flushCommandBuffer(layoutCmd, m_transferQueue, true);
+        m_pdevice->flushCommandBuffer(layoutCmd, m_transferQueue, true);
     }
 
     // Descriptor layout/pool/set (same as before)
@@ -325,18 +325,18 @@ void AssetManager::generateIrradianceMap() {
         vkinit::descriptorSetLayoutBinding(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT, 0),
     };
     VkDescriptorSetLayoutCreateInfo descriptorsetlayoutCI = vkinit::descriptorSetLayoutCreateInfo(setLayoutBindings);
-    VK_CHECK_RESULT(vkCreateDescriptorSetLayout(m_pdevice.device(), &descriptorsetlayoutCI, nullptr, &descriptorsetlayout));
+    VK_CHECK_RESULT(vkCreateDescriptorSetLayout(m_pdevice->device(), &descriptorsetlayoutCI, nullptr, &descriptorsetlayout));
 
     ::array_base<VkDescriptorPoolSize> poolSizes = { vkinit::descriptorPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 1) };
     VkDescriptorPoolCreateInfo descriptorPoolCI = vkinit::descriptorPoolCreateInfo(poolSizes, 2);
     VkDescriptorPool descriptorpool;
-    VK_CHECK_RESULT(vkCreateDescriptorPool(m_pdevice.device(), &descriptorPoolCI, nullptr, &descriptorpool));
+    VK_CHECK_RESULT(vkCreateDescriptorPool(m_pdevice->device(), &descriptorPoolCI, nullptr, &descriptorpool));
 
     VkDescriptorSet descriptorset;
     VkDescriptorSetAllocateInfo allocInfo = vkinit::descriptorSetAllocateInfo(descriptorpool, &descriptorsetlayout, 1);
-    VK_CHECK_RESULT(vkAllocateDescriptorSets(m_pdevice.device(), &allocInfo, &descriptorset));
+    VK_CHECK_RESULT(vkAllocateDescriptorSets(m_pdevice->device(), &allocInfo, &descriptorset));
     VkWriteDescriptorSet writeDescriptorSet = vkinit::writeDescriptorSet(descriptorset, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 0, &environmentCube->m_descriptor);
-    vkUpdateDescriptorSets(m_pdevice.device(), 1, &writeDescriptorSet, 0, nullptr);
+    vkUpdateDescriptorSets(m_pdevice->device(), 1, &writeDescriptorSet, 0, nullptr);
 
     // Push block
     struct PushBlock {
@@ -384,7 +384,7 @@ void AssetManager::generateIrradianceMap() {
     sandbox_pipeline irradiancePipeline{ m_pdevice, vert, frag, cfg };
 
     // COMMAND RECORDING
-    VkCommandBuffer cmdBuf = m_pdevice.createCommandBuffer(VK_COMMAND_BUFFER_LEVEL_PRIMARY, true);
+    VkCommandBuffer cmdBuf = m_pdevice->createCommandBuffer(VK_COMMAND_BUFFER_LEVEL_PRIMARY, true);
 
     // Transition irradiance cubemap to TRANSFER_DST (outside any renderpass)
     VkImageSubresourceRange cubemapRange{ VK_IMAGE_ASPECT_COLOR_BIT, 0, numMips, 0, 6 };
@@ -462,12 +462,12 @@ void AssetManager::generateIrradianceMap() {
     // final transition for cubemap to shader read layout
     tools::setImageLayout(cmdBuf, irradianceCube->m_image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, cubemapRange);
 
-    m_pdevice.flushCommandBuffer(cmdBuf, m_transferQueue);
+    m_pdevice->flushCommandBuffer(cmdBuf, m_transferQueue);
     vkQueueWaitIdle(m_transferQueue);
 
     // cleanup (destroy created renderpass/framebuffer)
-    vkDestroyFramebuffer(m_pdevice.device(), offscreen.framebuffer, nullptr);
-    vkDestroyRenderPass(m_pdevice.device(), renderpass, nullptr);
+    vkDestroyFramebuffer(m_pdevice->device(), offscreen.framebuffer, nullptr);
+    vkDestroyRenderPass(m_pdevice->device(), renderpass, nullptr);
 
     auto tEnd = std::chrono::high_resolution_clock::now();
     auto tDiff = std::chrono::duration<double, std::milli>(tEnd - tStart).count();
@@ -492,14 +492,14 @@ void AssetManager::generateBRDFlut() {
     imageCI.samples = VK_SAMPLE_COUNT_1_BIT;
     imageCI.tiling = VK_IMAGE_TILING_OPTIMAL;
     imageCI.usage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT;
-    VK_CHECK_RESULT(vkCreateImage(m_pdevice.device(), &imageCI, nullptr, &lutBrdf->m_image));
+    VK_CHECK_RESULT(vkCreateImage(m_pdevice->device(), &imageCI, nullptr, &lutBrdf->m_image));
     VkMemoryAllocateInfo memAlloc = vkinit::memoryAllocateInfo();
     VkMemoryRequirements memReqs;
-    vkGetImageMemoryRequirements(m_pdevice.device(), lutBrdf->m_image, &memReqs);
+    vkGetImageMemoryRequirements(m_pdevice->device(), lutBrdf->m_image, &memReqs);
     memAlloc.allocationSize = memReqs.size;
-    memAlloc.memoryTypeIndex = m_pdevice.getMemoryType(memReqs.memoryTypeBits, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-    VK_CHECK_RESULT(vkAllocateMemory(m_pdevice.device(), &memAlloc, nullptr, &lutBrdf->m_deviceMemory));
-    VK_CHECK_RESULT(vkBindImageMemory(m_pdevice.device(), lutBrdf->m_image, lutBrdf->m_deviceMemory, 0));
+    memAlloc.memoryTypeIndex = m_pdevice->getMemoryType(memReqs.memoryTypeBits, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+    VK_CHECK_RESULT(vkAllocateMemory(m_pdevice->device(), &memAlloc, nullptr, &lutBrdf->m_deviceMemory));
+    VK_CHECK_RESULT(vkBindImageMemory(m_pdevice->device(), lutBrdf->m_image, lutBrdf->m_deviceMemory, 0));
     // Image view
     VkImageViewCreateInfo viewCI = vkinit::imageViewCreateInfo();
     viewCI.viewType = VK_IMAGE_VIEW_TYPE_2D;
@@ -509,7 +509,7 @@ void AssetManager::generateBRDFlut() {
     viewCI.subresourceRange.levelCount = 1;
     viewCI.subresourceRange.layerCount = 1;
     viewCI.image = lutBrdf->m_image;
-    VK_CHECK_RESULT(vkCreateImageView(m_pdevice.device(), &viewCI, nullptr, &lutBrdf->m_view));
+    VK_CHECK_RESULT(vkCreateImageView(m_pdevice->device(), &viewCI, nullptr, &lutBrdf->m_view));
     // Sampler
     VkSamplerCreateInfo samplerCI = vkinit::samplerCreateInfo();
     samplerCI.magFilter = VK_FILTER_LINEAR;
@@ -521,7 +521,7 @@ void AssetManager::generateBRDFlut() {
     samplerCI.minLod = 0.0f;
     samplerCI.maxLod = 1.0f;
     samplerCI.borderColor = VK_BORDER_COLOR_FLOAT_OPAQUE_WHITE;
-    VK_CHECK_RESULT(vkCreateSampler(m_pdevice.device(), &samplerCI, nullptr, &lutBrdf->m_sampler));
+    VK_CHECK_RESULT(vkCreateSampler(m_pdevice->device(), &samplerCI, nullptr, &lutBrdf->m_sampler));
 
     lutBrdf->m_descriptor.imageView = lutBrdf->m_view;
     lutBrdf->m_descriptor.sampler = lutBrdf->m_sampler;
@@ -574,7 +574,7 @@ void AssetManager::generateBRDFlut() {
     renderPassCI.pDependencies = dependencies.data();
 
     VkRenderPass renderpass = VK_NULL_HANDLE;
-    VK_CHECK_RESULT(vkCreateRenderPass(m_pdevice.device(), &renderPassCI, nullptr, &renderpass));
+    VK_CHECK_RESULT(vkCreateRenderPass(m_pdevice->device(), &renderPassCI, nullptr, &renderpass));
 
     VkFramebufferCreateInfo framebufferCI = vkinit::framebufferCreateInfo();
     framebufferCI.renderPass = renderpass;
@@ -585,29 +585,29 @@ void AssetManager::generateBRDFlut() {
     framebufferCI.layers = 1;
 
     VkFramebuffer framebuffer;
-    VK_CHECK_RESULT(vkCreateFramebuffer(m_pdevice.device(), &framebufferCI, nullptr, &framebuffer));
+    VK_CHECK_RESULT(vkCreateFramebuffer(m_pdevice->device(), &framebufferCI, nullptr, &framebuffer));
 
     // Descriptors
     VkDescriptorSetLayout descriptorsetlayout;
     ::array_base<VkDescriptorSetLayoutBinding> setLayoutBindings = {};
     VkDescriptorSetLayoutCreateInfo descriptorsetlayoutCI = vkinit::descriptorSetLayoutCreateInfo(setLayoutBindings);
-    VK_CHECK_RESULT(vkCreateDescriptorSetLayout(m_pdevice.device(), &descriptorsetlayoutCI, nullptr, &descriptorsetlayout));
+    VK_CHECK_RESULT(vkCreateDescriptorSetLayout(m_pdevice->device(), &descriptorsetlayoutCI, nullptr, &descriptorsetlayout));
 
     // Descriptor Pool
     ::array_base<VkDescriptorPoolSize> poolSizes = { vkinit::descriptorPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 1) };
     VkDescriptorPoolCreateInfo descriptorPoolCI = vkinit::descriptorPoolCreateInfo(poolSizes, 2);
     VkDescriptorPool descriptorpool;
-    VK_CHECK_RESULT(vkCreateDescriptorPool(m_pdevice.device(), &descriptorPoolCI, nullptr, &descriptorpool));
+    VK_CHECK_RESULT(vkCreateDescriptorPool(m_pdevice->device(), &descriptorPoolCI, nullptr, &descriptorpool));
 
     // Descriptor sets
     VkDescriptorSet descriptorset;
     VkDescriptorSetAllocateInfo allocInfo = vkinit::descriptorSetAllocateInfo(descriptorpool, &descriptorsetlayout, 1);
-    VK_CHECK_RESULT(vkAllocateDescriptorSets(m_pdevice.device(), &allocInfo, &descriptorset));
+    VK_CHECK_RESULT(vkAllocateDescriptorSets(m_pdevice->device(), &allocInfo, &descriptorset));
 
     // Pipeline layout
     VkPipelineLayout pipelinelayout;
     VkPipelineLayoutCreateInfo pipelineLayoutCI = vkinit::pipelineLayoutCreateInfo(&descriptorsetlayout, 1);
-    VK_CHECK_RESULT(vkCreatePipelineLayout(m_pdevice.device(), &pipelineLayoutCI, nullptr, &pipelinelayout));
+    VK_CHECK_RESULT(vkCreatePipelineLayout(m_pdevice->device(), &pipelineLayoutCI, nullptr, &pipelinelayout));
 
     // Pipeline
     VkPipelineInputAssemblyStateCreateInfo inputAssemblyState = vkinit::pipelineInputAssemblyStateCreateInfo(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, 0, VK_FALSE);
@@ -666,7 +666,7 @@ void AssetManager::generateBRDFlut() {
     renderPassBeginInfo.pClearValues = clearValues;
     renderPassBeginInfo.framebuffer = framebuffer;
 
-    VkCommandBuffer cmdBuf = m_pdevice.createCommandBuffer(VK_COMMAND_BUFFER_LEVEL_PRIMARY, true);
+    VkCommandBuffer cmdBuf = m_pdevice->createCommandBuffer(VK_COMMAND_BUFFER_LEVEL_PRIMARY, true);
     vkCmdBeginRenderPass(cmdBuf, &renderPassBeginInfo, VK_SUBPASS_CONTENTS_INLINE);
     VkViewport viewport = vkinit::viewport((float)dim, (float)dim, 0.0f, 1.0f);
     VkRect2D scissor = vkinit::rect2D(dim, dim, 0, 0);
@@ -676,12 +676,12 @@ void AssetManager::generateBRDFlut() {
     brdfPipeline.bind(cmdBuf);
     vkCmdDraw(cmdBuf, 3, 1, 0, 0);
     vkCmdEndRenderPass(cmdBuf);
-    m_pdevice.flushCommandBuffer(cmdBuf, m_transferQueue);
+    m_pdevice->flushCommandBuffer(cmdBuf, m_transferQueue);
 
     vkQueueWaitIdle(m_transferQueue);
 
-    vkDestroyFramebuffer(m_pdevice.device(), framebuffer, nullptr);
-    vkDestroyRenderPass(m_pdevice.device(), renderpass, nullptr);
+    vkDestroyFramebuffer(m_pdevice->device(), framebuffer, nullptr);
+    vkDestroyRenderPass(m_pdevice->device(), renderpass, nullptr);
 
     auto tEnd = std::chrono::high_resolution_clock::now();
     auto tDiff = std::chrono::duration<double, std::milli>(tEnd - tStart).count();
@@ -721,7 +721,7 @@ void AssetManager::generatePrefilteredEnvMap() {
         return it->element2();
 
     auto model = øcreate_pointer<gltf::Model>();
-    model->loadFromFile(filepath, &m_pdevice, m_pdevice.graphicsQueue(), gltfFlags, scale);
+    model->loadFromFile(filepath, &m_pdevice, m_pdevice->graphicsQueue(), gltfFlags, scale);
 
     m_gltfModelCache[name] = model;
     return model;
@@ -745,7 +745,7 @@ void AssetManager::generatePrefilteredEnvMap() {
             ktxFilename,
             format,
             &m_pdevice,
-            m_pdevice.graphicsQueue(),
+            m_pdevice->graphicsQueue(),
             usageFlags,
             initialLayout
         );

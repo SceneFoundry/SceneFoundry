@@ -64,11 +64,11 @@ namespace sandbox_game
 
       information("Loading scene file: {} ({})", fileName, path);
 
-      if (sceneJson.contains("camera")) {
-         const auto& camJson = sceneJson["camera"];
+      if (sceneJson.has_property("camera")) {
+         auto& camJson = sceneJson["camera"].property_set_reference();
 
-         auto pos = camJson.value("position", ::array_base<float>{0.f, 0.f, 0.f});
-         auto rot = camJson.value("rotation", ::array_base<float>{0.f, 0.f, 0.f});
+         auto pos = camJson.payload("position", ::array_base<float>{0.f, 0.f, 0.f});
+         auto rot = camJson.payload("rotation", ::array_base<float>{0.f, 0.f, 0.f});
 
          m_initialCameraPosition = { pos[0], pos[1], pos[2] };
          m_initialCameraRotation = {
