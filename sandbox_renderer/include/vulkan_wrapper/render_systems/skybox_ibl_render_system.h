@@ -15,17 +15,17 @@
 
 class SkyboxIBLrenderSystem : public IRenderSystem {
 public:
-    SkyboxIBLrenderSystem(sandbox_device& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
+    SkyboxIBLrenderSystem(sandbox_renderer::sandbox_device& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
     ~SkyboxIBLrenderSystem();
 
     SkyboxIBLrenderSystem(const SkyboxIBLrenderSystem&) = delete;
     SkyboxIBLrenderSystem& operator=(const SkyboxIBLrenderSystem&) = delete;
 
     void init(
-        sandbox_device& device,
+       sandbox_renderer::sandbox_device& device,
         VkRenderPass            renderPass,
         VkDescriptorSetLayout   globalSetLayout,
-        vulkan::sandbox_descriptor_pool& descriptorPool,
+       sandbox_renderer::sandbox_descriptor_pool& descriptorPool,
         size_t frameCount)override;
 
     // Call this inside your scene render loop, after global descriptors are bound
@@ -53,13 +53,13 @@ private:
 
 
     VkDescriptorSetLayout m_skyboxLayout;
-    sandbox_device& m_device;
-    ::pointer<sandbox_pipeline> m_pipeline;
+    sandbox_renderer::sandbox_device& m_device;
+    ::pointer<sandbox_renderer::sandbox_pipeline> m_pipeline;
     VkPipelineLayout m_pipelineLayout;
     VkDescriptorImageInfo m_skyboxImageInfo{};
-    ::pointer<sandbox_descriptor_set_layout> m_skyboxSetLayout;
+    ::pointer<sandbox_renderer::sandbox_descriptor_set_layout> m_skyboxSetLayout;
     VkDescriptorSet m_skyboxDescriptorSet;
 
-    vulkan::sandbox_descriptor_pool* m_descriptorPool = nullptr;
+    sandbox_renderer::sandbox_descriptor_pool* m_descriptorPool = nullptr;
     bool m_bHasCubemap = false;
 };

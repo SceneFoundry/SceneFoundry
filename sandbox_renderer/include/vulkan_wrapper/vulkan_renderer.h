@@ -8,11 +8,11 @@
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/render_systems/gltf_render_system.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/render_systems/skybox_ibl_render_system.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/render_systems/point_light_render_system.h"
-#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/window.h"
-#include "SceneFoundry/core_interfaces/include/vulkan_wrapper/vulkan_device.h"
-#include "SceneFoundry/core_interfaces/include/vulkan_wrapper/vulkan_swapchain.h"
-#include "SceneFoundry/core_interfaces/include/vulkan_wrapper/vulkan_descriptor.h"
-#include "SceneFoundry/core_interfaces/include/vulkan_wrapper/vulkan_buffer.h"
+#include "SceneFoundry/sandbox_renderer/include/window.h"
+#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_device.h"
+#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_swapchain.h"
+#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_descriptor.h"
+#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_buffer.h"
 //#include <vector>
 //#include <array>
 

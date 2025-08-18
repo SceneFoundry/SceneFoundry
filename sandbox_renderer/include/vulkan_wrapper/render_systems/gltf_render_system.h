@@ -29,10 +29,10 @@ public:
 	GltfRenderSystem& operator=(const GltfRenderSystem&) = delete;
 
 	void init(
-		sandbox_device& device,
+		sandbox_renderer::sandbox_device& device,
 		VkRenderPass            renderPass,
 		VkDescriptorSetLayout   globalSetLayout,
-		vulkan::sandbox_descriptor_pool& descriptorPool,
+		sandbox_renderer::sandbox_descriptor_pool& descriptorPool,
 		size_t frameCount)override;
 
 	void render(FrameInfo& frame) override;
@@ -47,13 +47,13 @@ private:
 	VkDescriptorSet m_iblDescriptorSet;
 
 	::pointer<sandbox_renderer::sandbox_pipeline> m_opaquePipeline;
-	::pointer<sandbox_pipeline> m_maskPipeline;
-	::pointer<sandbox_pipeline> m_blendPipeline;
+	::pointer<sandbox_renderer::sandbox_pipeline> m_maskPipeline;
+	::pointer<sandbox_renderer::sandbox_pipeline> m_blendPipeline;
 	VkPipelineLayout m_pipelineLayout;
 
 	IAssetProvider& m_assets;
 
-	::pointer<sandbox_descriptor_set_layout> m_iblLayout;
+	::pointer<sandbox_renderer::sandbox_descriptor_set_layout> m_iblLayout;
 	::array_base<VkDescriptorSet>				  m_iblDescriptorSets;
 };
 

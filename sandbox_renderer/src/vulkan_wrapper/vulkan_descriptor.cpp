@@ -70,7 +70,7 @@ namespace sandbox_renderer
          throw std::runtime_error("failed to create descriptor set layout!");
       }
 
-      return std::make_unique<sandbox_descriptor_set_layout>(m_device, setBindings, layout);
+      return øcreate_pointer<sandbox_descriptor_set_layout>(m_device, setBindings, layout);
    }
    // *************** Descriptor Set Layout *********************
 
@@ -112,7 +112,7 @@ namespace sandbox_renderer
    }
 
    ::pointer<vulkan::sandbox_descriptor_pool> vulkan::sandbox_descriptor_pool::Builder::build() const {
-      return std::make_unique<vulkan::sandbox_descriptor_pool>(m_device, m_maxSets, m_poolFlags, m_poolSizes);
+      return øcreate_pointer<vulkan::sandbox_descriptor_pool>(m_device, m_maxSets, m_poolFlags, m_poolSizes);
    }
 
    // *************** Descriptor Pool *********************
@@ -187,11 +187,11 @@ namespace sandbox_renderer
 
    // *************** Descriptor Writer *********************
 
-   VkSandboxDescriptorWriter::VkSandboxDescriptorWriter(sandbox_descriptor_set_layout& setLayout, vulkan::sandbox_descriptor_pool& pool)
+   sandbox_descriptor_writer::sandbox_descriptor_writer(sandbox_descriptor_set_layout& setLayout, vulkan::sandbox_descriptor_pool& pool)
       : m_setLayout{ setLayout }, m_pool{ pool } {
    }
 
-   VkSandboxDescriptorWriter& VkSandboxDescriptorWriter::writeBuffer(
+   sandbox_descriptor_writer& sandbox_descriptor_writer::writeBuffer(
       uint32_t binding, VkDescriptorBufferInfo* bufferInfo) {
       assert(m_setLayout.m_bindings.count(binding) == 1 && "Layout does not contain specified binding");
 
@@ -212,7 +212,7 @@ namespace sandbox_renderer
       return *this;
    }
 
-   VkSandboxDescriptorWriter& VkSandboxDescriptorWriter::writeImage(uint32_t binding, const VkDescriptorImageInfo* imageInfo)
+   sandbox_descriptor_writer& sandbox_descriptor_writer::writeImage(uint32_t binding, const VkDescriptorImageInfo* imageInfo)
    {
       auto& bindingDescription = m_setLayout.m_bindings[binding];
       assert(m_setLayout.m_bindings.count(binding) == 1 && "Layout does not contain specified binding");
@@ -233,7 +233,7 @@ namespace sandbox_renderer
       m_writes.push_back(write);
       return *this;
    }
-   VkSandboxDescriptorWriter& VkSandboxDescriptorWriter::writeImage(uint32_t binding, const VkDescriptorImageInfo* imageInfos, uint32_t count) {
+   sandbox_descriptor_writer& sandbox_descriptor_writer::writeImage(uint32_t binding, const VkDescriptorImageInfo* imageInfos, uint32_t count) {
       assert(m_setLayout.m_bindings.count(binding) == 1 && "Layout does not contain specified binding");
       assert(m_setLayout.m_bindings.at(binding).descriptorCount >= count && "Too many image descriptors for binding");
 
@@ -253,14 +253,14 @@ namespace sandbox_renderer
       return *this;
    }
 
-   bool VkSandboxDescriptorWriter::build(VkDescriptorSet& set) {
+   bool sandbox_descriptor_writer::build(VkDescriptorSet& set) {
       bool success = m_pool.allocateDescriptor(m_setLayout.getDescriptorSetLayout(), set, m_variableDescriptorCount);
       if (!success) return false;
       overwrite(set);
       return true;
    }
 
-   void VkSandboxDescriptorWriter::overwrite(VkDescriptorSet& set) {
+   void sandbox_descriptor_writer::overwrite(VkDescriptorSet& set) {
       for (auto& write : m_writes) {
          write.dstSet = set;
       }

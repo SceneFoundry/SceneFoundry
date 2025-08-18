@@ -112,14 +112,14 @@ namespace sandbox_renderer
       friend class VkcDescriptorWriter;
    };
 
-   class VkSandboxDescriptorWriter
+   class sandbox_descriptor_writer
    {
    public:
-      VkSandboxDescriptorWriter(sandbox_descriptor_set_layout& setLayout, sandbox_renderer::sandbox_descriptor_pool& pool);
+      sandbox_descriptor_writer(sandbox_descriptor_set_layout& setLayout, sandbox_renderer::sandbox_descriptor_pool& pool);
 
-      VkSandboxDescriptorWriter& writeBuffer(uint32_t binding, VkDescriptorBufferInfo* bufferInfo);
-      VkSandboxDescriptorWriter& writeImage(uint32_t binding, const VkDescriptorImageInfo* imageInfo);
-      VkSandboxDescriptorWriter& writeImage(uint32_t binding, const VkDescriptorImageInfo* imageInfos, uint32_t count);
+      sandbox_descriptor_writer& writeBuffer(uint32_t binding, VkDescriptorBufferInfo* bufferInfo);
+      sandbox_descriptor_writer& writeImage(uint32_t binding, const VkDescriptorImageInfo* imageInfo);
+      sandbox_descriptor_writer& writeImage(uint32_t binding, const VkDescriptorImageInfo* imageInfos, uint32_t count);
 
       bool build(VkDescriptorSet& set);
       void overwrite(VkDescriptorSet& set);

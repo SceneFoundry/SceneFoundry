@@ -10,18 +10,18 @@
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_texture.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_pipeline.h"
 
-#include "SceneFoundry/core_interfaces/interfaces/asset_provider_i.h"
+#include "SceneFoundry/core_interfaces/include/interfaces/asset_provider_i.h"
 
 
 
 class AssetManager : public IAssetProvider {
 public:
-	AssetManager(VkSandboxDevice& device);
+	AssetManager(sandbox_renderer::sandbox_device& device);
 	~AssetManager();
 	void preloadGlobalAssets();
-	::pointer<sandbox_object_model> loadObjModel(const ::scoped_string & name, const ::scoped_string & filepath, bool isSkybox = false);
-	::pointer<gltf::Model> loadGLTFmodel(const ::scoped_string & name, const ::scoped_string & filepath, uint32_t gltfFlags = 0u, float scale = 1.f);
-	::pointer<sandbox_texture> loadCubemap(
+	::pointer<sandbox_renderer::sandbox_object_model> loadObjModel(const ::scoped_string & name, const ::scoped_string & filepath, bool isSkybox = false);
+	::pointer<sandbox_renderer::gltf::Model> loadGLTFmodel(const ::scoped_string & name, const ::scoped_string & filepath, uint32_t gltfFlags = 0u, float scale = 1.f);
+	::pointer<sandbox_renderer::sandbox_texture> loadCubemap(
 		const ::scoped_string & name,
 		const ::scoped_string & ktxFilename,
 		VkFormat format,
@@ -33,8 +33,8 @@ public:
     void generateIrradianceMap();
     void generatePrefilteredEnvMap();
 	
-	using OBJmodelHandle = ::pointer<sandbox_object_model>;
-	using GLTFmodelHandle = ::pointer<gltf::Model>;
+	using OBJmodelHandle = ::pointer<sandbox_renderer::sandbox_object_model>;
+	using GLTFmodelHandle = ::pointer<sandbox_renderer::gltf::Model>;
 	//using TextureHandle  = ::pointer<VulkanTexture>;
 	//using ShaderHandle = ::pointer<ShaderModule>;
 
@@ -47,17 +47,17 @@ public:
 	}
 
     // Inline getters
-    ::pointer<sandbox_object_model> getOBJModel(const ::scoped_string & name) const {
+    ::pointer<sandbox_renderer::sandbox_object_model> getOBJModel(const ::scoped_string & name) const {
         auto it = m_objModelCache.find(name);
         return (it != m_objModelCache.end()) ? it->second : nullptr;
     }
 
-    ::pointer<gltf::Model> getGLTFmodel(const ::scoped_string & name) const override {
+    ::pointer<sandbox_renderer::gltf::Model> getGLTFmodel(const ::scoped_string & name) const override {
         auto it = m_gltfModelCache.find(name);
         return (it != m_gltfModelCache.end()) ? it->second : nullptr;
     }
 
-    ::pointer<sandbox_texture> getTexture(const ::scoped_string & name) const {
+    ::pointer<sandbox_renderer::sandbox_texture> getTexture(const ::scoped_string & name) const {
         auto it = m_textures.find(name);
         if (it == m_textures.end()) {
             throw std::runtime_error("Texture not found: " + name);
@@ -65,7 +65,7 @@ public:
         return it->second;
     }
 
-    ::pointer<sandbox_texture> getTexture(size_t index) const {
+    ::pointer<sandbox_renderer::sandbox_texture> getTexture(size_t index) const {
         if (index >= m_textureList.size()) {
             throw std::runtime_error("Texture index out of range: " + std::to_string(index));
         }
@@ -113,7 +113,7 @@ private:
 	::map<::string, size_t>                      m_textureIndexMap; // name → index
 	::array_base<::pointer<sandbox_texture>>                   m_textureList; // index → texture
 
-	VkSandboxDevice&			m_device;
+	sandbox_device&			m_device;
 	VkQueue						m_transferQueue;
 
 	// caches

@@ -3,7 +3,7 @@
 #include "SceneFoundry/core_interfaces/include/interfaces/game_object_i.h"
 
 
-SkyboxIBLrenderSystem::SkyboxIBLrenderSystem(vulkan::sandbox_device& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout)
+SkyboxIBLrenderSystem::SkyboxIBLrenderSystem(::sandbox_renderer::sandbox_device& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout)
 	: m_device{ device }, m_pipelineLayout{ VK_NULL_HANDLE }, m_skyboxDescriptorSet(VK_NULL_HANDLE), m_bHasCubemap(false)
 {
 }
@@ -16,10 +16,10 @@ SkyboxIBLrenderSystem::~SkyboxIBLrenderSystem() {
 	// (the sandbox_pipeline unique_ptr will destroy the VkPipeline)
 }
 void SkyboxIBLrenderSystem::init(
-	vulkan::sandbox_device& device,
+	sandbox_renderer::sandbox_device& device,
 	VkRenderPass renderPass,
 	VkDescriptorSetLayout globalSetLayout,
-	vulkan::sandbox_descriptor_pool& descriptorPool,
+	sandbox_renderer::sandbox_descriptor_pool& descriptorPool,
 	size_t frameCount)
 {
 	assert(&device == &m_device);
@@ -36,7 +36,7 @@ void SkyboxIBLrenderSystem::init(
 }
 
 void SkyboxIBLrenderSystem::createSkyboxDescriptorSetLayout() {
-	m_skyboxSetLayout = VkSandboxDescriptorSetLayout::Builder(m_device)
+	m_skyboxSetLayout = sandbox_renderer::sandbox_descriptor_set_layout::Builder(m_device)
 		.addBinding(
 			0,
 			VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER,
@@ -51,7 +51,7 @@ void SkyboxIBLrenderSystem::allocateAndWriteSkyboxDescriptorSet() {
 	assert(m_descriptorPool && "Descriptor pool must be set before allocating descriptors");
 	assert(m_skyboxSetLayout && "Descriptor set layout must be created before allocating");
 
-	VkSandboxDescriptorWriter writer(*m_skyboxSetLayout, *m_descriptorPool);
+	sandbox_renderer::sandbox_descriptor_writer writer(*m_skyboxSetLayout, *m_descriptorPool);
 	writer.writeImage(0, &m_skyboxImageInfo);
 	bool success = writer.build(m_skyboxDescriptorSet);
 	assert(success && "Failed to build skybox descriptor set");
@@ -62,7 +62,9 @@ void SkyboxIBLrenderSystem::createPipelineLayout(VkDescriptorSetLayout globalSet
 	VkDescriptorSetLayout skyboxLayoutHandle =
 		m_skyboxSetLayout->getDescriptorSetLayout();
 
-	::preallocated_array_base< ::array_base <VkDescriptorSetLayout, 2> > layouts = {
+	::preallocated_array_base< ::array_base <VkDescriptorSetLayout>, 2 > layouts;
+	
+	layouts = {
 		globalSetLayout,
 		skyboxLayoutHandle // from createSkyboxDescriptorSetLayout()
 	};
@@ -93,7 +95,9 @@ void SkyboxIBLrenderSystem::render(FrameInfo& frameInfo) {
 
 	m_pipeline->bind(frameInfo.commandBuffer);
 	// Bind two descriptor sets: 0=global UBO, 1=skybox cubemap
-	::preallocated_array_base< ::array_base <VkDescriptorSet, 2> > sets = {
+	::preallocated_array_base< ::array_base <VkDescriptorSet>, 2 > sets;
+		
+		sets= {
 		frameInfo.globalDescriptorSet,
 		m_skyboxDescriptorSet
 	};
@@ -121,13 +125,13 @@ void SkyboxIBLrenderSystem::render(FrameInfo& frameInfo) {
 void SkyboxIBLrenderSystem::createPipeline(VkRenderPass renderPass) {
 	assert(m_pipelineLayout != VK_NULL_HANDLE && "Pipeline layout must be created before pipeline");
 
-	pipeline_configuration_information config{};
-	sandbox_pipeline::defaultPipelineConfigInfo(config);
+	sandbox_renderer::pipeline_configuration_information config{};
+	sandbox_renderer::sandbox_pipeline::defaultPipelineConfigInfo(config);
 
 	::array_base<VkVertexInputBindingDescription>   bindings = {
 		vkinit::vertexInputBindingDescription(
 			0,
-			sizeof(gltf::Vertex),
+			sizeof(sandbox_renderer::gltf::Vertex),
 			VK_VERTEX_INPUT_RATE_VERTEX)
 	};
 	::array_base<VkVertexInputAttributeDescription> attributes = {
@@ -135,7 +139,7 @@ void SkyboxIBLrenderSystem::createPipeline(VkRenderPass renderPass) {
 			/*binding=*/0,
 			/*location=*/0,
 			/*format=*/VK_FORMAT_R32G32B32_SFLOAT,
-			/*offset=*/offsetof(gltf::Vertex, pos))
+			/*offset=*/offsetof(sandbox_renderer::gltf::Vertex, pos))
 	};
 
 	config.bindingDescriptions = bindings;
@@ -150,7 +154,7 @@ void SkyboxIBLrenderSystem::createPipeline(VkRenderPass renderPass) {
 	::string vertPath = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/skybox_ibl.vert.spv";
 	::string fragPath = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/skybox_ibl.frag.spv";
 
-	m_pipeline = std::make_unique<sandbox_pipeline>(
+	m_pipeline = øcreate_pointer<sandbox_renderer::sandbox_pipeline>(
 		m_device,
 		vertPath.c_str(),
 		fragPath.c_str(),

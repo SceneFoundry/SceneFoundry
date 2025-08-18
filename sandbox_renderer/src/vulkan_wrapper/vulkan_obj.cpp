@@ -70,7 +70,7 @@ namespace sandbox_renderer
       stagingBuffer.map();
       stagingBuffer.writeToBuffer((void*)vertices.data());
 
-      m_vertexBuffer = std::make_unique<sandbox_buffer>(
+      m_vertexBuffer = øcreate_pointer<sandbox_buffer>(
          m_device,
          vertexSize,
          m_vertexCount,
@@ -101,7 +101,7 @@ namespace sandbox_renderer
       stagingBuffer.map();
       stagingBuffer.writeToBuffer((void*)indices.data());
 
-      m_indexBuffer = std::make_unique<sandbox_buffer>(
+      m_indexBuffer = øcreate_pointer<sandbox_buffer>(
          m_device,
          indexSize,
          m_indexCount,

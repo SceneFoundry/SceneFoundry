@@ -6,6 +6,7 @@
 class ICamera :
     virtual public ::particle
 {
+public:
     //virtual ~ICamera() = default;
 
     virtual void updateView() {};

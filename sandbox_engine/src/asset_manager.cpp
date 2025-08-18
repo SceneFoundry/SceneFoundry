@@ -9,7 +9,7 @@
 
 //using json = nlohmann::json;
 
-AssetManager::AssetManager(VkSandboxDevice& device) : m_device(device), m_transferQueue(m_device.graphicsQueue()) {
+AssetManager::AssetManager(sandbox_device& device) : m_device(device), m_transferQueue(m_device.graphicsQueue()) {
 
 }
 

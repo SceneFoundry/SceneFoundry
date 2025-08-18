@@ -130,7 +130,7 @@ void ObjRenderSystem::createPipeline(VkRenderPass renderPass)
 	pipelineConfig.pipelineLayout = m_pipelineLayout;
 
 	::string vertShaderPath = "matter://shaders/spirV/vert.vert.spv";
-	::string fragShaderPath = :"matter://res/shaders/spirV/frag.frag.spv";
+	::string fragShaderPath = "matter://res/shaders/spirV/frag.frag.spv";
 
 	m_pipeline = øallocate sandbox_renderer::sandbox_pipeline(
 		m_device,

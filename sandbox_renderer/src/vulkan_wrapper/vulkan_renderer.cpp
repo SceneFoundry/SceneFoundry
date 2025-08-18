@@ -43,7 +43,7 @@ namespace sandbox_renderer
 
       m_uboBuffers.resize(FrameCount);
       for (uint32_t i = 0; i < FrameCount; i++) {
-         m_uboBuffers[i] = std::make_unique<sandbox_buffer>(
+         m_uboBuffers[i] = øcreate_pointer<sandbox_buffer>(
             m_device,
             sizeof(GlobalUbo),
             1,
@@ -64,7 +64,7 @@ namespace sandbox_renderer
             throw std::runtime_error("Failed to allocate global descriptor set");
          }
          // write
-         VkSandboxDescriptorWriter(*m_globalLayout, *m_pool)
+         sandbox_descriptor_writer(*m_globalLayout, *m_pool)
             .writeBuffer(0, &bufInfo)
             .build(set);
 
@@ -80,7 +80,7 @@ namespace sandbox_renderer
       vulkan::sandbox_descriptor_pool& pool = *m_pool;
 
       // Create skybox system (note: only construct, do not init yet)
-      //auto skyboxSystem = std::make_unique<SkyboxIBLrenderSystem>(m_device, rp, globalLayout);
+      //auto skyboxSystem = øcreate_pointer<SkyboxIBLrenderSystem>(m_device, rp, globalLayout);
 
       // Ask provider for the assets we need
       // model
@@ -105,20 +105,20 @@ namespace sandbox_renderer
       // push it into systems list, before we init them
       //m_systems.push_back(std::move(skyboxSystem));
 
-      m_systems.push_back(std::make_unique<ObjRenderSystem>(
+      m_systems.push_back(øcreate_pointer<ObjRenderSystem>(
          m_device,
          rp,
          globalLayout
       ));
 
-      m_systems.push_back(std::make_unique<GltfRenderSystem>(
+      m_systems.push_back(øcreate_pointer<GltfRenderSystem>(
          m_device,
          rp,
          globalLayout,
          provider
       ));
 
-      m_systems.push_back(std::make_unique<PointLightRS>(
+      m_systems.push_back(øcreate_pointer<PointLightRS>(
          m_device,
          rp,
          globalLayout
@@ -164,14 +164,14 @@ namespace sandbox_renderer
 
       if (m_swapchain == nullptr) {
 
-         m_swapchain = std::make_unique<sandbox_swap_chain>(
+         m_swapchain = øcreate_pointer<sandbox_swap_chain>(
             m_device,
             extent
          );
       }
       else {
          ::pointer oldSwapchain = std::move(m_swapchain);
-         m_swapchain = std::make_unique<sandbox_swap_chain>(m_device, extent, oldSwapchain);
+         m_swapchain = øcreate_pointer<sandbox_swap_chain>(m_device, extent, oldSwapchain);
          if (!oldSwapchain->compareSwapFormats(*m_swapchain.get())) {
             throw std::runtime_error("Swap chain image(or depth) format has changed");
          }

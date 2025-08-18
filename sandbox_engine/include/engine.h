@@ -28,7 +28,7 @@ public:
 private:
     SandboxWindow                       m_window{ WIDTH, HEIGHT, "A vulkan place" };
     sandbox_instance                   m_vkinstance{};
-    VkSandboxDevice                     m_device{ m_vkinstance, m_window };
+    sandbox_device                     m_device{ m_vkinstance, m_window };
     AssetManager                        m_assetManager{ m_device };
     sandbox_renderer                   m_renderer{ m_device, m_window };
  

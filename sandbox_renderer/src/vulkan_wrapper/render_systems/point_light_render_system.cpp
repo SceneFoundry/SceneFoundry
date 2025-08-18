@@ -80,7 +80,7 @@ void PointLightRS::createPipeline(VkRenderPass renderPass) {
     ::string vertShaderPath = "matter://shaders/spirV/point_light.vert.spv";
     ::string fragShaderPath = "matter://shaders/spirV/point_light.frag.spv";
 
-    m_pipeline = øallocate sandbox_pipeline(
+    m_pipeline = øallocate sandbox_renderer::sandbox_pipeline(
         m_device,
         vertShaderPath.c_str(),
         fragShaderPath.c_str(),
@@ -110,8 +110,8 @@ void PointLightRS::render(FrameInfo& frame) {
         nullptr
     );
 
-    for (auto it = sorted.rbegin(); it != sorted.rend(); ++it) {
-        auto& obj = frame.gameObjects.at(it ->second);
+    for (auto it = sorted.begin(); it != sorted.end(); ++it) {
+        auto& obj = frame.gameObjects[it ->element2()];
         const auto* light = obj->getPointLight();
         PointLightPushConstants push{};
         push.position = glm::vec4(obj->getTransform().translation, 1.0f);
