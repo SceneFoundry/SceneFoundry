@@ -1,11 +1,11 @@
 #pragma once
-#include "SceneFoundry/core_interfaces/include/interfaces/game_object_i.h"
-#include "SceneFoundry/core_interfaces/include/interfaces/window_input_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/game_object_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/window_input_i.h"
 #include "SceneFoundry/sandbox_game/include/input/player_input.h"
-#include "SceneFoundry/core_interfaces/include/interfaces/camera_i.h"
-#include "SceneFoundry/core_interfaces/include/transform_component.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/camera_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/transform_component.h"
 #include "SceneFoundry/sandbox_game/include/camera/camera.h"
-#include "SceneFoundry/core_interfaces/include/interfaces/renderer_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/renderer_i.h"
 
 #include "SceneFoundry/sandbox_renderer/include/window.h"
 

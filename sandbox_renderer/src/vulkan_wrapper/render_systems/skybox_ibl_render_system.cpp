@@ -1,6 +1,6 @@
 #include "framework.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/render_systems/skybox_ibl_render_system.h"
-#include "SceneFoundry/core_interfaces/include/interfaces/game_object_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/game_object_i.h"
 
 
 SkyboxIBLrenderSystem::SkyboxIBLrenderSystem(::sandbox_renderer::sandbox_device& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout)

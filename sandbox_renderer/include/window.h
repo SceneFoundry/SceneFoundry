@@ -6,7 +6,7 @@
 #include <vulkan/vulkan.h>
 //#include <vector>
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_instance.h"
-#include "SceneFoundry/core_interfaces/include/interfaces/window_input_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/window_input_i.h"
 
 
 class SandboxWindow {

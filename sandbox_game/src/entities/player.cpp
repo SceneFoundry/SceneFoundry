@@ -1,7 +1,7 @@
 #include "framework.h"
 #include "SceneFoundry/sandbox_game/include/entities/player.h"
 #include <glm/gtc/matrix_transform.hpp>
-#include "SceneFoundry/core_interfaces/include/key_codes.h"
+#include "SceneFoundry/sandbox_interfaces/include/key_codes.h"
 ////#include <spdlog/spdlog.h>
 
 

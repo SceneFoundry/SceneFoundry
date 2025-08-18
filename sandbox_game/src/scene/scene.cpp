@@ -1,9 +1,9 @@
 #include "framework.h"
-#include "scene/scene.h"
-#include "entities/player.h"
-#include "cgame_object.h"
+#include "SceneFoundry/sandbox_game/include/scene/scene.h"
+#include "SceneFoundry/sandbox_game/include/entities/player.h"
+#include "SceneFoundry/sandbox_game/include/game/game_object.h"
 
-#include <json.hpp>
+//#include <json.hpp>
 
 
 #include <glm/gtc/constants.hpp>
@@ -21,7 +21,7 @@ namespace sandbox_game
    }
 
    void sandbox_scene::init() {
-      auto player = std::make_shared<sandbox_player>(m_pInput);
+      auto player = øcreate_pointer<sandbox_player>(m_pInput);
 
       player->getTransform().translation = m_initialCameraPosition;
       player->getTransform().rotation = m_initialCameraRotation;
@@ -55,13 +55,13 @@ namespace sandbox_game
       // Parse skybox cubemap name (if present)
       if (sceneJson.contains("skybox")) {
          m_skyboxCubemapName = sceneJson["skybox"].get<::string>();
-         spdlog::info("Scene specifies skybox: '{}'", m_skyboxCubemapName);
+         information("Scene specifies skybox: '{}'", m_skyboxCubemapName);
       }
       else {
-         spdlog::warn("No skybox specified in scene file '{}', using default '{}'", fileName, m_skyboxCubemapName);
+         warning("No skybox specified in scene file '{}', using default '{}'", fileName, m_skyboxCubemapName);
       }
 
-      spdlog::info("Loading scene file: {} ({})", fileName, path);
+      information("Loading scene file: {} ({})", fileName, path);
 
       if (sceneJson.contains("camera")) {
          const auto& camJson = sceneJson["camera"];
@@ -76,7 +76,7 @@ namespace sandbox_game
              glm::radians(rot[2])
          };
 
-         spdlog::info("Camera position: ({}, {}, {}), rotation (deg): ({}, {}, {})",
+         information("Camera position: ({}, {}, {}), rotation (deg): ({}, {}, {})",
             pos[0], pos[1], pos[2], rot[0], rot[1], rot[2]);
       }
 
@@ -107,7 +107,7 @@ namespace sandbox_game
                auto light = sandbox_game_object::makePointLight(intensity, 0.1f, color);
                light->getTransform().translation = pos;
 
-               spdlog::info("Placed point light at ({}, {}, {})", pos.x, pos.y, pos.z);
+               information("Placed point light at ({}, {}, {})", pos.x, pos.y, pos.z);
 
                m_gameObjects.emplace(light->getId(), std::move(light));
             }
@@ -143,7 +143,7 @@ namespace sandbox_game
          gameObject->m_transform.rotation = { rot[0], rot[1], rot[2] };
          gameObject->m_transform.scale = { scl[0], scl[1], scl[2] };
 
-         spdlog::info("Loaded GameObject '{}' - Pos: ({}, {}, {}), Rot: ({}, {}, {}), Scale: ({}, {}, {})",
+         information("Loaded GameObject '{}' - Pos: ({}, {}, {}), Rot: ({}, {}, {}), Scale: ({}, {}, {})",
             objJson.value("name", "unnamed"),
             pos[0], pos[1], pos[2],
             rot[0], rot[1], rot[2],
@@ -166,14 +166,14 @@ namespace sandbox_game
                m_skyboxCubemapName = gameObject->m_cubemapTextureName;
             }
             setSkyboxObject(gameObject);
-            spdlog::info("GameObject '{}' marked as skybox with cubemap '{}'", objJson.value("name", "unnamed"), m_skyboxCubemapName);
+            information("GameObject '{}' marked as skybox with cubemap '{}'", objJson.value("name", "unnamed"), m_skyboxCubemapName);
          }
 
          // Store in map
          m_gameObjects.emplace(gameObject->getId(), std::static_pointer_cast<IGameObject>(gameObject));
       }
 
-      spdlog::info("Scene '{}' loaded. Total objects: {}", fileName, m_gameObjects.size());
+      information("Scene '{}' loaded. Total objects: {}", fileName, m_gameObjects.size());
    }
 
    std::optional<std::reference_wrapper<sandbox_game_object>> sandbox_scene::getSkyboxObject() {

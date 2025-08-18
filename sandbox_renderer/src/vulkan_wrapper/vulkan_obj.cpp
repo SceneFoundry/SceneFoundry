@@ -47,7 +47,7 @@ namespace sandbox_renderer
    {
       Builder builder{};
       builder.loadModel(filepath, isSkybox);
-      return std::make_shared<sandbox_object_model>(device, builder);
+      return øcreate_pointer<sandbox_object_model>(device, builder);
    }
 
 

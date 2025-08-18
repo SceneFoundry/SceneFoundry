@@ -1,7 +1,7 @@
 #pragma once
-#include "SceneFoundry/core_interfaces/include/interfaces/game_layer_i.h"
-#include "SceneFoundry/core_interfaces/include/interfaces/window_input_i.h"
-#include "SceneFoundry/core_interfaces/include/interfaces/renderer_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/game_layer_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/window_input_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/renderer_i.h"
 #include "SceneFoundry/sandbox_game/include/entities/player.h"
 #include "SceneFoundry/sandbox_game/include/scene/scene.h"
 //#include <iostream>

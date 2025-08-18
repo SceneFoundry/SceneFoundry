@@ -1,6 +1,6 @@
 #include "framework.h"
 // player_input.cpp
-#include "SceneFoundry/core_interfaces/include/input/player_input.h"
+#include "SceneFoundry/sandbox_game/include/input/player_input.h"
 
 namespace sandbox_game
 {

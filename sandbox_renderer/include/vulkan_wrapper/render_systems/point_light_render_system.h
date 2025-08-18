@@ -1,6 +1,6 @@
 #pragma once
 #define GLM_ENABLE_EXPERIMENTAL
-#include "SceneFoundry/core_interfaces/include/interfaces/render_system_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/render_system_i.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_device.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_pipeline.h"
 

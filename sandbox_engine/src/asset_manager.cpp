@@ -1,5 +1,6 @@
 #include "framework.h"
 // asset_manager.cpp
+#include "acme/filesystem/filesystem/file_context.h"
 #include "SceneFoundry/sandbox_engine/include/asset_manager.h"
 
 //#include <json.hpp>
@@ -9,7 +10,8 @@
 
 //using json = nlohmann::json;
 
-AssetManager::AssetManager(sandbox_device& device) : m_device(device), m_transferQueue(m_device.graphicsQueue()) {
+AssetManager::AssetManager(sandbox_renderer::sandbox_device& device) :
+   m_device(device), m_transferQueue(m_device.graphicsQueue()) {
 
 }
 
@@ -21,24 +23,25 @@ AssetManager::~AssetManager()
 
 void AssetManager::preloadGlobalAssets() {
     // Read model & cubemap list JSON
-    std::ifstream in(PROJECT_ROOT_DIR "/sandbox_game/res/scene_assets/default_scene_assets.json");
-    if (!in.is_open()) {
-        throw std::runtime_error("Failed to open model list JSON.");
-    }
+    auto modelJson = file()->as_network_payload("matter://scene_assets/default_scene_assets.json");
+    //if (!in.is_open()) {
+    //    throw std::runtime_error("Failed to open model list JSON.");
+    //}
 
-    json modelJson;
-    in >> modelJson;
+    //::property_set modelJson;
+    //modelJson.parse_network_payload()
 
     // 1) Load models first (unchanged from your flow)
-    for (const auto& entry : modelJson["models"]) {
+    for (const auto& element : modelJson["models"].payload_array()) {
+       auto& entry = element.as_property_set();
         const ::string name = entry["name"];
         const ::string type = entry.value("type", "obj");
-        const ::string path = ::string(PROJECT_ROOT_DIR) + "/res/models/" + entry["path"].get<::string>();
+        const ::string path = "matter://models/" + entry["path"].as_file_path();
 
         try {
             if (type == "obj") {
                 auto model = loadObjModel(name, path, false);
-                spdlog::info("[AssetManager] Successfully loaded OBJ model '{}' from '{}'", name, path);
+                information("[AssetManager] Successfully loaded OBJ model '{}' from '{}'", name, path);
             }
             else if (type == "gltf") {
                 uint32_t flags = entry.value("flags", 0);  // Optional flags
@@ -47,24 +50,24 @@ void AssetManager::preloadGlobalAssets() {
                 if (entry.value("usage", "") == "skybox" || name == "cube") {
                     m_skyboxModel = model;
                 }
-                spdlog::info("[AssetManager] Successfully loaded glTF model '{}' from '{}'", name, path);
+                information("[AssetManager] Successfully loaded glTF model '{}' from '{}'", name, path);
             }
             else {
-                spdlog::warn("[AssetManager] Unknown model type '{}' for asset '{}'", type, name);
+                warning("[AssetManager] Unknown model type '{}' for asset '{}'", type, name);
             }
         }
         catch (const ::exception& e) {
-            spdlog::error("[AssetManager] Failed to load model '{}': {}", name, e.what());
+            error("[AssetManager] Failed to load model '{}': {}", name, e.get_message());
         }
     }
 
     // 2) Load cubemaps *before* generating BRDF / irradiance / prefiltered maps
     // Keep track of whether we loaded the environment cubemap used for IBL
-    ::pointer<sandbox_texture> loadedEnvironmentCubemap = nullptr;
+    ::pointer<sandbox_renderer::sandbox_texture> loadedEnvironmentCubemap = nullptr;
 
     for (const auto& entry : modelJson["cubemaps"]) {
         const ::string name = entry["name"];
-        const ::string path = ::string(PROJECT_ROOT_DIR) + "/res/textures/" + entry["path"].get<::string>();
+        const ::string path = "matter://res/textures/" + entry["path"].as_file_path();
 
         // Map format string (if present) to VkFormat; default to R32G32B32A32_SFLOAT
         ::string fmtStr = entry.value("format", "VK_FORMAT_R32G32B32A32_SFLOAT");
@@ -84,14 +87,14 @@ void AssetManager::preloadGlobalAssets() {
             );
 
             if (!cubemap) {
-                spdlog::error("[AssetManager] loadCubemap returned nullptr for '{}'", name);
+                error("[AssetManager] loadCubemap returned nullptr for '{}'", name);
                 continue;
             }
 
             // Register into your caches (optional helper)
             registerTextureIfNeeded(name, cubemap, m_textures, m_textureIndexMap, m_textureList);
 
-            spdlog::info("[AssetManager] Successfully loaded cubemap '{}' from '{}'", name, path);
+            information("[AssetManager] Successfully loaded cubemap '{}' from '{}'", name, path);
 
             // If this cubemap is the environment (skybox_hdr per your JSON), remember it.
             // Use the name you expect in your code / JSON. I see "skybox_hdr" in your example JSON.
@@ -101,7 +104,7 @@ void AssetManager::preloadGlobalAssets() {
             }
         }
         catch (const ::exception& e) {
-            spdlog::error("[AssetManager] Failed to load cubemap '{}': {}", name, e.what());
+            error("[AssetManager] Failed to load cubemap '{}': {}", name, e.get_message());
         }
     }
 
@@ -115,7 +118,7 @@ void AssetManager::preloadGlobalAssets() {
     }
 
     if (!loadedEnvironmentCubemap) {
-        spdlog::warn("[AssetManager] No environment cubemap found (expected 'skybox_hdr' or 'environment':true). Using placeholder/empty environmentCube.");
+        warning("[AssetManager] No environment cubemap found (expected 'skybox_hdr' or 'environment':true). Using placeholder/empty environmentCube.");
         // Optionally: throw or create a debug 1x1 texture so validation doesn't fail.
         // For now we will not create an invalid shared_ptr (keeps previous behavior safer).
     }
@@ -125,29 +128,29 @@ void AssetManager::preloadGlobalAssets() {
 
     // Create BRDF LUT, irradianceCube, prefilteredCube structures (these should allocate their own images)
     // Note: remove any line that reassigns environmentCube to an empty sandbox_texture (that was the bug)
-    lutBrdf = std::make_shared<sandbox_texture>(&m_device);
-    irradianceCube = std::make_shared<sandbox_texture>(&m_device);
-    prefilteredCube = std::make_shared<sandbox_texture>(&m_device);
+    lutBrdf = øcreate_pointer<sandbox_renderer::sandbox_texture>(&m_device);
+    irradianceCube = øcreate_pointer<sandbox_renderer::sandbox_texture>(&m_device);
+    prefilteredCube = øcreate_pointer<sandbox_renderer::sandbox_texture>(&m_device);
 
     // Generate BRDF LUT first (your existing function)
     generateBRDFlut();
 
     // Now generate irradiance and prefiltered maps using environmentCube (must be valid)
     if (!environmentCube) {
-        spdlog::error("[AssetManager] environmentCube is null - aborting IBL generation to avoid descriptor errors.");
+        error("[AssetManager] environmentCube is null - aborting IBL generation to avoid descriptor errors.");
     }
     else {
         try {
             generateIrradianceMap();
             generatePrefilteredEnvMap();
-            spdlog::info("[AssetManager] IBL assets generated successfully.");
+            information("[AssetManager] IBL assets generated successfully.");
         }
         catch (const ::exception& e) {
-            spdlog::error("[AssetManager] IBL generation failed: {}", e.what());
+            error("[AssetManager] IBL generation failed: {}", e.what());
         }
     }
 
-    spdlog::info("Assets loaded");
+    information("Assets loaded");
 }
 
 
@@ -419,7 +422,7 @@ void AssetManager::generateIrradianceMap() {
 
             // draw skybox — ensure your skybox.draw binds the vertex buffer that matches location 0 vec3 pos
             if (!m_skyboxModel) {
-                spdlog::error("[AssetManager] No skybox model loaded - skipping draw in generateIrradianceMap()");
+                error("[AssetManager] No skybox model loaded - skipping draw in generateIrradianceMap()");
             }
             else {
                 // m_skyboxModel is your GLTFmodelHandle (likely a shared_ptr to gltf::Model)
@@ -460,7 +463,7 @@ void AssetManager::generateIrradianceMap() {
 
     auto tEnd = std::chrono::high_resolution_clock::now();
     auto tDiff = std::chrono::duration<double, std::milli>(tEnd - tStart).count();
-    spdlog::info("Generating irradiance cube took {} ms", tDiff);
+    information("Generating irradiance cube took {} ms", tDiff);
 }
 
 void AssetManager::generateBRDFlut() {
@@ -709,7 +712,7 @@ void AssetManager::generatePrefilteredEnvMap() {
     if (auto it = m_gltfModelCache.find(name); it != m_gltfModelCache.end())
         return it->element2();
 
-    auto model = std::make_shared<gltf::Model>();
+    auto model = øcreate_pointer<gltf::Model>();
     model->loadFromFile(filepath, &m_device, m_device.graphicsQueue(), gltfFlags, scale);
 
     m_gltfModelCache[name] = model;
@@ -726,7 +729,7 @@ void AssetManager::generatePrefilteredEnvMap() {
     if (auto it = m_textures.find(name); it != m_textures.end())
         return it->element2();
 
-    auto tex = std::make_shared<sandbox_texture>();
+    auto tex = øcreate_pointer<sandbox_texture>();
     tex->m_pDevice = &m_device;
     try {
         tex->KtxLoadCubemapFromFile(

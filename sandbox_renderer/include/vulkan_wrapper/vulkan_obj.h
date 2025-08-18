@@ -1,8 +1,8 @@
 #pragma once
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_device.h"
-#include "SceneFoundry/core_interfaces/include/interfaces/model_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/model_i.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_buffer.h"
-#include "SceneFoundry/core_interfaces/include/interfaces/renderer_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/renderer_i.h"
 
 // libs
 #define GLM_FORCE_RADIANS	
@@ -16,11 +16,11 @@
 // std
 //#include <memory>
 //#include <vector>
-#include <unordered_map>
+//#include <unordered_map>
 //#include <cassert>
 //#include <cstring>
 //#include <stdexcept>
-#include <unordered_map>
+//#include <unordered_map>
 //#include <unordered_set>
 
 namespace sandbox_renderer

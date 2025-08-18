@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include "SceneFoundry/core_interfaces/include/interfaces/camera_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/camera_i.h"
 
 
 namespace sandbox_game

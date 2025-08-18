@@ -1,8 +1,8 @@
 #include "framework.h"
 
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/render_systems/point_light_render_system.h"
-#include "SceneFoundry/core_interfaces/include/frame_info.h"
-#include "SceneFoundry/core_interfaces/include/interfaces/game_object_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/frame_info.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/game_object_i.h"
 // libs
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE

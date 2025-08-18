@@ -1,8 +1,8 @@
 #pragma once
-#include "SceneFoundry/core_interfaces/include/interfaces/window_input_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/window_input_i.h"
 
-#include "SceneFoundry/core_interfaces/include/interfaces/scene_i.h"
-#include "SceneFoundry/core_interfaces/include/interfaces/entity_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/scene_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/entity_i.h"
 #include "SceneFoundry/sandbox_game/include/entities/player.h"
 #include "SceneFoundry/sandbox_engine/include/asset_manager.h"
 #include "SceneFoundry/sandbox_game/include/entities/game_object.h"

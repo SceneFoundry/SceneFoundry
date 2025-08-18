@@ -1,9 +1,9 @@
 // vulkan_renderer.h
 #pragma once
 //#include <memory>
-#include "SceneFoundry/core_interfaces/include/interfaces/renderer_i.h"
-#include "SceneFoundry/core_interfaces/include/interfaces/render_system_i.h"
-#include "SceneFoundry/core_interfaces/include/interfaces/asset_provider_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/renderer_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/render_system_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/asset_provider_i.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/render_systems/object_render_system.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/render_systems/gltf_render_system.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/render_systems/skybox_ibl_render_system.h"

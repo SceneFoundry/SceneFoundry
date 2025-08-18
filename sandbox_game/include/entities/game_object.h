@@ -1,13 +1,13 @@
 #pragma once
 
-#include "SceneFoundry/core_interfaces/include/interfaces/entity_i.h"
-#include "SceneFoundry/core_interfaces/include/interfaces/model_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/entity_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/model_i.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_obj.h"
 #include <glm/gtc/matrix_transform.hpp>
 
 // std
 //#include <memory>
-#include <unordered_map>
+//#include <unordered_map>
 //////#include <stdexcept>
 
 namespace sandbox_game

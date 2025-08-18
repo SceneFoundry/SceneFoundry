@@ -1,8 +1,8 @@
 #include "framework.h"
 #include "SceneFoundry/sandbox_engine/include/engine.h"
-#include "SceneFoundry/core_interfaces/include/key_codes.h"
+#include "SceneFoundry/sandbox_interfaces/include/key_codes.h"
 //#include "spdlog/spdlog.h"
-#include "SceneFoundry/core_interfaces/include/frame_info.h"
+#include "SceneFoundry/sandbox_interfaces/include/frame_info.h"
 #include <thread>
 #include <chrono>
 
@@ -13,13 +13,13 @@ SandboxEngine::SandboxEngine() {
 	initialize();
 }
 void SandboxEngine::initialize() {
-	m_windowInput = std::make_shared<GLFWWindowInput>(m_window.getGLFWwindow());
+	m_windowInput = øcreate_pointer<GLFWWindowInput>(m_window.getGLFWwindow());
 	if (auto* userData = static_cast<WindowUserData*>(glfwGetWindowUserPointer(m_window.getGLFWwindow()))) {
 		userData->input = m_windowInput.get();
 	}
 	m_windowInput->lockCursor(m_cursorLocked);
 	setupInputCallbacks();
-	spdlog::info("Engine initialized");
+	information("Engine initialized");
 }
 void SandboxEngine::initLayer(IGameLayer* game) {
 
@@ -27,7 +27,7 @@ void SandboxEngine::initLayer(IGameLayer* game) {
 	game->onInit();
 
 	m_renderer.initializeSystems(m_assetManager);
-	spdlog::info("Game initialized");
+	information("Game initialized");
 }
 
 void SandboxEngine::run(::pointer<IGameLayer> game) {

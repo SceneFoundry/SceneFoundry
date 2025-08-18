@@ -1,8 +1,8 @@
 // player_input.h
 
 #pragma once
-#include "SceneFoundry/core_interfaces/include/interfaces/window_input_i.h"
-#include "SceneFoundry/core_interfaces/include/transform_component.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/window_input_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/transform_component.h"
 #include <glm/glm.hpp>
 //#include <memory>
 

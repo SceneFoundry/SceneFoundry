@@ -6,7 +6,7 @@
 
 
 GltfRenderSystem::GltfRenderSystem(
-    sandbox_device& device,
+    sandbox_renderer::sandbox_device& device,
     VkRenderPass renderPass,
     VkDescriptorSetLayout globalSetLayout,
     IAssetProvider& assets
@@ -24,15 +24,15 @@ GltfRenderSystem::~GltfRenderSystem() {
 
 
 void GltfRenderSystem::init(
-    sandbox_device& device,
+   sandbox_renderer::sandbox_device& device,
     VkRenderPass renderPass,
     VkDescriptorSetLayout globalSetLayout,
-    vulkan::sandbox_descriptor_pool& descriptorPool,
+   sandbox_renderer::sandbox_descriptor_pool& descriptorPool,
     size_t frameCount
 ) {
     m_globalSetLayout = globalSetLayout;
 
-    m_iblLayout = sandbox_descriptor_set_layout::Builder{ device }
+    m_iblLayout = sandbox_renderer::sandbox_descriptor_set_layout::Builder{ device }
         .addBinding(0, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT)
         .addBinding(1, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT)
         //.addBinding(2, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT)
@@ -57,7 +57,7 @@ void GltfRenderSystem::init(
         auto irradianceInfo = m_assets.getIrradianceDescriptor();
        // auto prefilterInfo = m_assets.getPrefilteredDescriptor();
 
-        sandbox_descriptor_writer(*m_iblLayout, descriptorPool)
+        sandbox_renderer::sandbox_descriptor_writer(*m_iblLayout, descriptorPool)
             .writeImage(0, &brdfInfo)
             .writeImage(1, &irradianceInfo)
           //  .writeImage(2, &prefilterInfo)
@@ -72,8 +72,8 @@ void GltfRenderSystem::init(
 void GltfRenderSystem::createPipelineLayout(VkDescriptorSetLayout globalSetLayout) {
     const ::array_base<VkDescriptorSetLayout> layouts = {
         globalSetLayout,
-        gltf::descriptorSetLayoutUbo,
-        gltf::descriptorSetLayoutImage,
+        sandbox_renderer::gltf::descriptorSetLayoutUbo,
+        sandbox_renderer::gltf::descriptorSetLayoutImage,
         m_iblLayout->getDescriptorSetLayout()
     };
 
@@ -90,35 +90,35 @@ void GltfRenderSystem::createPipelineLayout(VkDescriptorSetLayout globalSetLayou
 void GltfRenderSystem::createPipeline(VkRenderPass renderPass) {
     assert(m_pipelineLayout != VK_NULL_HANDLE);
 
-    auto vertSpv = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/gltf_vert.vert.spv";
-    auto fragSpv = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/gltf_frag.frag.spv";
+    auto vertSpv = "matter://shaders/spirV/gltf_vert.vert.spv";
+    auto fragSpv = "matter://shaders/spirV/gltf_frag.frag.spv";
 
     ::array_base<VkVertexInputBindingDescription> bindings = {
-        vkinit::vertexInputBindingDescription(0, sizeof(gltf::Vertex), VK_VERTEX_INPUT_RATE_VERTEX)
+        vkinit::vertexInputBindingDescription(0, sizeof(sandbox_renderer::gltf::Vertex), VK_VERTEX_INPUT_RATE_VERTEX)
     };
 
     ::array_base<VkVertexInputAttributeDescription> attributes = {
-        vkinit::vertexInputAttributeDescription(0, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(gltf::Vertex, pos)),
-        vkinit::vertexInputAttributeDescription(0, 1, VK_FORMAT_R32G32B32_SFLOAT, offsetof(gltf::Vertex, normal)),
-        vkinit::vertexInputAttributeDescription(0, 2, VK_FORMAT_R32G32_SFLOAT, offsetof(gltf::Vertex, uv)),
-        vkinit::vertexInputAttributeDescription(0, 3, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(gltf::Vertex, color)),
-        vkinit::vertexInputAttributeDescription(0, 4, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(gltf::Vertex, tangent))
+        vkinit::vertexInputAttributeDescription(0, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(sandbox_renderer::gltf::Vertex, pos)),
+        vkinit::vertexInputAttributeDescription(0, 1, VK_FORMAT_R32G32B32_SFLOAT, offsetof(sandbox_renderer::gltf::Vertex, normal)),
+        vkinit::vertexInputAttributeDescription(0, 2, VK_FORMAT_R32G32_SFLOAT, offsetof(sandbox_renderer::gltf::Vertex, uv)),
+        vkinit::vertexInputAttributeDescription(0, 3, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(sandbox_renderer::gltf::Vertex, color)),
+        vkinit::vertexInputAttributeDescription(0, 4, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(sandbox_renderer::gltf::Vertex, tangent))
     };
 
     // OPAQUE
-    pipeline_configuration_information opaqueConfig{};
-    sandbox_pipeline::defaultPipelineConfigInfo(opaqueConfig);
+    sandbox_renderer::pipeline_configuration_information opaqueConfig{};
+    sandbox_renderer::sandbox_pipeline::defaultPipelineConfigInfo(opaqueConfig);
     opaqueConfig.pipelineLayout = m_pipelineLayout;
     opaqueConfig.renderPass = renderPass;
     opaqueConfig.bindingDescriptions = bindings;
     opaqueConfig.attributeDescriptions = attributes;
 
-    m_opaquePipeline = øcreate_pointer<sandbox_pipeline>(
+    m_opaquePipeline = øcreate_pointer<sandbox_renderer::sandbox_pipeline>(
         m_device, vertSpv, fragSpv, opaqueConfig);
 
     // MASK
-    pipeline_configuration_information maskConfig{};
-    sandbox_pipeline::defaultPipelineConfigInfo(maskConfig);
+    sandbox_renderer::pipeline_configuration_information maskConfig{};
+    sandbox_renderer::sandbox_pipeline::defaultPipelineConfigInfo(maskConfig);
     maskConfig.pipelineLayout = m_pipelineLayout;
     maskConfig.renderPass = renderPass;
     maskConfig.bindingDescriptions = bindings;
@@ -139,12 +139,12 @@ void GltfRenderSystem::createPipeline(VkRenderPass renderPass) {
 
     maskConfig.fragSpecInfo = &specInfo;
 
-    m_maskPipeline = øcreate_pointer<sandbox_pipeline>(
+    m_maskPipeline = øcreate_pointer<sandbox_renderer::sandbox_pipeline>(
         m_device, vertSpv, fragSpv, maskConfig);
 
     // BLEND
-    pipeline_configuration_information blendConfig{};
-    sandbox_pipeline::defaultPipelineConfigInfo(blendConfig);
+    sandbox_renderer::pipeline_configuration_information blendConfig{};
+    sandbox_renderer::sandbox_pipeline::defaultPipelineConfigInfo(blendConfig);
     blendConfig.pipelineLayout = m_pipelineLayout;
     blendConfig.renderPass = renderPass;
     blendConfig.bindingDescriptions = bindings;

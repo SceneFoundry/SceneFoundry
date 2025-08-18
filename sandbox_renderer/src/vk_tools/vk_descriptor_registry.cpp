@@ -1,14 +1,16 @@
 #include "framework.h"
 #include "SceneFoundry/sandbox_renderer/include/vk_tools/vk_descriptor_registry.h"
+#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_device.h"
 //#include <map>
 //#include <set>
-#include "SceneFoundry/core_interfaces/include/set.h"
+#include "SceneFoundry/sandbox_interfaces/include/class_set.h"
 
 
 namespace sandbox_renderer
 {
 
-   DescriptorRegistry::DescriptorRegistry(sandbox_device& device) : m_device(device)
+   DescriptorRegistry::DescriptorRegistry(sandbox_device& device) : 
+      m_device(device)
    {
 
    }

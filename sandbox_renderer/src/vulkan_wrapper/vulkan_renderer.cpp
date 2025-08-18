@@ -89,7 +89,7 @@ namespace sandbox_renderer
          //skyboxSystem->setSkyboxModel(skyModel);
       }
       else {
-         spdlog::warn("No skybox model found in provider for 'cube'");
+         warning("No skybox model found in provider for 'cube'");
       }
 
       // cubemap descriptor (VkDescriptorImageInfo)
@@ -99,7 +99,7 @@ namespace sandbox_renderer
          //skyboxSystem->setSkyboxCubemap(cubemapDesc);
       }
       catch (const ::exception& e) {
-         spdlog::warn("Skybox: cubemap not found: {}", e.what());
+         warning("Skybox: cubemap not found: {}", e.what());
       }
 
       // push it into systems list, before we init them

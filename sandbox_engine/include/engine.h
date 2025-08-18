@@ -4,9 +4,9 @@
 #include "sandbox_renderer/include/vulkan_wrapper/vulkan_device.h"
 #include "sandbox_renderer/include/vulkan_wrapper/vulkan_instance.h"
 #include "sandbox_renderer/include/vulkan_wrapper/vulkan_renderer.h"
-#include "core_interfaces/include/interfaces/game_layer_i.h"
-#include "core_interfaces/include/interfaces/camera_i.h"
-#include "core_interfaces/include/interfaces/window_input_i.h"
+#include "sandbox_interfaces/include/interfaces/game_layer_i.h"
+#include "sandbox_interfaces/include/interfaces/camera_i.h"
+#include "sandbox_interfaces/include/interfaces/window_input_i.h"
 #include "sandbox_engine/include/common/glfw_input.h"
 #include "sandbox_engine/include/asset_manager.h"
 

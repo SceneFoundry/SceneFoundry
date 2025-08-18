@@ -14,7 +14,7 @@ namespace sandbox_game
 
    void MyGameLayer::onInit()
    {
-      spdlog::info("MyGameLayer::onInit");
+      information("MyGameLayer::onInit");
       m_scene = øcreate_pointer<sandbox_scene>(m_windowInput, m_assetManager);
       m_scene->loadSceneFile("default_scene"); // TODO: Eventually specify which scene file to load in a better way than this probably via UI 
       m_scene->init();

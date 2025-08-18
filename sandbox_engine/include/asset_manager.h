@@ -1,6 +1,6 @@
 #pragma once
 //////#include <stdexcept>
-#include <unordered_map>
+//#include <unordered_map>
 //#include <memory>
 //#include <vector>
 
@@ -10,7 +10,7 @@
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_texture.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_pipeline.h"
 
-#include "SceneFoundry/core_interfaces/include/interfaces/asset_provider_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/asset_provider_i.h"
 
 
 
@@ -66,7 +66,7 @@ public:
     }
 
     ::pointer<sandbox_renderer::sandbox_texture> getTexture(size_t index) const {
-        if (index >= m_textureList.size()) {
+        if (index >= (size_t) m_textureList.size()) {
             throw std::runtime_error("Texture index out of range: " + std::to_string(index));
         }
         return m_textureList[index];
@@ -101,7 +101,7 @@ public:
     ::array_base<::string> listTextureNames()    const override {
         ::array_base<::string> keys;
         keys.reserve(m_textures.size());
-        for (const auto& [n, _] : m_textures) keys.push_back(n);
+        for (const auto& [n, _] : m_textures) keys.add(n);
         return keys;
     }
 

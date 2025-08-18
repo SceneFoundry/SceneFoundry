@@ -1,6 +1,6 @@
 #pragma once
-#include "SceneFoundry/core_interfaces/include/interfaces/render_system_i.h"
-#include "SceneFoundry/core_interfaces/include/interfaces/asset_provider_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/render_system_i.h"
+#include "SceneFoundry/sandbox_interfaces/include/interfaces/asset_provider_i.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_device.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_pipeline.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_descriptor.h"
