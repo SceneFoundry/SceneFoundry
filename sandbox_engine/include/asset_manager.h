@@ -43,18 +43,18 @@ public:
 		if (it == m_textures.end()) {
 			throw std::runtime_error("Cubemap not found: " + name);
 		}
-		return it->second->GetDescriptor();
+		return it->element2()->GetDescriptor();
 	}
 
     // Inline getters
     ::pointer<sandbox_renderer::sandbox_object_model> getOBJModel(const ::scoped_string & name) const {
         auto it = m_objModelCache.find(name);
-        return (it != m_objModelCache.end()) ? it->second : nullptr;
+        return (it != m_objModelCache.end()) ? it->element2() : nullptr;
     }
 
     ::pointer<sandbox_renderer::gltf::Model> getGLTFmodel(const ::scoped_string & name) const override {
         auto it = m_gltfModelCache.find(name);
-        return (it != m_gltfModelCache.end()) ? it->second : nullptr;
+        return (it != m_gltfModelCache.end()) ? it->element2() : nullptr;
     }
 
     ::pointer<sandbox_renderer::sandbox_texture> getTexture(const ::scoped_string & name) const {
@@ -62,7 +62,7 @@ public:
         if (it == m_textures.end()) {
             throw std::runtime_error("Texture not found: " + name);
         }
-        return it->second;
+        return it->element2();
     }
 
     ::pointer<sandbox_renderer::sandbox_texture> getTexture(size_t index) const {
@@ -77,10 +77,10 @@ public:
         if (it == m_textureIndexMap.end()) {
             throw std::runtime_error("Texture not found in index map: " + name);
         }
-        return it->second;
+        return it->element2();
     }
 
-    const ::array_base<::pointer<sandbox_texture>>& getAllTextures() const {
+    const ::array_base<::pointer<sandbox_renderer::sandbox_texture>>& getAllTextures() const {
         return m_textureList;
     }
 
@@ -109,24 +109,24 @@ private:
 	::map<::string, OBJmodelHandle> m_objModelCache;
 	::map<::string, GLTFmodelHandle> m_gltfModelCache;
 
-	::map<::string, ::pointer<sandbox_texture>>  m_textures; // name → texture
+	::map<::string, ::pointer<sandbox_renderer::sandbox_texture>>  m_textures; // name → texture
 	::map<::string, size_t>                      m_textureIndexMap; // name → index
-	::array_base<::pointer<sandbox_texture>>                   m_textureList; // index → texture
+	::array_base<::pointer<sandbox_renderer::sandbox_texture>>                   m_textureList; // index → texture
 
-	sandbox_device&			m_device;
+   sandbox_renderer::sandbox_device&			m_device;
 	VkQueue						m_transferQueue;
 
 	// caches
-	::pointer<sandbox_texture> lutBrdf, irradianceCube, prefilteredCube, environmentCube;
+	::pointer<sandbox_renderer::sandbox_texture> lutBrdf, irradianceCube, prefilteredCube, environmentCube;
 
     GLTFmodelHandle m_skyboxModel;
 
 	static void registerTextureIfNeeded(
 		const ::scoped_string & name,
-		const ::pointer<sandbox_texture>& tex,
-		::map<::string, ::pointer<sandbox_texture>>& textures,
+		const ::pointer<sandbox_renderer::sandbox_texture>& tex,
+		::map<::string, ::pointer<sandbox_renderer::sandbox_texture>>& textures,
 		::map<::string, size_t>& textureIndexMap,
-		::array_base<::pointer<sandbox_texture>>& textureList);
+		::array_base<::pointer<sandbox_renderer::sandbox_texture>>& textureList);
 
 
 

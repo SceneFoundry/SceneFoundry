@@ -151,8 +151,8 @@ void SkyboxIBLrenderSystem::createPipeline(VkRenderPass renderPass) {
 	config.depthStencilInfo.depthWriteEnable = VK_COMPARE_OP_LESS_OR_EQUAL;
 
 
-	::string vertPath = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/skybox_ibl.vert.spv";
-	::string fragPath = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/skybox_ibl.frag.spv";
+	::string vertPath = "matter://shaders/spirV/skybox_ibl.vert.spv";
+	::string fragPath = "matter://shaders/spirV/skybox_ibl.frag.spv";
 
 	m_pipeline = øcreate_pointer<sandbox_renderer::sandbox_pipeline>(
 		m_device,

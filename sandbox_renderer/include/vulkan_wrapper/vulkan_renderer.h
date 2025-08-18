@@ -73,7 +73,7 @@ namespace sandbox_renderer
 		}
 
 
-		::pointer<vulkan::sandbox_descriptor_pool>                      m_pool;
+		::pointer<::sandbox_renderer::sandbox_descriptor_pool>                      m_pool;
 	private:
 
 		::array_base<VkCommandBuffer>					    m_commandBuffers;
@@ -113,4 +113,3 @@ namespace sandbox_renderer
 } // namespace sandbox_renderer
 
 
-s

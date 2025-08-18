@@ -1,7 +1,7 @@
 #pragma once
-#include "interfaces/window_input_i.h"
-#include "GLFW/glfw3.h"
-#include "window.h"
+#include "SceneFoundry/core_interfaces/include/interfaces/window_input_i.h"
+//#include "GLFW/glfw3.h"
+#include "SceneFoundry/sandbox_renderer/include/window.h"
 
 
 class GLFWWindowInput : public IWindowInput {

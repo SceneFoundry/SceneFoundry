@@ -110,7 +110,7 @@ void AssetManager::preloadGlobalAssets() {
     if (!loadedEnvironmentCubemap) {
         auto it = m_textures.find("skybox_hdr");
         if (it != m_textures.end()) {
-            loadedEnvironmentCubemap = it->second;
+            loadedEnvironmentCubemap = it->element2();
         }
     }
 
@@ -689,7 +689,7 @@ void AssetManager::generatePrefilteredEnvMap() {
 ) {
     // 1) cache check
     if (auto it = m_objModelCache.find(name); it != m_objModelCache.end())
-        return it->second;
+        return it->element2();
 
     // 2) load
     auto model = sandbox_object_model::createModelFromFile(m_device, filepath, isSkybox);
@@ -707,7 +707,7 @@ void AssetManager::generatePrefilteredEnvMap() {
     float scale
 ) {
     if (auto it = m_gltfModelCache.find(name); it != m_gltfModelCache.end())
-        return it->second;
+        return it->element2();
 
     auto model = std::make_shared<gltf::Model>();
     model->loadFromFile(filepath, &m_device, m_device.graphicsQueue(), gltfFlags, scale);
@@ -724,7 +724,7 @@ void AssetManager::generatePrefilteredEnvMap() {
     VkImageLayout initialLayout)
 {
     if (auto it = m_textures.find(name); it != m_textures.end())
-        return it->second;
+        return it->element2();
 
     auto tex = std::make_shared<sandbox_texture>();
     tex->m_pDevice = &m_device;
