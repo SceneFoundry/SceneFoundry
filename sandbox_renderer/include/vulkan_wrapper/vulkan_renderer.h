@@ -16,90 +16,101 @@
 //#include <vector>
 //#include <array>
 
-class VkSandboxRenderer : public ISandboxRenderer
+namespace vulkan
 {
-public:
 
-	static constexpr size_t FrameCount =
-		VkSandboxSwapchain::MAX_FRAMES_IN_FLIGHT;
+	class sandbox_renderer :
+		virtual public ISandboxRenderer,
+		virtual public ::particle
+	{
+	public:
 
-
-	VkSandboxRenderer(sandbox_device& device, SandboxWindow& window);
-	VkSandboxRenderer(const VkSandboxRenderer&) = delete;
-	VkSandboxRenderer& operator=(const VkSandboxRenderer&) = delete;
-	~VkSandboxRenderer() override;
-	
+		static constexpr size_t FrameCount =
+			sandbox_swap_chain::MAX_FRAMES_IN_FLIGHT;
 
 
-	FrameContext beginFrame() override;
-	
-	void endFrame(FrameContext& frame) override;
-	void beginSwapChainRenderPass(FrameContext& frame)override;
-	void endSwapChainRenderPass(FrameContext& frame)override;
-
-	void initializeSystems(IAssetProvider& assets);
-	void initSkyboxSystem();
-	void renderSystems(FrameInfo& frame)override;
-
-	void waitDeviceIdle() override;
-
-	void updateSystems(FrameInfo& frame, GlobalUbo& ubo, float deltaTime)override;
-	
-	// Inline helpers
-	inline VkRenderPass getSwapChainRenderPass() const { return m_swapchain->getRenderPass(); }
-	inline float getAspectRatio() const { return m_swapchain->extentAspectRatio(); }
-	inline bool isFrameInProgress() const { return m_bIsFrameStarted; }
-
-	inline VkCommandBuffer getCurrentCommandBuffer() const {
-		assert(m_bIsFrameStarted && "Cannot get command buffer when frame not in progress");
-		return m_commandBuffers[m_currentFrameIndex];
-	}
-
-	inline 	int getFrameIndex() const {
-		assert(m_bIsFrameStarted && "Cannot get frame index when frame not in progress");
-		return m_currentFrameIndex;
-	}
-
-	inline const ::array_base<VkDescriptorSet>& getGlobalDescriptorSet() const {
-		return m_globalDescriptorSets;
-	}
-	inline const ::array_base<std::unique_ptr<VkSandboxBuffer>>& getUboBuffers() const {
-		return m_uboBuffers;
-	}
+		sandbox_renderer(sandbox_device& device, SandboxWindow& window);
+		sandbox_renderer(const sandbox_renderer&) = delete;
+		sandbox_renderer& operator=(const sandbox_renderer&) = delete;
+		~sandbox_renderer() override;
 
 
-	std::unique_ptr<VkSandboxDescriptorPool>                      m_pool;
-private:
 
-	::array_base<VkCommandBuffer>					    m_commandBuffers;
-	VkCommandPool										   m_commandPool = VK_NULL_HANDLE;
-	uint32_t								         m_currentImageIndex = 0;
-	int												 m_currentFrameIndex = 0;
-	bool										       m_bIsFrameStarted = false;
+		FrameContext beginFrame() override;
 
-	std::unique_ptr<sandbox_descriptor_set_layout>		  m_globalLayout;
+		void endFrame(FrameContext& frame) override;
+		void beginSwapChainRenderPass(FrameContext& frame)override;
+		void endSwapChainRenderPass(FrameContext& frame)override;
 
-	sandbox_device&											m_device;
-	SandboxWindow&											    m_window;
-	::array_base<std::unique_ptr<IRenderSystem>>				   m_systems;
+		void initializeSystems(IAssetProvider& assets);
+		void initSkyboxSystem();
+		void renderSystems(FrameInfo& frame)override;
 
-	std::unique_ptr<VkSandboxSwapchain>					     m_swapchain;
-	::pointer<VkSandboxSwapchain>					  m_oldSwapchain;
-	VkInstance												  m_instance = VK_NULL_HANDLE;
-	
-	uint32_t								      m_width{ 0 }, m_height{ 0 };
-	::array_base<std::unique_ptr<VkSandboxBuffer>>			m_uboBuffers;
-	::array_base<VkDescriptorSet>				  m_globalDescriptorSets;
-	::array_base<VkFence>							    m_inFlightFences;
+		void waitDeviceIdle() override;
 
-	void createGlobalDescriptorObjects();
-	void allocateGlobalDescriptors();
-	
+		void updateSystems(FrameInfo& frame, GlobalUbo& ubo, float deltaTime)override;
 
-	void createSwapChain();
-	void createCommandBuffers();
-	void freeCommandBuffers();
-	void recreateSwapchain();
+		// Inline helpers
+		inline VkRenderPass getSwapChainRenderPass() const { return m_swapchain->getRenderPass(); }
+		inline float getAspectRatio() const { return m_swapchain->extentAspectRatio(); }
+		inline bool isFrameInProgress() const { return m_bIsFrameStarted; }
+
+		inline VkCommandBuffer getCurrentCommandBuffer() const {
+			assert(m_bIsFrameStarted && "Cannot get command buffer when frame not in progress");
+			return m_commandBuffers[m_currentFrameIndex];
+		}
+
+		inline 	int getFrameIndex() const {
+			assert(m_bIsFrameStarted && "Cannot get frame index when frame not in progress");
+			return m_currentFrameIndex;
+		}
+
+		inline const ::array_base<VkDescriptorSet>& getGlobalDescriptorSet() const {
+			return m_globalDescriptorSets;
+		}
+		inline const ::array_base<std::unique_ptr<sandbox_buffer>>& getUboBuffers() const {
+			return m_uboBuffers;
+		}
 
 
-};
+		std::unique_ptr<vulkan::sandbox_descriptor_pool>                      m_pool;
+	private:
+
+		::array_base<VkCommandBuffer>					    m_commandBuffers;
+		VkCommandPool										   m_commandPool = VK_NULL_HANDLE;
+		uint32_t								         m_currentImageIndex = 0;
+		int												 m_currentFrameIndex = 0;
+		bool										       m_bIsFrameStarted = false;
+
+		std::unique_ptr<sandbox_descriptor_set_layout>		  m_globalLayout;
+
+		sandbox_device& m_device;
+		SandboxWindow& m_window;
+		::array_base<std::unique_ptr<IRenderSystem>>				   m_systems;
+
+		std::unique_ptr<sandbox_swap_chain>					     m_swapchain;
+		::pointer<sandbox_swap_chain>					  m_oldSwapchain;
+		VkInstance												  m_instance = VK_NULL_HANDLE;
+
+		uint32_t								      m_width{ 0 }, m_height{ 0 };
+		::array_base<std::unique_ptr<sandbox_buffer>>			m_uboBuffers;
+		::array_base<VkDescriptorSet>				  m_globalDescriptorSets;
+		::array_base<VkFence>							    m_inFlightFences;
+
+		void createGlobalDescriptorObjects();
+		void allocateGlobalDescriptors();
+
+
+		void createSwapChain();
+		void createCommandBuffers();
+		void freeCommandBuffers();
+		void recreateSwapchain();
+
+
+	};
+
+
+} // namespace vulkan
+
+
+s

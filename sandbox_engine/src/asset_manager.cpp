@@ -60,7 +60,7 @@ void AssetManager::preloadGlobalAssets() {
 
     // 2) Load cubemaps *before* generating BRDF / irradiance / prefiltered maps
     // Keep track of whether we loaded the environment cubemap used for IBL
-    ::pointer<VkSandboxTexture> loadedEnvironmentCubemap = nullptr;
+    ::pointer<sandbox_texture> loadedEnvironmentCubemap = nullptr;
 
     for (const auto& entry : modelJson["cubemaps"]) {
         const ::string name = entry["name"];
@@ -74,7 +74,7 @@ void AssetManager::preloadGlobalAssets() {
         // Add more mappings here if you expect other formats
 
         try {
-            // loadCubemap() must return ::pointer<VkSandboxTexture>
+            // loadCubemap() must return ::pointer<sandbox_texture>
             auto cubemap = loadCubemap(
                 name,
                 path,
@@ -124,10 +124,10 @@ void AssetManager::preloadGlobalAssets() {
     }
 
     // Create BRDF LUT, irradianceCube, prefilteredCube structures (these should allocate their own images)
-    // Note: remove any line that reassigns environmentCube to an empty VkSandboxTexture (that was the bug)
-    lutBrdf = std::make_shared<VkSandboxTexture>(&m_device);
-    irradianceCube = std::make_shared<VkSandboxTexture>(&m_device);
-    prefilteredCube = std::make_shared<VkSandboxTexture>(&m_device);
+    // Note: remove any line that reassigns environmentCube to an empty sandbox_texture (that was the bug)
+    lutBrdf = std::make_shared<sandbox_texture>(&m_device);
+    irradianceCube = std::make_shared<sandbox_texture>(&m_device);
+    prefilteredCube = std::make_shared<sandbox_texture>(&m_device);
 
     // Generate BRDF LUT first (your existing function)
     generateBRDFlut();
@@ -335,8 +335,8 @@ void AssetManager::generateIrradianceMap() {
     } pushBlock;
 
     // Pipeline config — IMPORTANT: provide vertex input descriptions to match shader (location 0)
-    PipelineConfigInfo cfg{};
-    VkSandboxPipeline::defaultPipelineConfigInfo(cfg);
+    pipeline_configuration_information cfg{};
+    sandbox_pipeline::defaultPipelineConfigInfo(cfg);
 
     // Vertex input: location 0 is a vec3 position (adjust if your skybox vertex layout differs)
     VkVertexInputBindingDescription bindingDesc{};
@@ -370,7 +370,7 @@ void AssetManager::generateIrradianceMap() {
 
     ::string vert = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/filtered_cube.vert.spv";
     ::string frag = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/irradiance_cube.frag.spv";
-    VkSandboxPipeline irradiancePipeline{ m_device, vert, frag, cfg };
+    sandbox_pipeline irradiancePipeline{ m_device, vert, frag, cfg };
 
     // COMMAND RECORDING
     VkCommandBuffer cmdBuf = m_device.createCommandBuffer(VK_COMMAND_BUFFER_LEVEL_PRIMARY, true);
@@ -422,7 +422,7 @@ void AssetManager::generateIrradianceMap() {
                 spdlog::error("[AssetManager] No skybox model loaded - skipping draw in generateIrradianceMap()");
             }
             else {
-                // m_skyboxModel is your GLTFmodelHandle (likely a shared_ptr to vkglTF::Model)
+                // m_skyboxModel is your GLTFmodelHandle (likely a shared_ptr to gltf::Model)
                 m_skyboxModel->draw(cmdBuf);// this matches Sascha's models.skybox.draw(cmdBuf)
             }
        
@@ -624,9 +624,9 @@ void AssetManager::generateBRDFlut() {
     pipelineCI.pVertexInputState = &emptyInputState;
 
 
-    // 4) Fill your PipelineConfigInfo
-    PipelineConfigInfo cfg{};
-    VkSandboxPipeline::defaultPipelineConfigInfo(cfg);
+    // 4) Fill your pipeline_configuration_information
+    pipeline_configuration_information cfg{};
+    sandbox_pipeline::defaultPipelineConfigInfo(cfg);
 
     cfg.bindingDescriptions.clear();
     cfg.attributeDescriptions.clear();
@@ -641,7 +641,7 @@ void AssetManager::generateBRDFlut() {
     // Look-up-table (from BRDF) pipeline
     ::string vert = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/gen_brdflut.vert.spv";
     ::string frag = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/gen_brdflut.frag.spv";
-    VkSandboxPipeline brdfPipeline{ m_device, vert, frag, cfg };
+    sandbox_pipeline brdfPipeline{ m_device, vert, frag, cfg };
 
     // Render
     VkClearValue clearValues[1];
@@ -682,7 +682,7 @@ void AssetManager::generatePrefilteredEnvMap() {
 }
 
 
-::pointer<VkSandboxOBJmodel> AssetManager::loadObjModel(
+::pointer<sandbox_object_model> AssetManager::loadObjModel(
     const ::scoped_string & name,
     const ::scoped_string & filepath,
     bool isSkybox
@@ -692,7 +692,7 @@ void AssetManager::generatePrefilteredEnvMap() {
         return it->second;
 
     // 2) load
-    auto model = VkSandboxOBJmodel::createModelFromFile(m_device, filepath, isSkybox);
+    auto model = sandbox_object_model::createModelFromFile(m_device, filepath, isSkybox);
 
     // 3) cache & return
     m_objModelCache[name] = model;
@@ -700,7 +700,7 @@ void AssetManager::generatePrefilteredEnvMap() {
 }
 
 
-::pointer<vkglTF::Model> AssetManager::loadGLTFmodel(
+::pointer<gltf::Model> AssetManager::loadGLTFmodel(
     const ::scoped_string & name,
     const ::scoped_string & filepath,
     uint32_t gltfFlags,
@@ -709,14 +709,14 @@ void AssetManager::generatePrefilteredEnvMap() {
     if (auto it = m_gltfModelCache.find(name); it != m_gltfModelCache.end())
         return it->second;
 
-    auto model = std::make_shared<vkglTF::Model>();
+    auto model = std::make_shared<gltf::Model>();
     model->loadFromFile(filepath, &m_device, m_device.graphicsQueue(), gltfFlags, scale);
 
     m_gltfModelCache[name] = model;
     return model;
 }
 
-::pointer<VkSandboxTexture> AssetManager::loadCubemap(
+::pointer<sandbox_texture> AssetManager::loadCubemap(
     const ::scoped_string & name,
     const ::scoped_string & ktxFilename,
     VkFormat format,
@@ -726,7 +726,7 @@ void AssetManager::generatePrefilteredEnvMap() {
     if (auto it = m_textures.find(name); it != m_textures.end())
         return it->second;
 
-    auto tex = std::make_shared<VkSandboxTexture>();
+    auto tex = std::make_shared<sandbox_texture>();
     tex->m_pDevice = &m_device;
     try {
         tex->KtxLoadCubemapFromFile(
@@ -752,10 +752,10 @@ void AssetManager::generatePrefilteredEnvMap() {
 
 void AssetManager::registerTextureIfNeeded(
     const ::scoped_string & name,
-    const ::pointer<VkSandboxTexture>& tex,
-    ::map<::string, ::pointer<VkSandboxTexture>>& textures,
+    const ::pointer<sandbox_texture>& tex,
+    ::map<::string, ::pointer<sandbox_texture>>& textures,
     ::map<::string, size_t>& textureIndexMap,
-    ::array_base<::pointer<VkSandboxTexture>>& textureList)
+    ::array_base<::pointer<sandbox_texture>>& textureList)
 {
     if (textures.find(name) == textures.end()) {
         textures[name] = tex;

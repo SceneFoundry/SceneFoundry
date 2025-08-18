@@ -38,7 +38,7 @@ namespace vulkan
 
    private:
       sandbox_device& m_device;
-      std::unique_ptr<VkSandboxDescriptorPool>  m_pool;
+      std::unique_ptr<vulkan::sandbox_descriptor_pool>  m_pool;
 
       // pooled by (setIndex, type) to sum counts:
       struct PoolSizeKey { uint32_t setIndex; VkDescriptorType type; };

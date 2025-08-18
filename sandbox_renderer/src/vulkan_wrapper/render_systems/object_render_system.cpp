@@ -1,6 +1,6 @@
 #include "framework.h"
 // obj_render_system.cpp
-#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/render_systems/obj_render_system.h"
+#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/render_systems/object_render_system.h"
 
 // External
 #define GLM_FORCE_RADIANS	
@@ -23,17 +23,17 @@ struct PushConstantData {
 	//int textureIndex;
 };
 
-ObjRenderSystem::ObjRenderSystem(VkSandboxDevice& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout)
+ObjRenderSystem::ObjRenderSystem(vulkan::sandbox_device& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout)
 	: m_device(device), m_globalSetLayout(globalSetLayout)
 {
 
 }
 
 void ObjRenderSystem::init(
-	VkSandboxDevice& device,
+	vulkan::sandbox_device& device,
 	VkRenderPass renderPass,
 	VkDescriptorSetLayout globalSetLayout,
-	VkSandboxDescriptorPool& descriptorPool,
+	vulkan::sandbox_descriptor_pool& descriptorPool,
 	size_t frameCount)
 {
 	assert(&device == &m_device);
@@ -123,8 +123,8 @@ void ObjRenderSystem::createPipeline(VkRenderPass renderPass)
 {
 	assert(m_pipelineLayout != nullptr && "Cannot create pipeline before pipeline layout");
 
-	PipelineConfigInfo pipelineConfig{};
-	VkSandboxPipeline::defaultPipelineConfigInfo(pipelineConfig);
+	pipeline_configuration_information pipelineConfig{};
+	sandbox_pipeline::defaultPipelineConfigInfo(pipelineConfig);
 
 	pipelineConfig.renderPass = renderPass;
 	pipelineConfig.pipelineLayout = m_pipelineLayout;
@@ -132,7 +132,7 @@ void ObjRenderSystem::createPipeline(VkRenderPass renderPass)
 	::string vertShaderPath = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/vert.vert.spv";
 	::string fragShaderPath = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/frag.frag.spv";
 
-	m_pipeline = std::make_unique<VkSandboxPipeline>(
+	m_pipeline = std::make_unique<sandbox_pipeline>(
 		m_device,
 		vertShaderPath.c_str(),
 		fragShaderPath.c_str(),

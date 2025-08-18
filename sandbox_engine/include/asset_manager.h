@@ -19,9 +19,9 @@ public:
 	AssetManager(VkSandboxDevice& device);
 	~AssetManager();
 	void preloadGlobalAssets();
-	::pointer<VkSandboxOBJmodel> loadObjModel(const ::scoped_string & name, const ::scoped_string & filepath, bool isSkybox = false);
-	::pointer<vkglTF::Model> loadGLTFmodel(const ::scoped_string & name, const ::scoped_string & filepath, uint32_t gltfFlags = 0u, float scale = 1.f);
-	::pointer<VkSandboxTexture> loadCubemap(
+	::pointer<sandbox_object_model> loadObjModel(const ::scoped_string & name, const ::scoped_string & filepath, bool isSkybox = false);
+	::pointer<gltf::Model> loadGLTFmodel(const ::scoped_string & name, const ::scoped_string & filepath, uint32_t gltfFlags = 0u, float scale = 1.f);
+	::pointer<sandbox_texture> loadCubemap(
 		const ::scoped_string & name,
 		const ::scoped_string & ktxFilename,
 		VkFormat format,
@@ -33,8 +33,8 @@ public:
     void generateIrradianceMap();
     void generatePrefilteredEnvMap();
 	
-	using OBJmodelHandle = ::pointer<VkSandboxOBJmodel>;
-	using GLTFmodelHandle = ::pointer<vkglTF::Model>;
+	using OBJmodelHandle = ::pointer<sandbox_object_model>;
+	using GLTFmodelHandle = ::pointer<gltf::Model>;
 	//using TextureHandle  = ::pointer<VulkanTexture>;
 	//using ShaderHandle = ::pointer<ShaderModule>;
 
@@ -47,17 +47,17 @@ public:
 	}
 
     // Inline getters
-    ::pointer<VkSandboxOBJmodel> getOBJModel(const ::scoped_string & name) const {
+    ::pointer<sandbox_object_model> getOBJModel(const ::scoped_string & name) const {
         auto it = m_objModelCache.find(name);
         return (it != m_objModelCache.end()) ? it->second : nullptr;
     }
 
-    ::pointer<vkglTF::Model> getGLTFmodel(const ::scoped_string & name) const override {
+    ::pointer<gltf::Model> getGLTFmodel(const ::scoped_string & name) const override {
         auto it = m_gltfModelCache.find(name);
         return (it != m_gltfModelCache.end()) ? it->second : nullptr;
     }
 
-    ::pointer<VkSandboxTexture> getTexture(const ::scoped_string & name) const {
+    ::pointer<sandbox_texture> getTexture(const ::scoped_string & name) const {
         auto it = m_textures.find(name);
         if (it == m_textures.end()) {
             throw std::runtime_error("Texture not found: " + name);
@@ -65,7 +65,7 @@ public:
         return it->second;
     }
 
-    ::pointer<VkSandboxTexture> getTexture(size_t index) const {
+    ::pointer<sandbox_texture> getTexture(size_t index) const {
         if (index >= m_textureList.size()) {
             throw std::runtime_error("Texture index out of range: " + std::to_string(index));
         }
@@ -80,7 +80,7 @@ public:
         return it->second;
     }
 
-    const ::array_base<::pointer<VkSandboxTexture>>& getAllTextures() const {
+    const ::array_base<::pointer<sandbox_texture>>& getAllTextures() const {
         return m_textureList;
     }
 
@@ -109,24 +109,24 @@ private:
 	::map<::string, OBJmodelHandle> m_objModelCache;
 	::map<::string, GLTFmodelHandle> m_gltfModelCache;
 
-	::map<::string, ::pointer<VkSandboxTexture>>  m_textures; // name → texture
+	::map<::string, ::pointer<sandbox_texture>>  m_textures; // name → texture
 	::map<::string, size_t>                      m_textureIndexMap; // name → index
-	::array_base<::pointer<VkSandboxTexture>>                   m_textureList; // index → texture
+	::array_base<::pointer<sandbox_texture>>                   m_textureList; // index → texture
 
 	VkSandboxDevice&			m_device;
 	VkQueue						m_transferQueue;
 
 	// caches
-	::pointer<VkSandboxTexture> lutBrdf, irradianceCube, prefilteredCube, environmentCube;
+	::pointer<sandbox_texture> lutBrdf, irradianceCube, prefilteredCube, environmentCube;
 
     GLTFmodelHandle m_skyboxModel;
 
 	static void registerTextureIfNeeded(
 		const ::scoped_string & name,
-		const ::pointer<VkSandboxTexture>& tex,
-		::map<::string, ::pointer<VkSandboxTexture>>& textures,
+		const ::pointer<sandbox_texture>& tex,
+		::map<::string, ::pointer<sandbox_texture>>& textures,
 		::map<::string, size_t>& textureIndexMap,
-		::array_base<::pointer<VkSandboxTexture>>& textureList);
+		::array_base<::pointer<sandbox_texture>>& textureList);
 
 
 

@@ -1,20 +1,27 @@
 #pragma once
-#include "vulkan_wrapper/render_passes/gbuffer_pass.h"
+#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_image.h"
+#include <vulkan/vulkan.h>
+
+namespace vulkan
+{
+
+   struct GBuffer {
+      sandbox_image albedo;
+      sandbox_image normal;
+      sandbox_image material;
+      sandbox_image depth;
+
+      VkFramebuffer framebuffer = VK_NULL_HANDLE;
+
+      void destroy(sandbox_device* device) {
+         framebuffer = VK_NULL_HANDLE; // Destroyed by swapchain system
+         albedo.destroy();
+         normal.destroy();
+         material.destroy();
+         depth.destroy();
+      }
+   };
 
 
-struct GBuffer {
-    VkSandboxImage albedo;
-    VkSandboxImage normal;
-    VkSandboxImage material;
-    VkSandboxImage depth;
+} // namespace vulkan
 
-    VkFramebuffer framebuffer = VK_NULL_HANDLE;
-
-    void destroy(VulkanDevice* device) {
-        framebuffer = VK_NULL_HANDLE; // Destroyed by swapchain system
-        albedo.destroy();
-        normal.destroy();
-        material.destroy();
-        depth.destroy();
-    }
-};

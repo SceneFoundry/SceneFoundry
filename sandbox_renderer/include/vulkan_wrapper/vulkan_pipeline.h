@@ -4,68 +4,77 @@
 
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_device.h"
 
-struct PipelineConfigInfo {
-	PipelineConfigInfo() = default;
-	PipelineConfigInfo(const PipelineConfigInfo&) = delete;
-	PipelineConfigInfo& operator=(const PipelineConfigInfo&) = delete;
+namespace vulkan
+{
 
 
-	::array_base<VkVertexInputBindingDescription> bindingDescriptions{};
-	::array_base<VkVertexInputAttributeDescription> attributeDescriptions{};
-	VkPipelineViewportStateCreateInfo viewportInfo;
-	VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
-	VkPipelineRasterizationStateCreateInfo rasterizationInfo;
-	VkPipelineMultisampleStateCreateInfo multisampleInfo;
-	VkPipelineColorBlendAttachmentState colorBlendAttachment;
-	VkPipelineColorBlendStateCreateInfo colorBlendInfo;
-	VkPipelineDepthStencilStateCreateInfo depthStencilInfo;
-	::array_base<VkDynamicState> dynamicStateEnables;
-	VkPipelineDynamicStateCreateInfo dynamicStateInfo;
-	VkPipelineLayout pipelineLayout = nullptr;
-	VkRenderPass renderPass = nullptr;
-	uint32_t subpass = 0;
-	VkSpecializationInfo* fragSpecInfo = nullptr;
+	struct pipeline_configuration_information {
+		pipeline_configuration_information() = default;
+		pipeline_configuration_information(const pipeline_configuration_information&) = delete;
+		pipeline_configuration_information& operator=(const pipeline_configuration_information&) = delete;
 
-	// Push constant ranges
-	::array_base<VkPushConstantRange> pushConstantRanges;
 
-	// Descriptor set layouts if needed
-	::array_base<VkDescriptorSetLayout> descriptorSetLayouts;
-};
+		::array_base<VkVertexInputBindingDescription> bindingDescriptions{};
+		::array_base<VkVertexInputAttributeDescription> attributeDescriptions{};
+		VkPipelineViewportStateCreateInfo viewportInfo;
+		VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
+		VkPipelineRasterizationStateCreateInfo rasterizationInfo;
+		VkPipelineMultisampleStateCreateInfo multisampleInfo;
+		VkPipelineColorBlendAttachmentState colorBlendAttachment;
+		VkPipelineColorBlendStateCreateInfo colorBlendInfo;
+		VkPipelineDepthStencilStateCreateInfo depthStencilInfo;
+		::array_base<VkDynamicState> dynamicStateEnables;
+		VkPipelineDynamicStateCreateInfo dynamicStateInfo;
+		VkPipelineLayout pipelineLayout = nullptr;
+		VkRenderPass renderPass = nullptr;
+		uint32_t subpass = 0;
+		VkSpecializationInfo* fragSpecInfo = nullptr;
 
-class VkSandboxPipeline {
-public:
-	VkSandboxPipeline(
-		sandbox_device& device,
-		const ::scoped_string & vertFilepath,
-		const ::scoped_string & fragFilepath,
-		const PipelineConfigInfo& configInfo);
-	~VkSandboxPipeline();
+		// Push constant ranges
+		::array_base<VkPushConstantRange> pushConstantRanges;
 
-	VkSandboxPipeline(const VkSandboxPipeline&) = delete;
-	void operator=(const VkSandboxPipeline&) = delete;
+		// Descriptor set layouts if needed
+		::array_base<VkDescriptorSetLayout> descriptorSetLayouts;
+	};
 
-	void bind(VkCommandBuffer commandBuffer);
+	class sandbox_pipeline {
+	public:
+		sandbox_pipeline(
+			sandbox_device& device,
+			const ::scoped_string& vertFilepath,
+			const ::scoped_string& fragFilepath,
+			const pipeline_configuration_information& configInfo);
+		~sandbox_pipeline();
 
-	static void defaultPipelineConfigInfo(PipelineConfigInfo& configInfo);
-	static void defaultSkyboxConfigInfo(PipelineConfigInfo& configInfo);
+		sandbox_pipeline(const sandbox_pipeline&) = delete;
+		void operator=(const sandbox_pipeline&) = delete;
 
-	// Getters
-	VkPipeline getPipeline() const { return m_graphicsPipeline; }
-	VkPipelineLayout getPipelineLayout() const { return m_pipelineLayout; }
-private:
-	static ::array_base<char> readFile(const ::scoped_string & filepath);
+		void bind(VkCommandBuffer commandBuffer);
 
-	void createGraphicsPipeline(
-		const ::scoped_string & vertFilepath,
-		const ::scoped_string & fragFilepath,
-		const PipelineConfigInfo& configInfo);
+		static void defaultPipelineConfigInfo(pipeline_configuration_information& configInfo);
+		static void defaultSkyboxConfigInfo(pipeline_configuration_information& configInfo);
 
-	void createShaderModule(const ::array_base<char>& code, VkShaderModule* shaderModule);
+		// Getters
+		VkPipeline getPipeline() const { return m_graphicsPipeline; }
+		VkPipelineLayout getPipelineLayout() const { return m_pipelineLayout; }
+	private:
+		static ::array_base<char> readFile(const ::scoped_string& filepath);
 
-	sandbox_device& m_device;
-	VkPipeline m_graphicsPipeline;
-	VkPipelineLayout m_pipelineLayout;
-	VkShaderModule m_vertShaderModule;
-	VkShaderModule m_fragShaderModule;
-};
+		void createGraphicsPipeline(
+			const ::scoped_string& vertFilepath,
+			const ::scoped_string& fragFilepath,
+			const pipeline_configuration_information& configInfo);
+
+		void createShaderModule(const ::array_base<char>& code, VkShaderModule* shaderModule);
+
+		sandbox_device& m_device;
+		VkPipeline m_graphicsPipeline;
+		VkPipelineLayout m_pipelineLayout;
+		VkShaderModule m_vertShaderModule;
+		VkShaderModule m_fragShaderModule;
+	};
+
+
+} // namespace vulkan
+
+

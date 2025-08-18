@@ -1,7 +1,7 @@
 #pragma once
-#include "interfaces/render_system_i.h"
-#include "vulkan_wrapper/vulkan_device.h"
-#include "vulkan_wrapper/vulkan_pipeline.h"
+#include "SceneFoundry/core_interfaces/include/interfaces/render_system_i.h"
+#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_device.h"
+#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_pipeline.h"
 #include <vulkan/vulkan.h>
 
 // STD
@@ -16,14 +16,14 @@ public:
 	PointLightRS(const PointLightRS&) = delete;
 	PointLightRS& operator=(const PointLightRS&) = delete;
 
-	PointLightRS(sandbox_device& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
+	PointLightRS(vulkan::sandbox_device& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
 	~PointLightRS();
 
 	void init(
-		sandbox_device& device,
+		::vulkan::sandbox_device& device,
 		VkRenderPass            renderPass,
 		VkDescriptorSetLayout   globalSetLayout,
-		VkSandboxDescriptorPool& descriptorPool,
+		vulkan::sandbox_descriptor_pool& descriptorPool,
 		size_t frameCount)override;
 
 	void update(FrameInfo& frame, GlobalUbo& ubo) override;
@@ -36,7 +36,7 @@ private:
 
 	VkDescriptorSetLayout m_globalSetLayout;
 
-	std::unique_ptr<VkSandboxPipeline> m_pipeline;
+	std::unique_ptr<sandbox_pipeline> m_pipeline;
 	VkPipelineLayout m_pipelineLayout;
 
 	float m_rotationSpeed = 0.2f;

@@ -64,7 +64,7 @@ namespace vulkan
 
    };
 
-   class VkSandboxDescriptorPool
+   class sandbox_descriptor_pool
    {
    public:
       class Builder
@@ -75,7 +75,7 @@ namespace vulkan
          Builder& addPoolSize(VkDescriptorType descriptorType, uint32_t count);
          Builder& setPoolFlags(VkDescriptorPoolCreateFlags flags);
          Builder& setMaxSets(uint32_t count);
-         std::unique_ptr<VkSandboxDescriptorPool> build() const;
+         std::unique_ptr<vulkan::sandbox_descriptor_pool> build() const;
 
       private:
          sandbox_device& m_device;
@@ -84,14 +84,14 @@ namespace vulkan
          VkDescriptorPoolCreateFlags m_poolFlags = 0;
       };
 
-      VkSandboxDescriptorPool(
+      sandbox_descriptor_pool(
          sandbox_device& vkcDevice,
          uint32_t maxSets,
          VkDescriptorPoolCreateFlags poolFlags,
          const ::array_base<VkDescriptorPoolSize>& poolSizes);
-      ~VkSandboxDescriptorPool();
-      VkSandboxDescriptorPool(const VkSandboxDescriptorPool&) = delete;
-      VkSandboxDescriptorPool& operator=(const VkSandboxDescriptorPool&) = delete;
+      ~sandbox_descriptor_pool();
+      sandbox_descriptor_pool(const sandbox_descriptor_pool&) = delete;
+      sandbox_descriptor_pool& operator=(const sandbox_descriptor_pool&) = delete;
 
       bool allocateDescriptor(
          const VkDescriptorSetLayout descriptorSetLayout, VkDescriptorSet& descriptor, uint32_t variableDescriptorCount) const;
@@ -115,7 +115,7 @@ namespace vulkan
    class VkSandboxDescriptorWriter
    {
    public:
-      VkSandboxDescriptorWriter(sandbox_descriptor_set_layout& setLayout, VkSandboxDescriptorPool& pool);
+      VkSandboxDescriptorWriter(sandbox_descriptor_set_layout& setLayout, vulkan::sandbox_descriptor_pool& pool);
 
       VkSandboxDescriptorWriter& writeBuffer(uint32_t binding, VkDescriptorBufferInfo* bufferInfo);
       VkSandboxDescriptorWriter& writeImage(uint32_t binding, const VkDescriptorImageInfo* imageInfo);
@@ -126,7 +126,7 @@ namespace vulkan
 
    private:
       sandbox_descriptor_set_layout& m_setLayout;
-      VkSandboxDescriptorPool& m_pool;
+      vulkan::sandbox_descriptor_pool& m_pool;
       ::array_base<VkWriteDescriptorSet> m_writes;
       uint32_t m_variableDescriptorCount = 0;
    };

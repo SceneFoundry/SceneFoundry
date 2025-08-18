@@ -46,17 +46,17 @@
     <ClCompile Include="src\vulkan_wrapper\render_systems\gltf_render_system.cpp">
       <Filter>Source Files\vulkan_wrapper\render_systems</Filter>
     </ClCompile>
-    <ClCompile Include="src\vulkan_wrapper\render_systems\obj_render_system.cpp">
-      <Filter>Source Files\vulkan_wrapper\render_systems</Filter>
-    </ClCompile>
-    <ClCompile Include="src\vulkan_wrapper\render_systems\point_light_rs.cpp">
-      <Filter>Source Files\vulkan_wrapper\render_systems</Filter>
-    </ClCompile>
-    <ClCompile Include="src\vulkan_wrapper\render_systems\skybox_ibl_rs.cpp">
-      <Filter>Source Files\vulkan_wrapper\render_systems</Filter>
-    </ClCompile>
     <ClCompile Include="src\vulkan_wrapper\render_passes\gbuffer_pass.cpp">
       <Filter>Source Files\vulkan_wrapper\render_passes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan_wrapper\render_systems\object_render_system.cpp">
+      <Filter>Source Files\vulkan_wrapper\render_systems</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan_wrapper\render_systems\point_light_render_system.cpp">
+      <Filter>Source Files\vulkan_wrapper\render_systems</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan_wrapper\render_systems\skybox_ibl_render_system.cpp">
+      <Filter>Source Files\vulkan_wrapper\render_systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +92,12 @@
     </Filter>
     <Filter Include="Source Files\vulkan_wrapper\render_systems">
       <UniqueIdentifier>{896fa70e-3acd-4caa-a0c2-c8c2582a9f8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core_interfaces">
+      <UniqueIdentifier>{9c822a8e-9e12-4b78-bc52-82f862b3a49b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core_interfaces\interfaces">
+      <UniqueIdentifier>{65f366fa-d5ff-4f5c-a1e6-86f8737ee923}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -137,13 +143,13 @@
     <ClInclude Include="include\vulkan_wrapper\render_systems\gltf_render_system.h">
       <Filter>Header Files\vulkan_wrapper\render_systems</Filter>
     </ClInclude>
-    <ClInclude Include="include\vulkan_wrapper\render_systems\obj_render_system.h">
+    <ClInclude Include="include\vulkan_wrapper\render_systems\object_render_system.h">
       <Filter>Header Files\vulkan_wrapper\render_systems</Filter>
     </ClInclude>
-    <ClInclude Include="include\vulkan_wrapper\render_systems\point_light_rs.h">
+    <ClInclude Include="include\vulkan_wrapper\render_systems\point_light_render_system.h">
       <Filter>Header Files\vulkan_wrapper\render_systems</Filter>
     </ClInclude>
-    <ClInclude Include="include\vulkan_wrapper\render_systems\skybox_ibl_rs.h">
+    <ClInclude Include="include\vulkan_wrapper\render_systems\skybox_ibl_render_system.h">
       <Filter>Header Files\vulkan_wrapper\render_systems</Filter>
     </ClInclude>
     <ClInclude Include="include\vulkan_wrapper\render_passes\gbuffer_pass.h">
@@ -169,6 +175,39 @@
     </ClInclude>
     <ClInclude Include="include\vk_tools\vk_descriptor_requirement.h">
       <Filter>Header Files\vk_tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core_interfaces\include\interfaces\asset_provider_i.h">
+      <Filter>Header Files\core_interfaces\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core_interfaces\include\interfaces\camera_i.h">
+      <Filter>Header Files\core_interfaces\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core_interfaces\include\interfaces\entity_i.h">
+      <Filter>Header Files\core_interfaces\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core_interfaces\include\interfaces\game_layer_i.h">
+      <Filter>Header Files\core_interfaces\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core_interfaces\include\interfaces\game_object_i.h">
+      <Filter>Header Files\core_interfaces\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core_interfaces\include\interfaces\model_i.h">
+      <Filter>Header Files\core_interfaces\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core_interfaces\include\interfaces\provider_i.h">
+      <Filter>Header Files\core_interfaces\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core_interfaces\include\interfaces\render_system_i.h">
+      <Filter>Header Files\core_interfaces\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core_interfaces\include\interfaces\renderer_i.h">
+      <Filter>Header Files\core_interfaces\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core_interfaces\include\interfaces\scene_i.h">
+      <Filter>Header Files\core_interfaces\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core_interfaces\include\interfaces\window_input_i.h">
+      <Filter>Header Files\core_interfaces\interfaces</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

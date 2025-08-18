@@ -1,10 +1,10 @@
 #pragma once
-#include "interfaces/render_system_i.h"
-#include "interfaces/asset_provider_i.h"
-#include "vulkan_wrapper/vulkan_device.h"
-#include "vulkan_wrapper/vulkan_pipeline.h"
-#include "vulkan_wrapper/vulkan_descriptor.h"
-#include "vulkan_wrapper/vulkan_gltf.h"
+#include "SceneFoundry/core_interfaces/include/interfaces/render_system_i.h"
+#include "SceneFoundry/core_interfaces/include/interfaces/asset_provider_i.h"
+#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_device.h"
+#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_pipeline.h"
+#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_descriptor.h"
+#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_gltf.h"
 #include <vulkan/vulkan.h>
 
 // STD
@@ -25,7 +25,7 @@ public:
         sandbox_device& device,
         VkRenderPass            renderPass,
         VkDescriptorSetLayout   globalSetLayout,
-        VkSandboxDescriptorPool& descriptorPool,
+        vulkan::sandbox_descriptor_pool& descriptorPool,
         size_t frameCount)override;
 
     // Call this inside your scene render loop, after global descriptors are bound
@@ -54,12 +54,12 @@ private:
 
     VkDescriptorSetLayout m_skyboxLayout;
     sandbox_device& m_device;
-    std::unique_ptr<VkSandboxPipeline> m_pipeline;
+    std::unique_ptr<sandbox_pipeline> m_pipeline;
     VkPipelineLayout m_pipelineLayout;
     VkDescriptorImageInfo m_skyboxImageInfo{};
     std::unique_ptr<sandbox_descriptor_set_layout> m_skyboxSetLayout;
     VkDescriptorSet m_skyboxDescriptorSet;
 
-    VkSandboxDescriptorPool* m_descriptorPool = nullptr;
+    vulkan::sandbox_descriptor_pool* m_descriptorPool = nullptr;
     bool m_bHasCubemap = false;
 };

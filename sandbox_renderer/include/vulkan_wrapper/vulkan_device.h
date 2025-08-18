@@ -7,31 +7,33 @@
 #include "SceneFoundry/sandbox_renderer/include/window.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_instance.h"
 
-struct SwapChainSupportDetails
-{
-    VkSurfaceCapabilitiesKHR capabilities;
-    ::array_base<VkSurfaceFormatKHR> formats;
-    ::array_base<VkPresentModeKHR> presentModes;
-};
-
-struct QueueFamilyIndices
-{
-    uint32_t graphicsFamily;
-    uint32_t presentFamily;
-    bool graphicsFamilyHasValue = false;
-    bool presentFamilyHasValue = false;
-    bool isComplete() { return graphicsFamilyHasValue && presentFamilyHasValue; }
-};
-
-
 namespace vulkan
 {
+
+
+   struct SwapChainSupportDetails
+   {
+      VkSurfaceCapabilitiesKHR capabilities;
+      ::array_base<VkSurfaceFormatKHR> formats;
+      ::array_base<VkPresentModeKHR> presentModes;
+   };
+
+   struct QueueFamilyIndices
+   {
+      uint32_t graphicsFamily;
+      uint32_t presentFamily;
+      bool graphicsFamilyHasValue = false;
+      bool presentFamilyHasValue = false;
+      bool isComplete() { return graphicsFamilyHasValue && presentFamilyHasValue; }
+   };
+
+
 
    class sandbox_device
    {
    public:
 
-      sandbox_device(VkSandboxInstance& instance, SandboxWindow& window);
+      sandbox_device(sandbox_instance& instance, SandboxWindow& window);
       ~sandbox_device();
 
       // Not copyable or movable
@@ -141,7 +143,7 @@ namespace vulkan
    private:
 
       SandboxWindow& m_window;
-      VkSandboxInstance& m_instance;
+      sandbox_instance& m_instance;
 
       VkCommandPool m_commandPool;
       VkSurfaceKHR m_surface;

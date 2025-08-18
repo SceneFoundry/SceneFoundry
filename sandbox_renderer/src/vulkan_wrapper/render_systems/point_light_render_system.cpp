@@ -1,6 +1,6 @@
 #include "framework.h"
 
-#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/render_systems/point_light_rs.h"
+#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/render_systems/point_light_render_system.h"
 #include "SceneFoundry/core_interfaces/include/frame_info.h"
 #include "SceneFoundry/core_interfaces/include/interfaces/game_object_i.h"
 // libs
@@ -24,16 +24,16 @@ struct PointLightPushConstants {
     float radius;
 };
 
-PointLightRS::PointLightRS(VkSandboxDevice& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout)
+PointLightRS::PointLightRS(vulkan::sandbox_device& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout)
     : m_device(device), m_globalSetLayout(globalSetLayout)
 {
 
 }
 void PointLightRS::init(
-    VkSandboxDevice& device,
+    vulkan::sandbox_device& device,
     VkRenderPass renderPass,
     VkDescriptorSetLayout globalSetLayout,
-    VkSandboxDescriptorPool& descriptorPool,
+    vulkan::sandbox_descriptor_pool& descriptorPool,
     size_t frameCount)
 {
     // Optional: assert device consistency
@@ -70,8 +70,8 @@ void PointLightRS::createPipelineLayout(VkDescriptorSetLayout globalSetLayout) {
 void PointLightRS::createPipeline(VkRenderPass renderPass) {
     assert(m_pipelineLayout != VK_NULL_HANDLE && "Cannot create pipeline before pipeline layout");
 
-    PipelineConfigInfo pipelineConfig{};
-    VkSandboxPipeline::defaultPipelineConfigInfo(pipelineConfig);
+    pipeline_configuration_information pipelineConfig{};
+    sandbox_pipeline::defaultPipelineConfigInfo(pipelineConfig);
     pipelineConfig.bindingDescriptions.clear();
     pipelineConfig.attributeDescriptions.clear();
     pipelineConfig.renderPass = renderPass;
@@ -80,7 +80,7 @@ void PointLightRS::createPipeline(VkRenderPass renderPass) {
     ::string vertShaderPath = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/point_light.vert.spv";
     ::string fragShaderPath = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/point_light.frag.spv";
 
-    m_pipeline = std::make_unique<VkSandboxPipeline>(
+    m_pipeline = std::make_unique<sandbox_pipeline>(
         m_device,
         vertShaderPath.c_str(),
         fragShaderPath.c_str(),

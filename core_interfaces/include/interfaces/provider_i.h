@@ -7,5 +7,5 @@ struct IProvider :
 	virtual public ::particle
 	 {
 	virtual VkDescriptorImageInfo getCubemapDescriptor(const ::scoped_string & name) const = 0;
-	//virtual const ::array_base<::pointer<VkSandboxTexture>>& getAllTextures() const {}
+	//virtual const ::array_base<::pointer<sandbox_texture>>& getAllTextures() const {}
 };

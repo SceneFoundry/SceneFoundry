@@ -44,7 +44,7 @@ namespace vulkan
       }
 
       // 2) Build our single DescriptorPool via the sandbox Builder
-      VkSandboxDescriptorPool::Builder poolBuilder{ m_device };
+      vulkan::sandbox_descriptor_pool::Builder poolBuilder{ m_device };
       poolBuilder
          // <-- use setsPerFrame * maxFrames, not m_entries.size()
          .setMaxSets(setsPerFrame * maxFrames)

@@ -9,9 +9,9 @@
 //#include <vector>
 
 #include <vulkan/vulkan.h>
-#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/interfaces/model_i.h"
+#include "SceneFoundry/core_interfaces/include/interfaces/model_i.h"
 #include "SceneFoundry/sandbox_renderer/include/vk_tools/vk_init.h"
-#include "vulkan_wrapper/vulkan_descriptor.h"
+#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_descriptor.h"
 
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
@@ -26,292 +26,301 @@
 
 #include "tiny_gltf.h"
 
-
-namespace vkglTF {
-
-	enum DescriptorBindingFlags {
-		ImageBaseColor = 0x00000001,
-		ImageNormalMap = 0x00000002
-	};
-
-	extern VkDescriptorSetLayout descriptorSetLayoutImage;
-	extern VkDescriptorSetLayout descriptorSetLayoutUbo;
-	extern VkDescriptorSetLayout descriptorSetLayoutIbl;
-	extern VkMemoryPropertyFlags memoryPropertyFlags;
-	extern uint32_t descriptorBindingFlags;
-
-	struct Node;
-
-	/*
-		glTF texture loading class
-	*/
-	struct Texture {
-
-		sandbox_device* device = nullptr;
-		VkImage image;
-		VkImageLayout imageLayout;
-		VkDeviceMemory deviceMemory;
-		VkImageView view;
-		uint32_t width, height;
-		uint32_t mipLevels;
-		uint32_t layerCount;
-		VkDescriptorImageInfo descriptor;
-		VkSampler sampler;
-		uint32_t index;
-		void updateDescriptor();
-		void destroy();
-		void fromglTfImage(tinygltf::Image& gltfimage, ::string path, sandbox_device* device, VkQueue copyQueue, bool isSrgb);
-	};
+namespace vulkan
+{
 
 
-	/*
-		glTF material class
-	*/
-	struct Material {
-		sandbox_device* device = nullptr;
-		enum AlphaMode { ALPHAMODE_OPAQUE, ALPHAMODE_MASK, ALPHAMODE_BLEND };
-		AlphaMode alphaMode = ALPHAMODE_OPAQUE;
-		float alphaCutoff = 1.0f;
-		float metallicFactor = 1.0f;
-		float roughnessFactor = 1.0f;
-		glm::vec4 baseColorFactor = glm::vec4(1.0f);
-		vkglTF::Texture* baseColorTexture = nullptr;
-		vkglTF::Texture* metallicRoughnessTexture = nullptr;
-		vkglTF::Texture* normalTexture = nullptr;
-		vkglTF::Texture* occlusionTexture = nullptr;
-		vkglTF::Texture* emissiveTexture = nullptr;
+	namespace gltf {
 
-		vkglTF::Texture* specularGlossinessTexture;
-		vkglTF::Texture* diffuseTexture;
+		enum DescriptorBindingFlags {
+			ImageBaseColor = 0x00000001,
+			ImageNormalMap = 0x00000002
+		};
 
-		VkDescriptorSet descriptorSet = VK_NULL_HANDLE;
+		extern VkDescriptorSetLayout descriptorSetLayoutImage;
+		extern VkDescriptorSetLayout descriptorSetLayoutUbo;
+		extern VkDescriptorSetLayout descriptorSetLayoutIbl;
+		extern VkMemoryPropertyFlags memoryPropertyFlags;
+		extern uint32_t descriptorBindingFlags;
 
-		Material(sandbox_device* device) : device(device) {};
-		void createDescriptorSet(VkDescriptorPool descriptorPool, VkDescriptorSetLayout descriptorSetLayout, uint32_t descriptorBindingFlags, Texture* fallbackTexture);
-	};
+		struct Node;
 
-	/*
-		glTF primitive
-	*/
-	struct Primitive {
-		uint32_t firstIndex;
-		uint32_t indexCount;
-		uint32_t firstVertex;
-		uint32_t vertexCount;
-		Material& material;
+		/*
+			glTF texture loading class
+		*/
+		struct Texture {
 
-		struct Dimensions {
-			glm::vec3 min = glm::vec3(FLT_MAX);
-			glm::vec3 max = glm::vec3(-FLT_MAX);
-			glm::vec3 size;
-			glm::vec3 center;
-			float radius;
-		} dimensions;
+			sandbox_device* device = nullptr;
+			VkImage image;
+			VkImageLayout imageLayout;
+			VkDeviceMemory deviceMemory;
+			VkImageView view;
+			uint32_t width, height;
+			uint32_t mipLevels;
+			uint32_t layerCount;
+			VkDescriptorImageInfo descriptor;
+			VkSampler sampler;
+			uint32_t index;
+			void updateDescriptor();
+			void destroy();
+			void fromglTfImage(tinygltf::Image& gltfimage, ::string path, sandbox_device* device, VkQueue copyQueue, bool isSrgb);
+		};
 
-		void setDimensions(glm::vec3 min, glm::vec3 max);
-		Primitive(uint32_t firstIndex, uint32_t indexCount, Material& material) : firstIndex(firstIndex), indexCount(indexCount), material(material) {};
-	};
 
-	/*
-		glTF mesh
-	*/
-	struct Mesh {
-		sandbox_device* device;
+		/*
+			glTF material class
+		*/
+		struct Material {
+			sandbox_device* device = nullptr;
+			enum AlphaMode { ALPHAMODE_OPAQUE, ALPHAMODE_MASK, ALPHAMODE_BLEND };
+			AlphaMode alphaMode = ALPHAMODE_OPAQUE;
+			float alphaCutoff = 1.0f;
+			float metallicFactor = 1.0f;
+			float roughnessFactor = 1.0f;
+			glm::vec4 baseColorFactor = glm::vec4(1.0f);
+			gltf::Texture* baseColorTexture = nullptr;
+			gltf::Texture* metallicRoughnessTexture = nullptr;
+			gltf::Texture* normalTexture = nullptr;
+			gltf::Texture* occlusionTexture = nullptr;
+			gltf::Texture* emissiveTexture = nullptr;
 
-		::array_base<Primitive*> primitives;
-		::string name;
+			gltf::Texture* specularGlossinessTexture;
+			gltf::Texture* diffuseTexture;
 
-		struct UniformBuffer {
-			VkBuffer buffer;
-			VkDeviceMemory memory;
-			VkDescriptorBufferInfo descriptor;
 			VkDescriptorSet descriptorSet = VK_NULL_HANDLE;
-			void* mapped;
-		} uniformBuffer;
 
-		struct UniformBlock {
+			Material(sandbox_device* device) : device(device) {};
+			void createDescriptorSet(VkDescriptorPool descriptorPool, VkDescriptorSetLayout descriptorSetLayout, uint32_t descriptorBindingFlags, Texture* fallbackTexture);
+		};
+
+		/*
+			glTF primitive
+		*/
+		struct Primitive {
+			uint32_t firstIndex;
+			uint32_t indexCount;
+			uint32_t firstVertex;
+			uint32_t vertexCount;
+			Material& material;
+
+			struct Dimensions {
+				glm::vec3 min = glm::vec3(FLT_MAX);
+				glm::vec3 max = glm::vec3(-FLT_MAX);
+				glm::vec3 size;
+				glm::vec3 center;
+				float radius;
+			} dimensions;
+
+			void setDimensions(glm::vec3 min, glm::vec3 max);
+			Primitive(uint32_t firstIndex, uint32_t indexCount, Material& material) : firstIndex(firstIndex), indexCount(indexCount), material(material) {};
+		};
+
+		/*
+			glTF mesh
+		*/
+		struct Mesh {
+			sandbox_device* device;
+
+			::array_base<Primitive*> primitives;
+			::string name;
+
+			struct UniformBuffer {
+				VkBuffer buffer;
+				VkDeviceMemory memory;
+				VkDescriptorBufferInfo descriptor;
+				VkDescriptorSet descriptorSet = VK_NULL_HANDLE;
+				void* mapped;
+			} uniformBuffer;
+
+			struct UniformBlock {
+				glm::mat4 matrix;
+				glm::mat4 jointMatrix[64]{};
+				float jointcount{ 0 };
+			} uniformBlock;
+
+			Mesh(sandbox_device* device, glm::mat4 matrix);
+			~Mesh();
+		};
+
+		/*
+			glTF skin
+		*/
+		struct Skin {
+			::string name;
+			Node* skeletonRoot = nullptr;
+			::array_base<glm::mat4> inverseBindMatrices;
+			::array_base<Node*> joints;
+		};
+
+		/*
+			glTF node
+		*/
+		struct Node {
+			Node* parent;
+			uint32_t index;
+			::array_base<Node*> children;
 			glm::mat4 matrix;
-			glm::mat4 jointMatrix[64]{};
-			float jointcount{ 0 };
-		} uniformBlock;
+			::string name;
+			Mesh* mesh;
+			Skin* skin;
+			int32_t skinIndex = -1;
+			glm::vec3 translation{};
+			glm::vec3 scale{ 1.0f };
+			glm::quat rotation{};
+			glm::mat4 localMatrix();
+			glm::mat4 getMatrix();
+			void update();
+			~Node();
+		};
 
-		Mesh(sandbox_device* device, glm::mat4 matrix);
-		~Mesh();
-	};
+		/*
+			glTF animation channel
+		*/
+		struct AnimationChannel {
+			enum PathType { TRANSLATION, ROTATION, SCALE };
+			PathType path;
+			Node* node;
+			uint32_t samplerIndex;
+		};
 
-	/*
-		glTF skin
-	*/
-	struct Skin {
-		::string name;
-		Node* skeletonRoot = nullptr;
-		::array_base<glm::mat4> inverseBindMatrices;
-		::array_base<Node*> joints;
-	};
+		/*
+			glTF animation sampler
+		*/
+		struct AnimationSampler {
+			enum InterpolationType { LINEAR, STEP, CUBICSPLINE };
+			InterpolationType interpolation;
+			::array_base<float> inputs;
+			::array_base<glm::vec4> outputsVec4;
+		};
 
-	/*
-		glTF node
-	*/
-	struct Node {
-		Node* parent;
-		uint32_t index;
-		::array_base<Node*> children;
-		glm::mat4 matrix;
-		::string name;
-		Mesh* mesh;
-		Skin* skin;
-		int32_t skinIndex = -1;
-		glm::vec3 translation{};
-		glm::vec3 scale{ 1.0f };
-		glm::quat rotation{};
-		glm::mat4 localMatrix();
-		glm::mat4 getMatrix();
-		void update();
-		~Node();
-	};
+		/*
+			glTF animation
+		*/
+		struct Animation {
+			::string name;
+			::array_base<AnimationSampler> samplers;
+			::array_base<AnimationChannel> channels;
+			float start = std::numeric_limits<float>::max();
+			float end = std::numeric_limits<float>::min();
+		};
 
-	/*
-		glTF animation channel
-	*/
-	struct AnimationChannel {
-		enum PathType { TRANSLATION, ROTATION, SCALE };
-		PathType path;
-		Node* node;
-		uint32_t samplerIndex;
-	};
+		/*
+			glTF default vertex layout with easy Vulkan mapping functions
+		*/
+		enum class VertexComponent { Position, Normal, UV, Color, Tangent, Joint0, Weight0 };
 
-	/*
-		glTF animation sampler
-	*/
-	struct AnimationSampler {
-		enum InterpolationType { LINEAR, STEP, CUBICSPLINE };
-		InterpolationType interpolation;
-		::array_base<float> inputs;
-		::array_base<glm::vec4> outputsVec4;
-	};
+		struct Vertex {
+			glm::vec3 pos;
+			glm::vec3 normal;
+			glm::vec2 uv;
+			glm::vec4 color;
+			glm::vec4 joint0;
+			glm::vec4 weight0;
+			glm::vec4 tangent;
+			static VkVertexInputBindingDescription vertexInputBindingDescription;
+			static ::array_base<VkVertexInputAttributeDescription> vertexInputAttributeDescriptions;
+			static VkPipelineVertexInputStateCreateInfo pipelineVertexInputStateCreateInfo;
+			static VkVertexInputBindingDescription inputBindingDescription(uint32_t binding);
+			static VkVertexInputAttributeDescription inputAttributeDescription(uint32_t binding, uint32_t location, VertexComponent component);
+			static ::array_base<VkVertexInputAttributeDescription> inputAttributeDescriptions(uint32_t binding, const ::array_base<VertexComponent> components);
+			/** @brief Returns the default pipeline vertex input state create info structure for the requested vertex components */
+			static VkPipelineVertexInputStateCreateInfo* getPipelineVertexInputState(const ::array_base<VertexComponent> components);
+		};
 
-	/*
-		glTF animation
-	*/
-	struct Animation {
-		::string name;
-		::array_base<AnimationSampler> samplers;
-		::array_base<AnimationChannel> channels;
-		float start = std::numeric_limits<float>::max();
-		float end = std::numeric_limits<float>::min();
-	};
+		enum FileLoadingFlags {
+			None = 0x00000000,
+			PreTransformVertices = 0x00000001,
+			PreMultiplyVertexColors = 0x00000002,
+			FlipY = 0x00000004,
+			DontLoadImages = 0x00000008
+		};
 
-	/*
-		glTF default vertex layout with easy Vulkan mapping functions
-	*/
-	enum class VertexComponent { Position, Normal, UV, Color, Tangent, Joint0, Weight0 };
+		enum RenderFlags {
+			BindImages = 0x00000001,
+			RenderOpaqueNodes = 0x00000002,
+			RenderAlphaMaskedNodes = 0x00000004,
+			RenderAlphaBlendedNodes = 0x00000008
+		};
 
-	struct Vertex {
-		glm::vec3 pos;
-		glm::vec3 normal;
-		glm::vec2 uv;
-		glm::vec4 color;
-		glm::vec4 joint0;
-		glm::vec4 weight0;
-		glm::vec4 tangent;
-		static VkVertexInputBindingDescription vertexInputBindingDescription;
-		static ::array_base<VkVertexInputAttributeDescription> vertexInputAttributeDescriptions;
-		static VkPipelineVertexInputStateCreateInfo pipelineVertexInputStateCreateInfo;
-		static VkVertexInputBindingDescription inputBindingDescription(uint32_t binding);
-		static VkVertexInputAttributeDescription inputAttributeDescription(uint32_t binding, uint32_t location, VertexComponent component);
-		static ::array_base<VkVertexInputAttributeDescription> inputAttributeDescriptions(uint32_t binding, const ::array_base<VertexComponent> components);
-		/** @brief Returns the default pipeline vertex input state create info structure for the requested vertex components */
-		static VkPipelineVertexInputStateCreateInfo* getPipelineVertexInputState(const ::array_base<VertexComponent> components);
-	};
+		/*
+			glTF model loading and rendering class
+		*/
+		class Model : public IModel {
+		private:
+			gltf::Texture* getTexture(uint32_t index);
+			gltf::Texture emptyTexture;
+			void createEmptyTexture(VkQueue transferQueue);
+		public:
+			sandbox_device* m_pDevice;
+			VkDescriptorPool m_descriptorPool;
 
-	enum FileLoadingFlags {
-		None = 0x00000000,
-		PreTransformVertices = 0x00000001,
-		PreMultiplyVertexColors = 0x00000002,
-		FlipY = 0x00000004,
-		DontLoadImages = 0x00000008
-	};
+			struct Vertices {
+				int count;
+				VkBuffer buffer;
+				VkDeviceMemory memory;
+			} vertices;
+			struct Indices {
+				int count;
+				VkBuffer buffer;
+				VkDeviceMemory memory;
+			} indices;
 
-	enum RenderFlags {
-		BindImages = 0x00000001,
-		RenderOpaqueNodes = 0x00000002,
-		RenderAlphaMaskedNodes = 0x00000004,
-		RenderAlphaBlendedNodes = 0x00000008
-	};
+			::array_base<Node*> m_nodes;
+			::array_base<Node*> m_linearNodes;
 
-	/*
-		glTF model loading and rendering class
-	*/
-	class Model : public IModel{
-	private:
-		vkglTF::Texture* getTexture(uint32_t index);
-		vkglTF::Texture emptyTexture;
-		void createEmptyTexture(VkQueue transferQueue);
-	public:
-		sandbox_device* m_pDevice;
-		VkDescriptorPool m_descriptorPool;
-
-		struct Vertices {
-			int count;
-			VkBuffer buffer;
-			VkDeviceMemory memory;
-		} vertices;
-		struct Indices {
-			int count;
-			VkBuffer buffer;
-			VkDeviceMemory memory;
-		} indices;
-
-		::array_base<Node*> m_nodes;
-		::array_base<Node*> m_linearNodes;
-
-		::array_base<Skin*> m_skins;
+			::array_base<Skin*> m_skins;
 
 
-		::array_base<vkglTF::Texture> m_textures;
-		::array_base<Material> m_materials;
-		::array_base<Animation> m_animations;
+			::array_base<gltf::Texture> m_textures;
+			::array_base<Material> m_materials;
+			::array_base<Animation> m_animations;
 
-		struct Dimensions {
-			glm::vec3 min = glm::vec3(FLT_MAX);
-			glm::vec3 max = glm::vec3(-FLT_MAX);
-			glm::vec3 size;
-			glm::vec3 center;
-			float radius;
-		} dimensions;
+			struct Dimensions {
+				glm::vec3 min = glm::vec3(FLT_MAX);
+				glm::vec3 max = glm::vec3(-FLT_MAX);
+				glm::vec3 size;
+				glm::vec3 center;
+				float radius;
+			} dimensions;
 
-		bool m_bMetallicRoughnessWorkflow = true;
-		bool m_bBuffersBound = false;
-		::string m_path;
+			bool m_bMetallicRoughnessWorkflow = true;
+			bool m_bBuffersBound = false;
+			::string m_path;
 
-		Model() {};
-		~Model();
-		void loadNode(vkglTF::Node* parent, const tinygltf::Node& node, uint32_t nodeIndex, const tinygltf::Model& model, ::array_base<uint32_t>& indexBuffer, ::array_base<Vertex>& vertexBuffer, float globalscale);
-		void loadSkins(tinygltf::Model& gltfModel);
-		void loadImages(tinygltf::Model& gltfModel, sandbox_device* device, VkQueue transferQueue);
-		void loadMaterials(tinygltf::Model& gltfModel);
-		void loadAnimations(tinygltf::Model& gltfModel);
+			Model() {};
+			~Model();
+			void loadNode(gltf::Node* parent, const tinygltf::Node& node, uint32_t nodeIndex, const tinygltf::Model& model, ::array_base<uint32_t>& indexBuffer, ::array_base<Vertex>& vertexBuffer, float globalscale);
+			void loadSkins(tinygltf::Model& gltfModel);
+			void loadImages(tinygltf::Model& gltfModel, sandbox_device* device, VkQueue transferQueue);
+			void loadMaterials(tinygltf::Model& gltfModel);
+			void loadAnimations(tinygltf::Model& gltfModel);
 
-		void loadFromFile(::string filename, sandbox_device* device, VkQueue transferQueue, uint32_t fileLoadingFlags = FileLoadingFlags::None, float scale = 1.0f);
+			void loadFromFile(::string filename, sandbox_device* device, VkQueue transferQueue, uint32_t fileLoadingFlags = FileLoadingFlags::None, float scale = 1.0f);
 
-		void bind(VkCommandBuffer commandBuffer)override;
+			void bind(VkCommandBuffer commandBuffer)override;
 
-		void gltfDraw(
-			VkCommandBuffer cmd,
-			uint32_t renderFlags = 0,
-			VkPipelineLayout pipelineLayout = VK_NULL_HANDLE,
-			uint32_t bindImageSet = 1
-		)override;
+			void gltfDraw(
+				VkCommandBuffer cmd,
+				uint32_t renderFlags = 0,
+				VkPipelineLayout pipelineLayout = VK_NULL_HANDLE,
+				uint32_t bindImageSet = 1
+			)override;
 
-		void drawNode(Node* node, VkCommandBuffer commandBuffer, uint32_t renderFlags = 0, VkPipelineLayout pipelineLayout = VK_NULL_HANDLE, uint32_t bindImageSet = 1);
+			void drawNode(Node* node, VkCommandBuffer commandBuffer, uint32_t renderFlags = 0, VkPipelineLayout pipelineLayout = VK_NULL_HANDLE, uint32_t bindImageSet = 1);
 
 
-		void getNodeDimensions(Node* node, glm::vec3& min, glm::vec3& max);
-		void getSceneDimensions();
-		void updateAnimation(uint32_t index, float time);
-		Node* findNode(Node* parent, uint32_t index);
-		Node* nodeFromIndex(uint32_t index);
-		void prepareNodeDescriptor(vkglTF::Node* node, VkDescriptorSetLayout descriptorSetLayout);
-	};
+			void getNodeDimensions(Node* node, glm::vec3& min, glm::vec3& max);
+			void getSceneDimensions();
+			void updateAnimation(uint32_t index, float time);
+			Node* findNode(Node* parent, uint32_t index);
+			Node* nodeFromIndex(uint32_t index);
+			void prepareNodeDescriptor(gltf::Node* node, VkDescriptorSetLayout descriptorSetLayout);
+		};
 
-}
+	}
+
+
+} // namespace vulkan
+
+
+

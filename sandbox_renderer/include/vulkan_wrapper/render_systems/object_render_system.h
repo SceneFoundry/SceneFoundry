@@ -1,7 +1,7 @@
 #pragma once
-#include "interfaces/render_system_i.h"
-#include "vulkan_wrapper/vulkan_device.h"
-#include "vulkan_wrapper/vulkan_pipeline.h"
+#include "SceneFoundry/core_interfaces/include/interfaces/render_system_i.h"
+#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_device.h"
+#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_pipeline.h"
 #include <vulkan/vulkan.h>
 
 // STD
@@ -11,7 +11,7 @@
 
 class ObjRenderSystem : public IRenderSystem {
 public:
-	ObjRenderSystem(sandbox_device& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
+	ObjRenderSystem(vulkan::sandbox_device& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
 	~ObjRenderSystem();
 
 	ObjRenderSystem(const ObjRenderSystem&) = delete;
@@ -21,7 +21,7 @@ public:
 		sandbox_device& device,
 		VkRenderPass            renderPass,
 		VkDescriptorSetLayout   globalSetLayout,
-		VkSandboxDescriptorPool& descriptorPool,
+		vulkan::sandbox_descriptor_pool& descriptorPool,
 		size_t frameCount)override;
 
 	void render(FrameInfo& frame) override;
@@ -33,7 +33,7 @@ private:
 
 	VkDescriptorSetLayout m_globalSetLayout;
 
-	std::unique_ptr<VkSandboxPipeline> m_pipeline;
+	std::unique_ptr<sandbox_pipeline> m_pipeline;
 	VkPipelineLayout m_pipelineLayout;
 };
 
