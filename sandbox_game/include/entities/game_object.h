@@ -22,14 +22,14 @@ namespace sandbox_game
 
       static ::pointer<sandbox_game_object> createGameObject() {
          static id_t currentId = 0;
-         return __allocate sandbox_game_object(currentId++);
+         return øallocate sandbox_game_object(currentId++);
       }
 
       static ::pointer<sandbox_game_object> makePointLight(float intensity = 10.f, float radius = 0.1f, glm::vec3 color = glm::vec3(1.f)) {
          auto gameObj = sandbox_game_object::createGameObject();
          gameObj->m_color = color;
          gameObj->m_transform.scale.x = radius;
-         gameObj->m_pointLight = __allocate PointLightComponent();
+         gameObj->m_pointLight = øallocate PointLightComponent();
          gameObj->m_pointLight->lightIntensity = intensity;
          return gameObj;
       }
@@ -47,7 +47,7 @@ namespace sandbox_game
       glm::vec3 getColor() const override { return m_color; }
 
       PointLightComponent* getPointLight() const override {
-         return m_pointLight.get();
+         return m_pointLight;
       }
 
       TransformComponent& getTransform() override {

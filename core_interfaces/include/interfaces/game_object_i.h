@@ -25,7 +25,7 @@ struct IGameObject  :
     virtual void onInit() {}
     virtual void onUpdate(float deltaTime) {}
 
-    virtual TransformComponent& getTransform() = 0;
+    virtual sandbox_game::TransformComponent& getTransform() = 0;
     virtual ::pointer<IModel> getModel() const = 0;
 
     virtual glm::vec3 getColor() const { return glm::vec3(1.f); }

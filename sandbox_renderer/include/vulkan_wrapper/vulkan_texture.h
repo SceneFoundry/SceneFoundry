@@ -10,11 +10,11 @@
 //#include <vector>
 //#include <array>
 
-#include "vk_tools/vk_init.h"
-#include "vk_tools/vk_tools.h"
+#include "SceneFoundry/sandbox_renderer/include/vk_tools/vk_init.h"
+#include "SceneFoundry/sandbox_renderer/include/vk_tools/vk_tools.h"
 
-#include "ktx.h"
-#include "ktxvulkan.h"
+#include <ktx.h>
+#include <ktxvulkan.h>
 
 namespace sandbox_renderer
 {

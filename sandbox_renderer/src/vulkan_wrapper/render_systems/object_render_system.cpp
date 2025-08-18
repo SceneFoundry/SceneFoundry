@@ -66,11 +66,12 @@ void ObjRenderSystem::render(FrameInfo& frame)
 		nullptr
 	);
 
-	for (auto& kv : frame.gameObjects) {
+	for (auto& kv : frame.gameObjects) 
+	{
 
-		auto& obj = kv.second;
+		auto& obj = kv.element2();
 
-		TransformComponent& tc = obj->getTransform();
+		sandbox_game::TransformComponent& tc = obj->getTransform();
 		PushConstantData push{};
 		push.modelMatrix = obj->getTransform().mat4();
 		push.normalMatrix = obj->getTransform().normalMatrix();
@@ -122,16 +123,16 @@ void ObjRenderSystem::createPipeline(VkRenderPass renderPass)
 {
 	assert(m_pipelineLayout != nullptr && "Cannot create pipeline before pipeline layout");
 
-	pipeline_configuration_information pipelineConfig{};
-	sandbox_pipeline::defaultPipelineConfigInfo(pipelineConfig);
+	sandbox_renderer::pipeline_configuration_information pipelineConfig{};
+	sandbox_renderer::sandbox_pipeline::defaultPipelineConfigInfo(pipelineConfig);
 
 	pipelineConfig.renderPass = renderPass;
 	pipelineConfig.pipelineLayout = m_pipelineLayout;
 
-	::string vertShaderPath = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/vert.vert.spv";
-	::string fragShaderPath = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/frag.frag.spv";
+	::string vertShaderPath = "matter://shaders/spirV/vert.vert.spv";
+	::string fragShaderPath = :"matter://res/shaders/spirV/frag.frag.spv";
 
-	m_pipeline = std::make_unique<sandbox_pipeline>(
+	m_pipeline = øallocate sandbox_renderer::sandbox_pipeline(
 		m_device,
 		vertShaderPath.c_str(),
 		fragShaderPath.c_str(),

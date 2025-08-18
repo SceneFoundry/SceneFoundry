@@ -24,16 +24,16 @@ struct PointLightPushConstants {
     float radius;
 };
 
-PointLightRS::PointLightRS(vulkan::sandbox_device& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout)
+PointLightRS::PointLightRS(sandbox_renderer::sandbox_device& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout)
     : m_device(device), m_globalSetLayout(globalSetLayout)
 {
 
 }
 void PointLightRS::init(
-    vulkan::sandbox_device& device,
+   sandbox_renderer::sandbox_device& device,
     VkRenderPass renderPass,
     VkDescriptorSetLayout globalSetLayout,
-    vulkan::sandbox_descriptor_pool& descriptorPool,
+   sandbox_renderer::sandbox_descriptor_pool& descriptorPool,
     size_t frameCount)
 {
     // Optional: assert device consistency
@@ -70,17 +70,17 @@ void PointLightRS::createPipelineLayout(VkDescriptorSetLayout globalSetLayout) {
 void PointLightRS::createPipeline(VkRenderPass renderPass) {
     assert(m_pipelineLayout != VK_NULL_HANDLE && "Cannot create pipeline before pipeline layout");
 
-    pipeline_configuration_information pipelineConfig{};
-    sandbox_pipeline::defaultPipelineConfigInfo(pipelineConfig);
+    sandbox_renderer::pipeline_configuration_information pipelineConfig{};
+    sandbox_renderer::sandbox_pipeline::defaultPipelineConfigInfo(pipelineConfig);
     pipelineConfig.bindingDescriptions.clear();
     pipelineConfig.attributeDescriptions.clear();
     pipelineConfig.renderPass = renderPass;
     pipelineConfig.pipelineLayout = m_pipelineLayout;
 
-    ::string vertShaderPath = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/point_light.vert.spv";
-    ::string fragShaderPath = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/point_light.frag.spv";
+    ::string vertShaderPath = "matter://shaders/spirV/point_light.vert.spv";
+    ::string fragShaderPath = "matter://shaders/spirV/point_light.frag.spv";
 
-    m_pipeline = std::make_unique<sandbox_pipeline>(
+    m_pipeline = øallocate sandbox_pipeline(
         m_device,
         vertShaderPath.c_str(),
         fragShaderPath.c_str(),

@@ -209,5 +209,20 @@
     <ClInclude Include="..\core_interfaces\include\interfaces\window_input_i.h">
       <Filter>Header Files\core_interfaces\interfaces</Filter>
     </ClInclude>
+    <ClInclude Include="..\core_interfaces\include\class_set.h">
+      <Filter>Header Files\core_interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core_interfaces\include\frame_info.h">
+      <Filter>Header Files\core_interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core_interfaces\include\key_codes.h">
+      <Filter>Header Files\core_interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core_interfaces\include\set.h">
+      <Filter>Header Files\core_interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\core_interfaces\include\transform_component.h">
+      <Filter>Header Files\core_interfaces</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

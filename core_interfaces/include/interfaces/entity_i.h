@@ -12,6 +12,6 @@ public:
 	virtual void onInit() {};
 	virtual void onUpdate(float dt) {};
 	virtual void onRender(ISandboxRenderer::FrameContext& frame) {};
-	virtual TransformComponent& getTransform() = 0;
+	virtual sandbox_game::TransformComponent& getTransform() = 0;
 	//virtual ~IEntity() = default;
 };

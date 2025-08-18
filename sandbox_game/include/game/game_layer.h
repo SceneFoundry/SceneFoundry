@@ -1,9 +1,9 @@
 #pragma once
-#include "interfaces/game_layer_i.h"
-#include "interfaces/window_input_i.h"
-#include "interfaces/renderer_i.h"
-#include "entities/player.h"
-#include "scene/scene.h"
+#include "SceneFoundry/core_interfaces/include/interfaces/game_layer_i.h"
+#include "SceneFoundry/core_interfaces/include/interfaces/window_input_i.h"
+#include "SceneFoundry/core_interfaces/include/interfaces/renderer_i.h"
+#include "SceneFoundry/sandbox_game/include/entities/player.h"
+#include "SceneFoundry/sandbox_game/include/scene/scene.h"
 //#include <iostream>
 //#include <memory>
 

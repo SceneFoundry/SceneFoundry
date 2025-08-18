@@ -1,6 +1,6 @@
 #include "framework.h"
 // game_layer.cpp
-#include "SceneFoundry/core_interfaces/include/game/game_layer.h"
+#include "SceneFoundry/sandbox_game/include/game/game_layer.h"
 //#include <spdlog/spdlog.h>
 
 namespace sandbox_game

@@ -1,11 +1,11 @@
 #pragma once
-#include "interfaces/window_input_i.h"
+#include "SceneFoundry/core_interfaces/include/interfaces/window_input_i.h"
 
-#include "interfaces/scene_i.h"
-#include "interfaces/entity_i.h"
-#include "entities/player.h"
-#include "asset_manager.h"
-#include "entities/game_object.h"
+#include "SceneFoundry/core_interfaces/include/interfaces/scene_i.h"
+#include "SceneFoundry/core_interfaces/include/interfaces/entity_i.h"
+#include "SceneFoundry/sandbox_game/include/entities/player.h"
+#include "SceneFoundry/sandbox_engine/include/asset_manager.h"
+#include "SceneFoundry/sandbox_game/include/entities/game_object.h"
 //#include <memory>
 //#include <vector>
 //////#include <stdexcept>
