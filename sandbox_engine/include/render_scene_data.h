@@ -3,19 +3,28 @@
 #include <glm/glm.hpp>
 #include <vulkan/vulkan.h>
 
-struct RenderableMeshInstance {
-    glm::mat4 transform;
-    uint32_t materialId;
-    uint32_t meshId;
-};
+namespace sandbox_engine
+{
 
-struct CameraView {
-    glm::mat4 view;
-    glm::mat4 proj;
-};
+   struct RenderableMeshInstance {
+      glm::mat4 transform;
+      uint32_t materialId;
+      uint32_t meshId;
+   };
 
-struct RenderFrameData {
-    CameraView camera;
-    ::array_base<RenderableMeshInstance> meshes;
-};
+   struct CameraView {
+      glm::mat4 view;
+      glm::mat4 proj;
+   };
+
+   struct RenderFrameData {
+      CameraView camera;
+      ::array_base<RenderableMeshInstance> meshes;
+   };
+
+
+
+
+} // namespace sandbox_engine
+
 
