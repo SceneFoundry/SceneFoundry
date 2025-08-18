@@ -54,10 +54,10 @@ private:
 
     VkDescriptorSetLayout m_skyboxLayout;
     sandbox_device& m_device;
-    std::unique_ptr<sandbox_pipeline> m_pipeline;
+    ::pointer<sandbox_pipeline> m_pipeline;
     VkPipelineLayout m_pipelineLayout;
     VkDescriptorImageInfo m_skyboxImageInfo{};
-    std::unique_ptr<sandbox_descriptor_set_layout> m_skyboxSetLayout;
+    ::pointer<sandbox_descriptor_set_layout> m_skyboxSetLayout;
     VkDescriptorSet m_skyboxDescriptorSet;
 
     vulkan::sandbox_descriptor_pool* m_descriptorPool = nullptr;

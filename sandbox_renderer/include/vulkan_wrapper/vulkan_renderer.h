@@ -4,10 +4,10 @@
 #include "SceneFoundry/core_interfaces/include/interfaces/renderer_i.h"
 #include "SceneFoundry/core_interfaces/include/interfaces/render_system_i.h"
 #include "SceneFoundry/core_interfaces/include/interfaces/asset_provider_i.h"
-#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/render_systems/obj_render_system.h"
+#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/render_systems/object_render_system.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/render_systems/gltf_render_system.h"
-#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/render_systems/skybox_ibl_rs.h"
-#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/render_systems/point_light_rs.h"
+#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/render_systems/skybox_ibl_render_system.h"
+#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/render_systems/point_light_render_system.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/window.h"
 #include "SceneFoundry/core_interfaces/include/vulkan_wrapper/vulkan_device.h"
 #include "SceneFoundry/core_interfaces/include/vulkan_wrapper/vulkan_swapchain.h"
@@ -68,12 +68,12 @@ namespace vulkan
 		inline const ::array_base<VkDescriptorSet>& getGlobalDescriptorSet() const {
 			return m_globalDescriptorSets;
 		}
-		inline const ::array_base<std::unique_ptr<sandbox_buffer>>& getUboBuffers() const {
+		inline const ::array_base<::pointer<sandbox_buffer>>& getUboBuffers() const {
 			return m_uboBuffers;
 		}
 
 
-		std::unique_ptr<vulkan::sandbox_descriptor_pool>                      m_pool;
+		::pointer<vulkan::sandbox_descriptor_pool>                      m_pool;
 	private:
 
 		::array_base<VkCommandBuffer>					    m_commandBuffers;
@@ -82,18 +82,18 @@ namespace vulkan
 		int												 m_currentFrameIndex = 0;
 		bool										       m_bIsFrameStarted = false;
 
-		std::unique_ptr<sandbox_descriptor_set_layout>		  m_globalLayout;
+		::pointer<sandbox_descriptor_set_layout>		  m_globalLayout;
 
 		sandbox_device& m_device;
 		SandboxWindow& m_window;
-		::array_base<std::unique_ptr<IRenderSystem>>				   m_systems;
+		::array_base<::pointer<IRenderSystem>>				   m_systems;
 
-		std::unique_ptr<sandbox_swap_chain>					     m_swapchain;
+		::pointer<sandbox_swap_chain>					     m_swapchain;
 		::pointer<sandbox_swap_chain>					  m_oldSwapchain;
 		VkInstance												  m_instance = VK_NULL_HANDLE;
 
 		uint32_t								      m_width{ 0 }, m_height{ 0 };
-		::array_base<std::unique_ptr<sandbox_buffer>>			m_uboBuffers;
+		::array_base<::pointer<sandbox_buffer>>			m_uboBuffers;
 		::array_base<VkDescriptorSet>				  m_globalDescriptorSets;
 		::array_base<VkFence>							    m_inFlightFences;
 

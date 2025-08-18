@@ -75,7 +75,7 @@ namespace vulkan
          Builder& addPoolSize(VkDescriptorType descriptorType, uint32_t count);
          Builder& setPoolFlags(VkDescriptorPoolCreateFlags flags);
          Builder& setMaxSets(uint32_t count);
-         std::unique_ptr<vulkan::sandbox_descriptor_pool> build() const;
+         ::pointer<vulkan::sandbox_descriptor_pool> build() const;
 
       private:
          sandbox_device& m_device;

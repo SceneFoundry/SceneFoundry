@@ -16,5 +16,5 @@ struct IAssetProvider :
     virtual VkDescriptorImageInfo getTextureDescriptor(const ::scoped_string & name) const = 0;
 
     virtual ::array_base<::string> listTextureNames()    const = 0;
-    virtual ::pointer<gltf::Model> getGLTFmodel(const ::scoped_string & name) const = 0;
+    virtual ::pointer<::vulkan::gltf::Model> getGLTFmodel(const ::scoped_string & name) const = 0;
 };

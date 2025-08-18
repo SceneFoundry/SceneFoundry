@@ -44,7 +44,7 @@ namespace vulkan
       // Default count = 1, no special flags
       return addBinding(binding, descriptorType, stageFlags, 1, 0);
    }
-   std::unique_ptr<sandbox_descriptor_set_layout> sandbox_descriptor_set_layout::Builder::build() const {
+   ::pointer<sandbox_descriptor_set_layout> sandbox_descriptor_set_layout::Builder::build() const {
       ::array_base<VkDescriptorSetLayoutBinding> setBindings;
       ::array_base<VkDescriptorBindingFlags> setBindingFlags;
 
@@ -111,7 +111,7 @@ namespace vulkan
       return *this;
    }
 
-   std::unique_ptr<vulkan::sandbox_descriptor_pool> vulkan::sandbox_descriptor_pool::Builder::build() const {
+   ::pointer<vulkan::sandbox_descriptor_pool> vulkan::sandbox_descriptor_pool::Builder::build() const {
       return std::make_unique<vulkan::sandbox_descriptor_pool>(m_device, m_maxSets, m_poolFlags, m_poolSizes);
    }
 

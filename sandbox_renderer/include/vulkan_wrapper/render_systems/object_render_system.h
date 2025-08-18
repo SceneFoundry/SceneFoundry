@@ -18,7 +18,7 @@ public:
 	ObjRenderSystem& operator=(const ObjRenderSystem&) = delete;
 
 	void init(
-		sandbox_device& device,
+		::vulkan::sandbox_device& device,
 		VkRenderPass            renderPass,
 		VkDescriptorSetLayout   globalSetLayout,
 		vulkan::sandbox_descriptor_pool& descriptorPool,
@@ -29,11 +29,11 @@ private:
 	void createPipelineLayout(VkDescriptorSetLayout globalSetLayout);
 	void createPipeline(VkRenderPass renderPass);
 
-	sandbox_device& m_device;
+	::vulkan::sandbox_device& m_device;
 
 	VkDescriptorSetLayout m_globalSetLayout;
 
-	std::unique_ptr<sandbox_pipeline> m_pipeline;
+	::pointer<::vulkan::sandbox_pipeline> m_pipeline;
 	VkPipelineLayout m_pipelineLayout;
 };
 

@@ -37,7 +37,9 @@ namespace vulkan
 		::array_base<VkDescriptorSetLayout> descriptorSetLayouts;
 	};
 
-	class sandbox_pipeline {
+	class sandbox_pipeline :
+		virtual public ::particle
+	{
 	public:
 		sandbox_pipeline(
 			sandbox_device& device,
