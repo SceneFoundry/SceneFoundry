@@ -7,7 +7,7 @@
 #include <unordered_map>
 //#include <vector>
 
-namespace vulkan
+namespace sandbox_renderer
 {
 
    class sandbox_descriptor_set_layout :
@@ -75,7 +75,7 @@ namespace vulkan
          Builder& addPoolSize(VkDescriptorType descriptorType, uint32_t count);
          Builder& setPoolFlags(VkDescriptorPoolCreateFlags flags);
          Builder& setMaxSets(uint32_t count);
-         ::pointer<vulkan::sandbox_descriptor_pool> build() const;
+         ::pointer<sandbox_renderer::sandbox_descriptor_pool> build() const;
 
       private:
          sandbox_device& m_device;
@@ -115,7 +115,7 @@ namespace vulkan
    class VkSandboxDescriptorWriter
    {
    public:
-      VkSandboxDescriptorWriter(sandbox_descriptor_set_layout& setLayout, vulkan::sandbox_descriptor_pool& pool);
+      VkSandboxDescriptorWriter(sandbox_descriptor_set_layout& setLayout, sandbox_renderer::sandbox_descriptor_pool& pool);
 
       VkSandboxDescriptorWriter& writeBuffer(uint32_t binding, VkDescriptorBufferInfo* bufferInfo);
       VkSandboxDescriptorWriter& writeImage(uint32_t binding, const VkDescriptorImageInfo* imageInfo);
@@ -126,11 +126,11 @@ namespace vulkan
 
    private:
       sandbox_descriptor_set_layout& m_setLayout;
-      vulkan::sandbox_descriptor_pool& m_pool;
+      sandbox_renderer::sandbox_descriptor_pool& m_pool;
       ::array_base<VkWriteDescriptorSet> m_writes;
       uint32_t m_variableDescriptorCount = 0;
    };
 
 
-} // namespace vulkan
+} // namespace sandbox_renderer
 

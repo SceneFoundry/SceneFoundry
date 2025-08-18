@@ -6,7 +6,7 @@
 //#include <cassert>
 //#include <stdexcept>
 
-namespace vulkan
+namespace sandbox_renderer
 {
 
    uint32_t maxTextures = 1000;
@@ -267,6 +267,6 @@ namespace vulkan
       vkUpdateDescriptorSets(m_pool.m_device.device(), m_writes.size(), m_writes.data(), 0, nullptr);
    }
 
-} // namespace vulkan
+} // namespace sandbox_renderer
 
 

@@ -1,7 +1,9 @@
 #pragma once
+#define GLM_ENABLE_EXPERIMENTAL
 #include "SceneFoundry/core_interfaces/include/interfaces/render_system_i.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_device.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_pipeline.h"
+
 #include <vulkan/vulkan.h>
 
 // STD
@@ -16,14 +18,14 @@ public:
 	PointLightRS(const PointLightRS&) = delete;
 	PointLightRS& operator=(const PointLightRS&) = delete;
 
-	PointLightRS(vulkan::sandbox_device& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
+	PointLightRS(sandbox_renderer::sandbox_device& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
 	~PointLightRS();
 
 	void init(
-		::vulkan::sandbox_device& device,
+		::sandbox_renderer::sandbox_device& device,
 		VkRenderPass            renderPass,
 		VkDescriptorSetLayout   globalSetLayout,
-		vulkan::sandbox_descriptor_pool& descriptorPool,
+		sandbox_renderer::sandbox_descriptor_pool& descriptorPool,
 		size_t frameCount)override;
 
 	void update(FrameInfo& frame, GlobalUbo& ubo) override;
@@ -32,11 +34,11 @@ private:
 	void createPipelineLayout(VkDescriptorSetLayout globalSetLayout);
 	void createPipeline(VkRenderPass renderPass);
 
-	sandbox_device& m_device;
+	::sandbox_renderer::sandbox_device& m_device;
 
 	VkDescriptorSetLayout m_globalSetLayout;
 
-	::pointer<sandbox_pipeline> m_pipeline;
+	::pointer<sandbox_renderer::sandbox_pipeline> m_pipeline;
 	VkPipelineLayout m_pipelineLayout;
 
 	float m_rotationSpeed = 0.2f;

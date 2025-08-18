@@ -16,7 +16,7 @@
 //#include <vector>
 //#include <array>
 
-namespace vulkan
+namespace sandbox_renderer
 {
 
 	class sandbox_renderer :
@@ -110,7 +110,7 @@ namespace vulkan
 	};
 
 
-} // namespace vulkan
+} // namespace sandbox_renderer
 
 
 s

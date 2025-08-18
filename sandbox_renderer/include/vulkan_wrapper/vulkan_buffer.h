@@ -3,7 +3,7 @@
 #include "vulkan_device.h"
 
 
-namespace vulkan
+namespace sandbox_renderer
 {
 
    class sandbox_buffer  : 
@@ -63,7 +63,7 @@ namespace vulkan
    };
 
 
-} // namespace vulkan
+} // namespace sandbox_renderer
 
 
 

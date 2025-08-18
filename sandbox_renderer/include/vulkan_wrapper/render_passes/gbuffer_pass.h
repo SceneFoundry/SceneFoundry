@@ -2,7 +2,7 @@
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_image.h"
 #include <vulkan/vulkan.h>
 
-namespace vulkan
+namespace sandbox_renderer
 {
 
    struct GBuffer {
@@ -23,5 +23,5 @@ namespace vulkan
    };
 
 
-} // namespace vulkan
+} // namespace sandbox_renderer
 

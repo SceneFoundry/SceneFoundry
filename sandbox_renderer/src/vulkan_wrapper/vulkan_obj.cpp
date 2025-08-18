@@ -23,7 +23,7 @@ namespace std
     };
 }
 
-namespace vulkan
+namespace sandbox_renderer
 {
 
    sandbox_object_model::sandbox_object_model(sandbox_device& device, const Builder& builder)
@@ -238,7 +238,7 @@ namespace vulkan
 
 
 
-} // namespace vulkan
+} // namespace sandbox_renderer
 
 
 

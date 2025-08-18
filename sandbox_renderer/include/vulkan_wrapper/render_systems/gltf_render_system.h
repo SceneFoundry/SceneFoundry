@@ -22,7 +22,7 @@
 
 class GltfRenderSystem : public IRenderSystem {
 public:
-	GltfRenderSystem(sandbox_device& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout, IAssetProvider& assets);
+	GltfRenderSystem(::sandbox_renderer::sandbox_device& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout, IAssetProvider& assets);
 	~GltfRenderSystem();
 
 	GltfRenderSystem(const GltfRenderSystem&) = delete;
@@ -40,13 +40,13 @@ private:
 	void createPipelineLayout(VkDescriptorSetLayout globalSetLayout);
 	void createPipeline(VkRenderPass renderPass);
 
-	sandbox_device& m_device;
+	sandbox_renderer::sandbox_device& m_device;
 
 	VkDescriptorSetLayout m_globalSetLayout;
 	VkDescriptorSetLayout m_iblSetLayout;
 	VkDescriptorSet m_iblDescriptorSet;
 
-	::pointer<sandbox_pipeline> m_opaquePipeline;
+	::pointer<sandbox_renderer::sandbox_pipeline> m_opaquePipeline;
 	::pointer<sandbox_pipeline> m_maskPipeline;
 	::pointer<sandbox_pipeline> m_blendPipeline;
 	VkPipelineLayout m_pipelineLayout;

@@ -10,7 +10,8 @@
 struct IModel;
 
 
-struct PointLightComponent
+struct PointLightComponent :
+   virtual public ::particle
 {
     float lightIntensity = 1.0f;
 };

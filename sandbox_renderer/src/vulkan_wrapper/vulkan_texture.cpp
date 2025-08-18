@@ -7,7 +7,7 @@
 //#include <stdexcept>
 //#include <cstring>
 
-namespace vulkan
+namespace sandbox_renderer
 {
 
 	sandbox_texture::sandbox_texture(sandbox_device* device) : m_pDevice(device) {}
@@ -901,7 +901,7 @@ namespace vulkan
 
 
 
-} // namespace vulkan
+} // namespace sandbox_renderer
 
 
 

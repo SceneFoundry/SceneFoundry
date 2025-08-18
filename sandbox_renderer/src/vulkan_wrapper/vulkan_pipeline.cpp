@@ -8,7 +8,7 @@
 //#include <stdexcept>
 //#include <iostream>
 //#include <cassert>
-namespace vulkan
+namespace sandbox_renderer
 {
 
 
@@ -237,6 +237,6 @@ namespace vulkan
 	}
 
 
-} // namespace vulkan
+} // namespace sandbox_renderer
 
 

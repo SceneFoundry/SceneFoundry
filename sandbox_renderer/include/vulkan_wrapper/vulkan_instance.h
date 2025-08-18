@@ -2,7 +2,7 @@
 #include <vulkan/vulkan.h>
 //#include <vector>
 
-namespace vulkan
+namespace sandbox_renderer
 {
 
 
@@ -52,7 +52,7 @@ namespace vulkan
    };
 
 
-} // namespace vulkan
+} // namespace sandbox_renderer
 
 
 

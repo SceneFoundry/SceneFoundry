@@ -5,7 +5,7 @@
 //#include <cassert>
 //#include <spdlog/spdlog.h>
 
-namespace vulkan
+namespace sandbox_renderer
 {
 
 
@@ -322,7 +322,7 @@ namespace vulkan
 
 
 
-} // namespace vulkan
+} // namespace sandbox_renderer
 
 
 

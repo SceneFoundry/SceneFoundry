@@ -1,7 +1,6 @@
 #include "framework.h"
 // obj_render_system.cpp
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/render_systems/object_render_system.h"
-#include ""
 // External
 #define GLM_FORCE_RADIANS	
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
@@ -23,17 +22,17 @@ struct PushConstantData {
 	//int textureIndex;
 };
 
-ObjRenderSystem::ObjRenderSystem(vulkan::sandbox_device& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout)
+ObjRenderSystem::ObjRenderSystem(sandbox_renderer::sandbox_device& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout)
 	: m_device(device), m_globalSetLayout(globalSetLayout)
 {
 
 }
 
 void ObjRenderSystem::init(
-	vulkan::sandbox_device& device,
+	sandbox_renderer::sandbox_device& device,
 	VkRenderPass renderPass,
 	VkDescriptorSetLayout globalSetLayout,
-	vulkan::sandbox_descriptor_pool& descriptorPool,
+	sandbox_renderer::sandbox_descriptor_pool& descriptorPool,
 	size_t frameCount)
 {
 	assert(&device == &m_device);
@@ -52,9 +51,9 @@ ObjRenderSystem::~ObjRenderSystem()
 void ObjRenderSystem::render(FrameInfo& frame)
 {
 	m_pipeline->bind(frame.commandBuffer);
-	::preallocated_array_base< ::array_base <VkDescriptorSet, 1> > descriptorSets = {
-		frame.globalDescriptorSet
-	};
+	::preallocated_array_base< ::array_base <VkDescriptorSet>, 1 > descriptorSets;
+	
+	descriptorSets = { frame.globalDescriptorSet };
 
 	vkCmdBindDescriptorSets(
 		frame.commandBuffer,

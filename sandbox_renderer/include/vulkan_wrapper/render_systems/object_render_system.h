@@ -11,17 +11,17 @@
 
 class ObjRenderSystem : public IRenderSystem {
 public:
-	ObjRenderSystem(vulkan::sandbox_device& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
+	ObjRenderSystem(::sandbox_renderer::sandbox_device& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
 	~ObjRenderSystem();
 
 	ObjRenderSystem(const ObjRenderSystem&) = delete;
 	ObjRenderSystem& operator=(const ObjRenderSystem&) = delete;
 
 	void init(
-		::vulkan::sandbox_device& device,
+		::sandbox_renderer::sandbox_device& device,
 		VkRenderPass            renderPass,
 		VkDescriptorSetLayout   globalSetLayout,
-		vulkan::sandbox_descriptor_pool& descriptorPool,
+		::sandbox_renderer::sandbox_descriptor_pool& descriptorPool,
 		size_t frameCount)override;
 
 	void render(FrameInfo& frame) override;
@@ -29,11 +29,11 @@ private:
 	void createPipelineLayout(VkDescriptorSetLayout globalSetLayout);
 	void createPipeline(VkRenderPass renderPass);
 
-	::vulkan::sandbox_device& m_device;
+	::sandbox_renderer::sandbox_device& m_device;
 
 	VkDescriptorSetLayout m_globalSetLayout;
 
-	::pointer<::vulkan::sandbox_pipeline> m_pipeline;
+	::pointer<::sandbox_renderer::sandbox_pipeline> m_pipeline;
 	VkPipelineLayout m_pipelineLayout;
 };
 

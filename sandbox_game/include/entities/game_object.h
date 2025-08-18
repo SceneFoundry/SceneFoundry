@@ -29,7 +29,7 @@ namespace sandbox_game
          auto gameObj = sandbox_game_object::createGameObject();
          gameObj->m_color = color;
          gameObj->m_transform.scale.x = radius;
-         gameObj->m_pointLight = std::make_unique<PointLightComponent>();
+         gameObj->m_pointLight = __allocate PointLightComponent();
          gameObj->m_pointLight->lightIntensity = intensity;
          return gameObj;
       }
@@ -67,7 +67,7 @@ namespace sandbox_game
       ::pointer<IModel> m_pModel;
       glm::vec3 m_color{};
       bool m_bIsOBJ{ false };
-      ::pointer<PointLightComponent> m_pointLight = nullptr;
+      ::pointer<PointLightComponent> m_pointLight;
 
       ::string m_cubemapTextureName;
       id_t m_id;

@@ -15,16 +15,16 @@ public:
 
 
     virtual void init(
-        vulkan::sandbox_device& device,
+       sandbox_renderer::sandbox_device& device,
         VkRenderPass            renderPass,
         VkDescriptorSetLayout   globalSetLayout,
-        vulkan::sandbox_descriptor_pool& descriptorPool)
+       sandbox_renderer::sandbox_descriptor_pool& descriptorPool)
     {};   
     virtual void init(
-        vulkan::sandbox_device& device,
+       sandbox_renderer::sandbox_device& device,
         VkRenderPass            renderPass,
         VkDescriptorSetLayout   globalSetLayout,
-        vulkan::sandbox_descriptor_pool& descriptorPool,
+       sandbox_renderer::sandbox_descriptor_pool& descriptorPool,
         size_t frameCount)
     {};
 

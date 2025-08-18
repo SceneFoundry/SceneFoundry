@@ -4,7 +4,7 @@
 //#include <vector>
 //#include <memory>
 
-namespace vulkan
+namespace sandbox_renderer
 {
 
    class sandbox_device;
@@ -101,5 +101,5 @@ namespace vulkan
    };
 
 
-} // namespace vulkan
+} // namespace sandbox_renderer
 

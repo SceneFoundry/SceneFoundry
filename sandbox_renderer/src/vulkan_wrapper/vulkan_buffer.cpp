@@ -5,7 +5,7 @@
 //#include <cassert>
 //#include <cstring>
 
-namespace vulkan
+namespace sandbox_renderer
 {
 
 
@@ -190,6 +190,6 @@ namespace vulkan
 
 
 
-} //  namespace vulkan
+} //  namespace sandbox_renderer
 
 

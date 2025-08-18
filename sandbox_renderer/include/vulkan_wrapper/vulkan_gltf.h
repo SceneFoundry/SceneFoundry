@@ -26,7 +26,7 @@
 
 #include "tiny_gltf.h"
 
-namespace vulkan
+namespace sandbox_renderer
 {
 
 
@@ -320,7 +320,7 @@ namespace vulkan
 	}
 
 
-} // namespace vulkan
+} // namespace sandbox_renderer
 
 
 

@@ -7,7 +7,7 @@
 //#include <iostream>
 
 
-namespace vulkan
+namespace sandbox_renderer
 {
 
    sandbox_instance::sandbox_instance() {
@@ -149,6 +149,6 @@ namespace vulkan
 
 
 
-} // namespace vulkan
+} // namespace sandbox_renderer
 
 

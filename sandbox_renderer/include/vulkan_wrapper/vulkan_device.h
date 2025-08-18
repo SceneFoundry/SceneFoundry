@@ -7,7 +7,7 @@
 #include "SceneFoundry/sandbox_renderer/include/window.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_instance.h"
 
-namespace vulkan
+namespace sandbox_renderer
 {
 
 
@@ -166,7 +166,7 @@ namespace vulkan
 
 
 
-} // namespace vulkan
+} // namespace sandbox_renderer
 
 
 

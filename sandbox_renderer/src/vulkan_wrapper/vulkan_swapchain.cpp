@@ -4,7 +4,7 @@
 #include "vk_tools/vk_init.h"
 //#include <stdexcept>
 //#include <array>
-namespace vulkan
+namespace sandbox_renderer
 {
 
    sandbox_swap_chain::sandbox_swap_chain(sandbox_device& device, VkExtent2D extent)
@@ -458,6 +458,6 @@ namespace vulkan
 
 
 
-} // namespace vulkan
+} // namespace sandbox_renderer
 
 

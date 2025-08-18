@@ -9,7 +9,7 @@
 //#include <memory>
 //#include <vector>
 
-namespace vulkan
+namespace sandbox_renderer
 {
 
    class DescriptorRegistry 
@@ -38,7 +38,7 @@ namespace vulkan
 
    private:
       sandbox_device& m_device;
-      ::pointer<vulkan::sandbox_descriptor_pool>  m_pool;
+      ::pointer<sandbox_renderer::sandbox_descriptor_pool>  m_pool;
 
       // pooled by (setIndex, type) to sum counts:
       struct PoolSizeKey { uint32_t setIndex; VkDescriptorType type; };
@@ -58,7 +58,7 @@ namespace vulkan
 
 
 
-} // namespace vulkan
+} // namespace sandbox_renderer
 
 
 

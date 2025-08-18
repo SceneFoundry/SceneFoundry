@@ -5,7 +5,7 @@
 #include "SceneFoundry/core_interfaces/include/set.h"
 
 
-namespace vulkan
+namespace sandbox_renderer
 {
 
    DescriptorRegistry::DescriptorRegistry(sandbox_device& device) : m_device(device)
@@ -44,7 +44,7 @@ namespace vulkan
       }
 
       // 2) Build our single DescriptorPool via the sandbox Builder
-      vulkan::sandbox_descriptor_pool::Builder poolBuilder{ m_device };
+      sandbox_renderer::sandbox_descriptor_pool::Builder poolBuilder{ m_device };
       poolBuilder
          // <-- use setsPerFrame * maxFrames, not m_entries.size()
          .setMaxSets(setsPerFrame * maxFrames)
@@ -116,6 +116,6 @@ namespace vulkan
    }
 
 
-} // namespace vulkan
+} // namespace sandbox_renderer
 
 

@@ -22,7 +22,7 @@
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_gltf.h"
 #include "SceneFoundry/sandbox_renderer/include/vk_tools/vk_tools.h"
 
-namespace vulkan
+namespace sandbox_renderer
 {
 
 VkDescriptorSetLayout  gltf::descriptorSetLayoutImage = VK_NULL_HANDLE;
@@ -1686,6 +1686,6 @@ void  gltf::Model::prepareNodeDescriptor( Node* node, VkDescriptorSetLayout desc
 }
 
 
-} // namespace vulkan
+} // namespace sandbox_renderer
 
 
