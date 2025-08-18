@@ -1,6 +1,6 @@
 #include "framework.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_device.h"
-
+#include "SceneFoundry/sandbox_interfaces/include/class_set.h"
 
 //#include <cstring>
 //#include <iostream>
@@ -32,7 +32,7 @@ namespace sandbox_renderer
       if (deviceCount == 0) {
          throw std::runtime_error("failed to find GPUs with Vulkan support!");
       }
-      std::cout << "Device count: " << deviceCount << std::endl;
+      information() << "Device count: " << deviceCount ;
 
       ::array_base<VkPhysicalDevice> devices(deviceCount);
       vkEnumeratePhysicalDevices(m_instance.instance(), &deviceCount, devices.data());
@@ -49,7 +49,7 @@ namespace sandbox_renderer
       }
 
       vkGetPhysicalDeviceProperties(m_physicalDevice, &m_deviceProperties);
-      std::cout << "physical device: " << m_deviceProperties.deviceName << std::endl;
+      information() << "physical device: " << m_deviceProperties.deviceName ;
 
       vkGetPhysicalDeviceMemoryProperties(m_physicalDevice, &m_deviceMemoryProperties);
    }
@@ -60,7 +60,9 @@ namespace sandbox_renderer
       QueueFamilyIndices indices = findQueueFamilies(m_physicalDevice);
 
       ::array_base<VkDeviceQueueCreateInfo> queueCreateInfos;
-      std::class_set<uint32_t> uniqueQueueFamilies = { indices.graphicsFamily, indices.presentFamily };
+      ::class_set_base<uint32_t> uniqueQueueFamilies;
+      uniqueQueueFamilies.add(indices.graphicsFamily);
+      uniqueQueueFamilies.add(indices.presentFamily);
 
       float queuePriority = 1.0f;
       for (uint32_t queueFamily : uniqueQueueFamilies) {
@@ -69,7 +71,7 @@ namespace sandbox_renderer
          queueCreateInfo.queueFamilyIndex = queueFamily;
          queueCreateInfo.queueCount = 1;
          queueCreateInfo.pQueuePriorities = &queuePriority;
-         queueCreateInfos.push_back(queueCreateInfo);
+         queueCreateInfos.add(queueCreateInfo);
       }
 
       // Descriptor Indexing Features
@@ -150,7 +152,8 @@ namespace sandbox_renderer
       vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, nullptr);
       ::array_base<VkExtensionProperties> availableExtensions(extensionCount);
       vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, availableExtensions.data());
-      std::class_set<::string> requiredExtensions(m_deviceExtensions.begin(), m_deviceExtensions.end());
+      ::class_set_base<::string> requiredExtensions;
+      requiredExtensions.add(m_deviceExtensions.begin(), m_deviceExtensions.end());
       for (const auto& extension : availableExtensions) {
          requiredExtensions.erase(extension.extensionName);
       }

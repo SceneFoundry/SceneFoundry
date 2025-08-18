@@ -18,6 +18,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #define TINYGLTF_NO_STB_IMAGE_WRITE
+#define TINYGLTF_USE_RAPIDJSON
 
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_gltf.h"
 #include "SceneFoundry/sandbox_renderer/include/vk_tools/vk_tools.h"
@@ -130,8 +131,8 @@ void gltf::Texture::fromglTfImage(tinygltf::Image& gltfimage, ::string path, san
 		mipLevels = static_cast<uint32_t>(floor(log2(std::max(width, height))) + 1.0);
 
 		vkGetPhysicalDeviceFormatProperties(device->m_physicalDevice, format, &formatProperties);
-		assert(formatProperties.optimalTilingFeatures & VK_FORMAT_FEATURE_BLIT_SRC_BIT);
-		assert(formatProperties.optimalTilingFeatures & VK_FORMAT_FEATURE_BLIT_DST_BIT);
+		ASSERT(formatProperties.optimalTilingFeatures & VK_FORMAT_FEATURE_BLIT_SRC_BIT);
+		ASSERT(formatProperties.optimalTilingFeatures & VK_FORMAT_FEATURE_BLIT_DST_BIT);
 
 		VkMemoryAllocateInfo memAllocInfo{};
 		memAllocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
@@ -303,7 +304,7 @@ void gltf::Texture::fromglTfImage(tinygltf::Image& gltfimage, ::string path, san
 			vks::tools::exitFatal("Could not load texture from " + filename + "\n\nMake sure the assets submodule has been checked out and is up-to-date.", -1);
 		}
 		size_t size = AAsset_getLength(asset);
-		assert(size > 0);
+		ASSERT(size > 0);
 		ktx_uint8_t* textureData = new ktx_uint8_t[size];
 		AAsset_read(asset, textureData, size);
 		AAsset_close(asset);
@@ -315,7 +316,7 @@ void gltf::Texture::fromglTfImage(tinygltf::Image& gltfimage, ::string path, san
 		}
 		result = ktxTexture_CreateFromNamedFile(filename.c_str(), KTX_TEXTURE_CREATE_LOAD_IMAGE_DATA_BIT, &ktxTexture);
 #endif		
-		assert(result == KTX_SUCCESS);
+		ASSERT(result == KTX_SUCCESS);
 		
 
 		this->device = device;
@@ -361,7 +362,7 @@ void gltf::Texture::fromglTfImage(tinygltf::Image& gltfimage, ::string path, san
 		{
 			ktx_size_t offset;
 			KTX_error_code result = ktxTexture_GetImageOffset(ktxTexture, i, 0, 0, &offset);
-			assert(result == KTX_SUCCESS);
+			ASSERT(result == KTX_SUCCESS);
 			VkBufferImageCopy bufferCopyRegion = {};
 			bufferCopyRegion.imageSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
 			bufferCopyRegion.imageSubresource.mipLevel = i;
@@ -867,7 +868,7 @@ void   gltf::Model::loadNode( Node* parent, const tinygltf::Node& node, uint32_t
 				const float* bufferWeights = nullptr;
 
 				// Position attribute is required
-				assert(primitive.attributes.find("POSITION") != primitive.attributes.end());
+				ASSERT(primitive.attributes.find("POSITION") != primitive.attributes.end());
 
 				const tinygltf::Accessor& posAccessor = model.accessors[primitive.attributes.find("POSITION")->element2()];
 				const tinygltf::BufferView& posView = model.bufferViews[posAccessor.bufferView];
@@ -980,7 +981,7 @@ void   gltf::Model::loadNode( Node* parent, const tinygltf::Node& node, uint32_t
 					break;
 				}
 				default:
-					std::cerr << "Index component type " << accessor.componentType << " not supported!" << std::endl;
+					error() << "Index component type " << accessor.componentType << " not supported!" ;
 					return;
 				}
 			}
@@ -1201,7 +1202,7 @@ void  gltf::Model::loadFromFile(::string filename, sandbox_device* device, VkQue
 
 	for (auto extension : gltfModel.extensionsUsed) {
 		if (extension == "KHR_materials_pbrSpecularGlossiness") {
-			std::cout << "Required extension: " << extension;
+			information() << "Required extension: " << extension;
 			m_bMetallicRoughnessWorkflow = false;
 		}
 	}
@@ -1211,7 +1212,7 @@ void  gltf::Model::loadFromFile(::string filename, sandbox_device* device, VkQue
 	indices.count = static_cast<uint32_t>(indexBuffer.size());
 	vertices.count = static_cast<uint32_t>(vertexBuffer.size());
 
-	assert((vertexBufferSize > 0) && (indexBufferSize > 0));
+	ASSERT((vertexBufferSize > 0) && (indexBufferSize > 0));
 
 	struct StagingBuffer {
 		VkBuffer buffer;
@@ -1491,7 +1492,7 @@ void gltf::Model::loadAnimations(tinygltf::Model& gltfModel)
 				const tinygltf::BufferView& bufferView = gltfModel.bufferViews[accessor.bufferView];
 				const tinygltf::Buffer& buffer = gltfModel.buffers[bufferView.buffer];
 
-				assert(accessor.componentType == TINYGLTF_COMPONENT_TYPE_FLOAT);
+				ASSERT(accessor.componentType == TINYGLTF_COMPONENT_TYPE_FLOAT);
 
 				float* buf = new float[accessor.count];
 				memcpy(buf, &buffer.data[accessor.byteOffset + bufferView.byteOffset], accessor.count * sizeof(float));
@@ -1515,7 +1516,7 @@ void gltf::Model::loadAnimations(tinygltf::Model& gltfModel)
 				const tinygltf::BufferView& bufferView = gltfModel.bufferViews[accessor.bufferView];
 				const tinygltf::Buffer& buffer = gltfModel.buffers[bufferView.buffer];
 
-				assert(accessor.componentType == TINYGLTF_COMPONENT_TYPE_FLOAT);
+				ASSERT(accessor.componentType == TINYGLTF_COMPONENT_TYPE_FLOAT);
 
 				switch (accessor.type) {
 				case TINYGLTF_TYPE_VEC3: {
@@ -1537,7 +1538,7 @@ void gltf::Model::loadAnimations(tinygltf::Model& gltfModel)
 					break;
 				}
 				default: {
-					std::cout << "unknown type" << std::endl;
+					information() << "unknown type" ;
 					break;
 				}
 				}
@@ -1560,7 +1561,7 @@ void gltf::Model::loadAnimations(tinygltf::Model& gltfModel)
 				channel.path = AnimationChannel::PathType::SCALE;
 			}
 			if (source.target_path == "weights") {
-				std::cout << "weights not yet supported, skipping channel" << std::endl;
+				information() << "weights not yet supported, skipping channel" ;
 				continue;
 			}
 			channel.samplerIndex = source.sampler;
@@ -1579,7 +1580,7 @@ void gltf::Model::loadAnimations(tinygltf::Model& gltfModel)
 void  gltf::Model::updateAnimation(uint32_t index, float time)
 {
 	if (index > static_cast<uint32_t>(m_animations.size()) - 1) {
-		std::cout << "No animation with index " << index << std::endl;
+		information() << "No animation with index " << index ;
 		return;
 	}
 	Animation& animation = m_animations[index];

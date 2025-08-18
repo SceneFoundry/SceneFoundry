@@ -64,7 +64,8 @@ namespace sandbox_renderer
 
    };
 
-   class sandbox_descriptor_pool
+   class sandbox_descriptor_pool :
+      virtual public ::particle
    {
    public:
       class Builder

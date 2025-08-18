@@ -1,5 +1,6 @@
 #include "framework.h"
 // vulkan_pipeline.cpp
+#include "acme/filesystem/filesystem/file_context.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_pipeline.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_obj.h"
 
@@ -39,25 +40,25 @@ namespace sandbox_renderer
 	}
 
 
-	::array_base<char> sandbox_pipeline::readFile(const ::scoped_string& filepath)
-	{
+	//::array_base<char> sandbox_pipeline::readFile(const ::scoped_string& filepath)
+	//{
 
 
-		std::ifstream file{ filepath, std::ios::ate | std::ios::binary };
+	//	std::ifstream file{ filepath, std::ios::ate | std::ios::binary };
 
-		if (!file.is_open()) {
-			throw::std::runtime_error("failed to open file: " + filepath);
-		}
+	//	if (!file.is_open()) {
+	//		throw::std::runtime_error("failed to open file: " + filepath);
+	//	}
 
-		size_t fileSize = static_cast<size_t>(file.tellg());
-		::array_base<char> buffer(fileSize);
+	//	size_t fileSize = static_cast<size_t>(file.tellg());
+	//	::array_base<char> buffer(fileSize);
 
-		file.seekg(0);
-		file.read(buffer.data(), fileSize);
+	//	file.seekg(0);
+	//	file.read(buffer.data(), fileSize);
 
-		file.close();
-		return buffer;
-	}
+	//	file.close();
+	//	return buffer;
+	//}
 	void sandbox_pipeline::createGraphicsPipeline
 	(
 		const ::scoped_string& vertFilepath,
@@ -66,12 +67,12 @@ namespace sandbox_renderer
 	{
 
 
-		assert(
+		ASSERT(
 			configInfo.renderPass != VK_NULL_HANDLE &&
 			"Cannot create graphics pipeline: no renderPass provided in configInfo");
 
-		auto vertCode = readFile(vertFilepath);
-		auto fragCode = readFile(fragFilepath);
+		auto vertCode = file()->as_string(vertFilepath);
+		auto fragCode = file()->as_string(fragFilepath);
 
 		createShaderModule(vertCode, &m_vertShaderModule);
 		createShaderModule(fragCode, &m_fragShaderModule);
@@ -103,7 +104,7 @@ namespace sandbox_renderer
 
 		// Create pipeline layout internally if none was provided
 		if (configInfo.pipelineLayout == VK_NULL_HANDLE) {
-			assert(!configInfo.descriptorSetLayouts.empty() &&
+			ASSERT(!configInfo.descriptorSetLayouts.empty() &&
 				"Descriptor set layouts must be provided when pipelineLayout is null!");
 
 			VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
@@ -144,12 +145,12 @@ namespace sandbox_renderer
 			throw std::runtime_error("Failed to create graphics pipeline");
 		}
 	}
-	void sandbox_pipeline::createShaderModule(const ::array_base<char>& code, VkShaderModule* shaderModule)
+	void sandbox_pipeline::createShaderModule(const ::block& block, VkShaderModule* shaderModule)
 	{
 		VkShaderModuleCreateInfo createInfo{};
 		createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
-		createInfo.codeSize = code.size();
-		createInfo.pCode = reinterpret_cast<const uint32_t*>(code.data());
+		createInfo.codeSize = block.size();
+		createInfo.pCode = reinterpret_cast<const uint32_t*>(block.data());
 
 		if (vkCreateShaderModule(m_device.device(), &createInfo, nullptr, shaderModule) != VK_SUCCESS)
 		{

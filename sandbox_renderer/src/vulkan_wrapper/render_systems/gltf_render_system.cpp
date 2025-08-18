@@ -88,7 +88,7 @@ void GltfRenderSystem::createPipelineLayout(VkDescriptorSetLayout globalSetLayou
 }
 
 void GltfRenderSystem::createPipeline(VkRenderPass renderPass) {
-    assert(m_pipelineLayout != VK_NULL_HANDLE);
+    ASSERT(m_pipelineLayout != VK_NULL_HANDLE);
 
     auto vertSpv = "matter://shaders/spirV/gltf_vert.vert.spv";
     auto fragSpv = "matter://shaders/spirV/gltf_frag.frag.spv";
@@ -164,7 +164,7 @@ void GltfRenderSystem::createPipeline(VkRenderPass renderPass) {
         VK_COLOR_COMPONENT_B_BIT |
         VK_COLOR_COMPONENT_A_BIT;
 
-    m_blendPipeline = øcreate_pointer<sandbox_pipeline>(
+    m_blendPipeline = øcreate_pointer<sandbox_renderer::sandbox_pipeline>(
         m_device, vertSpv, fragSpv, blendConfig);
 }
 
@@ -183,7 +183,7 @@ void GltfRenderSystem::render(FrameInfo& frame) {
         auto baseModel = go->getModel();
         if (!baseModel) continue;
 
-        auto model = std::dynamic_pointer_cast<gltf::Model>(baseModel);
+        ::cast<::sandbox_renderer::gltf::Model> model =  baseModel;
         if (!model) continue;
 
         model->bind(frame.commandBuffer);
@@ -206,13 +206,13 @@ void GltfRenderSystem::render(FrameInfo& frame) {
 
             const auto& mat = node->mesh->primitives[0]->material;
             switch (mat.alphaMode) {
-            case gltf::Material::ALPHAMODE_OPAQUE:
+            case ::sandbox_renderer::gltf::Material::ALPHAMODE_OPAQUE:
                 m_opaquePipeline->bind(frame.commandBuffer);
                 break;
-            case gltf::Material::ALPHAMODE_MASK:
+            case ::sandbox_renderer::gltf::Material::ALPHAMODE_MASK:
                 m_maskPipeline->bind(frame.commandBuffer);
                 break;
-            case gltf::Material::ALPHAMODE_BLEND:
+            case ::sandbox_renderer::gltf::Material::ALPHAMODE_BLEND:
             default:
                 m_blendPipeline->bind(frame.commandBuffer);
                 break;
@@ -221,7 +221,7 @@ void GltfRenderSystem::render(FrameInfo& frame) {
             model->drawNode(
                 node,
                 frame.commandBuffer,
-                gltf::RenderFlags::BindImages,
+               ::sandbox_renderer::gltf::RenderFlags::BindImages,
                 m_pipelineLayout,
                 2 // bindImageSet
             );

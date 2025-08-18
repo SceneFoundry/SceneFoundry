@@ -22,7 +22,7 @@ void SkyboxIBLrenderSystem::init(
 	sandbox_renderer::sandbox_descriptor_pool& descriptorPool,
 	size_t frameCount)
 {
-	assert(&device == &m_device);
+	ASSERT(&device == &m_device);
 	m_descriptorPool = &descriptorPool;
 
 	createSkyboxDescriptorSetLayout();
@@ -48,13 +48,13 @@ void SkyboxIBLrenderSystem::createSkyboxDescriptorSetLayout() {
 
 
 void SkyboxIBLrenderSystem::allocateAndWriteSkyboxDescriptorSet() {
-	assert(m_descriptorPool && "Descriptor pool must be set before allocating descriptors");
-	assert(m_skyboxSetLayout && "Descriptor set layout must be created before allocating");
+	ASSERT(m_descriptorPool && "Descriptor pool must be set before allocating descriptors");
+	ASSERT(m_skyboxSetLayout && "Descriptor set layout must be created before allocating");
 
 	sandbox_renderer::sandbox_descriptor_writer writer(*m_skyboxSetLayout, *m_descriptorPool);
 	writer.writeImage(0, &m_skyboxImageInfo);
 	bool success = writer.build(m_skyboxDescriptorSet);
-	assert(success && "Failed to build skybox descriptor set");
+	ASSERT(success && "Failed to build skybox descriptor set");
 }
 
 void SkyboxIBLrenderSystem::createPipelineLayout(VkDescriptorSetLayout globalSetLayout) {
@@ -91,7 +91,7 @@ void SkyboxIBLrenderSystem::render(FrameInfo& frameInfo) {
 	}
 	IGameObject& skyObj = skyOpt->get();
 
-	assert(m_skyboxDescriptorSet != VK_NULL_HANDLE && "Skybox descriptor set is not allocated!");
+	ASSERT(m_skyboxDescriptorSet != VK_NULL_HANDLE && "Skybox descriptor set is not allocated!");
 
 	m_pipeline->bind(frameInfo.commandBuffer);
 	// Bind two descriptor sets: 0=global UBO, 1=skybox cubemap
@@ -123,7 +123,7 @@ void SkyboxIBLrenderSystem::render(FrameInfo& frameInfo) {
 
 
 void SkyboxIBLrenderSystem::createPipeline(VkRenderPass renderPass) {
-	assert(m_pipelineLayout != VK_NULL_HANDLE && "Pipeline layout must be created before pipeline");
+	ASSERT(m_pipelineLayout != VK_NULL_HANDLE && "Pipeline layout must be created before pipeline");
 
 	sandbox_renderer::pipeline_configuration_information config{};
 	sandbox_renderer::sandbox_pipeline::defaultPipelineConfigInfo(config);

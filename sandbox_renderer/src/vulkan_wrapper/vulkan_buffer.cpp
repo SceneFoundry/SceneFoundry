@@ -51,7 +51,7 @@ namespace sandbox_renderer
     * @return VkResult of the buffer mapping call
     */
    VkResult sandbox_buffer::map(VkDeviceSize size, VkDeviceSize offset) {
-      assert(m_buffer && m_memory && "Called map on buffer before create");
+      ASSERT(m_buffer && m_memory && "Called map on buffer before create");
       return vkMapMemory(m_device.device(), m_memory, offset, size, 0, &m_mapped);
    }
 
@@ -77,7 +77,7 @@ namespace sandbox_renderer
     *
     */
    void sandbox_buffer::writeToBuffer(void* data, VkDeviceSize size, VkDeviceSize offset) {
-      assert(m_mapped && "Cannot copy to unmapped buffer");
+      ASSERT(m_mapped && "Cannot copy to unmapped buffer");
 
       if (size == VK_WHOLE_SIZE) {
          memcpy(m_mapped, data, m_bufferSize);

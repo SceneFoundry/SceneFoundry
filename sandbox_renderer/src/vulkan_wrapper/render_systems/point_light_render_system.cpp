@@ -36,8 +36,8 @@ void PointLightRS::init(
    sandbox_renderer::sandbox_descriptor_pool& descriptorPool,
     size_t frameCount)
 {
-    // Optional: assert device consistency
-    assert(&device == &m_device);
+    // Optional: ASSERT device consistency
+    ASSERT(&device == &m_device);
 
     createPipelineLayout(globalSetLayout);
     createPipeline(renderPass);
@@ -68,7 +68,7 @@ void PointLightRS::createPipelineLayout(VkDescriptorSetLayout globalSetLayout) {
 }
 
 void PointLightRS::createPipeline(VkRenderPass renderPass) {
-    assert(m_pipelineLayout != VK_NULL_HANDLE && "Cannot create pipeline before pipeline layout");
+    ASSERT(m_pipelineLayout != VK_NULL_HANDLE && "Cannot create pipeline before pipeline layout");
 
     sandbox_renderer::pipeline_configuration_information pipelineConfig{};
     sandbox_renderer::sandbox_pipeline::defaultPipelineConfigInfo(pipelineConfig);
@@ -139,7 +139,7 @@ void PointLightRS::render(FrameInfo& frame) {
         if (!pointLight)
             continue;
 
-        assert(lightIndex < MAX_LIGHTS && "Point lights exceed maximum supported.");
+        ASSERT(lightIndex < MAX_LIGHTS && "Point lights exceed maximum supported.");
 
         auto& transform = obj->getTransform();
         transform.translation = glm::vec3(rotateLight * glm::vec4(transform.translation, 1.f));

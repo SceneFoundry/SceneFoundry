@@ -1,7 +1,7 @@
 #include "framework.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_swapchain.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_device.h"
-#include "vk_tools/vk_init.h"
+#include "SceneFoundry/sandbox_renderer/include/vk_tools/vk_init.h"
 //#include <stdexcept>
 //#include <array>
 namespace sandbox_renderer
@@ -199,7 +199,8 @@ namespace sandbox_renderer
          VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT | VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT;
 
 
-      ::preallocated_array_base< ::array_base <VkAttachmentDescription, 2> > attachments = { colorAttachment, depthAttachment };
+      ::preallocated_array_base< ::array_base <VkAttachmentDescription>, 2 > attachments;
+      attachments= { colorAttachment, depthAttachment };
       VkRenderPassCreateInfo renderPassInfo = {};
       renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
       renderPassInfo.attachmentCount = static_cast<uint32_t>(attachments.size());
@@ -220,7 +221,8 @@ namespace sandbox_renderer
       m_swapChainFramebuffers.resize(imageCount());
       for (size_t i = 0; i < imageCount(); i++)
       {
-         ::preallocated_array_base< ::array_base <VkImageView, 2> > attachments = { m_swapChainImageViews[i], m_depthImageViews[i] };
+         ::preallocated_array_base< ::array_base <VkImageView >, 2> attachments;
+            attachments= { m_swapChainImageViews[i], m_depthImageViews[i] };
 
          VkExtent2D swapChainExtent = getSwapChainExtent();
          VkFramebufferCreateInfo framebufferInfo = {};
@@ -340,19 +342,19 @@ namespace sandbox_renderer
       const ::array_base<VkPresentModeKHR>& availablePresentModes) {
       for (const auto& availablePresentMode : availablePresentModes) {
          if (availablePresentMode == VK_PRESENT_MODE_MAILBOX_KHR) {
-            std::cout << "Present mode: Mailbox" << std::endl;
+            information() << "Present mode: Mailbox" ;
             return availablePresentMode;
          }
       }
 
       // for (const auto &availablePresentMode : availablePresentModes) {
       //   if (availablePresentMode == VK_PRESENT_MODE_IMMEDIATE_KHR) {
-      //     std::cout << "Present mode: Immediate" << std::endl;
+      //     information() << "Present mode: Immediate" ;
       //     return availablePresentMode;
       //   }
       // }
 
-      std::cout << "Present mode: V-Sync" << std::endl;
+      information() << "Present mode: V-Sync" ;
       return VK_PRESENT_MODE_FIFO_KHR;
    }
 

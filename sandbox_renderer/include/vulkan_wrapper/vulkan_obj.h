@@ -60,7 +60,7 @@ namespace sandbox_renderer
          ::array_base<Vertex> vertices{};
          ::array_base<uint32_t> indices{};
 
-         void loadModel(const ::scoped_string& filepath, bool isSkybox);
+         void loadModel(const ::file::path & path, bool isSkybox);
 
 
          bool isSkybox{ false };
@@ -68,7 +68,7 @@ namespace sandbox_renderer
       };
 
       static ::pointer<sandbox_object_model> createModelFromFile(
-         sandbox_device& device, ::string const& filepath, bool isSkybox = false);
+         ::sandbox_renderer::sandbox_device& device, const  ::scoped_string& filepath, bool isSkybox = false);
 
       sandbox_object_model(sandbox_device& device, Builder const& builder);
       ~sandbox_object_model();

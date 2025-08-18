@@ -56,19 +56,19 @@ namespace sandbox_renderer
 		inline bool isFrameInProgress() const { return m_bIsFrameStarted; }
 
 		inline VkCommandBuffer getCurrentCommandBuffer() const {
-			assert(m_bIsFrameStarted && "Cannot get command buffer when frame not in progress");
+			ASSERT(m_bIsFrameStarted && "Cannot get command buffer when frame not in progress");
 			return m_commandBuffers[m_currentFrameIndex];
 		}
 
 		inline 	int getFrameIndex() const {
-			assert(m_bIsFrameStarted && "Cannot get frame index when frame not in progress");
+			ASSERT(m_bIsFrameStarted && "Cannot get frame index when frame not in progress");
 			return m_currentFrameIndex;
 		}
 
 		inline const ::array_base<VkDescriptorSet>& getGlobalDescriptorSet() const {
 			return m_globalDescriptorSets;
 		}
-		inline const ::array_base<::pointer<sandbox_buffer>>& getUboBuffers() const {
+		inline const ::pointer_array_base<sandbox_buffer>& getUboBuffers() const {
 			return m_uboBuffers;
 		}
 
@@ -86,14 +86,14 @@ namespace sandbox_renderer
 
 		sandbox_device& m_device;
 		SandboxWindow& m_window;
-		::array_base<::pointer<IRenderSystem>>				   m_systems;
+		::pointer_array_base<IRenderSystem>				   m_systems;
 
 		::pointer<sandbox_swap_chain>					     m_swapchain;
 		::pointer<sandbox_swap_chain>					  m_oldSwapchain;
 		VkInstance												  m_instance = VK_NULL_HANDLE;
 
 		uint32_t								      m_width{ 0 }, m_height{ 0 };
-		::array_base<::pointer<sandbox_buffer>>			m_uboBuffers;
+		::pointer_array_base<sandbox_buffer>			m_uboBuffers;
 		::array_base<VkDescriptorSet>				  m_globalDescriptorSets;
 		::array_base<VkFence>							    m_inFlightFences;
 

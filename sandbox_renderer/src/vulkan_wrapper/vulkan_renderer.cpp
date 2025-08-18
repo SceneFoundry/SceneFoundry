@@ -24,7 +24,7 @@ namespace sandbox_renderer
    }
    void sandbox_renderer::createGlobalDescriptorObjects() {
       // === build pool exactly like old buildLayouts() ===
-      m_pool = vulkan::sandbox_descriptor_pool::Builder{ m_device }
+      m_pool = ::sandbox_renderer::sandbox_descriptor_pool::Builder{ m_device }
          .setMaxSets(FrameCount + 3 /*texture+sky+ibl*/)
          .addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, FrameCount)
          .addPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 10)
@@ -77,7 +77,7 @@ namespace sandbox_renderer
       // grab the things every system will need
       VkRenderPass rp = m_swapchain->getRenderPass();
       VkDescriptorSetLayout globalLayout = m_globalLayout->getDescriptorSetLayout();
-      vulkan::sandbox_descriptor_pool& pool = *m_pool;
+      ::sandbox_renderer::sandbox_descriptor_pool& pool = *m_pool;
 
       // Create skybox system (note: only construct, do not init yet)
       //auto skyboxSystem = øcreate_pointer<SkyboxIBLrenderSystem>(m_device, rp, globalLayout);
@@ -99,26 +99,26 @@ namespace sandbox_renderer
          //skyboxSystem->setSkyboxCubemap(cubemapDesc);
       }
       catch (const ::exception& e) {
-         warning("Skybox: cubemap not found: {}", e.what());
+         warning("Skybox: cubemap not found: {}", e.get_message());
       }
 
       // push it into systems list, before we init them
       //m_systems.push_back(std::move(skyboxSystem));
 
-      m_systems.push_back(øcreate_pointer<ObjRenderSystem>(
+      m_systems.add(øcreate_pointer<ObjRenderSystem>(
          m_device,
          rp,
          globalLayout
       ));
 
-      m_systems.push_back(øcreate_pointer<GltfRenderSystem>(
+      m_systems.add(øcreate_pointer<GltfRenderSystem>(
          m_device,
          rp,
          globalLayout,
          provider
       ));
 
-      m_systems.push_back(øcreate_pointer<PointLightRS>(
+      m_systems.add(øcreate_pointer<PointLightRS>(
          m_device,
          rp,
          globalLayout
@@ -156,7 +156,7 @@ namespace sandbox_renderer
       auto extent = m_window.getExtent();
       while (extent.width == 0 || extent.width == 0)
       {
-         glfwWaitEvents();
+         //glfwWaitEvents();
          extent = m_window.getExtent();
       }
 
@@ -213,7 +213,7 @@ namespace sandbox_renderer
       return ctx;
    }
    void sandbox_renderer::endFrame(FrameContext& frame) {
-      assert(m_bIsFrameStarted && "endFrame() called when no frame in progress");
+      ASSERT(m_bIsFrameStarted && "endFrame() called when no frame in progress");
 
       // 1) finish command buffer
       if (vkEndCommandBuffer(frame.primaryGraphicsCommandBuffer) != VK_SUCCESS) {
@@ -244,7 +244,7 @@ namespace sandbox_renderer
    }
    void sandbox_renderer::beginSwapChainRenderPass(FrameContext& frame)
    {
-      assert(m_bIsFrameStarted && "Can't call beginSwapChainRenderPass if frame is not in progress");
+      ASSERT(m_bIsFrameStarted && "Can't call beginSwapChainRenderPass if frame is not in progress");
 
 
       VkRenderPassBeginInfo renderPassInfo{};
@@ -255,7 +255,7 @@ namespace sandbox_renderer
       renderPassInfo.renderArea.offset = { 0, 0 };
       renderPassInfo.renderArea.extent = m_swapchain->getSwapChainExtent();
 
-      ::preallocated_array_base< ::array_base <VkClearValue, 2> > clearValues{};
+      ::preallocated_array_base< ::array_base <VkClearValue>,2 > clearValues{};
       clearValues[0].color = { 0.5f, 0.5f, 0.5f, 1.0f };
       clearValues[1].depthStencil = { 1.0f, 0 };
       renderPassInfo.clearValueCount = static_cast<uint32_t>(clearValues.size());
@@ -277,7 +277,7 @@ namespace sandbox_renderer
    void sandbox_renderer::endSwapChainRenderPass(FrameContext& frame)
    {
 
-      assert(m_bIsFrameStarted && "Can't call endSwapChainRenderPass if frame is not in progress");
+      ASSERT(m_bIsFrameStarted && "Can't call endSwapChainRenderPass if frame is not in progress");
 
       vkCmdEndRenderPass(frame.primaryGraphicsCommandBuffer);
    }

@@ -60,14 +60,14 @@ namespace sandbox_renderer
 		VkPipeline getPipeline() const { return m_graphicsPipeline; }
 		VkPipelineLayout getPipelineLayout() const { return m_pipelineLayout; }
 	private:
-		static ::array_base<char> readFile(const ::scoped_string& filepath);
+		//static ::array_base<char> readFile(const ::scoped_string& filepath);
 
 		void createGraphicsPipeline(
 			const ::scoped_string& vertFilepath,
 			const ::scoped_string& fragFilepath,
 			const pipeline_configuration_information& configInfo);
 
-		void createShaderModule(const ::array_base<char>& code, VkShaderModule* shaderModule);
+		void createShaderModule(const ::block & block, VkShaderModule* shaderModule);
 
 		sandbox_device& m_device;
 		VkPipeline m_graphicsPipeline;

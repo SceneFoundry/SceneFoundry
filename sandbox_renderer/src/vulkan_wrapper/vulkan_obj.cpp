@@ -13,8 +13,8 @@
 namespace std
 {
     template <>
-    struct hash<sandbox_object_model::Vertex> {
-        size_t operator()(sandbox_object_model::Vertex const& vertex) const
+    struct hash<::sandbox_renderer::sandbox_object_model::Vertex> {
+        size_t operator()(::sandbox_renderer::sandbox_object_model::Vertex const& vertex) const
         {
             size_t seed = 0;
             tools::hashCombine(seed, vertex.position, vertex.color, vertex.normal, vertex.uv);
@@ -43,7 +43,8 @@ namespace sandbox_renderer
    sandbox_object_model::~sandbox_object_model() {}
 
 
-   ::pointer<sandbox_object_model> sandbox_object_model::createModelFromFile(sandbox_device& device, const ::scoped_string& filepath, bool isSkybox)
+   ::pointer<sandbox_object_model> sandbox_object_model::createModelFromFile(
+      ::sandbox_renderer::sandbox_device& device, const ::scoped_string& filepath, bool isSkybox)
    {
       Builder builder{};
       builder.loadModel(filepath, isSkybox);
@@ -55,7 +56,7 @@ namespace sandbox_renderer
    void sandbox_object_model::createVertexBuffers(const ::array_base<Vertex>& vertices)
    {
       m_vertexCount = static_cast<uint32_t>(vertices.size());
-      assert(m_vertexCount >= 3 && "Vertex count must be at least 3");
+      ASSERT(m_vertexCount >= 3 && "Vertex count must be at least 3");
       VkDeviceSize bufferSize = sizeof(vertices[0]) * m_vertexCount;
       uint32_t vertexSize = sizeof(vertices[0]);
 
@@ -161,28 +162,29 @@ namespace sandbox_renderer
    }
 
 
-   void sandbox_object_model::Builder::loadModel(const ::scoped_string& filepath, bool isSkybox) {
+   void sandbox_object_model::Builder::loadModel(const ::file::path & path, bool isSkybox) {
       this->isSkybox = isSkybox;
       vertices.clear();
       //skyboxVertices.clear();
       indices.clear();
 
       // 1) Check extension
-      auto lastDot = filepath.find_last_of('.');
-      if (lastDot == ::string::npos) {
-         throw std::runtime_error("Model file has no extension: " + filepath);
+      ::string ext = path.final_extension();
+      if (ext.is_empty()) 
+      {
+         throw std::runtime_error("Model file has no extension: " + path);
       }
-      ::string ext = filepath.substr(lastDot + 1);
-      for (auto& c : ext) c = static_cast<char>(::tolower(c));
+      
+      ext.make_lower();
 
       if (ext == "obj") {
          // tinyobj loader ---
          tinyobj::attrib_t attrib;
-         ::array_base<tinyobj::shape_t>    shapes;
-         ::array_base<tinyobj::material_t> materials;
-         ::string warn, err;
+         ::std::vector<tinyobj::shape_t>    shapes;
+         ::std::vector<tinyobj::material_t> materials;
+         ::std::string warn, err;
 
-         if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, filepath.c_str())) {
+         if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, path.c_str())) {
             throw std::runtime_error("Failed to load OBJ: " + warn + err);
          }
 
@@ -223,9 +225,9 @@ namespace sandbox_renderer
 
                   if (uniqueVertices.count(vertex) == 0) {
                      uniqueVertices[vertex] = static_cast<uint32_t>(vertices.size());
-                     vertices.push_back(vertex);
+                     vertices.add(vertex);
                   }
-                  indices.push_back(uniqueVertices[vertex]);
+                  indices.add(uniqueVertices[vertex]);
                }
             }
          }

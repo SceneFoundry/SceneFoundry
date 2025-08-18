@@ -56,7 +56,7 @@ namespace sandbox_game
 		::pointer<IWindowInput> m_pInput;
 		AssetManager& m_assetManager;
 
-		::array_base<::pointer<sandbox_player>> m_players;
+		::pointer_array_base<sandbox_player> m_players;
 		::map<unsigned int, ::pointer<IGameObject>>  m_gameObjects;
 		glm::vec3 m_initialCameraPosition{ 0.f };
 		glm::vec3 m_initialCameraRotation{ 0.f };

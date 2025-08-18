@@ -1,9 +1,10 @@
 #include "framework.h"
+#include "aura/graphics/image/context.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_texture.h"
 #include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_device.h"
 
 
-#include <stb_image.h>
+#include <stb/stb_image.h>
 //#include <stdexcept>
 //#include <cstring>
 
@@ -19,13 +20,16 @@ namespace sandbox_renderer
 
 	bool sandbox_texture::STBLoadFromFile(const ::scoped_string& filename)
 	{
-		int texWidth, texHeight, texChannels;
-		stbi_uc* pixels = stbi_load(filename.c_str(), &texWidth, &texHeight, &texChannels, STBI_rgb_alpha);
-		if (!pixels)
-		{
-			throw std::runtime_error("Failed to load texture image: " + filename);
-		}
-		VkDeviceSize imageSize = static_cast<VkDeviceSize>(texWidth) * texHeight * 4;
+
+		auto pimage = image()->path_image(filename);
+		//int texWidth, texHeight, texChannels;
+		//stbi_uc* pixels = stbi_load(::string(filename)), &texWidth, &texHeight, &texChannels, STBI_rgb_alpha);
+		//if (!pixels)
+		//{
+		//	throw std::runtime_error("Failed to load texture image: " + filename);
+		//}
+		VkDeviceSize imageSize = static_cast<VkDeviceSize>(pimage->width()) *
+			pimage->height() * 4;
 
 		// Stage data
 		VkBuffer stagingBuffer;
@@ -39,14 +43,14 @@ namespace sandbox_renderer
 
 		void* data;
 		vkMapMemory(m_pDevice->m_logicalDevice, stagingMemory, 0, imageSize, 0, &data);
-		memcpy(data, pixels, static_cast<size_t>(imageSize));
+		memcpy(data, pimage->data(), static_cast<size_t>(imageSize));
 		vkUnmapMemory(m_pDevice->m_logicalDevice, stagingMemory);
-		stbi_image_free(pixels);
+		//stbi_image_free(pixels);
 
 		// Create and upload to 2D image
 		CreateImage(
-			static_cast<uint32_t>(texWidth),
-			static_cast<uint32_t>(texHeight),
+			static_cast<uint32_t>(pimage->width()),
+			static_cast<uint32_t>(pimage->height()),
 			VK_FORMAT_R8G8B8A8_SRGB,
 			VK_IMAGE_TILING_OPTIMAL,
 			VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
@@ -62,8 +66,8 @@ namespace sandbox_renderer
 		);
 		CopyBufferToImage(
 			stagingBuffer,
-			static_cast<uint32_t>(texWidth),
-			static_cast<uint32_t>(texHeight),
+			static_cast<uint32_t>(pimage->width()),
+			static_cast<uint32_t>(pimage->height()),
 			1 // layerCount
 		);
 		TransitionImageLayout(
@@ -99,7 +103,7 @@ namespace sandbox_renderer
 	{
 		ktxTexture* ktxTexture;
 		ktxResult result = loadKTXFile(filename, &ktxTexture);
-		assert(result == KTX_SUCCESS);
+		ASSERT(result == KTX_SUCCESS);
 
 		this->m_pDevice = device;
 		m_width = ktxTexture->baseWidth;
@@ -155,7 +159,7 @@ namespace sandbox_renderer
 			{
 				ktx_size_t offset;
 				KTX_error_code result = ktxTexture_GetImageOffset(ktxTexture, i, 0, 0, &offset);
-				assert(result == KTX_SUCCESS);
+				ASSERT(result == KTX_SUCCESS);
 
 				VkBufferImageCopy bufferCopyRegion = {};
 				bufferCopyRegion.imageSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
@@ -168,7 +172,7 @@ namespace sandbox_renderer
 				bufferCopyRegion.bufferOffset = offset;
 
 
-				bufferCopyRegions.push_back(bufferCopyRegion);
+				bufferCopyRegions.add(bufferCopyRegion);
 			}
 
 			// Create optimal tiled target image
@@ -246,7 +250,7 @@ namespace sandbox_renderer
 			// depending on implementation (e.g. no mip maps, only one layer, etc.)
 
 			// Check if this support is supported for linear tiling
-			assert(formatProperties.linearTilingFeatures & VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT);
+			ASSERT(formatProperties.linearTilingFeatures & VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT);
 
 			VkImage mappableImage;
 			VkDeviceMemory mappableMemory;
@@ -361,7 +365,7 @@ namespace sandbox_renderer
 
 		ktxTexture* ktxTexture;
 		ktxResult result = loadKTXFile(filename, &ktxTexture);
-		assert(result == KTX_SUCCESS);
+		ASSERT(result == KTX_SUCCESS);
 
 		this->m_pDevice = device;
 		m_width = ktxTexture->baseWidth;
@@ -411,7 +415,7 @@ namespace sandbox_renderer
 			{
 				ktx_size_t offset;
 				KTX_error_code result = ktxTexture_GetImageOffset(ktxTexture, level, 0, face, &offset);
-				assert(result == KTX_SUCCESS);
+				ASSERT(result == KTX_SUCCESS);
 
 				VkBufferImageCopy bufferCopyRegion = {};
 				bufferCopyRegion.imageSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
@@ -423,7 +427,7 @@ namespace sandbox_renderer
 				bufferCopyRegion.imageExtent.depth = 1;
 				bufferCopyRegion.bufferOffset = offset & ~0xF;
 
-				bufferCopyRegions.push_back(bufferCopyRegion);
+				bufferCopyRegions.add(bufferCopyRegion);
 			}
 		}
 
@@ -534,7 +538,7 @@ namespace sandbox_renderer
 		// Update descriptor image info member that can be used for setting up descriptor sets
 		UpdateDescriptor();
 	}
-	bool sandbox_texture::LoadCubemap(const ::preallocated_array_base< ::array_base <::string, 6> >& faces) {
+	bool sandbox_texture::LoadCubemap(const ::preallocated_array_base< ::array_base <::string>, 6 >& faces) {
 		m_bIsCubemap = true;
 
 		int w, h, c;
@@ -748,7 +752,7 @@ namespace sandbox_renderer
 	}
 	void sandbox_texture::fromBuffer(void* buffer, VkDeviceSize bufferSize, VkFormat format, uint32_t texWidth, uint32_t texHeight, sandbox_device* pdevice, VkQueue copyQueue, VkFilter filter, VkImageUsageFlags imageUsageFlags, VkImageLayout imageLayout)
 	{
-		assert(buffer);
+		ASSERT(buffer);
 
 		this->m_pDevice = pdevice;
 		m_width = texWidth;

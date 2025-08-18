@@ -335,9 +335,9 @@ namespace tools
 	{
 		// Load shader from compressed asset
 		AAsset* asset = AAssetManager_open(assetManager, fileName, AASSET_MODE_STREAMING);
-		assert(asset);
+		ASSERT(asset);
 		size_t size = AAsset_getLength(asset);
-		assert(size > 0);
+		ASSERT(size > 0);
 
 		char* shaderCode = new char[size];
 		AAsset_read(asset, shaderCode, size);
@@ -370,7 +370,7 @@ namespace tools
 	//		is.read(shaderCode, size);
 	//		is.close();
 
-	//		assert(size > 0);
+	//		ASSERT(size > 0);
 
 	//		VkShaderModule shaderModule;
 	//		VkShaderModuleCreateInfo moduleCreateInfo{};
@@ -386,7 +386,7 @@ namespace tools
 	//	}
 	//	else
 	//	{
-	//		std::cerr << "Error: Could not open shader file \"" << fileName << "\"" << "\n";
+	//		error() << "Error: Could not open shader file \"" << fileName << "\"" << "\n";
 	//		return VK_NULL_HANDLE;
 	//	}
 	//}

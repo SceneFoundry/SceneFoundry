@@ -35,7 +35,7 @@ void ObjRenderSystem::init(
 	sandbox_renderer::sandbox_descriptor_pool& descriptorPool,
 	size_t frameCount)
 {
-	assert(&device == &m_device);
+	ASSERT(&device == &m_device);
 
 	createPipelineLayout(globalSetLayout);
 	createPipeline(renderPass);
@@ -121,7 +121,7 @@ void ObjRenderSystem::createPipelineLayout(VkDescriptorSetLayout globalSetLayout
 
 void ObjRenderSystem::createPipeline(VkRenderPass renderPass)
 {
-	assert(m_pipelineLayout != nullptr && "Cannot create pipeline before pipeline layout");
+	ASSERT(m_pipelineLayout != nullptr && "Cannot create pipeline before pipeline layout");
 
 	sandbox_renderer::pipeline_configuration_information pipelineConfig{};
 	sandbox_renderer::sandbox_pipeline::defaultPipelineConfigInfo(pipelineConfig);

@@ -65,10 +65,11 @@ namespace sandbox_renderer
 
    ::array_base<const char*> sandbox_instance::getRequiredExtensions() {
       uint32_t count = 0;
-      const char** glfwExts = glfwGetRequiredInstanceExtensions(&count);
-      ::array_base<const char*> exts(glfwExts, glfwExts + count);
+       //const char** glfwExts = glfwGetRequiredInstanceExtensions(&count);
+      //::array_base<const char*> exts(glfwExts, glfwExts + count);
+      ::array_base<const char*> exts;
       if constexpr (enableValidationLayers) {
-         exts.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
+         exts.add(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
       }
       return exts;
    }
@@ -125,7 +126,7 @@ namespace sandbox_renderer
       const VkDebugUtilsMessengerCallbackDataEXT* data,
       void* userData)
    {
-      std::cerr << "[Validation] " << data->pMessage << "\n";
+      error() << "[Validation] " << data->pMessage << "\n";
       return VK_FALSE;
    }
 

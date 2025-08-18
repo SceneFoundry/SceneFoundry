@@ -2,7 +2,7 @@
 // asset_manager.cpp
 #include "acme/filesystem/filesystem/file_context.h"
 #include "SceneFoundry/sandbox_engine/include/asset_manager.h"
-
+#include <chrono>
 //#include <json.hpp>
 ////#include <fstream>
 ////#include <spdlog/spdlog.h>
@@ -10,8 +10,8 @@
 
 //using json = nlohmann::json;
 
-AssetManager::AssetManager(sandbox_renderer::sandbox_device& device) :
-   m_device(device), m_transferQueue(m_device.graphicsQueue()) {
+AssetManager::AssetManager(sandbox_renderer::sandbox_device *pdevice) :
+   m_pdevice(pdevice), m_transferQueue(m_pdevice->graphicsQueue()) {
 
 }
 
@@ -32,10 +32,14 @@ void AssetManager::preloadGlobalAssets() {
     //modelJson.parse_network_payload()
 
     // 1) Load models first (unchanged from your flow)
-    for (const auto& element : modelJson["models"].payload_array()) {
-       auto& entry = element.as_property_set();
+
+    auto& payloada = modelJson["models"].payload_array_reference();
+    for (const auto& element : payloada) 
+    {
+
+       auto& entry = element.property_set_reference();
         const ::string name = entry["name"];
-        const ::string type = entry.value("type", "obj");
+        const ::string type = entry.payload("type", "obj");
         const ::string path = "matter://models/" + entry["path"].as_file_path();
 
         try {
@@ -44,10 +48,10 @@ void AssetManager::preloadGlobalAssets() {
                 information("[AssetManager] Successfully loaded OBJ model '{}' from '{}'", name, path);
             }
             else if (type == "gltf") {
-                uint32_t flags = entry.value("flags", 0);  // Optional flags
-                float scale = entry.value("scale", 1.0f);  // Optional scale
+                uint32_t flags = entry.payload("flags", 0);  // Optional flags
+                float scale = entry.payload("scale", 1.0f);  // Optional scale
                 auto model = loadGLTFmodel(name, path, flags, scale);
-                if (entry.value("usage", "") == "skybox" || name == "cube") {
+                if (entry.payload("usage", "") == "skybox" || name == "cube") {
                     m_skyboxModel = model;
                 }
                 information("[AssetManager] Successfully loaded glTF model '{}' from '{}'", name, path);
@@ -65,12 +69,15 @@ void AssetManager::preloadGlobalAssets() {
     // Keep track of whether we loaded the environment cubemap used for IBL
     ::pointer<sandbox_renderer::sandbox_texture> loadedEnvironmentCubemap = nullptr;
 
-    for (const auto& entry : modelJson["cubemaps"]) {
+    auto& payloada2 = modelJson["v"].payload_array_reference();
+
+    for (const auto& element : payloada2) {
+       auto& entry = element.property_set_reference();
         const ::string name = entry["name"];
         const ::string path = "matter://res/textures/" + entry["path"].as_file_path();
 
         // Map format string (if present) to VkFormat; default to R32G32B32A32_SFLOAT
-        ::string fmtStr = entry.value("format", "VK_FORMAT_R32G32B32A32_SFLOAT");
+        ::string fmtStr = entry.payload("format", "VK_FORMAT_R32G32B32A32_SFLOAT");
         VkFormat format = VK_FORMAT_R32G32B32A32_SFLOAT;
         if (fmtStr == "VK_FORMAT_R16G16B16A16_SFLOAT") format = VK_FORMAT_R16G16B16A16_SFLOAT;
         else if (fmtStr == "VK_FORMAT_R32G32B32A32_SFLOAT") format = VK_FORMAT_R32G32B32A32_SFLOAT;
@@ -98,7 +105,7 @@ void AssetManager::preloadGlobalAssets() {
 
             // If this cubemap is the environment (skybox_hdr per your JSON), remember it.
             // Use the name you expect in your code / JSON. I see "skybox_hdr" in your example JSON.
-            if (name == "skybox_hdr" || entry.value("environment", false)) {
+            if (name == "skybox_hdr" || entry.payload("environment", false)) {
                 // prefer explicit "environment" : true in JSON or name match
                 loadedEnvironmentCubemap = cubemap;
             }
@@ -112,7 +119,8 @@ void AssetManager::preloadGlobalAssets() {
     // If your JSON didn't mark which cubemap is the environment, we fallback to looking up "skybox_hdr"
     if (!loadedEnvironmentCubemap) {
         auto it = m_textures.find("skybox_hdr");
-        if (it != m_textures.end()) {
+        if (it) 
+        {
             loadedEnvironmentCubemap = it->element2();
         }
     }
@@ -128,9 +136,9 @@ void AssetManager::preloadGlobalAssets() {
 
     // Create BRDF LUT, irradianceCube, prefilteredCube structures (these should allocate their own images)
     // Note: remove any line that reassigns environmentCube to an empty sandbox_texture (that was the bug)
-    lutBrdf = øcreate_pointer<sandbox_renderer::sandbox_texture>(&m_device);
-    irradianceCube = øcreate_pointer<sandbox_renderer::sandbox_texture>(&m_device);
-    prefilteredCube = øcreate_pointer<sandbox_renderer::sandbox_texture>(&m_device);
+    lutBrdf = øcreate_pointer<sandbox_renderer::sandbox_texture>(&m_pdevice);
+    irradianceCube = øcreate_pointer<sandbox_renderer::sandbox_texture>(&m_pdevice);
+    prefilteredCube = øcreate_pointer<sandbox_renderer::sandbox_texture>(&m_pdevice);
 
     // Generate BRDF LUT first (your existing function)
     generateBRDFlut();
@@ -146,7 +154,7 @@ void AssetManager::preloadGlobalAssets() {
             information("[AssetManager] IBL assets generated successfully.");
         }
         catch (const ::exception& e) {
-            error("[AssetManager] IBL generation failed: {}", e.what());
+            error("[AssetManager] IBL generation failed: {}", e.get_message());
         }
     }
 
@@ -174,15 +182,15 @@ void AssetManager::generateIrradianceMap() {
     imageCI.tiling = VK_IMAGE_TILING_OPTIMAL;
     imageCI.usage = VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT;
     imageCI.flags = VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT;
-    VK_CHECK_RESULT(vkCreateImage(m_device.device(), &imageCI, nullptr, &irradianceCube->m_image));
+    VK_CHECK_RESULT(vkCreateImage(m_pdevice.device(), &imageCI, nullptr, &irradianceCube->m_image));
 
     VkMemoryRequirements memReqs;
-    vkGetImageMemoryRequirements(m_device.device(), irradianceCube->m_image, &memReqs);
+    vkGetImageMemoryRequirements(m_pdevice.device(), irradianceCube->m_image, &memReqs);
     VkMemoryAllocateInfo memAlloc = vkinit::memoryAllocateInfo();
     memAlloc.allocationSize = memReqs.size;
-    memAlloc.memoryTypeIndex = m_device.getMemoryType(memReqs.memoryTypeBits, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-    VK_CHECK_RESULT(vkAllocateMemory(m_device.device(), &memAlloc, nullptr, &irradianceCube->m_deviceMemory));
-    VK_CHECK_RESULT(vkBindImageMemory(m_device.device(), irradianceCube->m_image, irradianceCube->m_deviceMemory, 0));
+    memAlloc.memoryTypeIndex = m_pdevice.getMemoryType(memReqs.memoryTypeBits, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+    VK_CHECK_RESULT(vkAllocateMemory(m_pdevice.device(), &memAlloc, nullptr, &irradianceCube->m_deviceMemory));
+    VK_CHECK_RESULT(vkBindImageMemory(m_pdevice.device(), irradianceCube->m_image, irradianceCube->m_deviceMemory, 0));
 
     // view & sampler
     VkImageViewCreateInfo viewCI = vkinit::imageViewCreateInfo();
@@ -194,7 +202,7 @@ void AssetManager::generateIrradianceMap() {
     viewCI.subresourceRange.baseArrayLayer = 0;
     viewCI.subresourceRange.layerCount = 6;
     viewCI.image = irradianceCube->m_image;
-    VK_CHECK_RESULT(vkCreateImageView(m_device.device(), &viewCI, nullptr, &irradianceCube->m_view));
+    VK_CHECK_RESULT(vkCreateImageView(m_pdevice.device(), &viewCI, nullptr, &irradianceCube->m_view));
 
     VkSamplerCreateInfo samplerCI = vkinit::samplerCreateInfo();
     samplerCI.magFilter = VK_FILTER_LINEAR;
@@ -206,12 +214,12 @@ void AssetManager::generateIrradianceMap() {
     samplerCI.minLod = 0.0f;
     samplerCI.maxLod = static_cast<float>(numMips);
     samplerCI.borderColor = VK_BORDER_COLOR_FLOAT_OPAQUE_WHITE;
-    VK_CHECK_RESULT(vkCreateSampler(m_device.device(), &samplerCI, nullptr, &irradianceCube->m_sampler));
+    VK_CHECK_RESULT(vkCreateSampler(m_pdevice.device(), &samplerCI, nullptr, &irradianceCube->m_sampler));
 
     irradianceCube->m_descriptor.imageView = irradianceCube->m_view;
     irradianceCube->m_descriptor.sampler = irradianceCube->m_sampler;
     irradianceCube->m_descriptor.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-    irradianceCube->m_pDevice = &m_device;
+    irradianceCube->m_pDevice = &m_pdevice;
 
     // --- create offscreen renderpass/framebuffer (unchanged) ---
     VkAttachmentDescription attDesc = {};
@@ -254,7 +262,7 @@ void AssetManager::generateIrradianceMap() {
     renderPassCI.dependencyCount = static_cast<uint32_t>(dependencies.size());
     renderPassCI.pDependencies = dependencies.data();
     VkRenderPass renderpass;
-    VK_CHECK_RESULT(vkCreateRenderPass(m_device.device(), &renderPassCI, nullptr, &renderpass));
+    VK_CHECK_RESULT(vkCreateRenderPass(m_pdevice.device(), &renderPassCI, nullptr, &renderpass));
 
     // offscreen color image (1 mip, reused for all mips/faces)
     struct {
@@ -278,13 +286,13 @@ void AssetManager::generateIrradianceMap() {
         imageCreateInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
         imageCreateInfo.usage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT;
         imageCreateInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
-        VK_CHECK_RESULT(vkCreateImage(m_device.device(), &imageCreateInfo, nullptr, &offscreen.image));
+        VK_CHECK_RESULT(vkCreateImage(m_pdevice.device(), &imageCreateInfo, nullptr, &offscreen.image));
 
-        vkGetImageMemoryRequirements(m_device.device(), offscreen.image, &memReqs);
+        vkGetImageMemoryRequirements(m_pdevice.device(), offscreen.image, &memReqs);
         memAlloc.allocationSize = memReqs.size;
-        memAlloc.memoryTypeIndex = m_device.getMemoryType(memReqs.memoryTypeBits, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-        VK_CHECK_RESULT(vkAllocateMemory(m_device.device(), &memAlloc, nullptr, &offscreen.memory));
-        VK_CHECK_RESULT(vkBindImageMemory(m_device.device(), offscreen.image, offscreen.memory, 0));
+        memAlloc.memoryTypeIndex = m_pdevice.getMemoryType(memReqs.memoryTypeBits, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+        VK_CHECK_RESULT(vkAllocateMemory(m_pdevice.device(), &memAlloc, nullptr, &offscreen.memory));
+        VK_CHECK_RESULT(vkBindImageMemory(m_pdevice.device(), offscreen.image, offscreen.memory, 0));
 
         VkImageViewCreateInfo colorImageView = vkinit::imageViewCreateInfo();
         colorImageView.viewType = VK_IMAGE_VIEW_TYPE_2D;
@@ -295,7 +303,7 @@ void AssetManager::generateIrradianceMap() {
         colorImageView.subresourceRange.baseArrayLayer = 0;
         colorImageView.subresourceRange.layerCount = 1;
         colorImageView.image = offscreen.image;
-        VK_CHECK_RESULT(vkCreateImageView(m_device.device(), &colorImageView, nullptr, &offscreen.view));
+        VK_CHECK_RESULT(vkCreateImageView(m_pdevice.device(), &colorImageView, nullptr, &offscreen.view));
 
         VkFramebufferCreateInfo fbufCreateInfo = vkinit::framebufferCreateInfo();
         fbufCreateInfo.renderPass = renderpass;
@@ -304,11 +312,11 @@ void AssetManager::generateIrradianceMap() {
         fbufCreateInfo.width = dim;
         fbufCreateInfo.height = dim;
         fbufCreateInfo.layers = 1;
-        VK_CHECK_RESULT(vkCreateFramebuffer(m_device.device(), &fbufCreateInfo, nullptr, &offscreen.framebuffer));
+        VK_CHECK_RESULT(vkCreateFramebuffer(m_pdevice.device(), &fbufCreateInfo, nullptr, &offscreen.framebuffer));
 
-        VkCommandBuffer layoutCmd = m_device.createCommandBuffer(VK_COMMAND_BUFFER_LEVEL_PRIMARY, true);
+        VkCommandBuffer layoutCmd = m_pdevice.createCommandBuffer(VK_COMMAND_BUFFER_LEVEL_PRIMARY, true);
         tools::setImageLayout(layoutCmd, offscreen.image, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL);
-        m_device.flushCommandBuffer(layoutCmd, m_transferQueue, true);
+        m_pdevice.flushCommandBuffer(layoutCmd, m_transferQueue, true);
     }
 
     // Descriptor layout/pool/set (same as before)
@@ -317,18 +325,18 @@ void AssetManager::generateIrradianceMap() {
         vkinit::descriptorSetLayoutBinding(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT, 0),
     };
     VkDescriptorSetLayoutCreateInfo descriptorsetlayoutCI = vkinit::descriptorSetLayoutCreateInfo(setLayoutBindings);
-    VK_CHECK_RESULT(vkCreateDescriptorSetLayout(m_device.device(), &descriptorsetlayoutCI, nullptr, &descriptorsetlayout));
+    VK_CHECK_RESULT(vkCreateDescriptorSetLayout(m_pdevice.device(), &descriptorsetlayoutCI, nullptr, &descriptorsetlayout));
 
     ::array_base<VkDescriptorPoolSize> poolSizes = { vkinit::descriptorPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 1) };
     VkDescriptorPoolCreateInfo descriptorPoolCI = vkinit::descriptorPoolCreateInfo(poolSizes, 2);
     VkDescriptorPool descriptorpool;
-    VK_CHECK_RESULT(vkCreateDescriptorPool(m_device.device(), &descriptorPoolCI, nullptr, &descriptorpool));
+    VK_CHECK_RESULT(vkCreateDescriptorPool(m_pdevice.device(), &descriptorPoolCI, nullptr, &descriptorpool));
 
     VkDescriptorSet descriptorset;
     VkDescriptorSetAllocateInfo allocInfo = vkinit::descriptorSetAllocateInfo(descriptorpool, &descriptorsetlayout, 1);
-    VK_CHECK_RESULT(vkAllocateDescriptorSets(m_device.device(), &allocInfo, &descriptorset));
+    VK_CHECK_RESULT(vkAllocateDescriptorSets(m_pdevice.device(), &allocInfo, &descriptorset));
     VkWriteDescriptorSet writeDescriptorSet = vkinit::writeDescriptorSet(descriptorset, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 0, &environmentCube->m_descriptor);
-    vkUpdateDescriptorSets(m_device.device(), 1, &writeDescriptorSet, 0, nullptr);
+    vkUpdateDescriptorSets(m_pdevice.device(), 1, &writeDescriptorSet, 0, nullptr);
 
     // Push block
     struct PushBlock {
@@ -373,10 +381,10 @@ void AssetManager::generateIrradianceMap() {
 
     ::string vert = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/filtered_cube.vert.spv";
     ::string frag = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/irradiance_cube.frag.spv";
-    sandbox_pipeline irradiancePipeline{ m_device, vert, frag, cfg };
+    sandbox_pipeline irradiancePipeline{ m_pdevice, vert, frag, cfg };
 
     // COMMAND RECORDING
-    VkCommandBuffer cmdBuf = m_device.createCommandBuffer(VK_COMMAND_BUFFER_LEVEL_PRIMARY, true);
+    VkCommandBuffer cmdBuf = m_pdevice.createCommandBuffer(VK_COMMAND_BUFFER_LEVEL_PRIMARY, true);
 
     // Transition irradiance cubemap to TRANSFER_DST (outside any renderpass)
     VkImageSubresourceRange cubemapRange{ VK_IMAGE_ASPECT_COLOR_BIT, 0, numMips, 0, 6 };
@@ -454,12 +462,12 @@ void AssetManager::generateIrradianceMap() {
     // final transition for cubemap to shader read layout
     tools::setImageLayout(cmdBuf, irradianceCube->m_image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, cubemapRange);
 
-    m_device.flushCommandBuffer(cmdBuf, m_transferQueue);
+    m_pdevice.flushCommandBuffer(cmdBuf, m_transferQueue);
     vkQueueWaitIdle(m_transferQueue);
 
     // cleanup (destroy created renderpass/framebuffer)
-    vkDestroyFramebuffer(m_device.device(), offscreen.framebuffer, nullptr);
-    vkDestroyRenderPass(m_device.device(), renderpass, nullptr);
+    vkDestroyFramebuffer(m_pdevice.device(), offscreen.framebuffer, nullptr);
+    vkDestroyRenderPass(m_pdevice.device(), renderpass, nullptr);
 
     auto tEnd = std::chrono::high_resolution_clock::now();
     auto tDiff = std::chrono::duration<double, std::milli>(tEnd - tStart).count();
@@ -484,14 +492,14 @@ void AssetManager::generateBRDFlut() {
     imageCI.samples = VK_SAMPLE_COUNT_1_BIT;
     imageCI.tiling = VK_IMAGE_TILING_OPTIMAL;
     imageCI.usage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT;
-    VK_CHECK_RESULT(vkCreateImage(m_device.device(), &imageCI, nullptr, &lutBrdf->m_image));
+    VK_CHECK_RESULT(vkCreateImage(m_pdevice.device(), &imageCI, nullptr, &lutBrdf->m_image));
     VkMemoryAllocateInfo memAlloc = vkinit::memoryAllocateInfo();
     VkMemoryRequirements memReqs;
-    vkGetImageMemoryRequirements(m_device.device(), lutBrdf->m_image, &memReqs);
+    vkGetImageMemoryRequirements(m_pdevice.device(), lutBrdf->m_image, &memReqs);
     memAlloc.allocationSize = memReqs.size;
-    memAlloc.memoryTypeIndex = m_device.getMemoryType(memReqs.memoryTypeBits, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
-    VK_CHECK_RESULT(vkAllocateMemory(m_device.device(), &memAlloc, nullptr, &lutBrdf->m_deviceMemory));
-    VK_CHECK_RESULT(vkBindImageMemory(m_device.device(), lutBrdf->m_image, lutBrdf->m_deviceMemory, 0));
+    memAlloc.memoryTypeIndex = m_pdevice.getMemoryType(memReqs.memoryTypeBits, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+    VK_CHECK_RESULT(vkAllocateMemory(m_pdevice.device(), &memAlloc, nullptr, &lutBrdf->m_deviceMemory));
+    VK_CHECK_RESULT(vkBindImageMemory(m_pdevice.device(), lutBrdf->m_image, lutBrdf->m_deviceMemory, 0));
     // Image view
     VkImageViewCreateInfo viewCI = vkinit::imageViewCreateInfo();
     viewCI.viewType = VK_IMAGE_VIEW_TYPE_2D;
@@ -501,7 +509,7 @@ void AssetManager::generateBRDFlut() {
     viewCI.subresourceRange.levelCount = 1;
     viewCI.subresourceRange.layerCount = 1;
     viewCI.image = lutBrdf->m_image;
-    VK_CHECK_RESULT(vkCreateImageView(m_device.device(), &viewCI, nullptr, &lutBrdf->m_view));
+    VK_CHECK_RESULT(vkCreateImageView(m_pdevice.device(), &viewCI, nullptr, &lutBrdf->m_view));
     // Sampler
     VkSamplerCreateInfo samplerCI = vkinit::samplerCreateInfo();
     samplerCI.magFilter = VK_FILTER_LINEAR;
@@ -513,12 +521,12 @@ void AssetManager::generateBRDFlut() {
     samplerCI.minLod = 0.0f;
     samplerCI.maxLod = 1.0f;
     samplerCI.borderColor = VK_BORDER_COLOR_FLOAT_OPAQUE_WHITE;
-    VK_CHECK_RESULT(vkCreateSampler(m_device.device(), &samplerCI, nullptr, &lutBrdf->m_sampler));
+    VK_CHECK_RESULT(vkCreateSampler(m_pdevice.device(), &samplerCI, nullptr, &lutBrdf->m_sampler));
 
     lutBrdf->m_descriptor.imageView = lutBrdf->m_view;
     lutBrdf->m_descriptor.sampler = lutBrdf->m_sampler;
     lutBrdf->m_descriptor.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-    lutBrdf->m_pDevice = &m_device;
+    lutBrdf->m_pDevice = &m_pdevice;
 
     // FB, Att, RP, Pipe, etc.
     VkAttachmentDescription attDesc = {};
@@ -566,7 +574,7 @@ void AssetManager::generateBRDFlut() {
     renderPassCI.pDependencies = dependencies.data();
 
     VkRenderPass renderpass = VK_NULL_HANDLE;
-    VK_CHECK_RESULT(vkCreateRenderPass(m_device.device(), &renderPassCI, nullptr, &renderpass));
+    VK_CHECK_RESULT(vkCreateRenderPass(m_pdevice.device(), &renderPassCI, nullptr, &renderpass));
 
     VkFramebufferCreateInfo framebufferCI = vkinit::framebufferCreateInfo();
     framebufferCI.renderPass = renderpass;
@@ -577,29 +585,29 @@ void AssetManager::generateBRDFlut() {
     framebufferCI.layers = 1;
 
     VkFramebuffer framebuffer;
-    VK_CHECK_RESULT(vkCreateFramebuffer(m_device.device(), &framebufferCI, nullptr, &framebuffer));
+    VK_CHECK_RESULT(vkCreateFramebuffer(m_pdevice.device(), &framebufferCI, nullptr, &framebuffer));
 
     // Descriptors
     VkDescriptorSetLayout descriptorsetlayout;
     ::array_base<VkDescriptorSetLayoutBinding> setLayoutBindings = {};
     VkDescriptorSetLayoutCreateInfo descriptorsetlayoutCI = vkinit::descriptorSetLayoutCreateInfo(setLayoutBindings);
-    VK_CHECK_RESULT(vkCreateDescriptorSetLayout(m_device.device(), &descriptorsetlayoutCI, nullptr, &descriptorsetlayout));
+    VK_CHECK_RESULT(vkCreateDescriptorSetLayout(m_pdevice.device(), &descriptorsetlayoutCI, nullptr, &descriptorsetlayout));
 
     // Descriptor Pool
     ::array_base<VkDescriptorPoolSize> poolSizes = { vkinit::descriptorPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 1) };
     VkDescriptorPoolCreateInfo descriptorPoolCI = vkinit::descriptorPoolCreateInfo(poolSizes, 2);
     VkDescriptorPool descriptorpool;
-    VK_CHECK_RESULT(vkCreateDescriptorPool(m_device.device(), &descriptorPoolCI, nullptr, &descriptorpool));
+    VK_CHECK_RESULT(vkCreateDescriptorPool(m_pdevice.device(), &descriptorPoolCI, nullptr, &descriptorpool));
 
     // Descriptor sets
     VkDescriptorSet descriptorset;
     VkDescriptorSetAllocateInfo allocInfo = vkinit::descriptorSetAllocateInfo(descriptorpool, &descriptorsetlayout, 1);
-    VK_CHECK_RESULT(vkAllocateDescriptorSets(m_device.device(), &allocInfo, &descriptorset));
+    VK_CHECK_RESULT(vkAllocateDescriptorSets(m_pdevice.device(), &allocInfo, &descriptorset));
 
     // Pipeline layout
     VkPipelineLayout pipelinelayout;
     VkPipelineLayoutCreateInfo pipelineLayoutCI = vkinit::pipelineLayoutCreateInfo(&descriptorsetlayout, 1);
-    VK_CHECK_RESULT(vkCreatePipelineLayout(m_device.device(), &pipelineLayoutCI, nullptr, &pipelinelayout));
+    VK_CHECK_RESULT(vkCreatePipelineLayout(m_pdevice.device(), &pipelineLayoutCI, nullptr, &pipelinelayout));
 
     // Pipeline
     VkPipelineInputAssemblyStateCreateInfo inputAssemblyState = vkinit::pipelineInputAssemblyStateCreateInfo(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST, 0, VK_FALSE);
@@ -644,7 +652,7 @@ void AssetManager::generateBRDFlut() {
     // Look-up-table (from BRDF) pipeline
     ::string vert = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/gen_brdflut.vert.spv";
     ::string frag = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/gen_brdflut.frag.spv";
-    sandbox_pipeline brdfPipeline{ m_device, vert, frag, cfg };
+    sandbox_pipeline brdfPipeline{ m_pdevice, vert, frag, cfg };
 
     // Render
     VkClearValue clearValues[1];
@@ -658,7 +666,7 @@ void AssetManager::generateBRDFlut() {
     renderPassBeginInfo.pClearValues = clearValues;
     renderPassBeginInfo.framebuffer = framebuffer;
 
-    VkCommandBuffer cmdBuf = m_device.createCommandBuffer(VK_COMMAND_BUFFER_LEVEL_PRIMARY, true);
+    VkCommandBuffer cmdBuf = m_pdevice.createCommandBuffer(VK_COMMAND_BUFFER_LEVEL_PRIMARY, true);
     vkCmdBeginRenderPass(cmdBuf, &renderPassBeginInfo, VK_SUBPASS_CONTENTS_INLINE);
     VkViewport viewport = vkinit::viewport((float)dim, (float)dim, 0.0f, 1.0f);
     VkRect2D scissor = vkinit::rect2D(dim, dim, 0, 0);
@@ -668,16 +676,16 @@ void AssetManager::generateBRDFlut() {
     brdfPipeline.bind(cmdBuf);
     vkCmdDraw(cmdBuf, 3, 1, 0, 0);
     vkCmdEndRenderPass(cmdBuf);
-    m_device.flushCommandBuffer(cmdBuf, m_transferQueue);
+    m_pdevice.flushCommandBuffer(cmdBuf, m_transferQueue);
 
     vkQueueWaitIdle(m_transferQueue);
 
-    vkDestroyFramebuffer(m_device.device(), framebuffer, nullptr);
-    vkDestroyRenderPass(m_device.device(), renderpass, nullptr);
+    vkDestroyFramebuffer(m_pdevice.device(), framebuffer, nullptr);
+    vkDestroyRenderPass(m_pdevice.device(), renderpass, nullptr);
 
     auto tEnd = std::chrono::high_resolution_clock::now();
     auto tDiff = std::chrono::duration<double, std::milli>(tEnd - tStart).count();
-    std::cout << "Generating BRDF LUT took " << tDiff << " ms" << std::endl;
+    information() << "Generating BRDF LUT took " << tDiff << " ms" ;
 }
 
 void AssetManager::generatePrefilteredEnvMap() {
@@ -695,7 +703,7 @@ void AssetManager::generatePrefilteredEnvMap() {
         return it->element2();
 
     // 2) load
-    auto model = sandbox_object_model::createModelFromFile(m_device, filepath, isSkybox);
+    auto model = sandbox_object_model::createModelFromFile(m_pdevice, filepath, isSkybox);
 
     // 3) cache & return
     m_objModelCache[name] = model;
@@ -713,7 +721,7 @@ void AssetManager::generatePrefilteredEnvMap() {
         return it->element2();
 
     auto model = øcreate_pointer<gltf::Model>();
-    model->loadFromFile(filepath, &m_device, m_device.graphicsQueue(), gltfFlags, scale);
+    model->loadFromFile(filepath, &m_pdevice, m_pdevice.graphicsQueue(), gltfFlags, scale);
 
     m_gltfModelCache[name] = model;
     return model;
@@ -730,14 +738,14 @@ void AssetManager::generatePrefilteredEnvMap() {
         return it->element2();
 
     auto tex = øcreate_pointer<sandbox_texture>();
-    tex->m_pDevice = &m_device;
+    tex->m_pDevice = &m_pdevice;
     try {
         tex->KtxLoadCubemapFromFile(
             name,
             ktxFilename,
             format,
-            &m_device,
-            m_device.graphicsQueue(),
+            &m_pdevice,
+            m_pdevice.graphicsQueue(),
             usageFlags,
             initialLayout
         );
@@ -756,9 +764,9 @@ void AssetManager::generatePrefilteredEnvMap() {
 void AssetManager::registerTextureIfNeeded(
     const ::scoped_string & name,
     const ::pointer<sandbox_texture>& tex,
-    ::map<::string, ::pointer<sandbox_texture>>& textures,
-    ::map<::string, size_t>& textureIndexMap,
-    ::array_base<::pointer<sandbox_texture>>& textureList)
+    ::string_map< ::pointer<sandbox_texture>>& textures,
+    ::string_map< size_t>& textureIndexMap,
+    ::pointer_array_base<sandbox_texture>>& textureList)
 {
     if (textures.find(name) == textures.end()) {
         textures[name] = tex;

@@ -8,7 +8,7 @@
 //////#include <stdexcept>
 //#include <cstring>
 //#include <fstream>
-//#include <assert.h>
+//#include <ASSERT.h>
 //#include <stdio.h>
 //#include <vector>
 //#include <iostream>
@@ -68,8 +68,8 @@ _UCRT_RESTORE_CLANG_WARNINGS
 	VkResult res = (f);																					\
 	if (res != VK_SUCCESS)																				\
 	{																									\
-		std::cout << "Fatal : VkResult is \"" << tools::errorString(res) << "\" in " << __FILE__ << " at line " << __LINE__ << "\n"; \
-		assert(res == VK_SUCCESS);																		\
+		information() << "Fatal : VkResult is \"" << tools::errorString(res) << "\" in " << __FILE__ << " at line " << __LINE__ << "\n"; \
+		ASSERT(res == VK_SUCCESS);																		\
 	}																									\
 }
 

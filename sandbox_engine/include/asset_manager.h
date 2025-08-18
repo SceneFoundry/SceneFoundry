@@ -14,9 +14,11 @@
 
 
 
-class AssetManager : public IAssetProvider {
+class AssetManager : 
+   public IAssetProvider
+{
 public:
-	AssetManager(sandbox_renderer::sandbox_device& device);
+	AssetManager(sandbox_renderer::sandbox_device *pdevice);
 	~AssetManager();
 	void preloadGlobalAssets();
 	::pointer<sandbox_renderer::sandbox_object_model> loadObjModel(const ::scoped_string & name, const ::scoped_string & filepath, bool isSkybox = false);
@@ -80,7 +82,7 @@ public:
         return it->element2();
     }
 
-    const ::array_base<::pointer<sandbox_renderer::sandbox_texture>>& getAllTextures() const {
+    const ::pointer_array_base<sandbox_renderer::sandbox_texture>& getAllTextures() const {
         return m_textureList;
     }
 
@@ -106,14 +108,14 @@ public:
     }
 
 private:
-	::map<::string, OBJmodelHandle> m_objModelCache;
-	::map<::string, GLTFmodelHandle> m_gltfModelCache;
+	::string_map < OBJmodelHandle> m_objModelCache;
+   ::string_map < GLTFmodelHandle> m_gltfModelCache;
 
-	::map<::string, ::pointer<sandbox_renderer::sandbox_texture>>  m_textures; // name → texture
-	::map<::string, size_t>                      m_textureIndexMap; // name → index
-	::array_base<::pointer<sandbox_renderer::sandbox_texture>>                   m_textureList; // index → texture
+   ::string_map < ::pointer<sandbox_renderer::sandbox_texture>>  m_textures; // name → texture
+   ::string_map < size_t>                      m_textureIndexMap; // name → index
+	::pointer_array_base<sandbox_renderer::sandbox_texture>                   m_textureList; // index → texture
 
-   sandbox_renderer::sandbox_device&			m_device;
+   ::pointer < sandbox_renderer::sandbox_device >			m_pdevice;
 	VkQueue						m_transferQueue;
 
 	// caches
@@ -124,9 +126,9 @@ private:
 	static void registerTextureIfNeeded(
 		const ::scoped_string & name,
 		const ::pointer<sandbox_renderer::sandbox_texture>& tex,
-		::map<::string, ::pointer<sandbox_renderer::sandbox_texture>>& textures,
-		::map<::string, size_t>& textureIndexMap,
-		::array_base<::pointer<sandbox_renderer::sandbox_texture>>& textureList);
+		::string_map< ::pointer<sandbox_renderer::sandbox_texture>>& textures,
+		::string_map< size_t>& textureIndexMap,
+		::pointer_array_base<sandbox_renderer::sandbox_texture>& textureList);
 
 
 

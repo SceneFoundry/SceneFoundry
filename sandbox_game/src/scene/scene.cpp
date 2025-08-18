@@ -1,7 +1,8 @@
 #include "framework.h"
+#include "acme/filesystem/filesystem/file_context.h"
 #include "SceneFoundry/sandbox_game/include/scene/scene.h"
 #include "SceneFoundry/sandbox_game/include/entities/player.h"
-#include "SceneFoundry/sandbox_game/include/game/game_object.h"
+#include "SceneFoundry/sandbox_game/include/entities/game_object.h"
 
 //#include <json.hpp>
 
@@ -13,7 +14,7 @@ namespace sandbox_game
 {
 
 
-   using json = nlohmann::json;
+   //using json = nlohmann::json;
 
    sandbox_scene::sandbox_scene(::pointer<IWindowInput> input, AssetManager& assetManager)
       : m_pInput(std::move(input)), m_assetManager(assetManager)
@@ -27,7 +28,7 @@ namespace sandbox_game
       player->getTransform().rotation = m_initialCameraRotation;
       player->onInit();
 
-      m_players.push_back(player);
+      m_players.add(player);
 
    }
 
@@ -41,20 +42,20 @@ namespace sandbox_game
       }
    }
    void sandbox_scene::loadSceneFile(const ::scoped_string& fileName) {
-      ::string path = ::string(PROJECT_ROOT_DIR) + "/sandbox_game/res/scenes/" + fileName + ".json";
+      ::file::path path = "matter://scenes/" + fileName + ".json";
 
-      std::ifstream inFile(path);
-      if (!inFile.is_open()) {
-         throw std::runtime_error("Could not open scene file: " + path);
-      }
+      auto sceneJson = file()->as_network_payload(path);
+      //if (!inFile.is_open()) {
+      //   throw std::runtime_error("Could not open scene file: " + path);
+      //}
 
-      json sceneJson;
-      inFile >> sceneJson;
+      //json sceneJson;
+      //inFile >> sceneJson;
 
 
       // Parse skybox cubemap name (if present)
-      if (sceneJson.contains("skybox")) {
-         m_skyboxCubemapName = sceneJson["skybox"].get<::string>();
+      if (sceneJson.property_reference().has_property("skybox")) {
+         m_skyboxCubemapName = sceneJson["skybox"].as_string();
          information("Scene specifies skybox: '{}'", m_skyboxCubemapName);
       }
       else {
