@@ -2,37 +2,50 @@
 
 
 #include "bred/_.h"
+#include "sandbox_interfaces/_.h"
 
 
-
-#if defined(_app_graphics3d_continuum_project)
-#define CLASS_DECL_APP_GRAPHICS3D_CONTINUUM  CLASS_DECL_EXPORT
+#if defined(_sandbox_renderer_project)
+#define CLASS_DECL_SANDBOX_RENDERER  CLASS_DECL_EXPORT
 #else
-#define CLASS_DECL_APP_GRAPHICS3D_CONTINUUM  CLASS_DECL_IMPORT
+#define CLASS_DECL_SANDBOX_RENDERER  CLASS_DECL_IMPORT
 #endif
+//
+//
+//namespace app_graphics3d_continuum
+//{
+//
+//   class application;
+//   class pane_impact;
+//   class document;
+//   class impact;
+//
+//
+//   class main_scene;
+//   class simple_render_system;
+//   class point_light_system;
+//
+//
+//   class GlobalUbo;
+//
+//
+//} // namespace flag
+//
+
+//s#include "include/vulkan_wrapper/_.h"
 
 
-namespace app_graphics3d_continuum
+
+namespace sandbox_renderer
 {
 
-   class application;
-   class pane_impact;
-   class document;
-   class impact;
+
+    class device;
+    class pipeline;
+    class texture;
 
 
-   class main_scene;
-   class simple_render_system;
-   class point_light_system;
-
-
-   class GlobalUbo;
-
-
-} // namespace flag
-
-
-
+} // namespace sandbox_renderer
 
 
 

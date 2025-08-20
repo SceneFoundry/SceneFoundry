@@ -1,30 +1,31 @@
 #include "framework.h"
-#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/render_systems/gltf_render_system.h"
+//#include "bred/gpu/gltf_model.h"
+#include "SceneFoundry/sandbox_renderer/gltf_render_system.h"
 //#include <stdexcept>
 
 
 
 
-GltfRenderSystem::GltfRenderSystem(
-    sandbox_renderer::sandbox_device& device,
+gltf_render_system::gltf_render_system(
+    sandbox_renderer::sandbox_device * pdevice,
     VkRenderPass renderPass,
     VkDescriptorSetLayout globalSetLayout,
     IAssetProvider& assets
 ) :
-    m_device(device),
+    m_pgpudevice(pdevice),
     m_globalSetLayout(globalSetLayout),
     m_assets(assets)
 {
 
 }
 
-GltfRenderSystem::~GltfRenderSystem() {
-    vkDestroyPipelineLayout(m_device.device(), m_pipelineLayout, nullptr);
+gltf_render_system::~gltf_render_system() {
+    vkDestroyPipelineLayout(m_pgpudevice->device(), m_pipelineLayout, nullptr);
 }
 
 
-void GltfRenderSystem::init(
-   sandbox_renderer::sandbox_device& device,
+void gltf_render_system::init(
+   sandbox_renderer::sandbox_device * pdevice,
     VkRenderPass renderPass,
     VkDescriptorSetLayout globalSetLayout,
    sandbox_renderer::sandbox_descriptor_pool& descriptorPool,
@@ -32,7 +33,7 @@ void GltfRenderSystem::init(
 ) {
     m_globalSetLayout = globalSetLayout;
 
-    m_iblLayout = sandbox_renderer::sandbox_descriptor_set_layout::Builder{ device }
+    m_iblLayout = sandbox_renderer::sandbox_descriptor_set_layout::Builder{ pdevice }
         .addBinding(0, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT)
         .addBinding(1, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT)
         //.addBinding(2, VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, VK_SHADER_STAGE_FRAGMENT_BIT)
@@ -69,7 +70,7 @@ void GltfRenderSystem::init(
 
 }
 
-void GltfRenderSystem::createPipelineLayout(VkDescriptorSetLayout globalSetLayout) {
+void gltf_render_system::createPipelineLayout(VkDescriptorSetLayout globalSetLayout) {
     const ::array_base<VkDescriptorSetLayout> layouts = {
         globalSetLayout,
         sandbox_renderer::gltf::descriptorSetLayoutUbo,
@@ -82,12 +83,12 @@ void GltfRenderSystem::createPipelineLayout(VkDescriptorSetLayout globalSetLayou
     pipelineLayoutInfo.setLayoutCount = static_cast<uint32_t>(layouts.size());
     pipelineLayoutInfo.pSetLayouts = layouts.data();
 
-    if (vkCreatePipelineLayout(m_device.device(), &pipelineLayoutInfo, nullptr, &m_pipelineLayout) != VK_SUCCESS) {
+    if (vkCreatePipelineLayout(m_pgpudevice->device(), &pipelineLayoutInfo, nullptr, &m_pipelineLayout) != VK_SUCCESS) {
         throw std::runtime_error("Failed to create GLTF pipeline layout");
     }
 }
 
-void GltfRenderSystem::createPipeline(VkRenderPass renderPass) {
+void gltf_render_system::createPipeline(VkRenderPass renderPass) {
     ASSERT(m_pipelineLayout != VK_NULL_HANDLE);
 
     auto vertSpv = "matter://shaders/spirV/gltf_vert.vert.spv";
@@ -106,87 +107,90 @@ void GltfRenderSystem::createPipeline(VkRenderPass renderPass) {
     };
 
     // OPAQUE
-    sandbox_renderer::pipeline_configuration_information opaqueConfig{};
-    sandbox_renderer::sandbox_pipeline::defaultPipelineConfigInfo(opaqueConfig);
-    opaqueConfig.pipelineLayout = m_pipelineLayout;
-    opaqueConfig.renderPass = renderPass;
-    opaqueConfig.bindingDescriptions = bindings;
-    opaqueConfig.attributeDescriptions = attributes;
+    // sandbox_renderer::pipeline_configuration_information opaqueConfig{};
+    // sandbox_renderer::sandbox_pipeline::defaultPipelineConfigInfo(opaqueConfig);
+    // opaqueConfig.pipelineLayout = m_pipelineLayout;
+    // opaqueConfig.renderPass = renderPass;
+    // opaqueConfig.bindingDescriptions = bindings;
+    // opaqueConfig.attributeDescriptions = attributes;
 
     m_opaquePipeline = øcreate_pointer<sandbox_renderer::sandbox_pipeline>(
-        m_device, vertSpv, fragSpv, opaqueConfig);
+        //m_pgpudevice, vertSpv, fragSpv, opaqueConfig);
+        m_pgpudevice, vertSpv, fragSpv);
 
     // MASK
-    sandbox_renderer::pipeline_configuration_information maskConfig{};
-    sandbox_renderer::sandbox_pipeline::defaultPipelineConfigInfo(maskConfig);
-    maskConfig.pipelineLayout = m_pipelineLayout;
-    maskConfig.renderPass = renderPass;
-    maskConfig.bindingDescriptions = bindings;
-    maskConfig.attributeDescriptions = attributes;
-    maskConfig.colorBlendAttachment.blendEnable = VK_FALSE;
+    // sandbox_renderer::pipeline_configuration_information maskConfig{};
+    // sandbox_renderer::sandbox_pipeline::defaultPipelineConfigInfo(maskConfig);
+    // maskConfig.pipelineLayout = m_pipelineLayout;
+    // maskConfig.renderPass = renderPass;
+    // maskConfig.bindingDescriptions = bindings;
+    // maskConfig.attributeDescriptions = attributes;
+    // maskConfig.colorBlendAttachment.blendEnable = VK_FALSE;
 
-    struct SpecData { VkBool32 alphaMask; float cutoff; };
-    static SpecData specData{ VK_TRUE, 0.5f };
-    static VkSpecializationMapEntry mapEntries[2] = {
-        { 0, offsetof(SpecData, alphaMask), sizeof(VkBool32) },
-        { 1, offsetof(SpecData, cutoff),    sizeof(float) }
-    };
-    static VkSpecializationInfo specInfo{};
-    specInfo.mapEntryCount = 2;
-    specInfo.pMapEntries = mapEntries;
-    specInfo.dataSize = sizeof(specData);
-    specInfo.pData = &specData;
-
-    maskConfig.fragSpecInfo = &specInfo;
+    // struct SpecData { VkBool32 alphaMask; float cutoff; };
+    // static SpecData specData{ VK_TRUE, 0.5f };
+    // static VkSpecializationMapEntry mapEntries[2] = {
+    //     { 0, offsetof(SpecData, alphaMask), sizeof(VkBool32) },
+    //     { 1, offsetof(SpecData, cutoff),    sizeof(float) }
+    // };
+    // static VkSpecializationInfo specInfo{};
+    // specInfo.mapEntryCount = 2;
+    // specInfo.pMapEntries = mapEntries;
+    // specInfo.dataSize = sizeof(specData);
+    // specInfo.pData = &specData;
+    //
+    // maskConfig.fragSpecInfo = &specInfo;
 
     m_maskPipeline = øcreate_pointer<sandbox_renderer::sandbox_pipeline>(
-        m_device, vertSpv, fragSpv, maskConfig);
+        //m_pgpudevice, vertSpv, fragSpv, maskConfig);
+        m_pgpudevice, vertSpv, fragSpv);
 
-    // BLEND
-    sandbox_renderer::pipeline_configuration_information blendConfig{};
-    sandbox_renderer::sandbox_pipeline::defaultPipelineConfigInfo(blendConfig);
-    blendConfig.pipelineLayout = m_pipelineLayout;
-    blendConfig.renderPass = renderPass;
-    blendConfig.bindingDescriptions = bindings;
-    blendConfig.attributeDescriptions = attributes;
-
-    blendConfig.colorBlendAttachment.blendEnable = VK_TRUE;
-    blendConfig.colorBlendAttachment.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
-    blendConfig.colorBlendAttachment.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
-    blendConfig.colorBlendAttachment.colorBlendOp = VK_BLEND_OP_ADD;
-    blendConfig.colorBlendAttachment.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
-    blendConfig.colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
-    blendConfig.colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD;
-
-    blendConfig.colorBlendAttachment.colorWriteMask =
-        VK_COLOR_COMPONENT_R_BIT |
-        VK_COLOR_COMPONENT_G_BIT |
-        VK_COLOR_COMPONENT_B_BIT |
-        VK_COLOR_COMPONENT_A_BIT;
+    // // BLEND
+    // sandbox_renderer::pipeline_configuration_information blendConfig{};
+    // sandbox_renderer::sandbox_pipeline::defaultPipelineConfigInfo(blendConfig);
+    // blendConfig.pipelineLayout = m_pipelineLayout;
+    // blendConfig.renderPass = renderPass;
+    // blendConfig.bindingDescriptions = bindings;
+    // blendConfig.attributeDescriptions = attributes;
+    //
+    // blendConfig.colorBlendAttachment.blendEnable = VK_TRUE;
+    // blendConfig.colorBlendAttachment.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
+    // blendConfig.colorBlendAttachment.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
+    // blendConfig.colorBlendAttachment.colorBlendOp = VK_BLEND_OP_ADD;
+    // blendConfig.colorBlendAttachment.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
+    // blendConfig.colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
+    // blendConfig.colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD;
+    //
+    // blendConfig.colorBlendAttachment.colorWriteMask =
+    //     VK_COLOR_COMPONENT_R_BIT |
+    //     VK_COLOR_COMPONENT_G_BIT |
+    //     VK_COLOR_COMPONENT_B_BIT |
+    //     VK_COLOR_COMPONENT_A_BIT;
 
     m_blendPipeline = øcreate_pointer<sandbox_renderer::sandbox_pipeline>(
-        m_device, vertSpv, fragSpv, blendConfig);
+    m_pgpudevice, vertSpv, fragSpv);
+        //m_pgpudevice, vertSpv, fragSpv, blendConfig);
 }
 
 
 
-void GltfRenderSystem::render(FrameInfo& frame) {
-    vkCmdBindDescriptorSets(
-        frame.commandBuffer,
-        VK_PIPELINE_BIND_POINT_GRAPHICS,
-        m_pipelineLayout,
-        0, 1,
-        &frame.globalDescriptorSet,
-        0, nullptr);
+void gltf_render_system::render(FrameInfo& frame) {
+    // vkCmdBindDescriptorSets(
+    //     frame.m_pcommandbuffer,
+    //     VK_PIPELINE_BIND_POINT_GRAPHICS,
+    //     m_pipelineLayout,
+    //     0, 1,
+    //     &frame.globalDescriptorSet,
+    //     0, nullptr);
 
     for (auto& [id, go] : frame.gameObjects) {
         auto baseModel = go->getModel();
         if (!baseModel) continue;
 
-        ::cast<::sandbox_renderer::gltf::Model> model =  baseModel;
+        ::cast<::gpu::gltf::Model> model =  baseModel;
         if (!model) continue;
 
-        model->bind(frame.commandBuffer);
+        model->bind(frame.m_pcommandbuffer);
 
         for (auto* node : model->m_linearNodes) {
             if (!node->mesh) continue;
@@ -196,31 +200,32 @@ void GltfRenderSystem::render(FrameInfo& frame) {
             memcpy(node->mesh->uniformBuffer.mapped, &world, sizeof(world));
             memcpy((char*)node->mesh->uniformBuffer.mapped + sizeof(world), &normalMat, sizeof(normalMat));
 
-            vkCmdBindDescriptorSets(
-                frame.commandBuffer,
-                VK_PIPELINE_BIND_POINT_GRAPHICS,
-                m_pipelineLayout,
-                1, 1,
-                &node->mesh->uniformBuffer.descriptorSet,
-                0, nullptr);
+            // vkCmdBindDescriptorSets(
+            //     frame.m_pcommandbuffer,
+            //     VK_PIPELINE_BIND_POINT_GRAPHICS,
+            //     m_pipelineLayout,
+            //     1, 1,
+            //     &node->mesh->uniformBuffer.descriptorSet,
+            //     0, nullptr);
 
             const auto& mat = node->mesh->primitives[0]->material;
             switch (mat.alphaMode) {
             case ::sandbox_renderer::gltf::Material::ALPHAMODE_OPAQUE:
-                m_opaquePipeline->bind(frame.commandBuffer);
+                m_opaquePipeline->bind(frame.m_pcommandbuffer);
                 break;
             case ::sandbox_renderer::gltf::Material::ALPHAMODE_MASK:
-                m_maskPipeline->bind(frame.commandBuffer);
+                m_maskPipeline->bind(frame.m_pcommandbuffer);
                 break;
             case ::sandbox_renderer::gltf::Material::ALPHAMODE_BLEND:
             default:
-                m_blendPipeline->bind(frame.commandBuffer);
+                m_blendPipeline->bind(frame.m_pcommandbuffer);
                 break;
             }
 
+
             model->drawNode(
                 node,
-                frame.commandBuffer,
+                frame.m_pcommandbuffer,
                ::sandbox_renderer::gltf::RenderFlags::BindImages,
                 m_pipelineLayout,
                 2 // bindImageSet

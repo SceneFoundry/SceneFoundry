@@ -170,5 +170,8 @@
     <ClInclude Include="include\vk_tools\vk_descriptor_requirement.h">
       <Filter>Header Files\vk_tools</Filter>
     </ClInclude>
+    <ClInclude Include="include\vulkan_wrapper\_.h">
+      <Filter>Header Files\vulkan_wrapper</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

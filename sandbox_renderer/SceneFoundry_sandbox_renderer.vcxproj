@@ -858,6 +858,7 @@
     <ClInclude Include="include\vulkan_wrapper\vulkan_renderer.h" />
     <ClInclude Include="include\vulkan_wrapper\vulkan_swapchain.h" />
     <ClInclude Include="include\vulkan_wrapper\vulkan_texture.h" />
+    <ClInclude Include="include\vulkan_wrapper\_.h" />
     <ClInclude Include="include\window.h" />
     <ClInclude Include="_.h" />
   </ItemGroup>

@@ -2,6 +2,7 @@
 
 
 #include "bred/_.h"
+#include "SceneFoundry/sandbox_renderer/_.h"
 
 
 #if defined(_SceneFoundry_sandbox_engine_project)
