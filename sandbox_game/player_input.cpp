@@ -14,7 +14,11 @@ namespace sandbox_game
       m_rawDelta = delta;
    }
 
-   void sandbox_mnk_controller::update(float dt, ::pointer<::sandbox_interfaces::IWindowInput> input, ::sandbox_interfaces::TransformComponent& transform) {
+   void sandbox_mnk_controller::update(
+      float dt,
+      ::sandbox_interfaces::IWindowInput * pinput,
+      ::sandbox_interfaces::TransformComponent& transform)
+   {
 
       // 1) Smooth raw mouse delta into m_smoothDelta
       float alpha = 1.0f - std::exp(-m_smoothing * dt);
@@ -33,12 +37,12 @@ namespace sandbox_game
       glm::vec3 up = glm::vec3(0.f, 1.f, 0.f);
 
       glm::vec3 dir{ 0.f };
-      if (input->isKeyPressed(SandboxKey::W)) dir += front;
-      if (input->isKeyPressed(SandboxKey::S)) dir -= front;
-      if (input->isKeyPressed(SandboxKey::A)) dir -= right;
-      if (input->isKeyPressed(SandboxKey::D)) dir += right;
-      if (input->isKeyPressed(SandboxKey::Q)) dir -= up;
-      if (input->isKeyPressed(SandboxKey::E)) dir += up;
+      if (pinput->isKeyPressed(SandboxKey::W)) dir += front;
+      if (pinput->isKeyPressed(SandboxKey::S)) dir -= front;
+      if (pinput->isKeyPressed(SandboxKey::A)) dir -= right;
+      if (pinput->isKeyPressed(SandboxKey::D)) dir += right;
+      if (pinput->isKeyPressed(SandboxKey::Q)) dir -= up;
+      if (pinput->isKeyPressed(SandboxKey::E)) dir += up;
 
       if (glm::length(dir) > 0.0f)
          transform.translation += glm::normalize(dir) * m_moveSpeed * dt;

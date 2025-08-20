@@ -1,5 +1,5 @@
 #include "framework.h"
-#include "SceneFoundry/sandbox_game/entities/game_object.h"
+#include "SceneFoundry/sandbox_game/game_object.h"
 
 
 namespace sandbox_game

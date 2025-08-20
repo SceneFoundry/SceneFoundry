@@ -1,6 +1,7 @@
 #include "framework.h"
 // obj_render_system.cpp
 #include "object_render_system.h"
+#include "SceneFoundry/sandbox_interfaces/frame.h"
 // External
 #define GLM_FORCE_RADIANS	
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
@@ -22,8 +23,13 @@ namespace sandbox_renderer
 		//int textureIndex;
 	};
 
-	object_render_system::object_render_system(sandbox_renderer::device *pdevice, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout)
-		: m_pgpudevice(pdevice)//, m_globalSetLayout(globalSetLayout)
+	// object_render_system::object_render_system(sandbox_renderer::device *pdevice, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout)
+	// 	: m_pgpudevice(pdevice)//, m_globalSetLayout(globalSetLayout)
+	// {
+	//
+	// }
+	object_render_system::object_render_system()
+//		: m_pgpudevice(pdevice)//, m_globalSetLayout(globalSetLayout)
 	{
 
 	}
@@ -48,10 +54,10 @@ namespace sandbox_renderer
 
 
 
-	void object_render_system::render(FrameInfo& frame)
+	void object_render_system::render(::sandbox_interfaces::IFrame * pframe)
 	{
 		//m_ppipeline->bind(frame.m_pcommandbuffer);
-		m_ppipeline->bind(frame.m_pcommandbuffer);
+		m_ppipeline->bind(pframe->m_pcommandbuffer);
 		::preallocated_array_base< ::array_base <VkDescriptorSet>, 1 > descriptorSets;
 
 		descriptorSets = { frame.globalDescriptorSet };

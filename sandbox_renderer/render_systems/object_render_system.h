@@ -40,7 +40,7 @@ namespace sandbox_renderer
 		// 	::sandbox_renderer::sandbox_descriptor_pool& descriptorPool,
 		// 	size_t frameCount)override;
 
-		void render(FrameInfo& frame) override;
+		void render(::sandbox_interfaces::IFrame * pframe) override;
 		//private:
 		//void createPipelineLayout(VkDescriptorSetLayout globalSetLayout);
 		//void createPipeline(VkRenderPass renderPass);

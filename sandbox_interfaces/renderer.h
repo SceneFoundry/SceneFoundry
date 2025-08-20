@@ -4,11 +4,13 @@
 //#include <vulkan/vulkan.h>
 //#include <vector>
 #include <glm/glm.hpp>
-#include "SceneFoundry/sandbox_interfaces/frame_info.h"
+#include "SceneFoundry/sandbox_interfaces/frame.h"
 
 
 namespace sandbox_interfaces
 {
+
+
 	class IRenderer :
 		virtual public ::particle
 	{
@@ -26,8 +28,11 @@ namespace sandbox_interfaces
 		// :
 		//virtual public ::particlevirtual ~ISandboxRenderer() = default;
 
-		virtual void renderSystems(FrameInfo& frame) = 0;
-		virtual void updateSystems(FrameInfo& frame, GlobalUbo& ubo, float deltaTime) {};
+		virtual void renderSystems(::sandbox_interfaces::IFrame * pframe) = 0;
+		virtual void updateSystems(
+			::sandbox_interfaces::IFrame * pframe,
+			::sandbox_interfaces::IBuffer * pbufferGlobalUbo,
+			float deltaTime) {};
 		virtual IFrame * beginFrame() = 0;
 		virtual void beginSwapChainRenderPass(IFrame * pframe) = 0;
 		virtual void endSwapChainRenderPass(IFrame * pframe) = 0;

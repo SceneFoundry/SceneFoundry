@@ -6,12 +6,15 @@ list(APPEND library_source
         _.cpp
         _.h
         _.h
+
+        _sandbox_interfaces.h
+        point_light_component.h
         asset_provider.h
         camera.h
         class_set.h
         class_set1.h
         entity.h
-        frame_info.h
+        #frame_info.h
         framework.cpp
         framework.h
         game_layer.h
@@ -60,8 +63,7 @@ list(APPEND library_source
 )
 
 
-add_library(${PROJECT_NAME} SHARED ${library_source}
-        _sandbox_interfaces.h)
+add_library(${PROJECT_NAME} SHARED ${library_source})
 add_library(static_${PROJECT_NAME} SHARED ${library_source})
 
 

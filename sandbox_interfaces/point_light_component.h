@@ -1,8 +1,16 @@
 //
-// Created by camilo on 2025-08-19.
+// From point_light_render_system by camilo on 2025-08-19 <3ThomasBorregaardSorensen!!
 //
+#pragma once
 
-#ifndef POINT_LIGHT_COMPONENT_H
-#define POINT_LIGHT_COMPONENT_H
 
-#endif //POINT_LIGHT_COMPONENT_H
+namespace sandbox_interfaces
+{
+    struct point_light_component :
+       virtual public ::particle
+    {
+        float lightIntensity = 1.0f;
+    };
+
+
+} // namespace sandbox_interfaces

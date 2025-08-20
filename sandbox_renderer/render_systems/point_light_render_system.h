@@ -21,11 +21,6 @@ namespace sandbox_renderer
 	};
 
 
-	struct point_light_component :
-	   virtual public ::particle
-	{
-		float lightIntensity = 1.0f;
-	};
 
 
 	//struct point_light_component;
@@ -57,8 +52,8 @@ namespace sandbox_renderer
 		// 	sandbox_renderer::sandbox_descriptor_pool& descriptorPool,
 		// 	size_t frameCount)override;
 
-		void update(FrameInfo& frame, GlobalUbo& ubo) override;
-		void render(FrameInfo& frame) override;
+		void update(::sandbox_interfaces::IFrame * pframe, ::sandbox_interfaces::IBuffer * pbufferGlobalUbo) override;
+		void render(::sandbox_interfaces::IFrame * pframe) override;
 	//private:
 		//void createPipelineLayout(VkDescriptorSetLayout globalSetLayout);
 		//void createPipeline(VkRenderPass renderPass);

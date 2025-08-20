@@ -1,8 +1,8 @@
 #pragma once
 
-#include "SceneFoundry/sandbox_interfaces/entity_i.h"
-#include "SceneFoundry/sandbox_interfaces/model_i.h"
-#include "SceneFoundry/sandbox_renderer/include/vulkan_wrapper/vulkan_obj.h"
+#include "SceneFoundry/sandbox_interfaces/entity.h"
+#include "SceneFoundry/sandbox_interfaces/model.h"
+#include "SceneFoundry/sandbox_renderer/object.h"
 #include <glm/gtc/matrix_transform.hpp>
 
 // std
@@ -14,8 +14,22 @@ namespace sandbox_game
 {
 
 
-   class sandbox_game_object : public IGameObject {
+   class sandbox_game_object :
+   virtual public IGameObject
+   {
    public:
+
+
+      TransformComponent m_transform;
+      ::pointer<::sandbox_interfaces::IModel> m_pModel;
+      glm::vec3 m_color{};
+      bool m_bIsOBJ{ false };
+      ::pointer<::sandbox_renderer::point_light_component> m_pointLight;
+
+      ::string m_cubemapTextureName;
+      long long m_id;
+      bool m_bIsSkybox = false;
+
 
       using id_t = unsigned int;
       using Map = ::map<id_t, sandbox_game_object>;
@@ -35,11 +49,11 @@ namespace sandbox_game
       }
 
       sandbox_game_object(id_t objId);
-      sandbox_game_object() = default;
-      sandbox_game_object(const sandbox_game_object&) = delete;
-      sandbox_game_object& operator=(const sandbox_game_object&) = delete;
-      sandbox_game_object(sandbox_game_object&&) = default;
-      sandbox_game_object& operator=(sandbox_game_object&&) = default;
+      // sandbox_game_object() = default;
+      // sandbox_game_object(const sandbox_game_object&) = delete;
+      // sandbox_game_object& operator=(const sandbox_game_object&) = delete;
+      // sandbox_game_object(sandbox_game_object&&) = default;
+      // sandbox_game_object& operator=(sandbox_game_object&&) = default;
 
 
       uint32_t getId() const override { return m_id; }
@@ -63,15 +77,6 @@ namespace sandbox_game
       }
 
 
-      TransformComponent m_transform;
-      ::pointer<IModel> m_pModel;
-      glm::vec3 m_color{};
-      bool m_bIsOBJ{ false };
-      ::pointer<PointLightComponent> m_pointLight;
-
-      ::string m_cubemapTextureName;
-      id_t m_id;
-      bool m_bIsSkybox = false;
 
    };
 
