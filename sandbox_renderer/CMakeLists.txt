@@ -59,7 +59,7 @@ target_include_directories(sandbox_renderer
 # Link against required libraries
 target_link_libraries(${PROJECT_NAME}
         PUBLIC
-        sandbox_interfaces
+        sandbox
 )
 
 #

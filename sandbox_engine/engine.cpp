@@ -1,8 +1,8 @@
 #include "framework.h"
 #include "SceneFoundry/sandbox_engine/engine.h"
-#include "SceneFoundry/sandbox_interfaces/key_codes.h"
+#include "SceneFoundry/sandbox/key_codes.h"
 //#include "spdlog/spdlog.h"
-#include "SceneFoundry/sandbox_interfaces/frame_info.h"
+#include "SceneFoundry/sandbox/frame_info.h"
 #include <thread>
 #include <chrono>
 

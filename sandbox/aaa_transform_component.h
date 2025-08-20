@@ -2,7 +2,7 @@
 #include <glm/glm.hpp>
 
 
-namespace sandbox_game
+namespace sandbox
 {
 
 	class TransformComponent {
@@ -16,6 +16,6 @@ namespace sandbox_game
 	};
 
 
-} // namespace sandbox_game
+} // namespace sandbox
 
 

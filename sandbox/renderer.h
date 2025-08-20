@@ -4,10 +4,10 @@
 //#include <vulkan/vulkan.h>
 //#include <vector>
 #include <glm/glm.hpp>
-#include "SceneFoundry/sandbox_interfaces/frame.h"
+#include "SceneFoundry/sandbox/frame.h"
 
 
-namespace sandbox_interfaces
+namespace sandbox
 {
 
 
@@ -28,10 +28,10 @@ namespace sandbox_interfaces
 		// :
 		//virtual public ::particlevirtual ~ISandboxRenderer() = default;
 
-		virtual void renderSystems(::sandbox_interfaces::IFrame * pframe) = 0;
+		virtual void renderSystems(::sandbox::IFrame * pframe) = 0;
 		virtual void updateSystems(
-			::sandbox_interfaces::IFrame * pframe,
-			::sandbox_interfaces::IBuffer * pbufferGlobalUbo,
+			::sandbox::IFrame * pframe,
+			::sandbox::IBuffer * pbufferGlobalUbo,
 			float deltaTime) {};
 		virtual IFrame * beginFrame() = 0;
 		virtual void beginSwapChainRenderPass(IFrame * pframe) = 0;
@@ -41,6 +41,6 @@ namespace sandbox_interfaces
 		virtual void waitDeviceIdle() = 0;
 
 	};
-} // namespace sandbox_interfaces
+} // namespace sandbox
 
 

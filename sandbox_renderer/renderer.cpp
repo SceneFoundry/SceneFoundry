@@ -138,14 +138,14 @@ namespace sandbox_renderer
          );
       }
    }
-   void sandbox_renderer::updateSystems(::sandbox_interfaces::IFrame * pframe, GlobalUbo& ubo, float deltaTime)
+   void sandbox_renderer::updateSystems(::sandbox::IFrame * pframe, GlobalUbo& ubo, float deltaTime)
    {
       for (auto& renderSystem : m_systems) {
          renderSystem->update(frame, ubo);
       }
    }
 
-   void sandbox_renderer::renderSystems(::sandbox_interfaces::IFrame * pframe) {
+   void sandbox_renderer::renderSystems(::sandbox::IFrame * pframe) {
       // upload camera UBO into m_uboBuffers[frame.frameIndex]...
       // loop all your render systems:
       for (auto& sys : m_systems) {

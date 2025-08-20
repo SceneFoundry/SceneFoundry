@@ -3,7 +3,7 @@
 #include "device.h"
 //#include <map>
 //#include <set>
-#include "SceneFoundry/sandbox_interfaces/include/class_set.h"
+#include "SceneFoundry/sandbox/include/class_set.h"
 
 
 namespace sandbox_renderer

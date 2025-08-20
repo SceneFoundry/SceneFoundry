@@ -10,7 +10,7 @@
 #include "SceneFoundry/sandbox_renderer/texture.h"
 #include "SceneFoundry/sandbox_renderer/pipeline.h"
 
-#include "SceneFoundry/sandbox_interfaces/asset_provider_i.h"
+#include "SceneFoundry/sandbox/asset_provider_i.h"
 
 namespace sandbox_engine
 {

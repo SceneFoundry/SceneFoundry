@@ -1,7 +1,7 @@
 #include "framework.h"
 #include "device.h"
 #include "pipeline.h"
-#include "SceneFoundry/sandbox_interfaces/class_set.h"
+#include "SceneFoundry/sandbox/class_set.h"
 
 //#include <cstring>
 //#include <iostream>

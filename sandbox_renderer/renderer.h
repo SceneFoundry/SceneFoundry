@@ -1,9 +1,9 @@
 // vulkan_renderer.h
 #pragma once
 //#include <memory>
-#include "SceneFoundry/sandbox_interfaces/renderer.h"
-//#include "SceneFoundry/sandbox_interfaces/render_system_i.h"
-//#include "SceneFoundry/sandbox_interfaces/asset_provider_i.h"
+#include "SceneFoundry/sandbox/renderer.h"
+//#include "SceneFoundry/sandbox/render_system_i.h"
+//#include "SceneFoundry/sandbox/asset_provider_i.h"
 // #include "SceneFoundry/sandbox_renderer/render_systems/object_render_system.h"
 // #include "SceneFoundry/sandbox_renderer/render_systems/gltf_render_system.h"
 // #include "SceneFoundry/sandbox_renderer/render_systems/skybox_ibl_render_system.h"
@@ -33,7 +33,7 @@ namespace sandbox_renderer
 	};
 
 	class CLASS_DECL_SANDBOX_RENDERER renderer :
-		virtual public ::sandbox_interfaces::IRenderer,
+		virtual public ::sandbox::IRenderer,
 		virtual public ::particle
 	{
 	public:
@@ -50,7 +50,7 @@ namespace sandbox_renderer
 
 		device * m_pgpudevice;
 		::user::interaction * m_puserinteraction;
-		::pointer_array_base<::sandbox_interfaces::IRenderSystem>				   m_systems;
+		::pointer_array_base<::sandbox::IRenderSystem>				   m_systems;
 
 		//::pointer<sandbox_swap_chain>					     m_swapchain;
 		//::pointer<sandbox_swap_chain>					  m_oldSwapchain;
@@ -72,19 +72,19 @@ namespace sandbox_renderer
 
 
 
-		::sandbox_interfaces::IFrame * beginFrame() override;
+		::sandbox::IFrame * beginFrame() override;
 
-		void endFrame(::sandbox_interfaces::IFrame * pframe) override;
-		void beginSwapChainRenderPass(::sandbox_interfaces::IFrame * pframe)override;
-		void endSwapChainRenderPass(::sandbox_interfaces::IFrame *pframe)override;
+		void endFrame(::sandbox::IFrame * pframe) override;
+		void beginSwapChainRenderPass(::sandbox::IFrame * pframe)override;
+		void endSwapChainRenderPass(::sandbox::IFrame *pframe)override;
 
-		void initializeSystems(::sandbox_interfaces::IAssetProvider * passetprovider);
+		void initializeSystems(::sandbox::IAssetProvider * passetprovider);
 		void initSkyboxSystem();
-		void renderSystems(::sandbox_interfaces::IFrame *pframe)override;
+		void renderSystems(::sandbox::IFrame *pframe)override;
 
 		void waitDeviceIdle() override;
 
-		void updateSystems(::sandbox_interfaces::IFrame *pframe, GlobalUbo& ubo, float deltaTime)override;
+		void updateSystems(::sandbox::IFrame *pframe, GlobalUbo& ubo, float deltaTime)override;
 
 		// Inline helpers
 		//inline VkRenderPass getSwapChainRenderPass() const { return m_swapchain->getRenderPass(); }

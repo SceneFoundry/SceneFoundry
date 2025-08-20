@@ -4,9 +4,9 @@
 // #include <glm/glm.hpp>
 // //#include <unordered_map>
 // //#include <memory>
-// #include "SceneFoundry/sandbox_interfaces/camera_i.h"
-// #include "SceneFoundry/sandbox_interfaces/scene.h"
-// #include "SceneFoundry/sandbox_interfaces/game_object_i.h"
+// #include "SceneFoundry/sandbox/camera_i.h"
+// #include "SceneFoundry/sandbox/scene.h"
+// #include "SceneFoundry/sandbox/game_object_i.h"
 //
 // #define MAX_LIGHTS 10
 // struct IGameObject;
@@ -14,7 +14,7 @@
 
 
 //
-// namespace sandbox_interfaces
+// namespace sandbox
 // {
 //
 //
@@ -36,7 +36,7 @@
 //     };
 //
 //
-// } // namespace sandbox_interfaces
+// } // namespace sandbox
 //
 //
 //

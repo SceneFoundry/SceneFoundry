@@ -1,7 +1,7 @@
 #include "framework.h"
 // obj_render_system.cpp
 #include "object_render_system.h"
-#include "SceneFoundry/sandbox_interfaces/frame.h"
+#include "SceneFoundry/sandbox/frame.h"
 // External
 #define GLM_FORCE_RADIANS	
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
@@ -54,7 +54,7 @@ namespace sandbox_renderer
 
 
 
-	void object_render_system::render(::sandbox_interfaces::IFrame * pframe)
+	void object_render_system::render(::sandbox::IFrame * pframe)
 	{
 		//m_ppipeline->bind(frame.m_pcommandbuffer);
 		m_ppipeline->bind(pframe->m_pcommandbuffer);

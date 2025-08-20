@@ -1,7 +1,7 @@
 #include "framework.h"
 //#include "bred/gpu/gltf_model.h"
 #include "gltf_render_system.h"
-#include "SceneFoundry/sandbox_interfaces/frame.h"
+#include "SceneFoundry/sandbox/frame.h"
 #include "sandbox_engine/_.h"
 //#include <stdexcept>
 
@@ -184,7 +184,7 @@ namespace sandbox_renderer
 
 
 
-    void gltf_render_system::render(::sandbox_interfaces::IFrame * pframe)
+    void gltf_render_system::render(::sandbox::IFrame * pframe)
     {
         // vkCmdBindDescriptorSets(
         //     frame.m_pcommandbuffer,

@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 
 
-namespace sandbox_interfaces
+namespace sandbox
 {
     class ICamera :
         virtual public ::particle
@@ -24,5 +24,5 @@ namespace sandbox_interfaces
 
         virtual glm::mat4 getInverseViewMatrix() const = 0;
     };
-} // namespace sandbox_interfaces
+} // namespace sandbox
 

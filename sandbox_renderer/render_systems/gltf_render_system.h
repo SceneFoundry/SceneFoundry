@@ -1,8 +1,8 @@
 #pragma once
-#include "SceneFoundry/sandbox_interfaces/render_system.h"
+#include "SceneFoundry/sandbox/render_system.h"
 
-//#include "SceneFoundry/sandbox_interfaces/asset_provider_i.h"
-//#include "SceneFoundry/sandbox_interfaces/game_object_i.h"
+//#include "SceneFoundry/sandbox/asset_provider_i.h"
+//#include "SceneFoundry/sandbox/game_object_i.h"
 
 //#include "device.h"
 //#include "pipeline.h"
@@ -23,7 +23,7 @@ namespace sandbox_renderer
 
 
 	class CLASS_DECL_SANDBOX_RENDERER gltf_render_system :
-		virtual public ::sandbox_interfaces::IRenderSystem
+		virtual public ::sandbox::IRenderSystem
 	{
 	public:
 
@@ -39,7 +39,7 @@ namespace sandbox_renderer
 		::pointer<::sandbox_renderer::pipeline> m_blendPipeline;
 		///VkPipelineLayout m_pipelineLayout;
 
-		::pointer <::sandbox_interfaces::IAssetProvider > m_passetprovider;
+		::pointer <::sandbox::IAssetProvider > m_passetprovider;
 
 		//::pointer<::sandbox_renderer::sandbox_descriptor_set_layout> m_iblLayout;
 		//::array_base<VkDescriptorSet>				  m_iblDescriptorSets;
@@ -59,7 +59,7 @@ namespace sandbox_renderer
 		// 	sandbox_renderer::sandbox_descriptor_pool& descriptorPool,
 		// 	size_t frameCount)override;
 
-		void render(::sandbox_interfaces::IFrame * pframe) override;
+		void render(::sandbox::IFrame * pframe) override;
 	//private:
 		//void createPipelineLayout(VkDescriptorSetLayout globalSetLayout);
 		//void createPipeline(VkRenderPass renderPass);

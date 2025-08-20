@@ -1,9 +1,9 @@
 #include "framework.h"
 
 #include "SceneFoundry/sandbox_renderer/render_systems/point_light_render_system.h"
-#include "SceneFoundry/sandbox_interfaces/frame.h"
-#include "SceneFoundry/sandbox_interfaces/game_object.h"
-//#include "SceneFoundry/sandbox_interfaces/game_object.h"
+#include "SceneFoundry/sandbox/frame.h"
+#include "SceneFoundry/sandbox/game_object.h"
+//#include "SceneFoundry/sandbox/game_object.h"
 #include "bred/gpu/command_buffer.h"
 // libs
 #define GLM_FORCE_RADIANS
@@ -101,7 +101,7 @@ namespace sandbox_renderer
     //     );
     // }
 
-    void point_light_render_system::render(::sandbox_interfaces::IFrame * pframe) {
+    void point_light_render_system::render(::sandbox::IFrame * pframe) {
         ::map<float, uint32_t> sorted;
 
 auto pgameobjects = pframe->game_objects();
@@ -148,7 +148,7 @@ auto pgameobjects = pframe->game_objects();
             //vkCmdDraw(frame.m_pcommandbuffer, 6, 1, 0, 0);
         }
 
-    }void point_light_render_system::update(::sandbox_interfaces::IFrame * pframe, GlobalUbo& ubo) {
+    }void point_light_render_system::update(::sandbox::IFrame * pframe, GlobalUbo& ubo) {
         auto rotateLight = glm::rotate(glm::mat4(1.f), m_rotationSpeed * frame.frameTime, { 0.f, -1.f, 0.f });
 
         int lightIndex = 0;

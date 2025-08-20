@@ -1,5 +1,5 @@
 #pragma once
-#include "SceneFoundry/sandbox_interfaces/render_system.h"
+#include "SceneFoundry/sandbox/render_system.h"
 
 //#include "SceneFoundry/sandbox_renderer/device.h"
 //#include "SceneFoundry/sandbox_renderer/pipeline.h"
@@ -26,7 +26,7 @@ namespace sandbox_renderer
 	//struct point_light_component;
 
 	class CLASS_DECL_SANDBOX_RENDERER point_light_render_system :
-	public ::sandbox_interfaces::IRenderSystem {
+	public ::sandbox::IRenderSystem {
 	public:
 
 
@@ -52,8 +52,8 @@ namespace sandbox_renderer
 		// 	sandbox_renderer::sandbox_descriptor_pool& descriptorPool,
 		// 	size_t frameCount)override;
 
-		void update(::sandbox_interfaces::IFrame * pframe, ::sandbox_interfaces::IBuffer * pbufferGlobalUbo) override;
-		void render(::sandbox_interfaces::IFrame * pframe) override;
+		void update(::sandbox::IFrame * pframe, ::sandbox::IBuffer * pbufferGlobalUbo) override;
+		void render(::sandbox::IFrame * pframe) override;
 	//private:
 		//void createPipelineLayout(VkDescriptorSetLayout globalSetLayout);
 		//void createPipeline(VkRenderPass renderPass);

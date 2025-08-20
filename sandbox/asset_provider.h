@@ -4,7 +4,7 @@
 //#include <memory>
 //#include "SceneFoundry/sandbox_renderer/gltf.h"
 
-namespace sandbox_interfaces
+namespace sandbox
 {
 
 
@@ -21,10 +21,10 @@ namespace sandbox_interfaces
         //    virtual VkDescriptorImageInfo getTextureDescriptor(const ::scoped_string & name) const = 0;
 
         virtual ::array_base<::string> listTextureNames()    const = 0;
-        virtual ::pointer<::sandbox_interfaces::IModel> getGLTFmodel(const ::scoped_string & name) const = 0;
+        virtual ::pointer<::sandbox::IModel> getGLTFmodel(const ::scoped_string & name) const = 0;
 
     };
 
 
-} // namespace sandbox_interfaces
+} // namespace sandbox
 

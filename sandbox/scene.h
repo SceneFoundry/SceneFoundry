@@ -3,15 +3,15 @@
 
 //#include <unordered_map>
 //#include <memory>
-//#include "SceneFoundry/sandbox_interfaces/game_object_i.h"
-//#include "SceneFoundry/sandbox_interfaces/camera_i.h"
-//#include "SceneFoundry/sandbox_interfaces/renderer_i.h"   // for FrameContext
+//#include "SceneFoundry/sandbox/game_object_i.h"
+//#include "SceneFoundry/sandbox/camera_i.h"
+//#include "SceneFoundry/sandbox/renderer_i.h"   // for FrameContext
 //#include <optional>
 //////#include <stdexcept>
 ///
 ///
 
-namespace sandbox_interfaces
+namespace sandbox
 {
 
     class IScene  :
@@ -43,7 +43,7 @@ namespace sandbox_interfaces
     };
 
 
-} // namespace sandbox_interfaces
+} // namespace sandbox
 
 
 

@@ -2,8 +2,8 @@
 #include "skybox_ibl_render_system.h"
 
 #include "sandbox_engine/_.h"
-#include "SceneFoundry/sandbox_interfaces/game_object.h"
-#include "SceneFoundry/sandbox_interfaces/frame.h"
+#include "SceneFoundry/sandbox/game_object.h"
+#include "SceneFoundry/sandbox/frame.h"
 
 
 namespace sandbox_renderer
@@ -91,7 +91,7 @@ namespace sandbox_renderer
 	// 	}
 	// }
 
-	void skybox_ibl_render_system::render(::sandbox_interfaces::IFrame * pframe)
+	void skybox_ibl_render_system::render(::sandbox::IFrame * pframe)
 	{
 
 		if (!m_bHasCubemap) return;

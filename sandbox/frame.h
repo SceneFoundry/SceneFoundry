@@ -8,7 +8,7 @@
 #include "bred/graphics3d/scene_object.h"
 
 
-namespace sandbox_interfaces
+namespace sandbox
 {
 
 
@@ -39,7 +39,7 @@ namespace sandbox_interfaces
 
 
 
-} // namespace sandbox_interfaces
+} // namespace sandbox
 
 
 

@@ -4,10 +4,10 @@
 //#include "common/render_data.h"
 // #include "SceneFoundry/sandbox_renderer/device.h"
 // //#include "SceneFoundry/sandbox_renderer/descriptor.h"
-// #include "SceneFoundry/sandbox_interfaces/renderer_i.h"
-// #include "SceneFoundry/sandbox_interfaces/frame_info.h"
+// #include "SceneFoundry/sandbox/renderer_i.h"
+// #include "SceneFoundry/sandbox/frame_info.h"
 
-namespace sandbox_interfaces
+namespace sandbox
 {
 
     struct IBuffer  :
@@ -50,4 +50,4 @@ namespace sandbox_interfaces
 
 
 
-} // namespace sandbox_interfaces
+} // namespace sandbox

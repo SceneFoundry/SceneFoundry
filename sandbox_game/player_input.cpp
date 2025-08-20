@@ -1,6 +1,8 @@
 #include "framework.h"
 // player_input.cpp
 #include "SceneFoundry/sandbox_game/player_input.h"
+//#include "SceneFoundry/sandbox/transform_component.h"
+
 
 namespace sandbox_game
 {
@@ -16,8 +18,8 @@ namespace sandbox_game
 
    void sandbox_mnk_controller::update(
       float dt,
-      ::sandbox_interfaces::IWindowInput * pinput,
-      ::sandbox_interfaces::TransformComponent& transform)
+      ::sandbox::IWindowInput * pinput,
+      ::sandbox::TransformComponent& transform)
    {
 
       // 1) Smooth raw mouse delta into m_smoothDelta

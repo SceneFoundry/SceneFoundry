@@ -1,7 +1,7 @@
 #pragma once
 
-#include "SceneFoundry/sandbox_interfaces/render_system.h"
-//#include "SceneFoundry/sandbox_interfaces/asset_provider.h"
+#include "SceneFoundry/sandbox/render_system.h"
+//#include "SceneFoundry/sandbox/asset_provider.h"
 //#include "device.h"
 //#include "SceneFoundry/sandbox_renderer/pipeline.h"
 //#include "SceneFoundry/sandbox_renderer/descriptor.h"
@@ -18,7 +18,7 @@ namespace sandbox_renderer
 
 
     class CLASS_DECL_SANDBOX_RENDERER skybox_ibl_render_system :
-        public ::sandbox_interfaces::IRenderSystem
+        public ::sandbox::IRenderSystem
     {
     public:
 
@@ -50,7 +50,7 @@ namespace sandbox_renderer
         //     size_t frameCount)override;
 
         // Call this inside your scene render loop, after global descriptors are bound
-        void render(::sandbox_interfaces::IFrame * pframe) override;
+        void render(::sandbox::IFrame * pframe) override;
 
         //
         // inline void setCubemapTexture(const VkDescriptorImageInfo& info) {

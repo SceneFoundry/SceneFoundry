@@ -1,5 +1,10 @@
 #pragma once
 
+
+namespace sandbox
+{
+
+
 enum class SandboxKey {
     UNKNOWN = -1,
     SPACE = 32,
@@ -44,3 +49,6 @@ enum class KeyAction {
     RELEASE,
     REPEAT
 };
+
+
+} // namespace sandbox

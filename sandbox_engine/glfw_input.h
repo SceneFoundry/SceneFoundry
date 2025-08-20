@@ -1,5 +1,5 @@
 #pragma once
-#include "SceneFoundry/sandbox_interfaces/window_input_i.h"
+#include "SceneFoundry/sandbox/window_input_i.h"
 //#include "GLFW/glfw3.h"
 //#include "SceneFoundry/sandbox_renderer/include/window.h"
 

@@ -1,5 +1,5 @@
 # sandbox_renderer/CMakeLists.txt
-project(sandbox_interfaces LANGUAGES CXX)
+project(sandbox LANGUAGES CXX)
 
 
 list(APPEND library_source
@@ -8,7 +8,9 @@ list(APPEND library_source
         _.h
 
         _sandbox_interfaces.h
-        point_light_component.h
+        #point_light_component.h
+        _types.h
+        _constant.h
         asset_provider.h
         camera.h
         class_set.h
@@ -19,13 +21,13 @@ list(APPEND library_source
         framework.h
         game_layer.h
         game_object.h
-        key_codes.h
+        #key_codes.h
         model.h
         provider.h
         render_system.h
         renderer.h
         scene.h
-        transform_component.h
+        #transform_component.h
         window_input.h
         asset_provider.h
         camera.h
@@ -33,16 +35,16 @@ list(APPEND library_source
         class_set1.h
         entity.h
         frame.h
-        frame_info.h
+        #frame_info.h
         game_layer.h
         game_object.h
-        key_codes.h
+        #key_codes.h
         model.h
         provider.h
         render_system.h
         renderer.h
         scene.h
-        transform_component.h
+        #transform_component.h
         window_input.h
         #         src/window.cpp
         #         src/vk_tools/vk_tools.cpp
@@ -88,7 +90,7 @@ target_include_directories(${PROJECT_NAME}
 ## Link against required libraries
 #target_link_libraries(${PROJECT_NAME}
 #    PUBLIC
-#        sandbox_interfaces
+#        sandbox
 #)
 
 #

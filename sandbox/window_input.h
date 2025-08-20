@@ -1,10 +1,10 @@
 #pragma once
-#include "SceneFoundry/sandbox_interfaces/key_codes.h"
+//#include "SceneFoundry/sandbox/key_codes.h"
 //#include <functional>
 
 
 
-namespace sandbox_interfaces
+namespace sandbox
 {
 
 
@@ -32,4 +32,4 @@ namespace sandbox_interfaces
 	};
 
 
-} // namespace sandbox_interfaces
+} // namespace sandbox

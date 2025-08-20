@@ -1,8 +1,8 @@
 // player_input.h
 
 #pragma once
-#include "SceneFoundry/sandbox_interfaces/window_input.h"
-#include "SceneFoundry/sandbox_interfaces/transform_component.h"
+#include "SceneFoundry/sandbox/window_input.h"
+#include "SceneFoundry/sandbox/_types.h"
 #include <glm/glm.hpp>
 //#include <memory>
 
@@ -15,7 +15,7 @@ namespace sandbox_game
    public:
       sandbox_mnk_controller(float moveSpeed = 7.f, float mouseSensitivity = 0.08f);
 
-      void update(float dt, ::pointer<::sandbox_interfaces::IWindowInput> input, TransformComponent& transform);
+      void update(float dt, ::sandbox::IWindowInput * input, ::sandbox::TransformComponent& transform);
       void mouseCallback(glm::vec2 delta);
       float getYaw() const { return m_yaw; }
       float getPitch() const { return m_pitch; }

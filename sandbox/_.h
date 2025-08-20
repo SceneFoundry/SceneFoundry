@@ -2,11 +2,10 @@
 
 
 #include "bred/_.h"
-#include "SceneFoundry/sandbox_renderer/_.h"
 
 
 
-namespace sandbox_interfaces
+namespace sandbox
 {
 
     class IScene;
@@ -23,4 +22,11 @@ namespace sandbox_interfaces
     class IWindowInput;
 
 
-} // namespace sandbox_interfaces
+} // namespace sandbox
+
+
+#include "SceneFoundry/sandbox/_constant.h"
+#include "SceneFoundry/sandbox/_types.h"
+
+
+

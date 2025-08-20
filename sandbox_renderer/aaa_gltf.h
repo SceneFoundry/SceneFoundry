@@ -9,7 +9,7 @@
 //#include <vector>
 
 #include <vulkan/vulkan.h>
-#include "SceneFoundry/sandbox_interfaces/model_i.h"
+#include "SceneFoundry/sandbox/model_i.h"
 #include "SceneFoundry/sandbox_renderer/include/vk_tools/vk_init.h"
 #include "descriptor.h"
 

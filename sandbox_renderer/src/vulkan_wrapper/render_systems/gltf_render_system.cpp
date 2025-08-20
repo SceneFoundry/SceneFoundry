@@ -174,7 +174,7 @@ void gltf_render_system::createPipeline(VkRenderPass renderPass) {
 
 
 
-void gltf_render_system::render(::sandbox_interfaces::IFrame * pframe) {
+void gltf_render_system::render(::sandbox::IFrame * pframe) {
     // vkCmdBindDescriptorSets(
     //     frame.m_pcommandbuffer,
     //     VK_PIPELINE_BIND_POINT_GRAPHICS,

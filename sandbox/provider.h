@@ -4,7 +4,7 @@
 //#include "SceneFoundry/sandbox_renderer/texture.h"
 //#include <optional>
 
-namespace sandbox_interfaces
+namespace sandbox
 {
 
 	struct IProvider :
@@ -16,5 +16,5 @@ namespace sandbox_interfaces
 	};
 
 
-} // namespace sandbox_interfaces
+} // namespace sandbox
 

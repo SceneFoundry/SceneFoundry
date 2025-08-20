@@ -1,8 +1,8 @@
 #pragma once
 #include "sandbox_renderer/device.h"
-#include "SceneFoundry/sandbox_interfaces/game_layer.h"
-#include "SceneFoundry/sandbox_interfaces/window_input.h"
-#include "SceneFoundry/sandbox_interfaces/renderer.h"
+#include "SceneFoundry/sandbox/game_layer.h"
+#include "SceneFoundry/sandbox/window_input.h"
+#include "SceneFoundry/sandbox/renderer.h"
 #include "SceneFoundry/sandbox_game/player.h"
 #include "SceneFoundry/sandbox_game/scene.h"
 //#include <iostream>

@@ -1,8 +1,8 @@
 #pragma once
 #include "device.h"
-#include "SceneFoundry/sandbox_interfaces/model.h"
+#include "SceneFoundry/sandbox/model.h"
 //#include "buffer.h"
-//#include "SceneFoundry/sandbox_interfaces/renderer_i.h"
+//#include "SceneFoundry/sandbox/renderer_i.h"
 #include "bred/gpu/types.h"
 // libs
 #define GLM_FORCE_RADIANS	
@@ -28,7 +28,7 @@ namespace sandbox_renderer
 
 
    class CLASS_DECL_SANDBOX_RENDERER object_model :
-      virtual public ::sandbox_interfaces::IModel
+      virtual public ::sandbox::IModel
    {
    public:
 

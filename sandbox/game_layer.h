@@ -1,9 +1,9 @@
 #pragma once
-//#include "SceneFoundry/sandbox_interfaces/renderer_i.h"
-//#include "SceneFoundry/sandbox_interfaces/scene_i.h"
+//#include "SceneFoundry/sandbox/renderer_i.h"
+//#include "SceneFoundry/sandbox/scene_i.h"
 
 
-namespace sandbox_interfaces
+namespace sandbox
 {
 
 	class IGameLayer  :
@@ -22,5 +22,5 @@ namespace sandbox_interfaces
 	};
 
 
-} // namespace sandbox_interfaces
+} // namespace sandbox
 

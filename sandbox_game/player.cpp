@@ -1,7 +1,7 @@
 #include "framework.h"
 #include "SceneFoundry/sandbox_game/player.h"
 #include <glm/gtc/matrix_transform.hpp>
-#include "SceneFoundry/sandbox_interfaces/key_codes.h"
+#include "SceneFoundry/sandbox/key_codes.h"
 ////#include <spdlog/spdlog.h>
 
 
@@ -9,7 +9,7 @@ namespace sandbox_game
 {
 
 
-   sandbox_player::sandbox_player(::pointer<::sandbox_interfaces::IWindowInput> input)
+   sandbox_player::sandbox_player(::pointer<::sandbox::IWindowInput> input)
       : m_pInput(std::move(input))
       , m_camera(glm::vec3(0.f, 0.f, 3.f))
    {

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "SceneFoundry/sandbox_interfaces/entity.h"
-#include "SceneFoundry/sandbox_interfaces/model.h"
+#include "SceneFoundry/sandbox/entity.h"
+#include "SceneFoundry/sandbox/model.h"
 #include "SceneFoundry/sandbox_renderer/object.h"
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -21,7 +21,7 @@ namespace sandbox_game
 
 
       TransformComponent m_transform;
-      ::pointer<::sandbox_interfaces::IModel> m_pModel;
+      ::pointer<::sandbox::IModel> m_pModel;
       glm::vec3 m_color{};
       bool m_bIsOBJ{ false };
       ::pointer<::sandbox_renderer::point_light_component> m_pointLight;

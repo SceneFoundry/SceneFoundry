@@ -2,7 +2,7 @@
 
 
 #include "bred/_.h"
-#include "sandbox_interfaces/_.h"
+#include "SceneFoundry/sandbox/_.h"
 
 
 #if defined(_sandbox_renderer_project)

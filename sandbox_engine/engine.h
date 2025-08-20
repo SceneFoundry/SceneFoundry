@@ -5,9 +5,9 @@
 #include "sandbox_renderer/device.h"
 #include "sandbox_renderer/instance.h"
 #include "sandbox_renderer/renderer.h"
-#include "sandbox_interfaces/game_layer_i.h"
-#include "sandbox_interfaces/camera_i.h"
-#include "sandbox_interfaces/window_input_i.h"
+#include "sandbox/game_layer_i.h"
+#include "sandbox/camera_i.h"
+#include "sandbox/window_input_i.h"
 #include "sandbox_engine/glfw_input.h"
 #include "sandbox_engine/asset_manager.h"
 
