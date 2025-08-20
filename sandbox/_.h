@@ -3,6 +3,11 @@
 
 #include "bred/_.h"
 
+#if defined(_sandbox_project)
+#define CLASS_DECL_SANDBOX  CLASS_DECL_EXPORT
+#else
+#define CLASS_DECL_SANDBOX  CLASS_DECL_IMPORT
+#endif
 
 
 namespace sandbox

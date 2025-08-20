@@ -10,19 +10,28 @@
 #include "SceneFoundry/sandbox_renderer/texture.h"
 #include "SceneFoundry/sandbox_renderer/pipeline.h"
 
-#include "SceneFoundry/sandbox/asset_provider_i.h"
+#include "SceneFoundry/sandbox/asset_provider.h"
+
 
 namespace sandbox_engine
 {
 
+
    class asset_manager :
-      public IAssetProvider
+      public ::sandbox::IAssetProvider
    {
    public:
-      asset_manager(sandbox_renderer::device* pdevice);
+
+
+      asset_manager();
       ~asset_manager();
+
+
+      virtual void initialize_asset_manager(sandbox_renderer::device* pdevice);
+
+
       void preloadGlobalAssets();
-      ::pointer<sandbox_renderer::sandbox_object_model> loadObjModel(const ::scoped_string& name, const ::scoped_string& filepath, bool isSkybox = false);
+      ::pointer<sandbox_renderer::object_model> loadObjModel(const ::scoped_string& name, const ::scoped_string& filepath, bool isSkybox = false);
       ::pointer<sandbox_renderer::gltf::Model> loadGLTFmodel(const ::scoped_string& name, const ::scoped_string& filepath, uint32_t gltfFlags = 0u, float scale = 1.f);
       ::pointer<sandbox_renderer::texture> loadCubemap(
          const ::scoped_string& name,

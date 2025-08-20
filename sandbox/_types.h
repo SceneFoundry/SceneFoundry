@@ -18,7 +18,7 @@ namespace sandbox
 
     };
 
-	struct TransformComponent
+	struct CLASS_DECL_SANDBOX TransformComponent
 	{
 		//TransformComponent() = default;
 		glm::vec3 translation{};

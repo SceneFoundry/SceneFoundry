@@ -46,10 +46,10 @@ namespace sandbox_renderer
 
 	pipeline::~pipeline()
 	{
-		vkDestroyShaderModule(m_pgpudevice->device(), m_vertShaderModule, nullptr);
-		vkDestroyShaderModule(m_pgpudevice->device(), m_fragShaderModule, nullptr);
-		vkDestroyPipeline(m_pgpudevice->device(), m_graphicsPipeline, nullptr);
-		vkDestroyPipelineLayout(m_pgpudevice->device(), m_pipelineLayout, nullptr);
+		// vkDestroyShaderModule(m_pgpudevice->device(), m_vertShaderModule, nullptr);
+		// vkDestroyShaderModule(m_pgpudevice->device(), m_fragShaderModule, nullptr);
+		// vkDestroyPipeline(m_pgpudevice->device(), m_graphicsPipeline, nullptr);
+		// vkDestroyPipelineLayout(m_pgpudevice->device(), m_pipelineLayout, nullptr);
 	}
 
 

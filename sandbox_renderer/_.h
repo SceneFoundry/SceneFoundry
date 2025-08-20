@@ -43,6 +43,7 @@ namespace sandbox_renderer
     class device;
     class pipeline;
     class texture;
+    class object_model;
 
 
 } // namespace sandbox_renderer

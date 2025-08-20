@@ -173,9 +173,10 @@ namespace sandbox_renderer
       //bool isDeviceSuitable(VkPhysicalDevice pdevice);
 
 
-   public:
+   //public:
       // VkPhysicalDevice m_physicalDevice;
       // VkDevice m_logicalDevice;
+      ::pointer<object_model> createModelFromFile(const  ::scoped_string& filepath, bool isSkybox = false);
 
 
    };

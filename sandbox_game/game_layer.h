@@ -12,18 +12,27 @@ namespace sandbox_game
 {
 
 
-   class MyGameLayer : 
+   class game_lLayer :
       virtual public ::sandbox_renderer::device
    {
    public:
 
-
+      ::interlocked_count m_interlockedcountGameObject;
       ::pointer<sandbox_scene> m_pscene;
-      ::pointer<IWindowInput> m_pwindowinput;
+      ::pointer<::sandbox::IWindowInput> m_pwindowinput;
       ::pointer < sandbox_engine::asset_manager > m_passetmanager;
 
 
-      MyGameLayer(::pointer<IWindowInput> input, ::sandbox_engine::asset_manager & assets);
+      game_layer();
+
+
+      void initialize_game_layer(::sandbox::IWindowInput * pinput, ::sandbox_engine::asset_manager & assets);
+
+
+      ::pointer<game_object> createGameObject();
+
+
+       ::pointer<game_object> makePointLight(float intensity = 10.f, float radius = 0.1f, glm::vec3 color = glm::vec3(1.f));
 
 
       void onInit() override;

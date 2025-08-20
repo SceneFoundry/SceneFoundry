@@ -39,12 +39,12 @@ namespace sandbox_game
       glm::vec3 up = glm::vec3(0.f, 1.f, 0.f);
 
       glm::vec3 dir{ 0.f };
-      if (pinput->isKeyPressed(SandboxKey::W)) dir += front;
-      if (pinput->isKeyPressed(SandboxKey::S)) dir -= front;
-      if (pinput->isKeyPressed(SandboxKey::A)) dir -= right;
-      if (pinput->isKeyPressed(SandboxKey::D)) dir += right;
-      if (pinput->isKeyPressed(SandboxKey::Q)) dir -= up;
-      if (pinput->isKeyPressed(SandboxKey::E)) dir += up;
+      if (pinput->isKeyPressed(::sandbox::SandboxKey::W)) dir += front;
+      if (pinput->isKeyPressed(::sandbox::SandboxKey::S)) dir -= front;
+      if (pinput->isKeyPressed(::sandbox::SandboxKey::A)) dir -= right;
+      if (pinput->isKeyPressed(::sandbox::SandboxKey::D)) dir += right;
+      if (pinput->isKeyPressed(::sandbox::SandboxKey::Q)) dir -= up;
+      if (pinput->isKeyPressed(::sandbox::SandboxKey::E)) dir += up;
 
       if (glm::length(dir) > 0.0f)
          transform.translation += glm::normalize(dir) * m_moveSpeed * dt;

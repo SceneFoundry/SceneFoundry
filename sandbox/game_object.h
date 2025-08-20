@@ -12,23 +12,27 @@ namespace sandbox
 {
 
 
-
-
-    struct IGameObject  :
+    class IGameObject  :
         virtual public ::particle
     {
+    public:
         //    virtual ~IGameObject() = default;
 
         virtual void onInit() {}
         virtual void onUpdate(float deltaTime) {}
 
-        virtual ::sandbox_game::TransformComponent& getTransform() = 0;
-        virtual ::pointer<IModel> getModel() const = 0;
+        virtual ::sandbox::TransformComponent& getTransform() = 0;
+        virtual IModel * getModel() const = 0;
 
         virtual glm::vec3 getColor() const { return glm::vec3(1.f); }
-        virtual const sandbox_renderer::point_light_component* getPointLight() const { return nullptr; }
-        virtual uint32_t getId() const { return 0; }
+        virtual const ::sandbox::point_light_component  * getPointLight() const {return nullptr;}
+        virtual long long getId() const { return 0; }
+
     };
+
+
+    using game_object_map = ::map<long long, IGameObject>;
+
 
 } // namespace sandbox
 

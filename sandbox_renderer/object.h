@@ -83,11 +83,14 @@ namespace sandbox_renderer
 
       };
 
-      static ::pointer<sandbox_object_model> createModelFromFile(
-         ::sandbox_renderer::device * pdevice, const  ::scoped_string& filepath, bool isSkybox = false);
+      // static ::pointer<sandbox_object_model> createModelFromFile(
+      //    ::sandbox_renderer::device * pdevice, const  ::scoped_string& filepath, bool isSkybox = false);
 
-      sandbox_object_model(device * pdevice, Builder const& builder);
-      ~sandbox_object_model();
+      object_model();
+      ~object_model();
+
+
+      virtual void initialize_object_model(device * pdevice, Builder const& builder);
 
       //sandbox_object_model(sandbox_object_model const&) = delete;
       //void operator=(sandbox_object_model const&) = delete;
@@ -110,13 +113,8 @@ namespace sandbox_renderer
 } // namespace sandbox_renderer
 
 
-
-
-
-
 template < >
-inline ::hash32 as_hash32<::sandbox_renderer::sandbox_object_model::Vertex>(
-   const ::sandbox_renderer::sandbox_object_model::Vertex& vertex)
+inline ::hash32 as_hash32<::sandbox_renderer::object_model::Vertex>(const ::sandbox_renderer::object_model::Vertex& vertex)
 {
 
    hash32 seed{};

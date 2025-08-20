@@ -26,6 +26,11 @@ namespace app_graphics3d_continuum
    class point_light_system;
 
 
+   class game_object;
+
+
+   class game_layer;
+
    class GlobalUbo;
 
 

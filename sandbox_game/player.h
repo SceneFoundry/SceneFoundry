@@ -3,7 +3,7 @@
 #include "SceneFoundry/sandbox/window_input.h"
 #include "SceneFoundry/sandbox_game/player_input.h"
 #include "SceneFoundry/sandbox/camera.h"
-#include "SceneFoundry/sandbox/transform_component.h"
+//#include "SceneFoundry/sandbox/transform_component.h"
 #include "SceneFoundry/sandbox_game/camera.h"
 #include "SceneFoundry/sandbox/renderer.h"
 
@@ -21,27 +21,30 @@ namespace sandbox_game
    public:
 
 
-      sandbox_player(::sandbox::IWindowInput * pinput);
-
-      void onInit() override;
-      void onUpdate(float deltaTime) override;
-
-      TransformComponent& getTransform() override;
-
-      ::pointer<::sandbox::IModel> getModel() const override;
-      sandbox_camera& getCamera();
-
-
-
-   //private:
+      //private:
       ::pointer<::sandbox::IWindowInput>       m_pInput;
-      TransformComponent m_transform;
+      ::sandbox::TransformComponent m_transform;
       sandbox_camera m_camera;
       sandbox_mnk_controller m_controller;
 
       // Configuration
       float m_mouseSensitivity = 0.0025f;
       float m_moveSpeed = 30.0f;
+
+      sandbox_player();
+
+
+      void initialize_sandbox_player(::sandbox::IWindowInput * pinput);
+
+      void onInit() override;
+      void onUpdate(float deltaTime) override;
+
+      ::sandbox::TransformComponent& getTransform() override;
+
+      ::pointer<::sandbox::IModel> getModel() const override;
+      sandbox_camera& getCamera();
+
+
 
    };
 

@@ -2,17 +2,23 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include "SceneFoundry/sandbox/camera_i.h"
+#include "SceneFoundry/sandbox/camera.h"
 
 
 namespace sandbox_game
 {
 
 
-   class sandbox_camera : public ICamera {
+   class sandbox_camera : public ::sandbox::ICamera
+   {
    public:
-      sandbox_camera() = default;
-      sandbox_camera(glm::vec3 position, float yawDeg = -90.f, float pitchDeg = 0.f, float zoomDeg = 45.f);
+
+
+      sandbox_camera();
+
+
+      //sandbox_camera(glm::vec3 position, float yawDeg = -90.f, float pitchDeg = 0.f, float zoomDeg = 45.f);
+      virtual void initialize_sandbox_camera(glm::vec3 position, float yawDeg = -90.f, float pitchDeg = 0.f, float zoomDeg = 45.f);
 
       void updateView();
       void updateProjection(float aspect, float nearZ = 0.1f, float farZ = 100.f);

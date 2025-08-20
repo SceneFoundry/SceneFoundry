@@ -1,8 +1,8 @@
 #include "framework.h"
 #include "acme/filesystem/filesystem/file_context.h"
-#include "SceneFoundry/sandbox_game/scene/scene.h"
-#include "SceneFoundry/sandbox_game/entities/player.h"
-#include "SceneFoundry/sandbox_game/entities/game_object.h"
+#include "SceneFoundry/sandbox_game/scene.h"
+#include "SceneFoundry/sandbox_game/player.h"
+#include "SceneFoundry/sandbox_game/game_object.h"
 
 //#include <json.hpp>
 
@@ -16,8 +16,8 @@ namespace sandbox_game
 
    //using json = nlohmann::json;
 
-   sandbox_scene::sandbox_scene(::pointer<IWindowInput> input, ::sandbox_engine::asset_manager& assetManager)
-      : m_pInput(std::move(input)), m_assetManager(assetManager)
+   sandbox_scene::sandbox_scene(IWindowInput * input, ::sandbox::asset_manager * passetmanager)
+      : m_pInput(pinput), m_passetmanager(passetmanager)
    {
 
    }
@@ -132,11 +132,11 @@ namespace sandbox_game
             const ::string modelName = it->as_string();
 
             // try OBJ first
-            if (auto objModel = m_assetManager.getOBJModel(modelName)) {
+            if (auto objModel = m_passetmanager->getOBJModel(modelName)) {
                gameObject->setModel(objModel);
             }
             // then try GLTF
-            else if (auto gltfModel = m_assetManager.getGLTFmodel(modelName)) {
+            else if (auto gltfModel = m_passetmanager->getGLTFmodel(modelName)) {
                gameObject->setModel(gltfModel);
             }
             else {
@@ -227,6 +227,11 @@ namespace sandbox_game
       return player->getCamera();
    }
 
+   ::graphics3d::scene_object::map * scene::getGameObjects()
+   {
+      return m_gameObjects;
+
+   }
 
 } // namespace sandbox_game
 
