@@ -9,7 +9,7 @@
 namespace sandbox_renderer
 {
 
-   DescriptorRegistry::DescriptorRegistry(sandbox_device * pdevice) :
+   DescriptorRegistry::DescriptorRegistry(device * pdevice) :
       m_pgpudevice(pdevice)
    {
 

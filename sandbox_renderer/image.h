@@ -18,7 +18,7 @@
 //       sandbox_image& operator=(const sandbox_image&) = delete;
 //
 //       void create(
-//          sandbox_device* pdevice,
+//          device* pdevice,
 //          uint32_t width,
 //          uint32_t height,
 //          VkFormat format,
@@ -39,7 +39,7 @@
 //       uint32_t getHeight() const { return m_height; }
 //
 //    private:
-//       sandbox_device* m_pDevice = nullptr;
+//       device* m_pDevice = nullptr;
 //
 //       uint32_t m_width = 0;
 //       uint32_t m_height = 0;

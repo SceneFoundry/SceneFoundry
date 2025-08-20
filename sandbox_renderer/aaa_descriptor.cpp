@@ -75,7 +75,7 @@
 //    // *************** Descriptor Set Layout *********************
 //
 //    sandbox_descriptor_set_layout::sandbox_descriptor_set_layout(
-//       sandbox_device * pdevice,
+//       device * pdevice,
 //       const ::array_base<VkDescriptorSetLayoutBinding>& bindingsVec,
 //       VkDescriptorSetLayout layout
 //    ) : m_pgpudevice{ pdevice }, m_descriptorSetLayout{ layout } {
@@ -118,7 +118,7 @@
 //    // *************** Descriptor Pool *********************
 //
 //    sandbox_descriptor_pool::sandbox_descriptor_pool(
-//       sandbox_device * pdevice,
+//       device * pdevice,
 //       uint32_t maxSets,
 //       VkDescriptorPoolCreateFlags poolFlags,
 //       const ::array_base<VkDescriptorPoolSize>& poolSizes)

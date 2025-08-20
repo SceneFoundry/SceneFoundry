@@ -8,7 +8,7 @@
 //
 //
 //    void sandbox_image::create(
-//       sandbox_device* pdevice,
+//       device* pdevice,
 //       uint32_t width,
 //       uint32_t height,
 //       VkFormat format,

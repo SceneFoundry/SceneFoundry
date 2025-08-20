@@ -13,7 +13,7 @@
 namespace sandbox_engine
 {
 
-   asset_manager::asset_manager(sandbox_renderer::sandbox_device* pdevice) :
+   asset_manager::asset_manager(sandbox_renderer::device* pdevice) :
       m_pgpudevice(pdevice), m_transferQueue(m_pgpudevice->graphicsQueue()) {
 
    }
@@ -350,7 +350,7 @@ namespace sandbox_engine
 
       // Pipeline config — IMPORTANT: provide vertex input descriptions to match shader (location 0)
       ::sandbox_renderer::pipeline_configuration_information cfg{};
-      ::sandbox_renderer::sandbox_pipeline::defaultPipelineConfigInfo(cfg);
+      ::sandbox_renderer::pipeline::defaultPipelineConfigInfo(cfg);
 
       // Vertex input: location 0 is a vec3 position (adjust if your skybox vertex layout differs)
       VkVertexInputBindingDescription bindingDesc{};
@@ -384,7 +384,7 @@ namespace sandbox_engine
 
       ::string vert = "matter://res/shaders/spirV/filtered_cube.vert.spv";
       ::string frag = "matter://shaders/spirV/irradiance_cube.frag.spv";
-      //::sandbox_renderer::sandbox_pipeline irradiancePipeline{ m_pgpudevice, vert, frag, cfg };
+      //::sandbox_renderer::pipeline irradiancePipeline{ m_pgpudevice, vert, frag, cfg };
 
       auto ppipelineIrradiance = m_pgpudevice->create_pipeline_from_file(vert, frag);
 
@@ -644,7 +644,7 @@ namespace sandbox_engine
 
       // 4) Fill your pipeline_configuration_information
       pipeline_configuration_information cfg{};
-      sandbox_pipeline::defaultPipelineConfigInfo(cfg);
+      pipeline::defaultPipelineConfigInfo(cfg);
 
       cfg.bindingDescriptions.clear();
       cfg.attributeDescriptions.clear();
@@ -659,7 +659,7 @@ namespace sandbox_engine
       // Look-up-table (from BRDF) pipeline
       ::string vert = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/gen_brdflut.vert.spv";
       ::string frag = ::string(PROJECT_ROOT_DIR) + "/res/shaders/spirV/gen_brdflut.frag.spv";
-      sandbox_pipeline brdfPipeline{ m_pgpudevice, vert, frag, cfg };
+      pipeline brdfPipeline{ m_pgpudevice, vert, frag, cfg };
 
       // Render
       VkClearValue clearValues[1];

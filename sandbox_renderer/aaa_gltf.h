@@ -50,7 +50,7 @@ namespace sandbox_renderer
 		*/
 		struct Texture {
 
-			sandbox_device* pdevice = nullptr;
+			device* pdevice = nullptr;
 			VkImage image;
 			VkImageLayout imageLayout;
 			VkDeviceMemory deviceMemory;
@@ -63,7 +63,7 @@ namespace sandbox_renderer
 			uint32_t index;
 			void updateDescriptor();
 			void destroy();
-			void fromglTfImage(tinygltf::Image& gltfimage, ::string path, sandbox_device* pdevice, VkQueue copyQueue, bool isSrgb);
+			void fromglTfImage(tinygltf::Image& gltfimage, ::string path, device* pdevice, VkQueue copyQueue, bool isSrgb);
 		};
 
 
@@ -71,7 +71,7 @@ namespace sandbox_renderer
 			glTF material class
 		*/
 		struct Material {
-			sandbox_device* pdevice = nullptr;
+			device* pdevice = nullptr;
 			enum AlphaMode { ALPHAMODE_OPAQUE, ALPHAMODE_MASK, ALPHAMODE_BLEND };
 			AlphaMode alphaMode = ALPHAMODE_OPAQUE;
 			float alphaCutoff = 1.0f;
@@ -89,7 +89,7 @@ namespace sandbox_renderer
 
 			VkDescriptorSet descriptorSet = VK_NULL_HANDLE;
 
-			Material(sandbox_device* pdevice) : pdevice(pdevice) {};
+			Material(device* pdevice) : pdevice(pdevice) {};
 			void createDescriptorSet(VkDescriptorPool descriptorPool, VkDescriptorSetLayout descriptorSetLayout, uint32_t descriptorBindingFlags, Texture* fallbackTexture);
 		};
 
@@ -119,7 +119,7 @@ namespace sandbox_renderer
 			glTF mesh
 		*/
 		struct Mesh {
-			sandbox_device* pdevice;
+			device* pdevice;
 
 			::array_base<Primitive*> primitives;
 			::string name;
@@ -138,7 +138,7 @@ namespace sandbox_renderer
 				float jointcount{ 0 };
 			} uniformBlock;
 
-			Mesh(sandbox_device* pdevice, glm::mat4 matrix);
+			Mesh(device* pdevice, glm::mat4 matrix);
 			~Mesh();
 		};
 
@@ -251,7 +251,7 @@ namespace sandbox_renderer
 			gltf::Texture emptyTexture;
 			void createEmptyTexture(VkQueue transferQueue);
 		public:
-			sandbox_device* m_pDevice;
+			device* m_pDevice;
 			VkDescriptorPool m_descriptorPool;
 
 			struct Vertices {
@@ -291,11 +291,11 @@ namespace sandbox_renderer
 			~Model();
 			void loadNode(gltf::Node* parent, const tinygltf::Node& node, uint32_t nodeIndex, const tinygltf::Model& model, ::array_base<uint32_t>& indexBuffer, ::array_base<Vertex>& vertexBuffer, float globalscale);
 			void loadSkins(tinygltf::Model& gltfModel);
-			void loadImages(tinygltf::Model& gltfModel, sandbox_device* pdevice, VkQueue transferQueue);
+			void loadImages(tinygltf::Model& gltfModel, device* pdevice, VkQueue transferQueue);
 			void loadMaterials(tinygltf::Model& gltfModel);
 			void loadAnimations(tinygltf::Model& gltfModel);
 
-			void loadFromFile(::string filename, sandbox_device* pdevice, VkQueue transferQueue, uint32_t fileLoadingFlags = FileLoadingFlags::None, float scale = 1.0f);
+			void loadFromFile(::string filename, device* pdevice, VkQueue transferQueue, uint32_t fileLoadingFlags = FileLoadingFlags::None, float scale = 1.0f);
 
 			void bind(::gpu::command_buffer * pcommandbuffer)override;
 

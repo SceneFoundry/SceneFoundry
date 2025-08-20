@@ -17,7 +17,7 @@
 //       class Builder
 //       {
 //       public:
-//          Builder(sandbox_device * pdevice) : m_pgpudevice{ pdevice } {}
+//          Builder(device * pdevice) : m_pgpudevice{ pdevice } {}
 //
 //          Builder& addBinding(
 //             uint32_t binding,
@@ -34,17 +34,17 @@
 //          ::pointer < sandbox_descriptor_set_layout > build() const;
 //
 //       private:
-//          sandbox_device * m_pgpudevice;
+//          device * m_pgpudevice;
 //          ::map<uint32_t, VkDescriptorSetLayoutBinding> m_bindings{};
 //          ::map<uint32_t, VkDescriptorBindingFlags> m_bindingFlags{};
 //       };
 //
 //       sandbox_descriptor_set_layout(
-//          sandbox_device * pdevice,
+//          device * pdevice,
 //          const ::array_base<VkDescriptorSetLayoutBinding>& bindingsVec,
 //          VkDescriptorSetLayout layout
 //       );
-//       sandbox_descriptor_set_layout(sandbox_device * pdevice, VkDescriptorSetLayout layout)
+//       sandbox_descriptor_set_layout(device * pdevice, VkDescriptorSetLayout layout)
 //          : m_pgpudevice{ pdevice }, m_descriptorSetLayout{ layout } {
 //       }
 //       ~sandbox_descriptor_set_layout();
@@ -54,7 +54,7 @@
 //       VkDescriptorSetLayout getDescriptorSetLayout() const { return m_descriptorSetLayout; }
 //
 //    private:
-//       sandbox_device * m_pgpudevice;
+//       device * m_pgpudevice;
 //       VkDescriptorSetLayout m_descriptorSetLayout;
 //       friend class VkcDescriptorWriter;
 //    public:
@@ -71,7 +71,7 @@
 //       class Builder
 //       {
 //       public:
-//          Builder(sandbox_device * pdevice) : m_pgpudevice{ pdevice } {}
+//          Builder(device * pdevice) : m_pgpudevice{ pdevice } {}
 //
 //          Builder& addPoolSize(VkDescriptorType descriptorType, uint32_t count);
 //          Builder& setPoolFlags(VkDescriptorPoolCreateFlags flags);
@@ -79,14 +79,14 @@
 //          ::pointer<sandbox_renderer::sandbox_descriptor_pool> build() const;
 //
 //       private:
-//          sandbox_device * m_pgpudevice;
+//          device * m_pgpudevice;
 //          ::array_base<VkDescriptorPoolSize> m_poolSizes{};
 //          uint32_t m_maxSets = 1000;
 //          VkDescriptorPoolCreateFlags m_poolFlags = 0;
 //       };
 //
 //       sandbox_descriptor_pool(
-//          sandbox_device * vkcDevice,
+//          device * vkcDevice,
 //          uint32_t maxSets,
 //          VkDescriptorPoolCreateFlags poolFlags,
 //          const ::array_base<VkDescriptorPoolSize>& poolSizes);
@@ -104,7 +104,7 @@
 //       VkDescriptorPool getHandle() const { return m_descriptorPool; }
 //
 //
-//       sandbox_device * m_pgpudevice;
+//       device * m_pgpudevice;
 //       VkDescriptorPool m_descriptorPool;
 //    private:
 //

@@ -7,7 +7,7 @@
 // namespace sandbox_renderer
 // {
 //
-//    class sandbox_device;
+//    class device;
 //
 //    class sandbox_swap_chain :
 //       virtual public ::particle
@@ -17,10 +17,10 @@
 //       static constexpr int MAX_FRAMES_IN_FLIGHT = 2;
 //
 //       sandbox_swap_chain(
-//          sandbox_device * deviceRef,
+//          device * deviceRef,
 //          const ::int_size & size);
 //
-//       sandbox_swap_chain(sandbox_device * pdevice,
+//       sandbox_swap_chain(device * pdevice,
 //          VkExtent2D      extent,
 //          ::pointer<sandbox_swap_chain> oldSwapchain);
 //       ~sandbox_swap_chain();
@@ -88,7 +88,7 @@
 //       ::array_base<VkImage> m_swapChainImages;
 //       ::array_base<VkImageView> m_swapChainImageViews;
 //
-//       sandbox_device * m_pgpudevice;
+//       device * m_pgpudevice;
 //       VkExtent2D m_windowExtent;
 //
 //       VkSwapchainKHR m_swapChain;

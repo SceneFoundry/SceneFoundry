@@ -19,7 +19,7 @@ namespace sandbox_engine
       public IAssetProvider
    {
    public:
-      asset_manager(sandbox_renderer::sandbox_device* pdevice);
+      asset_manager(sandbox_renderer::device* pdevice);
       ~asset_manager();
       void preloadGlobalAssets();
       ::pointer<sandbox_renderer::sandbox_object_model> loadObjModel(const ::scoped_string& name, const ::scoped_string& filepath, bool isSkybox = false);
@@ -116,7 +116,7 @@ namespace sandbox_engine
       ::string_map < size_t>                      m_textureIndexMap; // name → index
       ::pointer_array_base<sandbox_renderer::texture>                   m_textureList; // index → texture
 
-      ::pointer < sandbox_renderer::sandbox_device >			m_pgpudevice;
+      ::pointer < sandbox_renderer::device >			m_pgpudevice;
       VkQueue						m_transferQueue;
 
       // caches

@@ -27,13 +27,13 @@ namespace sandbox_renderer
         float radius;
     };
 
-    point_light_render_system::point_light_render_system(sandbox_renderer::sandbox_device * pdevice, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout)
+    point_light_render_system::point_light_render_system(sandbox_renderer::device * pdevice, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout)
         : m_pgpudevice(pdevice), m_globalSetLayout(globalSetLayout)
     {
 
     }
     // void point_light_render_system::init(
-    //    sandbox_renderer::sandbox_device * pgpudevice,
+    //    sandbox_renderer::device * pgpudevice,
     //     VkRenderPass renderPass,
     //     VkDescriptorSetLayout globalSetLayout,
     //    sandbox_renderer::sandbox_descriptor_pool& descriptorPool,
@@ -75,7 +75,7 @@ namespace sandbox_renderer
         ASSERT(m_pipelineLayout != VK_NULL_HANDLE && "Cannot create pipeline before pipeline layout");
 
         //sandbox_renderer::pipeline_configuration_information pipelineConfig{};
-        //sandbox_renderer::sandbox_pipeline::defaultPipelineConfigInfo(pipelineConfig);
+        //sandbox_renderer::pipeline::defaultPipelineConfigInfo(pipelineConfig);
         //pipelineConfig.bindingDescriptions.clear();
         //pipelineConfig.attributeDescriptions.clear();
         //pipelineConfig.renderPass = renderPass;
@@ -84,7 +84,7 @@ namespace sandbox_renderer
         ::string vertShaderPath = "matter://shaders/spirV/point_light.vert.spv";
         ::string fragShaderPath = "matter://shaders/spirV/point_light.frag.spv";
 
-        //m_ppipeline = øallocate sandbox_renderer::sandbox_pipeline(
+        //m_ppipeline = øallocate sandbox_renderer::pipeline(
         //    m_pgpudevice,
         //    vertShaderPath.c_str(),
         //    fragShaderPath.c_str(),

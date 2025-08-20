@@ -11,7 +11,7 @@
 //    {
 //    public:
 //       sandbox_buffer(
-//          sandbox_device * pdevice,
+//          device * pdevice,
 //          VkDeviceSize instanceSize,
 //          uint32_t instanceCount,
 //          VkBufferUsageFlags usageFlags,
@@ -48,7 +48,7 @@
 //    private:
 //       static VkDeviceSize getAlignment(VkDeviceSize instanceSize, VkDeviceSize minOffsetAlignment);
 //
-//       sandbox_device * m_pgpudevice;
+//       device * m_pgpudevice;
 //       void* m_mapped = nullptr;
 //       VkBuffer m_buffer = VK_NULL_HANDLE;
 //       VkDeviceMemory m_memory = VK_NULL_HANDLE;

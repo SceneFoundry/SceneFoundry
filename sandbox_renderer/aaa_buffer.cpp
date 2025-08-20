@@ -17,7 +17,7 @@
 //    }
 //
 //    sandbox_buffer::sandbox_buffer(
-//       sandbox_device * pdevice,
+//       device * pdevice,
 //       VkDeviceSize instanceSize,
 //       uint32_t instanceCount,
 //       VkBufferUsageFlags usageFlags,

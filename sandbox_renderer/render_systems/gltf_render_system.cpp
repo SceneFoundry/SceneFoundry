@@ -11,7 +11,7 @@ namespace sandbox_renderer
 
 
     // gltf_render_system::gltf_render_system(
-    //     sandbox_renderer::sandbox_device * pdevice,
+    //     sandbox_renderer::device * pdevice,
     //     VkRenderPass renderPass,
     //     VkDescriptorSetLayout globalSetLayout,
     //     IAssetProvider& assets
@@ -35,7 +35,7 @@ namespace sandbox_renderer
 
 
     // void gltf_render_system::init(
-    //    sandbox_renderer::sandbox_device * pdevice,
+    //    sandbox_renderer::device * pdevice,
     //     VkRenderPass renderPass,
     //     VkDescriptorSetLayout globalSetLayout,
     //    sandbox_renderer::sandbox_descriptor_pool& descriptorPool,
@@ -118,19 +118,19 @@ namespace sandbox_renderer
     //
     //     // OPAQUE
     //     // sandbox_renderer::pipeline_configuration_information opaqueConfig{};
-    //     // sandbox_renderer::sandbox_pipeline::defaultPipelineConfigInfo(opaqueConfig);
+    //     // sandbox_renderer::pipeline::defaultPipelineConfigInfo(opaqueConfig);
     //     // opaqueConfig.pipelineLayout = m_pipelineLayout;
     //     // opaqueConfig.renderPass = renderPass;
     //     // opaqueConfig.bindingDescriptions = bindings;
     //     // opaqueConfig.attributeDescriptions = attributes;
     //
-    //     m_opaquePipeline = øcreate_pointer<sandbox_renderer::sandbox_pipeline>(
+    //     m_opaquePipeline = øcreate_pointer<sandbox_renderer::pipeline>(
     //         //m_pgpudevice, vertSpv, fragSpv, opaqueConfig);
     //         m_pgpudevice, vertSpv, fragSpv);
     //
     //     // MASK
     //     // sandbox_renderer::pipeline_configuration_information maskConfig{};
-    //     // sandbox_renderer::sandbox_pipeline::defaultPipelineConfigInfo(maskConfig);
+    //     // sandbox_renderer::pipeline::defaultPipelineConfigInfo(maskConfig);
     //     // maskConfig.pipelineLayout = m_pipelineLayout;
     //     // maskConfig.renderPass = renderPass;
     //     // maskConfig.bindingDescriptions = bindings;
@@ -151,13 +151,13 @@ namespace sandbox_renderer
     //     //
     //     // maskConfig.fragSpecInfo = &specInfo;
     //
-    //     m_maskPipeline = øcreate_pointer<sandbox_renderer::sandbox_pipeline>(
+    //     m_maskPipeline = øcreate_pointer<sandbox_renderer::pipeline>(
     //         //m_pgpudevice, vertSpv, fragSpv, maskConfig);
     //         m_pgpudevice, vertSpv, fragSpv);
     //
     //     // // BLEND
     //     // sandbox_renderer::pipeline_configuration_information blendConfig{};
-    //     // sandbox_renderer::sandbox_pipeline::defaultPipelineConfigInfo(blendConfig);
+    //     // sandbox_renderer::pipeline::defaultPipelineConfigInfo(blendConfig);
     //     // blendConfig.pipelineLayout = m_pipelineLayout;
     //     // blendConfig.renderPass = renderPass;
     //     // blendConfig.bindingDescriptions = bindings;
@@ -177,7 +177,7 @@ namespace sandbox_renderer
     //     //     VK_COLOR_COMPONENT_B_BIT |
     //     //     VK_COLOR_COMPONENT_A_BIT;
     //
-    //     m_blendPipeline = øcreate_pointer<sandbox_renderer::sandbox_pipeline>(
+    //     m_blendPipeline = øcreate_pointer<sandbox_renderer::pipeline>(
     //     m_pgpudevice, vertSpv, fragSpv);
     //     //m_pgpudevice, vertSpv, fragSpv, blendConfig);
     // }

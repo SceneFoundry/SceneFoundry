@@ -18,7 +18,7 @@ namespace sandbox_renderer
 	}
 
 
-	// texture::texture(sandbox_device* pdevice) :
+	// texture::texture(device* pdevice) :
 	// 	m_pDevice(pdevice)
 	// {
 	//
@@ -111,7 +111,7 @@ namespace sandbox_renderer
 	// bool texture::KTXLoadFromFile(
 	// 	const ::scoped_string& filename,
 	// 	VkFormat           format,
-	// 	sandbox_device* pdevice,
+	// 	device* pdevice,
 	// 	VkQueue            copyQueue,
 	// 	VkImageUsageFlags  imageUsageFlags,
 	// 	VkImageLayout      imageLayout,
@@ -378,7 +378,7 @@ namespace sandbox_renderer
 
 	//
 	// // Loads a cubemap from a single KTX file
-	// void texture::KtxLoadCubemapFromFile(const ::scoped_string& name, ::string filename, VkFormat format, sandbox_device* pdevice, VkQueue copyQueue, VkImageUsageFlags imageUsageFlags, VkImageLayout imageLayout)
+	// void texture::KtxLoadCubemapFromFile(const ::scoped_string& name, ::string filename, VkFormat format, device* pdevice, VkQueue copyQueue, VkImageUsageFlags imageUsageFlags, VkImageLayout imageLayout)
 	// {
 	// 	m_bIsCubemap = true;
 	//
@@ -772,7 +772,7 @@ namespace sandbox_renderer
 	// 		width, height,
 	// 		layerCount);
 	// }
-	// void texture::fromBuffer(void* buffer, VkDeviceSize bufferSize, VkFormat format, uint32_t texWidth, uint32_t texHeight, sandbox_device* pdevice, VkQueue copyQueue, VkFilter filter, VkImageUsageFlags imageUsageFlags, VkImageLayout imageLayout)
+	// void texture::fromBuffer(void* buffer, VkDeviceSize bufferSize, VkFormat format, uint32_t texWidth, uint32_t texHeight, device* pdevice, VkQueue copyQueue, VkFilter filter, VkImageUsageFlags imageUsageFlags, VkImageLayout imageLayout)
 	// {
 	// 	ASSERT(buffer);
 	//

@@ -19,14 +19,14 @@ namespace sandbox_renderer
 	public:
 
 
-		::pointer < ::sandbox_renderer::sandbox_device > m_pgpudevice;
+		::pointer < ::sandbox_renderer::device > m_pgpudevice;
 
 		//VkDescriptorSetLayout m_globalSetLayout;
 
-		::pointer<::sandbox_renderer::sandbox_pipeline> m_ppipeline;
+		::pointer<::sandbox_renderer::pipeline> m_ppipeline;
 		///	VkPipelineLayout m_pipelineLayout;
 
-		//object_render_system(::sandbox_renderer::sandbox_device *pdevice, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
+		//object_render_system(::sandbox_renderer::device *pdevice, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
 		object_render_system();
 		~object_render_system();
 
@@ -34,7 +34,7 @@ namespace sandbox_renderer
 		//object_render_system& operator=(const object_render_system&) = delete;
 
 		// void init(
-		// 	::sandbox_renderer::sandbox_device * pdevice,
+		// 	::sandbox_renderer::device * pdevice,
 		// 	VkRenderPass            renderPass,
 		// 	VkDescriptorSetLayout   globalSetLayout,
 		// 	::sandbox_renderer::sandbox_descriptor_pool& descriptorPool,

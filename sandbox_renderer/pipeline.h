@@ -59,14 +59,14 @@ namespace sandbox_renderer
 		~pipeline();
 
 		//virtual void initialize_sandbox_pipeline(
-		//	sandbox_device* pdevice,
+		//	device* pdevice,
 		//	const ::scoped_string& vertFilepath,
 		//	const ::scoped_string& fragFilepath,
 		//	const pipeline_configuration_information& configInfo);
 		//virtual void initialize_sandbox_pipeline();
 
-		//sandbox_pipeline(const sandbox_pipeline&) = delete;
-		//void operator=(const sandbox_pipeline&) = delete;
+		//pipeline(const pipeline&) = delete;
+		//void operator=(const pipeline&) = delete;
 
 		//void bind(::gpu::command_buffer * pcommandbuffer);
 		void bind(::gpu::command_buffer *pcommandBuffer);

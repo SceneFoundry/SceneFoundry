@@ -35,23 +35,23 @@ namespace sandbox_renderer
 	public:
 
 
-		::pointer < ::sandbox_renderer::sandbox_device > m_pgpudevice;
+		::pointer < ::sandbox_renderer::device > m_pgpudevice;
 
 		//VkDescriptorSetLayout m_globalSetLayout;
 
-		::pointer<sandbox_renderer::sandbox_pipeline> m_ppipeline;
+		::pointer<sandbox_renderer::pipeline> m_ppipeline;
 		//VkPipelineLayout m_pipelineLayout;
 
 		float m_rotationSpeed = 0.2f;
 		// point_light_render_system(const point_light_render_system&) = delete;
 		// point_light_render_system& operator=(const point_light_render_system&) = delete;
 
-		//point_light_render_system(sandbox_renderer::sandbox_device * pdevice, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
+		//point_light_render_system(sandbox_renderer::device * pdevice, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
 		point_light_render_system();
 		~point_light_render_system();
 
 		// void init(
-		// 	::sandbox_renderer::sandbox_device * pdevice,
+		// 	::sandbox_renderer::device * pdevice,
 		// 	VkRenderPass            renderPass,
 		// 	VkDescriptorSetLayout   globalSetLayout,
 		// 	sandbox_renderer::sandbox_descriptor_pool& descriptorPool,

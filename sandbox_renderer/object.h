@@ -84,9 +84,9 @@ namespace sandbox_renderer
       };
 
       static ::pointer<sandbox_object_model> createModelFromFile(
-         ::sandbox_renderer::sandbox_device * pdevice, const  ::scoped_string& filepath, bool isSkybox = false);
+         ::sandbox_renderer::device * pdevice, const  ::scoped_string& filepath, bool isSkybox = false);
 
-      sandbox_object_model(sandbox_device * pdevice, Builder const& builder);
+      sandbox_object_model(device * pdevice, Builder const& builder);
       ~sandbox_object_model();
 
       //sandbox_object_model(sandbox_object_model const&) = delete;

@@ -6,8 +6,8 @@ namespace sandbox_renderer
 {
 
 
-   class sandbox_pipeline;
-   class sandbox_device;
+   class pipeline;
+   class device;
 
 
 } // namespace sandbox_renderer

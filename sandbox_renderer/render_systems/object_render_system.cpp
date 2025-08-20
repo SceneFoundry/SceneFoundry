@@ -22,14 +22,14 @@ namespace sandbox_renderer
 		//int textureIndex;
 	};
 
-	object_render_system::object_render_system(sandbox_renderer::sandbox_device *pdevice, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout)
+	object_render_system::object_render_system(sandbox_renderer::device *pdevice, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout)
 		: m_pgpudevice(pdevice)//, m_globalSetLayout(globalSetLayout)
 	{
 
 	}
 
 	// void object_render_system::init(
-	// 	sandbox_renderer::sandbox_device * pdevice,
+	// 	sandbox_renderer::device * pdevice,
 	// 	VkRenderPass renderPass,
 	// 	VkDescriptorSetLayout globalSetLayout,
 	// 	sandbox_renderer::sandbox_descriptor_pool& descriptorPool,
@@ -129,7 +129,7 @@ namespace sandbox_renderer
 		ASSERT(m_pipelineLayout != nullptr && "Cannot create pipeline before pipeline layout");
 
 		//sandbox_renderer::pipeline_configuration_information pipelineConfig{};
-		//sandbox_renderer::sandbox_pipeline::defaultPipelineConfigInfo(pipelineConfig);
+		//sandbox_renderer::pipeline::defaultPipelineConfigInfo(pipelineConfig);
 
 		//pipelineConfig.renderPass = renderPass;
 		//pipelineConfig.pipelineLayout = m_pipelineLayout;
@@ -137,7 +137,7 @@ namespace sandbox_renderer
 		::string vertShaderPath = "matter://shaders/spirV/vert.vert.spv";
 		::string fragShaderPath = "matter://shaders/spirV/frag.frag.spv";
 
-		//m_ppipeline = øallocate sandbox_renderer::sandbox_pipeline(
+		//m_ppipeline = øallocate sandbox_renderer::pipeline(
 		//	m_pgpudevice,
 		//	vertShaderPath.c_str(),
 		//	fragShaderPath.c_str(),

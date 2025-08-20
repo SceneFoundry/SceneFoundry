@@ -13,7 +13,7 @@ namespace sandbox_renderer
 
       VkFramebuffer framebuffer = VK_NULL_HANDLE;
 
-      void destroy(sandbox_device* pdevice) {
+      void destroy(device* pdevice) {
          framebuffer = VK_NULL_HANDLE; // Destroyed by swapchain system
          albedo.destroy();
          normal.destroy();

@@ -11,7 +11,7 @@ namespace sandbox_renderer
 {
 
 
-   sandbox_renderer::sandbox_renderer(sandbox_device * pdevice, ::user::interaction * puserinteraction)
+   sandbox_renderer::sandbox_renderer(device * pdevice, ::user::interaction * puserinteraction)
       : m_pgpudevice(pdevice),
       m_puserinteraction(puserinteraction)
    {

@@ -20,7 +20,7 @@ namespace sandbox_renderer
 {
 
 
-	class sandbox_device;
+	class device;
 
 	class CLASS_DECL_SANDBOX_RENDERER texture :
 		virtual public ::particle
@@ -29,7 +29,7 @@ namespace sandbox_renderer
 
 
 		//public:
-		sandbox_device* m_pDevice;
+		device* m_pDevice;
 		uint32_t              m_width{ 0 }, m_height{ 0 };
 		//VkImage m_image = VK_NULL_HANDLE;
 		//VkDeviceMemory m_deviceMemory = VK_NULL_HANDLE;
@@ -46,14 +46,14 @@ namespace sandbox_renderer
 		bool m_bIsCubemap{ false };
 
 		texture();
-		//texture(sandbox_device* pdevice);
+		//texture(device* pdevice);
 		~texture();
 
 		//bool STBLoadFromFile(const ::scoped_string& filename);
 		// bool KTXLoadFromFile(
 		// 	const ::scoped_string& filename,
 		// 	VkFormat           format,
-		// 	sandbox_device* pdevice,
+		// 	device* pdevice,
 		// 	VkQueue            copyQueue,
 		// 	VkImageUsageFlags  imageUsageFlags,
 		// 	VkImageLayout      imageLayout,
@@ -64,7 +64,7 @@ namespace sandbox_renderer
 		// 	const ::scoped_string& name,
 		// 	::string filename,
 		// 	VkFormat format,
-		// 	sandbox_device* pdevice,
+		// 	device* pdevice,
 		// 	VkQueue copyQueue,
 		// 	VkImageUsageFlags imageUsageFlags = VK_IMAGE_USAGE_SAMPLED_BIT,
 		// 	VkImageLayout imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
@@ -77,7 +77,7 @@ namespace sandbox_renderer
 		// 	VkFormat           format,
 		// 	uint32_t           texWidth,
 		// 	uint32_t           texHeight,
-		// 	sandbox_device* pdevice,
+		// 	device* pdevice,
 		// 	VkQueue            copyQueue,
 		// 	VkFilter           filter = VK_FILTER_LINEAR,
 		// 	VkImageUsageFlags  imageUsageFlags = VK_IMAGE_USAGE_SAMPLED_BIT,

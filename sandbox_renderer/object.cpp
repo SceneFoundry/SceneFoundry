@@ -27,7 +27,7 @@
 namespace sandbox_renderer
 {
 
-   sandbox_object_model::sandbox_object_model(sandbox_device * pdevice, const Builder& builder)
+   sandbox_object_model::sandbox_object_model(device * pdevice, const Builder& builder)
       : m_pgpudevice{ pdevice }, m_bIsSkyboxModel{ builder.isSkybox } {
 
       if (builder.isSkybox) {
@@ -45,7 +45,7 @@ namespace sandbox_renderer
 
 
    ::pointer<sandbox_object_model> sandbox_object_model::createModelFromFile(
-      ::sandbox_renderer::sandbox_device * pdevice, const ::scoped_string& filepath, bool isSkybox)
+      ::sandbox_renderer::device * pdevice, const ::scoped_string& filepath, bool isSkybox)
    {
       Builder builder{};
       builder.loadModel(filepath, isSkybox);

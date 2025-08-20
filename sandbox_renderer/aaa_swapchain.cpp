@@ -7,13 +7,13 @@
 // namespace sandbox_renderer
 // {
 //
-//    sandbox_swap_chain::sandbox_swap_chain(sandbox_device * pdevice, VkExtent2D extent)
+//    sandbox_swap_chain::sandbox_swap_chain(device * pdevice, VkExtent2D extent)
 //       : m_pgpudevice{ pdevice }, m_windowExtent{ extent }
 //    {
 //       init();
 //    }
 //    sandbox_swap_chain::sandbox_swap_chain(
-//       sandbox_device * pdevice,
+//       device * pdevice,
 //       VkExtent2D extent,
 //       ::pointer<sandbox_swap_chain> previous)
 //       : m_pgpudevice{ pdevice }, m_windowExtent{ extent }, m_oldSwapChain{ previous }

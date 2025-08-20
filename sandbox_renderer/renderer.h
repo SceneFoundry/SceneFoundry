@@ -48,7 +48,7 @@ namespace sandbox_renderer
 
 		//::pointer<sandbox_descriptor_set_layout>		  m_globalLayout;
 
-		sandbox_device * m_pgpudevice;
+		device * m_pgpudevice;
 		::user::interaction * m_puserinteraction;
 		::pointer_array_base<::sandbox_interfaces::IRenderSystem>				   m_systems;
 

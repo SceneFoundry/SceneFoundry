@@ -22,12 +22,12 @@ namespace sandbox_renderer
 	{
 		// destroy the pipeline layout you created
 		//vkDestroyPipelineLayout(m_pgpudevice->device(), m_pipelineLayout, nullptr);
-		// (the sandbox_pipeline unique_ptr will destroy the VkPipeline)
+		// (the pipeline unique_ptr will destroy the VkPipeline)
 	}
 	//
 	//
 	// void skybox_ibl_render_system::init(
-	// 	sandbox_renderer::sandbox_device * pdevice,
+	// 	sandbox_renderer::device * pdevice,
 	// 	VkRenderPass renderPass,
 	// 	VkDescriptorSetLayout globalSetLayout,
 	// 	sandbox_renderer::sandbox_descriptor_pool& descriptorPool,
@@ -138,7 +138,7 @@ namespace sandbox_renderer
 	// 	ASSERT(m_pipelineLayout != VK_NULL_HANDLE && "Pipeline layout must be created before pipeline");
 	//
 	// 	// sandbox_renderer::pipeline_configuration_information config{};
-	// 	// sandbox_renderer::sandbox_pipeline::defaultPipelineConfigInfo(config);
+	// 	// sandbox_renderer::pipeline::defaultPipelineConfigInfo(config);
 	// 	//
 	// 	// ::array_base<VkVertexInputBindingDescription>   bindings = {
 	// 	// 	vkinit::vertexInputBindingDescription(

@@ -23,8 +23,8 @@ namespace sandbox_engine
       //    SandboxWindow                       m_window{ WIDTH, HEIGHT, "A vulkan place" };
       //::pointer < ::sandbox_renderer::sandbox_window> m_pwindow;
       ::pointer < ::sandbox_renderer::sandbox_instance >                   m_pinstance;
-      //::sandbox_renderer::sandbox_device                     m_device{ m_vkinstance, m_window };
-      ::pointer < ::sandbox_renderer::sandbox_device >                     m_pgpudevice;
+      //::sandbox_renderer::device                     m_device{ m_vkinstance, m_window };
+      ::pointer < ::sandbox_renderer::device >                     m_pgpudevice;
       //::pointer < asset_manager >                        m_passetManager{ m_device };
       ::pointer < asset_manager >                        m_passetManager;
       //::sandbox_renderer::sandbox_renderer                   m_renderer{ m_device, m_window };

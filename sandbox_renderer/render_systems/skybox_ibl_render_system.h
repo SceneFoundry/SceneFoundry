@@ -35,7 +35,7 @@ namespace sandbox_renderer
         bool m_bHasCubemap = false;
 
 
-        //skybox_ibl_render_system(sandbox_renderer::sandbox_device * pdevice, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
+        //skybox_ibl_render_system(sandbox_renderer::device * pdevice, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
         skybox_ibl_render_system();
         ~skybox_ibl_render_system();
 
@@ -43,7 +43,7 @@ namespace sandbox_renderer
         // skybox_ibl_render_system& operator=(const skybox_ibl_render_system&) = delete;
 
         // void init(
-        //    sandbox_renderer::sandbox_device * pdevice,
+        //    sandbox_renderer::device * pdevice,
         //     VkRenderPass            renderPass,
         //     VkDescriptorSetLayout   globalSetLayout,
         //    sandbox_renderer::sandbox_descriptor_pool& descriptorPool,

@@ -63,15 +63,15 @@ namespace sandbox_renderer
       // };
 
 
-      //sandbox_device(sandbox_instance * pinstance, ::user::interaction * puserinteraction);
+      //device(sandbox_instance * pinstance, ::user::interaction * puserinteraction);
       device(::user::interaction * puserinteraction);
       ~device();
 
       // // Not copyable or movable
-      // sandbox_device(const sandbox_device *) = delete;
-      // void operator=(const sandbox_device *) = delete;
-      // sandbox_device(VkDevice&&) = delete;
-      // sandbox_device * operator=(sandbox_device *&) = delete;
+      // device(const device *) = delete;
+      // void operator=(const device *) = delete;
+      // device(VkDevice&&) = delete;
+      // device * operator=(device *&) = delete;
 
   ///    VkCommandPool getCommandPool() { return m_commandPool; }
 //

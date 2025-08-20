@@ -18,12 +18,12 @@ namespace sandbox_renderer
 {
 
 
-	sandbox_pipeline::sandbox_pipeline(
-			sandbox_device* pdevice,
+	pipeline::pipeline(
+			device* pdevice,
 			const ::scoped_string& vertFilepath,
 			const ::scoped_string& fragFilepath)
 	// (
-	// 	sandbox_device * pdevice,
+	// 	device * pdevice,
 	// 	const ::scoped_string& vertFilepath,
 	// 	const ::scoped_string& fragFilepath,
 	// 	const pipeline_configuration_information& configInfo
@@ -44,7 +44,7 @@ namespace sandbox_renderer
 
 
 
-	sandbox_pipeline::~sandbox_pipeline()
+	pipeline::~pipeline()
 	{
 		vkDestroyShaderModule(m_pgpudevice->device(), m_vertShaderModule, nullptr);
 		vkDestroyShaderModule(m_pgpudevice->device(), m_fragShaderModule, nullptr);
@@ -53,8 +53,8 @@ namespace sandbox_renderer
 	}
 
 
-	// void sandbox_pipeline::initialize_sandbox_pipeline(
-	// 	sandbox_device* pdevice,
+	// void pipeline::initialize_sandbox_pipeline(
+	// 	device* pdevice,
 	// 	const ::scoped_string& vertFilepath,
 	// 	const ::scoped_string& fragFilepath)
 	// {
@@ -70,7 +70,7 @@ namespace sandbox_renderer
 	// }
 
 
-	void sandbox_pipeline::bind(::gpu::command_buffer * pcommandbuffer)
+	void pipeline::bind(::gpu::command_buffer * pcommandbuffer)
 	{
 
 		//vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, m_graphicsPipeline);
@@ -78,7 +78,7 @@ namespace sandbox_renderer
 	}
 
 
-	//::array_base<char> sandbox_pipeline::readFile(const ::scoped_string& filepath)
+	//::array_base<char> pipeline::readFile(const ::scoped_string& filepath)
 	//{
 
 
@@ -97,7 +97,7 @@ namespace sandbox_renderer
 	//	file.close();
 	//	return buffer;
 	//}
-	void sandbox_pipeline::createGraphicsPipeline
+	void pipeline::createGraphicsPipeline
 	(
 		const ::scoped_string& vertFilepath,
 		const ::scoped_string& fragFilepath,
@@ -183,7 +183,7 @@ namespace sandbox_renderer
 			throw std::runtime_error("Failed to create graphics pipeline");
 		}
 	}
-	void sandbox_pipeline::createShaderModule(const ::block& block, VkShaderModule* shaderModule)
+	void pipeline::createShaderModule(const ::block& block, VkShaderModule* shaderModule)
 	{
 		VkShaderModuleCreateInfo createInfo{};
 		createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
@@ -195,7 +195,7 @@ namespace sandbox_renderer
 			throw std::runtime_error("failed to create shader module");
 		}
 	}
-	// void sandbox_pipeline::defaultPipelineConfigInfo(pipeline_configuration_information& configInfo)
+	// void pipeline::defaultPipelineConfigInfo(pipeline_configuration_information& configInfo)
 	// {
 	//
 	// 	configInfo.inputAssemblyInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
@@ -275,7 +275,7 @@ namespace sandbox_renderer
 	// 	configInfo.attributeDescriptions = sandbox_object_model::Vertex::getAttributeDescriptions();
 	// }
 
-	// void sandbox_pipeline::bind(::gpu::command_buffer* pcommandBuffer)
+	// void pipeline::bind(::gpu::command_buffer* pcommandBuffer)
 	// {
 	//
 	//

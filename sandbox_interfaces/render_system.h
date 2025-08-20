@@ -28,13 +28,13 @@ namespace sandbox_interfaces
 
         //
         // virtual void init(
-        //    sandbox_renderer::sandbox_device * device,
+        //    sandbox_renderer::device * device,
         //     VkRenderPass            renderPass,
         //     VkDescriptorSetLayout   globalSetLayout
         //     //,   sandbox_renderer::sandbox_descriptor_pool& descriptorPool)
         // {};
         // virtual void init(
-        //    sandbox_renderer::sandbox_device * device,
+        //    sandbox_renderer::device * device,
         //     VkRenderPass            renderPass,
         //     VkDescriptorSetLayout   globalSetLayout,
         //    sandbox_renderer::sandbox_descriptor_pool& descriptorPool,

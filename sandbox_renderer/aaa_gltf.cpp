@@ -32,7 +32,7 @@ VkDescriptorSetLayout  gltf::descriptorSetLayoutUbo = VK_NULL_HANDLE;
 VkMemoryPropertyFlags  gltf::memoryPropertyFlags = 0;
 uint32_t gltf::descriptorBindingFlags =  gltf::DescriptorBindingFlags::ImageBaseColor |  gltf::DescriptorBindingFlags::ImageNormalMap;
 
-////class sandbox_device;
+////class device;
 //
 
 /*
@@ -79,7 +79,7 @@ void gltf::Texture::destroy()
 	}
 }
 
-void gltf::Texture::fromglTfImage(tinygltf::Image& gltfimage, ::string path, sandbox_device* pdevice, VkQueue copyQueue, bool isSrgb)
+void gltf::Texture::fromglTfImage(tinygltf::Image& gltfimage, ::string path, device* pdevice, VkQueue copyQueue, bool isSrgb)
 {
 	this->pdevice = pdevice;
 
@@ -526,7 +526,7 @@ void  gltf::Primitive::setDimensions(glm::vec3 min, glm::vec3 max) {
 /*
 	glTF mesh
 */
-gltf::Mesh::Mesh(sandbox_device* pdevice, glm::mat4 matrix) {
+gltf::Mesh::Mesh(device* pdevice, glm::mat4 matrix) {
 	this->pdevice = pdevice;
 	this->uniformBlock.matrix = matrix;
 	VK_CHECK_RESULT(pdevice->createBuffer(
@@ -1034,7 +1034,7 @@ void   gltf::Model::loadSkins(tinygltf::Model& gltfModel)
 	}
 }
 
-void gltf::Model::loadImages(tinygltf::Model& gltfModel, sandbox_device* pdevice, VkQueue transferQueue)
+void gltf::Model::loadImages(tinygltf::Model& gltfModel, device* pdevice, VkQueue transferQueue)
 {
 	for (tinygltf::Image& image : gltfModel.images) {
 		 Texture texture;
@@ -1105,7 +1105,7 @@ void gltf::Model::loadMaterials(tinygltf::Model& gltfModel)
 
 
 
-void  gltf::Model::loadFromFile(::string filename, sandbox_device* pdevice, VkQueue transferQueue, uint32_t fileLoadingFlags, float scale)
+void  gltf::Model::loadFromFile(::string filename, device* pdevice, VkQueue transferQueue, uint32_t fileLoadingFlags, float scale)
 {
 	tinygltf::Model gltfModel;
 	tinygltf::TinyGLTF gltfContext;

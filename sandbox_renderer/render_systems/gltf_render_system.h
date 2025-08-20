@@ -45,7 +45,7 @@ namespace sandbox_renderer
 		//::array_base<VkDescriptorSet>				  m_iblDescriptorSets;
 
 
-		//gltf_render_system(::sandbox_renderer::sandbox_device * pdevice, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout, IAssetProvider& assets);
+		//gltf_render_system(::sandbox_renderer::device * pdevice, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout, IAssetProvider& assets);
 		gltf_render_system();
 		~gltf_render_system();
 
@@ -53,7 +53,7 @@ namespace sandbox_renderer
 		// gltf_render_system& operator=(const gltf_render_system&) = delete;
 
 		// void init(
-		// 	sandbox_renderer::sandbox_device * pdevice,
+		// 	sandbox_renderer::device * pdevice,
 		// 	VkRenderPass            renderPass,
 		// 	VkDescriptorSetLayout   globalSetLayout,
 		// 	sandbox_renderer::sandbox_descriptor_pool& descriptorPool,
