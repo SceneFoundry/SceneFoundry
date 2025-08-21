@@ -1,6 +1,6 @@
 #pragma once
 #include "device.h"
-#include "SceneFoundry/sandbox/model.h"
+#include "bred/sandbox/model.h"
 //#include "buffer.h"
 //#include "SceneFoundry/sandbox/renderer_i.h"
 #include "bred/gpu/types.h"
