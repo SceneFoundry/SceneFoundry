@@ -8,7 +8,7 @@ namespace graphics3d
 {
 
 
-    glm::mat4 TransformComponent::mat4() const
+    glm::mat4 ::graphics3d::transform::mat4() const
     {
         // 1) Translation
         glm::mat4 T = glm::translate(glm::mat4(1.0f), translation);
@@ -22,7 +22,7 @@ namespace graphics3d
         // Compose: T * R * S
         return T * R * S;
     }
-    glm::mat3 TransformComponent::normalMatrix() const
+    glm::mat3 ::graphics3d::transform::normalMatrix() const
     {
         // Build RS (ignore translation)
         glm::mat4 R = glm::rotate(glm::mat4(1.0f), rotation.y, glm::vec3(0, 1, 0));
