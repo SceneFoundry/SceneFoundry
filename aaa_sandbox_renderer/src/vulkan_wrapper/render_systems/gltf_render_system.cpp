@@ -108,7 +108,7 @@ void gltf_render_system::createPipeline(VkRenderPass renderPass) {
 
     // OPAQUE
     // sandbox_renderer::pipeline_configuration_information opaqueConfig{};
-    // sandbox_renderer::pipeline::defaultPipelineConfigInfo(opaqueConfig);
+    // sandbox_renderer::pipeline::default_pipeline_configuration(opaqueConfig);
     // opaqueConfig.pipelineLayout = m_pipelineLayout;
     // opaqueConfig.renderPass = renderPass;
     // opaqueConfig.bindingDescriptions = bindings;
@@ -120,7 +120,7 @@ void gltf_render_system::createPipeline(VkRenderPass renderPass) {
 
     // MASK
     // sandbox_renderer::pipeline_configuration_information maskConfig{};
-    // sandbox_renderer::pipeline::defaultPipelineConfigInfo(maskConfig);
+    // sandbox_renderer::pipeline::default_pipeline_configuration(maskConfig);
     // maskConfig.pipelineLayout = m_pipelineLayout;
     // maskConfig.renderPass = renderPass;
     // maskConfig.bindingDescriptions = bindings;
@@ -147,7 +147,7 @@ void gltf_render_system::createPipeline(VkRenderPass renderPass) {
 
     // // BLEND
     // sandbox_renderer::pipeline_configuration_information blendConfig{};
-    // sandbox_renderer::pipeline::defaultPipelineConfigInfo(blendConfig);
+    // sandbox_renderer::pipeline::default_pipeline_configuration(blendConfig);
     // blendConfig.pipelineLayout = m_pipelineLayout;
     // blendConfig.renderPass = renderPass;
     // blendConfig.bindingDescriptions = bindings;

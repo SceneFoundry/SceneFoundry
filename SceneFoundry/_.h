@@ -4,11 +4,10 @@
 #include "core/_.h"
 
 
-
 #if defined(_SceneFoundry_SceneFoundry_project)
-#define CLASS_DECL_SCENEFOUNDRY_GPU_SANDBOX  CLASS_DECL_EXPORT
+#define CLASS_DECL_SCENEFOUNDRY_SCENEFOUNDRY  CLASS_DECL_EXPORT
 #else
-#define CLASS_DECL_SCENEFOUNDRY_GPU_SANDBOX  CLASS_DECL_IMPORT
+#define CLASS_DECL_SCENEFOUNDRY_SCENEFOUNDRY  CLASS_DECL_IMPORT
 #endif
 
 
@@ -30,9 +29,6 @@ namespace SceneFoundry_SceneFoundry
 
 
 } // namespace flag
-
-
-
 
 
 

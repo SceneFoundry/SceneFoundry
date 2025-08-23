@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(_SceneFoundy_gpu_sandbox CXX)
+project(_SceneFoundry_SceneFoundry CXX)
 
 
 
@@ -23,11 +23,11 @@ list(APPEND executable_references
         berg
         bred
         core
-        sandbox
-        sandbox_renderer
-        sandbox_engine
-        sandbox_game
-        SceneFoundry_gpu_sandbox
+        #sandbox
+        #sandbox_renderer
+        #sandbox_engine
+        #sandbox_game
+        SceneFoundry_SceneFoundry
 )
 
 

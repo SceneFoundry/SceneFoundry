@@ -2,7 +2,7 @@
 #cmake_minimum_required(VERSION 3.24)
 #project(gpu_sandbox LANGUAGES CXX)
 cmake_minimum_required(VERSION 3.16)
-project(SceneFoundry_gpu_sandbox CXX)
+project(SceneFoundry_SceneFoundry CXX)
 
 #
 ##set(CMAKE_CXX_STANDARD 20)

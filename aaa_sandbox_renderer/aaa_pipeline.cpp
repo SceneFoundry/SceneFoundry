@@ -195,7 +195,7 @@ namespace sandbox_renderer
 	// 		throw std::runtime_error("failed to create shader module");
 	// 	}
 	// }
-	// void pipeline::defaultPipelineConfigInfo(pipeline_configuration_information& configInfo)
+	// void pipeline::default_pipeline_configuration(pipeline_configuration_information& configInfo)
 	// {
 	//
 	// 	configInfo.inputAssemblyInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;

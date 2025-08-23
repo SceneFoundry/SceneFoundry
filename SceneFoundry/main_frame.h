@@ -8,7 +8,7 @@ namespace SceneFoundry_SceneFoundry
 {
 
 
-   class CLASS_DECL_SCENEFOUNDRY_GPU_SANDBOX main_frame :
+   class CLASS_DECL_SCENEFOUNDRY_SCENEFOUNDRY main_frame :
       virtual public ::simple_frame_window
    {
    public:

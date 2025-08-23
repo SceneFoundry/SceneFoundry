@@ -10,7 +10,7 @@ namespace SceneFoundry_SceneFoundry
 {
 
 
-   class CLASS_DECL_SCENEFOUNDRY_GPU_SANDBOX impact :
+   class CLASS_DECL_SCENEFOUNDRY_SCENEFOUNDRY impact :
       virtual public ::app_consumer < application, ::user::show <::user::graphics3d> >
    {
    public:

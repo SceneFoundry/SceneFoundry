@@ -6,10 +6,15 @@
 //#include "point_light_system.h"
 #include "application.h"
 #include "impact.h"
-#include "core/platform/application.h"
-#include "bred/graphics3d/camera.h"
+//#include "core/platform/application.h"
+#include "_.h"
 #include "bred/gpu/context.h"
+#include "bred/graphics3d/render_systems/object_render_system.h"
+#include "bred/graphics3d/render_systems/point_light_render_system.h"
+#include "bred/graphics3d/render_systems/skybox_ibl_render_system.h"
+#include "bred/graphics3d/camera.h"
 #include "bred/graphics3d/engine.h"
+#include "bred/graphics3d/point_light.h"
 #include "bred/graphics3d/scene_object.h"
 
 
@@ -138,7 +143,7 @@ namespace SceneFoundry_SceneFoundry
 
       {
 
-         auto & flatVase = tinyobj("matter://models/flat_vase.obj");
+         auto & flatVase = scene_object("matter://models/flat_vase.obj");
          flatVase.translate({ -.5f, 0.f, 0.f });
          flatVase.scale({3.f, -1.5f, 3.f * fXScale }); // The vase is upside down.
 
@@ -146,7 +151,7 @@ namespace SceneFoundry_SceneFoundry
 
       {
 
-         auto & floor = tinyobj("matter://models/quad.obj");
+         auto & floor = scene_object("matter://models/quad.obj");
          floor.translate({0.f, 0.f, 0.f});
          floor.scale({5.f, -1.f, 5.f * fXScale });
 
@@ -154,7 +159,7 @@ namespace SceneFoundry_SceneFoundry
 
       {
 
-         auto & smoothVase = tinyobj("matter://models/smooth_vase.obj");
+         auto & smoothVase = scene_object("matter://models/smooth_vase.obj");
          smoothVase.translate({.5f, .0f, 0.f});
          smoothVase.scale({3.f, -1.5f, 3.f * fXScale }); // The vase is upside down.
 
@@ -162,7 +167,7 @@ namespace SceneFoundry_SceneFoundry
 
       {
 
-         auto & stoneSphere = tinyobj("matter://models/StoneSphere.obj");
+         auto & stoneSphere = scene_object("matter://models/StoneSphere.obj");
          stoneSphere.translate({ .0f, 0.0f, 0.f });
          stoneSphere.scale({.25f, .25f, .25f });
 
@@ -170,7 +175,7 @@ namespace SceneFoundry_SceneFoundry
 
       {
 
-         auto & woodBarrel = tinyobj("matter://models/Barrel_OBJ.obj");
+         auto & woodBarrel = scene_object("matter://models/Barrel_OBJ.obj");
          woodBarrel.translate({ 1.f, 0.f, 1.0f });
          woodBarrel.scale({1.f, 1.f, 1.f });
 
@@ -178,44 +183,54 @@ namespace SceneFoundry_SceneFoundry
 
       float fLo = 0.5f;
 
-      std::vector<glm::vec3> lightColors{
-            {1.f, fLo, fLo},
-            {fLo, fLo, 1.f},
-            {fLo, 1.f, fLo},
-            {1.f, 1.f, fLo},
-            {fLo, 1.f, 1.f},
-            {1.f, 1.f, 1.f}
-      };
+      ::array_base <::color::color > lightColors;
+
+      lightColors.add(::rgb(1.f, fLo, fLo));
+      lightColors.add(::rgb(fLo, fLo, 1.f));
+      lightColors.add(::rgb(fLo, 1.f, fLo));
+      lightColors.add(::rgb(1.f, 1.f, fLo));
+      lightColors.add(::rgb(fLo, 1.f, 1.f));
+      lightColors.add(::rgb(1.f, 1.f, 1.));
 
       for (int i = 0; i < lightColors.size(); i++) 
       {
-         auto pointLight = øallocate ::graphics3d::point_light (0.2f);
-         pointLight->m_color = lightColors[i];
+
+         auto ppointlight = create_point_light();
+
+         ppointlight->m_color = lightColors[i];
+
          auto rotateLight = glm::rotate(
             glm::mat4(1.f),
             (i * glm::two_pi<float>()) / lightColors.size(),
             { 0.f, 1.f, 0.f });
-         pointLight->m_pointlightcomponent.lightIntensity = 1.0f;
-         pointLight->m_transform.translation = glm::vec3(rotateLight * glm::vec4(-1.f, 1.7f, 0.5f , 1.f));
-         add_object(pointLight);
+
+
+         ppointlight->m_fLightIntensity = 1.0f;
+
+         ppointlight->transform().m_vec3Translation = glm::vec3(rotateLight * glm::vec4(-1.f, 1.7f, 0.5f , 1.f));
+         //add_object(pointLight);
 
       }
 
+      øconstruct_new(m_pobjectrendersystem);
 
-      øconstruct_new(m_psimplerendersystem);
+      m_pobjectrendersystem->initialize_render_system(m_pengine);
 
-      m_psimplerendersystem->initialize_simple_render_system(m_pengine);
-
-      m_psimplerendersystem->prepare(pgpucontext);
+      m_pobjectrendersystem->prepare(pgpucontext);
       //m_prenderer->getRenderPass(),
       //globalSetLayout->getDescriptorSetLayout() };
 
-      øconstruct_new(m_ppointlightsystem);
+      øconstruct_new(m_ppointlightrendersystem);
 
-      m_ppointlightsystem->initialize_point_light_system(m_pengine);
+      m_ppointlightrendersystem->initialize_render_system(m_pengine);
 
-      m_ppointlightsystem->prepare(pgpucontext);
+      m_ppointlightrendersystem->prepare(pgpucontext);
 
+      øconstruct_new(m_pskyboxiblrendersystem);
+
+      m_pskyboxiblrendersystem->initialize_render_system(m_pengine);
+
+      m_pskyboxiblrendersystem->prepare(pgpucontext);
 
    }
 
@@ -229,19 +244,19 @@ namespace SceneFoundry_SceneFoundry
 
       //::graphics3d::GlobalUbo ubo{};
 
-      auto projection = m_pengine->m_pgamelayer->m_pscene->m_pcameraCurrent->getProjection();
+      auto projection = m_pengine->m_pimmersionlayer->m_pscene->m_pcameraCurrent->getProjection();
       globalubo["projection"] = projection;
 
-      auto view = m_pengine->m_pgamelayer->m_pscene->m_pcameraCurrent->getView();
+      auto view = m_pengine->m_pimmersionlayer->m_pscene->m_pcameraCurrent->getView();
       globalubo["view"] = view;
 
-      auto inverseView = m_pengine->m_pgamelayer->m_pscene->m_pcameraCurrent->getInverseView();
+      auto inverseView = m_pengine->m_pimmersionlayer->m_pscene->m_pcameraCurrent->getInverseView();
       globalubo["invView"] = inverseView;
 
-      if (m_ppointlightsystem)
+      if (m_ppointlightrendersystem)
       {
 
-         m_ppointlightsystem->update(pgpucontext, this);
+         m_ppointlightrendersystem->update(pgpucontext, this);
 
       }
 
@@ -264,28 +279,32 @@ namespace SceneFoundry_SceneFoundry
 
       //pgpucontext->clear(rgba(0.5f, 0.75f, 1.0f, 1.0f)); // Clear with a light blue color
 
-      auto pskybox = get_skybox();
+      auto pskyboxiblrendersystem = m_pskyboxiblrendersystem;
 
-      if (pskybox)
+      if (pskyboxiblrendersystem)
       {
 
-         pskybox->render(pgpucontext, this);
+         pskyboxiblrendersystem->render(pgpucontext, this);
 
       }
 
       //return;
 
-      if (m_psimplerendersystem)
+      auto pobjectrendersystem = m_pobjectrendersystem;
+
+      if (pobjectrendersystem)
       {
 
-         m_psimplerendersystem->render(pgpucontext, this);
+         pobjectrendersystem->render(pgpucontext, this);
 
       }
 
-      if(m_ppointlightsystem)
+      auto ppointlightrendersystem = m_ppointlightrendersystem;
+
+      if(ppointlightrendersystem)
       {
 
-         m_ppointlightsystem->render(pgpucontext, this);
+         ppointlightrendersystem->render(pgpucontext, this);
 
       }
 

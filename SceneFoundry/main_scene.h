@@ -16,17 +16,19 @@ namespace SceneFoundry_SceneFoundry
    struct global_ubo
    {
 
+      inline static const int MAX_LIGHTS = ::graphics3d::point_light_t::MAX_LIGHTS;
+
       glm::mat4                           projection{ 1.f };
       glm::mat4                           view{ 1.f };
       glm::mat4                           inverseView{ 1.f };
       glm::vec4                           ambientLightColor{ 1.f, 1.f, 1.f, .02f };
-      ::graphics3d::point_light_t         pointLights[::graphics3d::point_light_t::MAX_LIGHTS];
+      graphics3d::point_light_t           pointLights[MAX_LIGHTS];
       int                                 numLights;
 
    };
 
 
-   class main_scene :
+   class CLASS_DECL_SCENEFOUNDRY_SCENEFOUNDRY main_scene :
       virtual public ::app_consumer < application, ::graphics3d::scene >
    {
    public:
@@ -35,10 +37,10 @@ namespace SceneFoundry_SceneFoundry
       //::pointer< ::graphics3d::sky_box> m_Skybox;
 
 
-      ::pointer < simple_render_system >		m_psimplerendersystem;
-      ::pointer < point_light_system >			m_ppointlightsystem;
+      ::pointer < ::graphics3d::object_render_system >		      m_pobjectrendersystem;
+      ::pointer < ::graphics3d::point_light_render_system >			m_ppointlightrendersystem;
+      ::pointer < ::graphics3d::skybox_ibl_render_system >			m_pskyboxiblrendersystem;
 
-      string_map < ::pointer < ::graphics3d::sky_box > > m_mapSkybox;
 
       main_scene();
       ~main_scene() override;

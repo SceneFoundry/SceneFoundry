@@ -71,7 +71,7 @@ namespace sandbox_renderer
 		//void bind(::gpu::command_buffer * pcommandbuffer);
 		void bind(::gpu::command_buffer *pcommandBuffer);
 
-		//static void defaultPipelineConfigInfo(pipeline_configuration_information& configInfo);
+		//static void default_pipeline_configuration(pipeline_configuration_information& configInfo);
 		//static void defaultSkyboxConfigInfo(pipeline_configuration_information& configInfo);
 		void set_push_properties(const ::block& block);
 		// Getters

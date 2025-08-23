@@ -9,7 +9,7 @@ namespace SceneFoundry_SceneFoundry
 {
 
 
-   class CLASS_DECL_SCENEFOUNDRY_GPU_SANDBOX pane_impact :
+   class CLASS_DECL_SCENEFOUNDRY_SCENEFOUNDRY pane_impact :
       virtual public ::app_consumer < application, ::userex::pane_tab_impact, ::user::form_callback >
    {
    public:

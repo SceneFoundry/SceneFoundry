@@ -8,7 +8,7 @@ namespace SceneFoundry_SceneFoundry
 {
 
 
-   class CLASS_DECL_SCENEFOUNDRY_GPU_SANDBOX document :
+   class CLASS_DECL_SCENEFOUNDRY_SCENEFOUNDRY document :
       public ::user::document
    {
    public:
