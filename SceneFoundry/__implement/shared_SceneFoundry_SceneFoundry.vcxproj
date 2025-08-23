@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{C4990B2E-D2FF-40BD-A858-2AF2581DEA1D}</ProjectGuid>
-    <RootNamespace>app-graphics3d</RootNamespace>
+    <RootNamespace>SceneFoundry</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

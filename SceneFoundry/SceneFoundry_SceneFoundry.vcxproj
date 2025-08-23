@@ -36,9 +36,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0D637306-CC51-4622-A99C-E5ADE60C5312}</ProjectGuid>
-    <RootNamespace>app-graphics3d</RootNamespace>
+    <RootNamespace>SceneFoundry</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <ProjectName>SceneFoundry_gpu_sandbox</ProjectName>
+    <ProjectName>SceneFoundry_SceneFoundry</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
