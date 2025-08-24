@@ -2,12 +2,8 @@
 // by camilo on 2025-05-07 02:18 <3ThomasBorregaardSorensen!!
 #include "framework.h"
 #include "main_scene.h"
-//#include "simple_render_system.h"
-//#include "point_light_system.h"
 #include "application.h"
 #include "impact.h"
-//#include "core/platform/application.h"
-#include "_.h"
 #include "bred/gpu/context.h"
 #include "bred/graphics3d/render_systems/object_render_system.h"
 #include "bred/graphics3d/render_systems/point_light_render_system.h"
@@ -235,8 +231,10 @@ namespace SceneFoundry_SceneFoundry
    }
 
 
-   void main_scene::on_update_global_ubo(::gpu::context* pgpucontext)
+   void main_scene::on_update(::gpu::context* pgpucontext)
    {
+
+      //m_pskyboxiblrendersystem->set_skybox(get_skybox());
 
       auto& globalubo = this->global_ubo();
 
@@ -264,7 +262,7 @@ namespace SceneFoundry_SceneFoundry
    }
 
 
-   ::graphics3d::sky_box* main_scene::get_skybox()
+   ::graphics3d::skybox* main_scene::get_skybox()
    {
 
       ::string strSkybox = m_papp->m_strSkybox;

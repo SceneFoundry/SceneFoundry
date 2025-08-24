@@ -3,7 +3,7 @@
 
 #include "bred/user/user/graphics3d.h"
 #include "berg/user/user/show.h"
-#include "app-graphics3d/continuum/global_ubo.h"
+#include "SceneFoundry/SceneFoundry/global_ubo.h"
 
 
 namespace SceneFoundry_SceneFoundry
@@ -58,7 +58,7 @@ namespace SceneFoundry_SceneFoundry
       
       //bool is_absolute_mouse_position() override;
 
-      ::pointer < ::graphics3d::scene > create_main_scene() override;
+      ::pointer < ::prodevian::immersion > create_immersion() override;
 
       //void on_load_engine() override;
 

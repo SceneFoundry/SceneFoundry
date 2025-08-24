@@ -2,6 +2,7 @@
 #include "impact.h"
 #include "document.h"
 #include "application.h"
+#include "immersion.h"
 //#include "graphics3d/main_scene.h"
 #include "acme/constant/message.h"
 #include "acme/filesystem/filesystem/file_system.h"
@@ -399,15 +400,25 @@ namespace SceneFoundry_SceneFoundry
 
    //}
 
-
-   ::pointer < ::graphics3d::scene > impact::create_main_scene()
+   
+   ::pointer<::prodevian::immersion > impact::create_immersion()
    {
 
-      auto psceneMain = create_scene < main_scene >("main");
+      auto pimmersionSceneFoundry = øcreate_new<SceneFoundry_SceneFoundry::immersion>();
 
-      return psceneMain;
+      return pimmersionSceneFoundry;
 
    }
+
+
+   //::pointer < ::graphics3d::scene > impact::create_main_scene()
+   //{
+
+   //   auto psceneMain = create_scene < main_scene >("main");
+
+   //   return psceneMain;
+
+   //}
 
 
    //void impact::on_load_engine()

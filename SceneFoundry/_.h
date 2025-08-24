@@ -28,7 +28,7 @@ namespace SceneFoundry_SceneFoundry
    class GlobalUbo;
 
 
-} // namespace flag
+} // namespace SceneFoundry_SceneFoundry
 
 
 

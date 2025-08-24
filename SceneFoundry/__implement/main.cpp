@@ -1,5 +1,5 @@
 #include "framework.h"
-#define APPLICATION_NAMESPACE app_graphics3d_continuum
+#define APPLICATION_NAMESPACE SceneFoundry_SceneFoundry
 #include "acme/inline/application/main_executable.inl"
 
 
