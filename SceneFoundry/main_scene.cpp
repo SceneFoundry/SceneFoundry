@@ -8,6 +8,7 @@
 #include "bred/graphics3d/render_systems/gltf_render_system.h"
 #include "bred/graphics3d/render_systems/wavefront_obj_render_system.h"
 #include "bred/graphics3d/render_systems/point_light_render_system.h"
+#include "bred/graphics3d/render_systems/scene_render_system.h"
 #include "bred/graphics3d/render_systems/skybox_ibl_render_system.h"
 #include "bred/graphics3d/camera.h"
 #include "bred/graphics3d/engine.h"
@@ -215,6 +216,11 @@ namespace SceneFoundry_SceneFoundry
 //         //add_object(pointLight);
 //
 //      }
+      øconstruct(m_pscenerendersystem);
+
+      m_pscenerendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
+
+      m_pscenerendersystem->prepare(pgpucontext);
 
       øconstruct(m_pgltfrendersystem);
 
@@ -307,6 +313,23 @@ namespace SceneFoundry_SceneFoundry
 
       }
 
+      auto pscenerendersystem = m_pscenerendersystem;
+
+      if (pscenerendersystem)
+      {
+
+         pscenerendersystem->render(pgpucontext, this);
+      }
+
+      auto pgltfrendersystem = m_pgltfrendersystem;
+
+      if (pgltfrendersystem)
+      {
+
+         pgltfrendersystem->render(pgpucontext, this);
+
+      }
+
       //return;
 
       auto pwavefrontobjrendersystem = m_pwavefrontobjrendersystem;
@@ -320,12 +343,12 @@ namespace SceneFoundry_SceneFoundry
 
       auto ppointlightrendersystem = m_ppointlightrendersystem;
 
-      if(ppointlightrendersystem)
-      {
+      //if(ppointlightrendersystem)
+      //{
 
-         ppointlightrendersystem->render(pgpucontext, this);
+      //   ppointlightrendersystem->render(pgpucontext, this);
 
-      }
+      //}
 
    }
 
