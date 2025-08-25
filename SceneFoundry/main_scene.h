@@ -22,8 +22,8 @@ namespace SceneFoundry_SceneFoundry
 
       //::pointer< ::graphics3d::sky_box> m_Skybox;
 
-
-      ::pointer < ::graphics3d::object_render_system >		      m_pobjectrendersystem;
+      ::pointer < ::graphics3d::gltf_render_system >              m_pgltfrendersystem;
+      ::pointer < ::graphics3d::wavefront_obj_render_system >		m_pwavefrontobjrendersystem;
       ::pointer < ::graphics3d::point_light_render_system >			m_ppointlightrendersystem;
       ::pointer < ::graphics3d::skybox_ibl_render_system >			m_pskyboxiblrendersystem;
 

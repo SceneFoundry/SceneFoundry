@@ -44,9 +44,9 @@ namespace SceneFoundry_SceneFoundry
 
       //m_ppaneimpact = nullptr;
 
-      m_strAppId = "app-graphics3d/continuum";
+      m_strAppId = "SceneFoundry/SceneFoundry";
 
-      m_strAppName = "app-graphics3d/continuum";
+      m_strAppName = "SceneFoundry/SceneFoundry";
 
       m_strBaseSupportId = "SceneFoundry_SceneFoundry";
 
