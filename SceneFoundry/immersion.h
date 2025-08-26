@@ -15,7 +15,11 @@ namespace SceneFoundry_SceneFoundry
       virtual public ::prodevian::immersion
    {
    public:
-      
+
+
+      glm::vec3 m_initialCameraPosition{0.f};
+      glm::vec3 m_initialCameraRotation{0.f};
+
       
       immersion();
       ~immersion() override;
@@ -23,6 +27,9 @@ namespace SceneFoundry_SceneFoundry
       
       ::pointer<::graphics3d::scene> create_main_scene() override;
 
+
+      void load_camera(const ::property_set &set) override;
+      void on_initial_camera_load() override;
 
    };
 

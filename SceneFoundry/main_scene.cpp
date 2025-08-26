@@ -3,6 +3,8 @@
 #include "framework.h"
 #include "main_scene.h"
 #include "application.h"
+#include "camera.h"
+#include "immersion.h"
 #include "impact.h"
 #include "bred/gpu/context.h"
 #include "bred/graphics3d/render_systems/gltf_render_system.h"
@@ -39,22 +41,27 @@ namespace SceneFoundry_SceneFoundry
 
       //m_pusergraphics3d = m_pengine->m_pusergraphics3d;
 
+ 
+
+
+            auto pprodevianactor = øcreate_new<::prodevian::actor>();
+
+      pprodevianactor->initialize_prodevian_actor(this);
+
+      ::cast<immersion> pimmersion = m_pimmersionlayer;
+
+      pprodevianactor->transform().m_vec3Translation = pimmersion->m_initialCameraPosition;
+      pprodevianactor->transform().m_vec3Rotation = pimmersion->m_initialCameraRotation;
+      // pprodevianactor->onInit();
+
+      m_prodevianactora.add(pprodevianactor);
+
+
       m_papp->m_pmainscene = this;
 
       if (!m_pcameraDefault)
       {
 
-         // glm::vec3 camera = glm::vec3(0.0f, 1.0f *m_pengine->m_fYScale, 3.0f);
-         glm::vec3 camera = glm::vec3(0.0f, 1.0f, 3.0f);
-         glm::vec3 target = glm::vec3(0.0f, 0.0f, 0.0f); // Look at origin
-         // glm::vec3 direction = glm::normalize(target - cameraPos);
-         // camera camera{ glm::vec3(0.0f, 2.0f, -15.0f), -90.0f, 0.0f };
-         auto pcameraDefault = øcreate<::graphics3d::camera>();
-         pcameraDefault->m_pengine = m_pimmersionlayer->m_pengine;
-         pcameraDefault->initialize_camera(target, camera);
-         // pcamera->m_pimpact = m_pimpact;
-
-         set_default_camera(pcameraDefault);
       }
 
    }
@@ -267,23 +274,28 @@ namespace SceneFoundry_SceneFoundry
 
       auto pscene = pimmersion->m_pscene;
 
-      auto pcamera = pscene->camera();
+      auto pgpucamera = pscene->camera();
 
-      auto projection = pcamera->getProjection();
+      ::cast<SandboxCamera> pcamera = pgpucamera;
+
+      auto projection = pcamera->getProjectionMatrix();
       globalubo["projection"] = projection;
 
-      auto view = pcamera->getView();
+      auto view = pcamera->getViewMatrix();
       globalubo["view"] = view;
 
-      auto inverseView = pcamera->getInverseView();
-      globalubo["invView"] = inverseView;
+      auto viewPos = glm::vec4(pcamera->getPosition(), 1.0f);
+      globalubo["viewPos"] = viewPos;
 
-      if (m_ppointlightrendersystem)
-      {
+      //auto inverseView = pcamera->getInverseView();
+      //globalubo["invView"] = inverseView;
 
-         m_ppointlightrendersystem->update(pgpucontext, this);
+      //if (m_ppointlightrendersystem)
+      //{
 
-      }
+      //   m_ppointlightrendersystem->update(pgpucontext, this);
+
+      //}
 
 
    }

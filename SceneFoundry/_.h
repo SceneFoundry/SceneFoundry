@@ -27,6 +27,8 @@ namespace SceneFoundry_SceneFoundry
 
    class GlobalUbo;
 
+   class immersion;
+
 
 } // namespace SceneFoundry_SceneFoundry
 
