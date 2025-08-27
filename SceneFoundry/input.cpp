@@ -1,6 +1,9 @@
 // player_input.cpp
 #include "framework.h"
 #include "input.h"
+#include "bred/graphics3d/engine.h"
+#include "bred/graphics3d/immersion_layer.h"
+#include "bred/graphics3d/scene.h"
 
 
 namespace SceneFoundry_SceneFoundry
@@ -22,25 +25,52 @@ namespace SceneFoundry_SceneFoundry
       m_moveSpeed = moveSpeed;
       m_mouseSensitivity = mouseSensitivity;
       
-      m_yaw = -90.f;
+      //m_yaw = glm::radians(-90.f);
       
-      m_pitch = 0.f ;
+      //m_pitch = 0.f ;
    }
 
    void SandboxMNKController::_001OnMouseMove(const ::int_point & point)
    {
 
-      if (point != m_pointLast)
+      if (m_mousestate.m_buttons.left)
       {
 
-         auto Δ = point - m_pointLast;
+         if (point != m_pointLast)
+         {
 
-         mouseCallback({Δ.cx(), Δ.cy() });
+            if (!m_bMouseOut)
+            {
+
+               auto Δ = point - m_pointLast;
+
+               mouseCallback({Δ.cx(), Δ.cy()});
+            }
+
+            m_bMouseOut = false;
+
+         }
 
       }
+
+      m_pointLast = point;
+
    }
 
-   void SandboxMNKController::mouseCallback(glm::vec2 delta) { m_rawDelta = delta; };
+
+   void SandboxMNKController::_001OnMouseOut()
+   {
+
+      m_bMouseOut = true;
+
+   }
+
+   void SandboxMNKController::mouseCallback(glm::vec2 delta)
+   {
+      
+      m_rawDelta = delta; 
+   
+   }
    //void SandboxMNKController::update(
    // float dt, std::shared_ptr<IWindowInput> input,
       //TransformComponent &transform) 
@@ -58,16 +88,19 @@ namespace SceneFoundry_SceneFoundry
       float deltaYaw = m_smoothDelta.x * m_mouseSensitivity;
       float deltaPitch = -m_smoothDelta.y * m_mouseSensitivity; // invert Y for typical FPS
 
+      auto pcamera = m_pengine->m_pimmersionlayer->m_pscene->camera();
+      auto &yaw = pcamera->yaw();
+      auto &pitch = pcamera->pitch();
       // --- 2) Update camera rotation ---
-      m_yaw += deltaYaw;
-      m_pitch += deltaPitch;
-      m_pitch = glm::clamp(m_pitch, -89.f, 89.f);
+      yaw += deltaYaw;
+      pitch += deltaPitch;
+      pitch = glm::clamp(pitch, glm::radians(-89.f), glm::radians(89.f));
 
-      transform.m_vec3Rotation = glm::vec3(glm::radians(m_pitch), glm::radians(m_yaw), 0.f);
+      transform.m_vec3Rotation = glm::vec3(pitch, yaw, 0.f);
 
       // --- 3) Compute movement basis ---
-      glm::vec3 front{std::cos(glm::radians(m_yaw)) * std::cos(glm::radians(m_pitch)), std::sin(glm::radians(m_pitch)),
-                      std::sin(glm::radians(m_yaw)) * std::cos(glm::radians(m_pitch))};
+      glm::vec3 front{std::cos(yaw) * std::cos(pitch), std::sin(pitch),
+                      std::sin(yaw) * std::cos(pitch)};
       front = glm::normalize(front);
       glm::vec3 right = glm::normalize(glm::cross(front, glm::vec3(0.f, 1.f, 0.f)));
       glm::vec3 up = glm::vec3(0.f, 1.f, 0.f);
@@ -91,7 +124,7 @@ namespace SceneFoundry_SceneFoundry
       {
          dir = glm::normalize(dir);
          float speed = m_moveSpeed * (IsKeyPressed(::user::e_key_left_shift) ? 3.f : 1.f);
-         transform.m_vec3Translation += dir * speed * dt;
+         transform.m_vec3Position += dir * speed * dt;
       }
 
       // --- 5) Reset raw delta for next frame ---

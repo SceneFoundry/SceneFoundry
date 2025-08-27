@@ -6,6 +6,7 @@
 #include "camera.h"
 #include "immersion.h"
 #include "impact.h"
+#include "input.h"
 #include "bred/gpu/context.h"
 #include "bred/graphics3d/render_systems/gltf_render_system.h"
 #include "bred/graphics3d/render_systems/wavefront_obj_render_system.h"
@@ -50,7 +51,7 @@ namespace SceneFoundry_SceneFoundry
 
       ::cast<immersion> pimmersion = m_pimmersionlayer;
 
-      pprodevianactor->transform().m_vec3Translation = pimmersion->m_initialCameraPosition;
+      pprodevianactor->transform().m_vec3Position = pimmersion->m_initialCameraPosition;
       pprodevianactor->transform().m_vec3Rotation = pimmersion->m_initialCameraRotation;
       // pprodevianactor->onInit();
 
@@ -256,6 +257,51 @@ namespace SceneFoundry_SceneFoundry
 
       m_pskyboxiblrendersystem->prepare(pgpucontext);
 
+      //    // Try to get skybox object from scene
+      //if (auto skyboxOpt = getSkyboxObject())
+      //{
+      //   IGameObject &skyboxObj = skyboxOpt.value().get();
+
+      //   // Get and set model
+      //   if (auto skyboxModelBase = provider.getGLTFmodel("cube"))
+      //   {
+      //      skyboxSystem->setSkyboxModel(skyboxModelBase);
+      //   }
+      //   else
+      //   {
+      //      warning("Skybox object has no model");
+      //   }
+
+      //   // Get and set cubemap
+      //   auto cubemapName = skyboxObj.getCubemapTextureName();
+      //   try
+      //   {
+      //      VkDescriptorImageInfo cubemapDesc = provider.getCubemapDescriptor(cubemapName);
+
+      //      spdlog::info("[Renderer] got cubemapDesc: view=0x{:x}, sampler=0x{:x}, layout={}",
+      //                   (uintptr_t)cubemapDesc.imageView, (uintptr_t)cubemapDesc.sampler,
+      //                   (int)cubemapDesc.imageLayout);
+
+      //      if (cubemapDesc.imageView == VK_NULL_HANDLE || cubemapDesc.sampler == VK_NULL_HANDLE)
+      //      {
+      //         spdlog::error(
+      //            "[Renderer] cubemap descriptor has null view or sampler! This will produce garbage in shader.");
+      //      }
+
+      //      skyboxSystem->setCubemapTexture(cubemapDesc);
+      //   }
+      //   catch (const std::exception &e)
+      //   {
+      //      warning("Skybox cubemap '{}' not found: {}", cubemapName, e.what());
+      //   }
+      //}
+      //else
+      //{
+      //   warning("No skybox object found in scene");
+      //}
+
+
+
    }
 
 
@@ -265,6 +311,8 @@ namespace SceneFoundry_SceneFoundry
       //m_pskyboxiblrendersystem->set_skybox(get_skybox());
 
       auto& globalubo = this->global_ubo();
+
+
 
       //pgpucontext->clear(::argb(.5f, 0.f, 0.f, 0.5f));
 
@@ -278,6 +326,27 @@ namespace SceneFoundry_SceneFoundry
 
       ::cast<SandboxCamera> pcamera = pgpucamera;
 
+      auto dt = m_pimmersionlayer->m_pengine->dt();
+                   
+      ::cast<SandboxMNKController> pinput = m_pimmersionlayer->m_pengine->m_pinput;
+      //double dx = 0, dy = 0;
+      //m_pInput->getMouseDelta(dx, dy);
+      //m_controller.mouseCallback(glm::vec2(dx, dy));
+      pinput->update(dt, m_pimmersionlayer->m_pengine->m_transform);
+
+      pcamera->setPosition(m_pimmersionlayer->m_pengine->m_transform.m_vec3Position);
+      pcamera->setRotation(m_pimmersionlayer->m_pengine->m_transform.m_vec3Rotation);
+
+
+      //float aspect = h == 0 ? 1.0f : static_cast<float>(w) / h;
+      auto aspect = m_pimmersionlayer->m_pengine->m_pusergraphics3d->getAspectRatio();
+      pcamera->updateProjection(aspect, 0.1f, 300.f);
+
+
+      pcamera->updateVectors();
+      pcamera->updateView();
+
+
       auto projection = pcamera->getProjectionMatrix();
       globalubo["projection"] = projection;
 
@@ -290,25 +359,27 @@ namespace SceneFoundry_SceneFoundry
       //auto inverseView = pcamera->getInverseView();
       //globalubo["invView"] = inverseView;
 
-      //if (m_ppointlightrendersystem)
-      //{
+      debug() << "main_scene::on_update";
 
-      //   m_ppointlightrendersystem->update(pgpucontext, this);
+      if (m_ppointlightrendersystem)
+      {
 
-      //}
+         m_ppointlightrendersystem->update(pgpucontext, this);
 
+      }
 
-   }
-
-
-   ::graphics3d::skybox* main_scene::get_skybox()
-   {
-
-      ::string strSkybox = m_papp->m_strSkybox;
-
-      return m_mapSkybox[strSkybox];
 
    }
+
+
+   //::graphics3d::skybox* main_scene::get_skybox()
+   //{
+
+   //   ::string strSkybox = m_papp->m_strSkybox;
+
+   //   return m_mapSkybox[strSkybox];
+
+   //}
 
    
    void main_scene::on_render(::gpu::context * pgpucontext)
@@ -355,12 +426,12 @@ namespace SceneFoundry_SceneFoundry
 
       auto ppointlightrendersystem = m_ppointlightrendersystem;
 
-      //if(ppointlightrendersystem)
-      //{
+      if(ppointlightrendersystem)
+      {
 
-      //   ppointlightrendersystem->render(pgpucontext, this);
+         ppointlightrendersystem->render(pgpucontext, this);
 
-      //}
+      }
 
    }
 

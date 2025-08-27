@@ -36,33 +36,35 @@ namespace SceneFoundry_SceneFoundry
       glm::mat4 getViewMatrix() const { return m_viewMatrix; }
       glm::mat4 getProjectionMatrix() const { return m_projMatrix; }
 
-      float getYaw() const { return m_yaw; }
-      float getPitch() const { return m_pitch; }
+      //float getYaw() const { return m_yaw; }
+      //float getPitch() const { return m_pitch; }
 
-      void setYaw(float yaw)
-      {
-         m_yaw = yaw;
-         updateVectors();
-      }
-      void setPitch(float pitch)
-      {
-         m_pitch = pitch;
-         updateVectors();
-      }
+
+
+      //void setYaw(float yaw)
+      //{
+      //   m_yaw = yaw;
+      //   updateVectors();
+      //}
+      //void setPitch(float pitch)
+      //{
+      //   m_pitch = pitch;
+      //   updateVectors();
+      //}
       void setRotation(glm::vec3 euler);
 
-      void setPosition(const glm::vec3 &pos) { m_position = pos; }
-      glm::vec3 getPosition() const { return m_position; }
+      void setPosition(const glm::vec3 &pos) { m_vec3Position = pos; }
+      glm::vec3 getPosition() const { return m_vec3Position; }
       glm::mat4 getInverseViewMatrix() const { return m_inverseViewMatrix; }
    
-      glm::vec3 m_position;
+      //glm::vec3 m_position;
       glm::vec3 m_front;
       glm::vec3 m_up;
       glm::vec3 m_right;
       glm::vec3 m_worldUp;
 
-      float m_yaw;
-      float m_pitch;
+      //float m_yaw;
+      //float m_pitch;
       float m_zoom;
 
       glm::mat4 m_viewMatrix;

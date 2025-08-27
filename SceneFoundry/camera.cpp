@@ -16,14 +16,14 @@ namespace SceneFoundry_SceneFoundry
    void SandboxCamera::initialize_SandboxCamera(glm::vec3 position, float yawDeg, float pitchDeg, float zoomDeg) 
        
    {
-      m_position = position;
+      m_vec3Position = position;
       
-      m_worldUp = {0.f, 1.f, 0.f};
+      m_worldUp = {0.f, -1.f, 0.f};
       
-      m_yaw = yawDeg;
+      yaw() = yawDeg;
       
       
-      m_pitch = pitchDeg;
+      pitch() = pitchDeg;
       
       
       m_zoom = zoomDeg;
@@ -35,9 +35,12 @@ namespace SceneFoundry_SceneFoundry
    void SandboxCamera::updateVectors()
    {
       glm::vec3 front;
-      front.x = cos(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
-      front.y = sin(glm::radians(m_pitch));
-      front.z = sin(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
+      //front.x = cos(glm::radians(this->yaw())) * cos(glm::radians(this->pitch()));
+      //front.y = sin(glm::radians(this->pitch()));
+      //front.z = sin(glm::radians(this->yaw())) * cos(glm::radians(this->pitch()));
+      front.x = cos(this->yaw()) * cos(this->pitch());
+      front.y = sin(this->pitch());
+      front.z = sin(this->yaw()) * cos(this->pitch());
       m_front = glm::normalize(front);
 
       // Recalculate Right and Up vector
@@ -47,7 +50,7 @@ namespace SceneFoundry_SceneFoundry
 
    void SandboxCamera::updateView()
    {
-      m_viewMatrix = glm::lookAt(m_position, m_position + m_front, m_up);
+      m_viewMatrix = glm::lookAt(m_vec3Position, m_vec3Position + m_front, m_up);
       m_inverseViewMatrix = glm::inverse(m_viewMatrix);
    }
 
@@ -59,16 +62,16 @@ namespace SceneFoundry_SceneFoundry
 
    void SandboxCamera::move(glm::vec3 delta)
    {
-      m_position += delta;
+      m_vec3Position += delta;
       updateView();
    }
 
    void SandboxCamera::rotate(float yawOffset, float pitchOffset)
    {
-      m_yaw += yawOffset;
-      m_pitch += pitchOffset;
+      this->yaw() += yawOffset;
+      this->pitch() += pitchOffset;
 
-      m_pitch = glm::clamp(m_pitch, -89.f, 89.f);
+      this->pitch() = glm::clamp(this->pitch(), -89.f, 89.f);
       updateVectors();
       updateView();
    }
@@ -77,10 +80,8 @@ namespace SceneFoundry_SceneFoundry
 
    void SandboxCamera::setRotation(glm::vec3 euler)
    {
-      m_pitch = glm::degrees(euler.x);
-      m_yaw = glm::degrees(euler.y);
-      updateVectors();
-      updateView();
+      this->pitch() = euler.x;
+      this->yaw() = euler.y;
    }
 
 

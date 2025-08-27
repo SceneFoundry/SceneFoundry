@@ -22,8 +22,10 @@ namespace SceneFoundry_SceneFoundry
    ::pointer<::graphics3d::scene> immersion::create_main_scene()
    {
 
-      auto pinput = øallocate ::SceneFoundry_SceneFoundry::SandboxMNKController();
+      auto pinput = øcreate_new < ::SceneFoundry_SceneFoundry::SandboxMNKController >();
 
+
+      pinput->initialize_SandboxMNKController();
       //pinput->m_fMoveSpeed = 3.f;
       //pinput->m_fLookSpeed = 1.5f;
 
@@ -61,6 +63,8 @@ namespace SceneFoundry_SceneFoundry
 
       auto pcameraLoaded = øcreate_new<SandboxCamera>();
 
+      //pcameraLoaded->initialize_SandboxCamera(glm::vec3(0.f, 0.f, 3.f));
+
       pcameraLoaded->m_pengine = m_pengine;
 
       //         // glm::vec3 camera = glm::vec3(0.0f, 1.0f *m_pengine->m_fYScale, 3.0f);
@@ -84,8 +88,8 @@ namespace SceneFoundry_SceneFoundry
       //pcameraLoaded->m_yaw = m_initialCameraRotation.y;
       pcameraLoaded->initialize_SandboxCamera(
          m_initialCameraPosition, 
-         m_initialCameraRotation.y,
-         m_initialCameraRotation.y);
+         m_initialCameraRotation.y, 
+         m_initialCameraRotation.x);
 
       m_pscene->set_default_camera(pcameraLoaded);
       

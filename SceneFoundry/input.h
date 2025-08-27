@@ -18,25 +18,26 @@ namespace SceneFoundry_SceneFoundry
    public:
 
       ::int_point m_pointLast;
-      
+      bool m_bMouseOut = true;
       SandboxMNKController();
       ~SandboxMNKController() override;
       
       
-      void initialize_SandboxMNKController(float moveSpeed = 7.f, float mouseSensitivity = 0.08f);
+      void initialize_SandboxMNKController(float moveSpeed = 7.f, float mouseSensitivity = 0.001f);
 
       //void update(float dt, std::shared_ptr<IWindowInput> input, ::graphics3d::transform &transform);
       void update(float dt, ::graphics3d::transform &transform);
       void mouseCallback(glm::vec2 delta);
       virtual void _001OnMouseMove(const ::int_point &point);
-      float getYaw() const { return m_yaw; }
-      float getPitch() const { return m_pitch; }
+      virtual void _001OnMouseOut();
+      //float getYaw() const { return m_yaw; }
+      //float getPitch() const { return m_pitch; }
 
 
       float m_moveSpeed;
       float m_mouseSensitivity;
-      float m_yaw;
-      float m_pitch;
+      //float m_yaw;
+      //float m_pitch;
 
       float m_smoothing = 15.f;
       glm::vec2 m_rawDelta{0.f};

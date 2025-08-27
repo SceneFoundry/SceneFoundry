@@ -35,7 +35,7 @@ namespace SceneFoundry_SceneFoundry
       
       void on_initialize_scene() override;
 
-      virtual ::graphics3d::skybox * get_skybox();
+      //virtual ::graphics3d::skybox * get_skybox();
 
       //::graphics3d::camera *camera() override;
 
