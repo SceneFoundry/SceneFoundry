@@ -78,12 +78,20 @@ list(APPEND library_source
 
         application.cpp
         application.h
+   camera.cpp
+   camera.h
         document.cpp
         document.h
         framework.cpp
         framework.h
+   global_ubo.cpp
+   global_ubo.h
+   immersion.cpp
+   immersion.h
         impact.cpp
         impact.h
+   input.cpp
+   input.h
         main_frame.cpp
         main_frame.h
         pane_impact.cpp
@@ -100,9 +108,9 @@ list(APPEND library_references
         berg
         bred
         core
-        sandbox
-        sandbox_renderer
-        sandbox_engine
+        #sandbox
+        #sandbox_renderer
+        #sandbox_engine
 )
 
 
