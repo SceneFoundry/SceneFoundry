@@ -1,0 +1,41 @@
+add_library(Engine
+        bloomframebuffer.cpp
+        camera.cpp
+        cameramanager.cpp
+        cube.cpp
+        engine.cpp
+        entity.cpp
+        framebuffer.cpp
+        fullscreenquad.cpp
+        hdrtexture.cpp
+        ibl/brdfconvolutionframebuffer.cpp
+        ibl/cubemapframebuffer.cpp
+        ibl/diffuseirradiancemap.cpp
+        ibl/equirectangularcubemap.cpp
+        ibl/hdricube.cpp
+        ibl/mipmapcubemapframebuffer.cpp
+        ibl/specularmap.cpp
+        inputmanager.cpp
+        mesh.cpp
+        model.cpp
+        rendermanager.cpp
+        rotatingcamera.cpp
+        shader.cpp
+        skybox.cpp
+        timer.cpp
+        windowmanager.cpp
+        )
+
+target_include_directories(Engine
+        PUBLIC
+            "${CMAKE_CURRENT_LIST_DIR}/include"
+        )
+
+target_link_libraries(Engine
+        PUBLIC
+        GLFW
+        Glad
+        Stb
+        Assimp
+        Imgui
+        )

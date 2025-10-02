@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="_.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="document.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="impact.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main_frame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pane_impact.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="immersion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main_scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="global_ubo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\camera.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\cameramanager.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\inputmanager.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\aaa_rendermanager.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\rotatingcamera.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\timer.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="framework.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\aaa_windowmanager.cpp">
+      <Filter>Source Files\aaa_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\aaa_skybox.cpp">
+      <Filter>Source Files\aaa_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\aaa_shader.cpp">
+      <Filter>Source Files\aaa_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\aaa_model.cpp">
+      <Filter>Source Files\aaa_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\aaa_mesh.cpp">
+      <Filter>Source Files\aaa_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\aaa_hdrtexture.cpp">
+      <Filter>Source Files\aaa_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\aaa_fullscreenquad.cpp">
+      <Filter>Source Files\aaa_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\aaa_framebuffer.cpp">
+      <Filter>Source Files\aaa_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\aaa_entity.cpp">
+      <Filter>Source Files\aaa_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\aaa_engine.cpp">
+      <Filter>Source Files\aaa_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\aaa_cube.cpp">
+      <Filter>Source Files\aaa_engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\aaa_bloomframebuffer.cpp">
+      <Filter>Source Files\aaa_engine</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="application.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="document.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="impact.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="main_frame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="_.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pane_impact.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="immersion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="main_scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="global_ubo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\aaa_bloomframebuffer.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\camera.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\cameramanager.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\inputmanager.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\aaa_rendermanager.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\rotatingcamera.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\timer.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{a052d07f-5694-4a78-99d3-dd6804dc0619}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{553e2ad6-0eec-4e39-9937-6581b3f77c18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\engine">
+      <UniqueIdentifier>{adb87be8-a16c-41f8-bb14-6eaed71ffb2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\engine">
+      <UniqueIdentifier>{7550dd27-f586-486b-8fe4-6783062ca71f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\aaa_engine">
+      <UniqueIdentifier>{f3443761-2000-467c-9411-3276faa7c4aa}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
