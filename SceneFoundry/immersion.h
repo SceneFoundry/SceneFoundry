@@ -25,7 +25,7 @@ namespace SceneFoundry_SceneFoundry
       ~immersion() override;
 
       
-      ::pointer<::graphics3d::scene> create_main_scene() override;
+      ::pointer<::graphics3d::scene_base> create_main_scene() override;
 
 
       void load_camera(const ::property_set &set) override;

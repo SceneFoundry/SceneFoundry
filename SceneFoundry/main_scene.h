@@ -5,13 +5,11 @@
 
 #include "apex/platform/app_consumer.h"
 #include "bred/graphics3d/skybox.h"
-#include "bred/graphics3d/scene.h"
+#include "app-graphics3d/graphics3d/scene.h"
 
 
 namespace SceneFoundry_SceneFoundry
 {
-
-
 
 
    class CLASS_DECL_SCENEFOUNDRY_SCENEFOUNDRY main_scene :

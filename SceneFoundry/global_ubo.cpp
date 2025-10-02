@@ -6,6 +6,7 @@
 BEGIN_GPU_PROPERTIES(::SceneFoundry_SceneFoundry::global_ubo)
 GPU_PROPERTY("projection", ::gpu::e_type_mat4)
 GPU_PROPERTY("view", ::gpu::e_type_mat4)
+GPU_PROPERTY("invView", ::gpu::e_type_mat4)
 GPU_PROPERTY("ambientLightColor", ::gpu::e_type_seq4)
 GPU_PROPERTY("viewPos", ::gpu::e_type_seq4)
 GPU_PROPERTY("pointLights", ::gpu_properties<::gpu::point_light>(), ::SceneFoundry_SceneFoundry::global_ubo::MAX_LIGHTS)

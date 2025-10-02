@@ -411,7 +411,7 @@ namespace SceneFoundry_SceneFoundry
    }
 
 
-   //::pointer < ::graphics3d::scene > impact::create_main_scene()
+   //::pointer < ::graphics3d::scene_base > impact::create_main_scene()
    //{
 
    //   auto psceneMain = create_scene < main_scene >("main");

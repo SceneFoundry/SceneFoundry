@@ -162,8 +162,8 @@ namespace SceneFoundry_SceneFoundry
          auto& obj = pscene->m_mapObjects[it->second];
          ::cast < ::graphics3d::point_light > ppointlight = obj;
          //PointLightPushConstants push{};
-         m_pshader->set_vec4("position", glm::vec4(obj->m_transform.translation, 1.f));
-         m_pshader->set_vec4("color", glm::vec4(obj->m_color, ppointlight->m_pointlightcomponent.lightIntensity));
+         m_pshader->set_seq4("position", glm::vec4(obj->m_transform.translation, 1.f));
+         m_pshader->set_seq4("color", glm::vec4(obj->m_color, ppointlight->m_pointlightcomponent.lightIntensity));
          m_pshader->set_float("radius", obj->m_transform.scale.x);
 
          m_pshader->push_properties();

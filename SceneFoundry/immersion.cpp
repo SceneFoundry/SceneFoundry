@@ -19,7 +19,7 @@ namespace SceneFoundry_SceneFoundry
    immersion::~immersion() {}
 
 
-   ::pointer<::graphics3d::scene> immersion::create_main_scene()
+   ::pointer<::graphics3d::scene_base> immersion::create_main_scene()
    {
 
       auto pinput = øcreate_new < ::SceneFoundry_SceneFoundry::SandboxMNKController >();

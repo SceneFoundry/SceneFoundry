@@ -2,6 +2,7 @@
 
 
 #include "core/_.h"
+#include "app-graphics3d/graphics3d/_.h"
 
 
 #if defined(_SceneFoundry_SceneFoundry_project)

@@ -820,6 +820,9 @@
     <ClInclude Include="framework.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\app-graphics3d\graphics3d\graphics3d.vcxproj">
+      <Project>{beca2c96-6cfd-4793-a2b8-1fce9bd31682}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\app\acme\acme.vcxproj">
       <Project>{638b242f-0f21-41c3-9f66-724660046133}</Project>
     </ProjectReference>

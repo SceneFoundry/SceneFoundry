@@ -3,6 +3,7 @@
 
 #include "bred/graphics3d/point_light.h"
 #include "bred/user/user/graphics3d.h"
+#include "opengl-pbr-renderer/_.h"
 
 
 namespace SceneFoundry_SceneFoundry
@@ -57,7 +58,7 @@ namespace SceneFoundry_SceneFoundry
 } // namespace SceneFoundry_SceneFoundry
 
 
-DECLARE_GPU_PROPERTIES(CLASS_DECL_SCENEFOUNDRY_SCENEFOUNDRY, ::SceneFoundry_SceneFoundry::global_ubo)
+DECLARE_GPU_PROPERTIES(CLASS_DECL_SCENEFOUNDRY_OPENGL_PBR_RENDERER, ::SceneFoundry_SceneFoundry::global_ubo)
 
 
 

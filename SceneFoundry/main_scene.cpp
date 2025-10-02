@@ -17,6 +17,7 @@
 #include "bred/graphics3d/engine.h"
 #include "bred/graphics3d/point_light.h"
 #include "bred/graphics3d/scene_object.h"
+#include "bred/prodevian/actor.h"
 
 
 namespace SceneFoundry_SceneFoundry
@@ -38,14 +39,11 @@ namespace SceneFoundry_SceneFoundry
    void main_scene::on_initialize_scene()
    {
 
-      scene::on_initialize_particle();
+      scene_base::on_initialize_particle();
 
       //m_pusergraphics3d = m_pengine->m_pusergraphics3d;
 
- 
-
-
-            auto pprodevianactor = øcreate_new<::prodevian::actor>();
+      auto pprodevianactor = øcreate_new<::prodevian::actor>();
 
       pprodevianactor->initialize_prodevian_actor(this);
 
@@ -251,11 +249,14 @@ namespace SceneFoundry_SceneFoundry
 
       m_ppointlightrendersystem->prepare(pgpucontext);
 
-      øconstruct_new(m_pskyboxiblrendersystem);
+      if (1)
+      {
+         øconstruct_new(m_pskyboxiblrendersystem);
 
-      m_pskyboxiblrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
+         m_pskyboxiblrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
 
-      m_pskyboxiblrendersystem->prepare(pgpucontext);
+         m_pskyboxiblrendersystem->prepare(pgpucontext);
+      }
 
       //    // Try to get skybox object from scene
       //if (auto skyboxOpt = getSkyboxObject())
@@ -387,14 +388,17 @@ namespace SceneFoundry_SceneFoundry
 
       //pgpucontext->clear(rgba(0.5f, 0.75f, 1.0f, 1.0f)); // Clear with a light blue color
 
-      auto pskyboxiblrendersystem = m_pskyboxiblrendersystem;
+if (1)
+{
+   auto pskyboxiblrendersystem = m_pskyboxiblrendersystem;
 
-      if (pskyboxiblrendersystem)
-      {
+   if (pskyboxiblrendersystem)
+   {
 
-         pskyboxiblrendersystem->render(pgpucontext, this);
+      pskyboxiblrendersystem->render(pgpucontext, this);
 
-      }
+   }
+}
 
       auto pscenerendersystem = m_pscenerendersystem;
 
@@ -404,33 +408,44 @@ namespace SceneFoundry_SceneFoundry
          pscenerendersystem->render(pgpucontext, this);
       }
 
-      auto pgltfrendersystem = m_pgltfrendersystem;
 
-      if (pgltfrendersystem)
+      if (1)
       {
+         auto pgltfrendersystem = m_pgltfrendersystem;
 
-         pgltfrendersystem->render(pgpucontext, this);
+         if (pgltfrendersystem)
+         {
 
+            pgltfrendersystem->render(pgpucontext, this);
+
+         }
       }
 
       //return;
 
-      auto pwavefrontobjrendersystem = m_pwavefrontobjrendersystem;
-
-      if (pwavefrontobjrendersystem)
+      if (0)
       {
+         auto pwavefrontobjrendersystem = m_pwavefrontobjrendersystem;
 
-         pwavefrontobjrendersystem->render(pgpucontext, this);
+         if (pwavefrontobjrendersystem)
+         {
 
+            pwavefrontobjrendersystem->render(pgpucontext, this);
+
+         }
       }
 
-      auto ppointlightrendersystem = m_ppointlightrendersystem;
 
-      if(ppointlightrendersystem)
+      if (1)
       {
+         auto ppointlightrendersystem = m_ppointlightrendersystem;
 
-         ppointlightrendersystem->render(pgpucontext, this);
+         if(ppointlightrendersystem)
+         {
 
+            ppointlightrendersystem->render(pgpucontext, this);
+
+         }
       }
 
    }

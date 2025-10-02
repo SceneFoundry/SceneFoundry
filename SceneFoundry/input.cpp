@@ -3,7 +3,7 @@
 #include "input.h"
 #include "bred/graphics3d/engine.h"
 #include "bred/graphics3d/immersion_layer.h"
-#include "bred/graphics3d/scene.h"
+#include "bred/graphics3d/scene_base.h"
 
 
 namespace SceneFoundry_SceneFoundry
