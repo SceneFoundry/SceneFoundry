@@ -909,7 +909,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='StaticRelease|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="engine\timer.cpp" />
     <ClCompile Include="engine\aaa_windowmanager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='StaticDebug|Win32'">true</ExcludedFromBuild>
@@ -942,7 +941,6 @@
     <ClInclude Include="engine\inputmanager.h" />
     <ClInclude Include="engine\aaa_rendermanager.h" />
     <ClInclude Include="engine\rotatingcamera.h" />
-    <ClInclude Include="engine\timer.h" />
     <ClInclude Include="global_ubo.h" />
     <ClInclude Include="immersion.h" />
     <ClInclude Include="impact.h" />
