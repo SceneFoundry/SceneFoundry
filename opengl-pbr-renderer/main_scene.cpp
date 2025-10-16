@@ -232,6 +232,25 @@ namespace SceneFoundry_opengl_pbr_renderer
 
       øconstruct(m_pgltfrendersystem);
 
+
+      m_pgltfrendersystem->m_bDisableAlbedo = false;
+      m_pgltfrendersystem->m_bDisableMetallicRoughness = false;
+      m_pgltfrendersystem->m_bDisableNormal = false;
+      m_pgltfrendersystem->m_bDisableAmbientOcclusion = false;
+      m_pgltfrendersystem->m_bDisableEmissive = false;
+
+      m_pgltfrendersystem->m_bForceDefaultAlbedo = true;
+      m_pgltfrendersystem->m_bForceDefaultMetallicFactor = true;
+      m_pgltfrendersystem->m_bForceDefaultRoughnessFactor = true;
+      m_pgltfrendersystem->m_bForceDefaultAmbientOcclusionFactor = true;
+      m_pgltfrendersystem->m_bForceDefaultEmission = true;
+      m_pgltfrendersystem->m_seq3DefaultAlbedo = {};
+      m_pgltfrendersystem->m_fDefaultMetallicFactor = 0.0f;
+      m_pgltfrendersystem->m_fDefaultRoughnessFactor = 1.0f;
+      m_pgltfrendersystem->m_fDefaultAmbientOcclusionFactor = 1.0f;
+      m_pgltfrendersystem->m_seq3DefaultEmission = {};
+
+
       m_pgltfrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
 
       m_pgltfrendersystem->prepare(pgpucontext);
