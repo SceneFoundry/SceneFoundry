@@ -1,2 +1,0 @@
-app/main
-SceneFoundry/opengl-pbr-renderer

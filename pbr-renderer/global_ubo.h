@@ -3,10 +3,9 @@
 
 #include "bred/graphics3d/point_light.h"
 #include "bred/user/user/graphics3d.h"
-#include "pbr-renderer/_.h"
 
 
-namespace SceneFoundry_SceneFoundry
+namespace SceneFoundry_pbr_renderer
 {
 
 
@@ -47,18 +46,22 @@ namespace SceneFoundry_SceneFoundry
       inline static const int MAX_LIGHTS{10};
       glm::mat4 projection{ 1.f };
       glm::mat4 view{ 1.f };
+      glm::mat4 invView{1.f};
       glm::vec4 ambientLightColor{ 1.f, 1.f, 1.f, .02f };
       glm::vec4 viewPos;
       gpu::point_light pointLights[MAX_LIGHTS];
       int numLights;
+      int padding1;
+      int padding2;
+      int padding3;
    };
 
 
 
-} // namespace SceneFoundry_SceneFoundry
+} // namespace SceneFoundry_pbr_renderer
 
 
-DECLARE_GPU_PROPERTIES(CLASS_DECL_SCENEFOUNDRY_PBR_RENDERER, ::SceneFoundry_SceneFoundry::global_ubo)
+DECLARE_GPU_PROPERTIES(CLASS_DECL_SCENEFOUNDRY_PBR_RENDERER, ::SceneFoundry_pbr_renderer::global_ubo)
 
 
 
