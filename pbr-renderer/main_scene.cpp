@@ -102,128 +102,6 @@ namespace SceneFoundry_pbr_renderer
       loadSceneFile("default_scene");
 
 
-//
-//      //::graphics3d::sky_box::cube cube = {
-//
-//      //   // Cloudy skybox
-//      //  /* "D:/Users/Admin/source/repos/MyHell2024/MyHell2024/res/Textures/CloudySkybox/bluecloud_ft.jpg",
-//      //   "D:/Users/Admin/source/repos/MyHell2024/MyHell2024/res/Textures/CloudySkybox/bluecloud_bk.jpg",
-//      //   "D:/Users/Admin/source/repos/MyHell2024/MyHell2024/res/Textures/CloudySkybox/bluecloud_dn.jpg",
-//      //   "D:/Users/Admin/source/repos/MyHell2024/MyHell2024/res/Textures/CloudySkybox/bluecloud_up.jpg",
-//      //   "D:/Users/Admin/source/repos/MyHell2024/MyHell2024/res/Textures/CloudySkybox/bluecloud_rt.jpg",
-//      //   "D:/Users/Admin/source/repos/MyHell2024/MyHell2024/res/Textures/CloudySkybox/bluecloud_lf.jpg",*/
-//
-//      //   // Hell skybox
-//      //  /* "D:/Users/Admin/source/repos/MyHell2024/MyHell2024/res/Textures/CoolSkybox/NightSky_Front.png",
-//      //   "D:/Users/Admin/source/repos/MyHell2024/MyHell2024/res/Textures/CoolSkybox/NightSky_Back.png",
-//
-//      //    "D:/Users/Admin/source/repos/MyHell2024/MyHell2024/res/Textures/CoolSkybox/NightSky_Top.png",
-//      //    "D:/Users/Admin/source/repos/MyHell2024/MyHell2024/res/Textures/CoolSkybox/NightSky_Bottom.png",
-//
-//      //   "D:/Users/Admin/source/repos/MyHell2024/MyHell2024/res/Textures/CoolSkybox/NightSky_Left.png",
-//      //   "D:/Users/Admin/source/repos/MyHell2024/MyHell2024/res/Textures/CoolSkybox/NightSky_Right.png",
-//      // */
-//
-//
-//      // // Space sky_box
-//      //   {"matter://textures/SpaceSkybox/right.png",
-//      //  "matter://textures/SpaceSkybox/left.png",
-//      //  "matter://textures/SpaceSkybox/top.png",
-//      //  "matter://textures/SpaceSkybox/bottom.png",
-//      //  "matter://textures/SpaceSkybox/front.png",
-//      //  "matter://textures/SpaceSkybox/back.png"
-//      //  }
-//      //};
-//
-////      m_Skybox = øallocate::graphics3d::sky_box();
-//
-//      for (auto& strSkybox : m_papp->m_straSkybox)
-//      {
-//
-//         auto& pskybox = m_mapSkybox[strSkybox];
-//
-//         ødefer_construct_new(pskybox);
-//
-//         pskybox->initialize_sky_box(m_pengine, strSkybox);
-//
-//      }
-//
-//
-//
-//      float fXScale;
-//
-//      fXScale = m_pengine->m_fYScale;
-//
-//      {
-//
-//         auto & flatVase = scene_object("matter://models/flat_vase.obj");
-//         flatVase.translate({ -.5f, 0.f, 0.f });
-//         flatVase.scale({3.f, -1.5f, 3.f * fXScale }); // The vase is upside down.
-//
-//      }
-//
-//      {
-//
-//         auto & floor = scene_object("matter://models/quad.obj");
-//         floor.translate({0.f, 0.f, 0.f});
-//         floor.scale({5.f, -1.f, 5.f * fXScale });
-//
-//      }
-//
-//      {
-//
-//         auto & smoothVase = scene_object("matter://models/smooth_vase.obj");
-//         smoothVase.translate({.5f, .0f, 0.f});
-//         smoothVase.scale({3.f, -1.5f, 3.f * fXScale }); // The vase is upside down.
-//
-//      }
-//
-//      {
-//
-//         auto & stoneSphere = scene_object("matter://models/StoneSphere.obj");
-//         stoneSphere.translate({ .0f, 0.0f, 0.f });
-//         stoneSphere.scale({.25f, .25f, .25f });
-//
-//      }
-//
-//      {
-//
-//         auto & woodBarrel = scene_object("matter://models/Barrel_OBJ.obj");
-//         woodBarrel.translate({ 1.f, 0.f, 1.0f });
-//         woodBarrel.scale({1.f, 1.f, 1.f });
-//
-//      }
-//
-//      float fLo = 0.5f;
-//
-//      ::array_base <::color::color > lightColors;
-//
-//      lightColors.add(::rgb(1.f, fLo, fLo));
-//      lightColors.add(::rgb(fLo, fLo, 1.f));
-//      lightColors.add(::rgb(fLo, 1.f, fLo));
-//      lightColors.add(::rgb(1.f, 1.f, fLo));
-//      lightColors.add(::rgb(fLo, 1.f, 1.f));
-//      lightColors.add(::rgb(1.f, 1.f, 1.));
-//
-//      for (int i = 0; i < lightColors.size(); i++) 
-//      {
-//
-//         auto ppointlight = create_point_light();
-//
-//         ppointlight->m_color = lightColors[i];
-//
-//         auto rotateLight = glm::rotate(
-//            glm::mat4(1.f),
-//            (i * glm::two_pi<float>()) / lightColors.size(),
-//            { 0.f, 1.f, 0.f });
-//
-//
-//         ppointlight->m_fLightIntensity = 1.0f;
-//
-//         ppointlight->transform().m_vec3Translation = glm::vec3(rotateLight * glm::vec4(-1.f, 1.7f, 0.5f , 1.f));
-//         //add_object(pointLight);
-//
-//      }
       øconstruct(m_pscenerendersystem);
 
       m_pscenerendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
@@ -234,10 +112,10 @@ namespace SceneFoundry_pbr_renderer
 
 
       m_pgltfrendersystem->m_bDisableAlbedo = false;
-      m_pgltfrendersystem->m_bDisableMetallicRoughness = true;
-      m_pgltfrendersystem->m_bDisableNormal = true;
-      m_pgltfrendersystem->m_bDisableAmbientOcclusion = true;
-      m_pgltfrendersystem->m_bDisableEmissive = true;
+      m_pgltfrendersystem->m_bDisableMetallicRoughness = false;
+      m_pgltfrendersystem->m_bDisableNormal = false;
+      m_pgltfrendersystem->m_bDisableAmbientOcclusion = false;
+      m_pgltfrendersystem->m_bDisableEmissive = false;
 
       m_pgltfrendersystem->m_bForceDefaultAlbedo = true;
       m_pgltfrendersystem->m_bForceDefaultMetallicFactor = true;
@@ -368,10 +246,12 @@ namespace SceneFoundry_pbr_renderer
 
       auto projection = pcamera->getProjectionMatrix();
       //globalubo["projection"] = m_pgpucontext->defer_clip_remap_projection(projection);
+
       globalubo["projection"] = projection;
 
       auto view = pcamera->getViewMatrix();
       //globalubo["view"] = m_pgpucontext->defer_remap_impact_matrix(view);
+      //glm::mat4 viewNoTranslation = glm::mat4(glm::mat3(view)); // remove translation
       globalubo["view"] = view;
 
       auto viewPos = glm::vec4(pcamera->getPosition(), 1.0f);
