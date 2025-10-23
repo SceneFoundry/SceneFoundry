@@ -43,8 +43,6 @@ namespace SceneFoundry_pbr_renderer
 
       scene_base::on_initialize_particle();
 
-      //m_pusergraphics3d = m_pengine->m_pusergraphics3d;
-
       auto pprodevianactor = øcreate_new<::prodevian::actor>();
 
       pprodevianactor->initialize_prodevian_actor(this);
@@ -53,7 +51,6 @@ namespace SceneFoundry_pbr_renderer
 
       pprodevianactor->transform().m_vec3Position = pimmersion->m_initialCameraPosition;
       pprodevianactor->transform().m_vec3Rotation = pimmersion->m_initialCameraRotation;
-      // pprodevianactor->onInit();
 
       m_prodevianactora.add(pprodevianactor);
 
@@ -66,32 +63,6 @@ namespace SceneFoundry_pbr_renderer
       }
 
    }
-
-
-   //
-   //
-   //
-   // ::pointer < ::graphics3d::camera > main_scene::get_default_camera()
-   // {
-   //    //glm::vec3 camera = glm::vec3(0.0f, 1.0f *m_pengine->m_fYScale, 3.0f);
-   //    glm::vec3 camera = glm::vec3(0.0f, 1.0f , 3.0f);
-   //    glm::vec3 target = glm::vec3(0.0f, 0.0f, 0.0f); // Look at origin
-   //    //glm::vec3 direction = glm::normalize(target - cameraPos);
-   //    //camera camera{ glm::vec3(0.0f, 2.0f, -15.0f), -90.0f, 0.0f };
-   //    auto pcamera = øcreate < ::graphics3d::camera>();
-   //    pcamera->m_pengine = m_pengine;
-   //    pcamera->initialize_camera(target, camera);
-   //    //pcamera->m_pimpact = m_pimpact;
-   //    return pcamera;
-   //
-   //
-   // }
-
-   //void main_scene::on_load_scene(::gpu::context* pgpucontext)
-   //{
-
-
-   //}
 
 
    void main_scene::on_load_scene(::gpu::context* pgpucontext)
