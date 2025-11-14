@@ -17,8 +17,8 @@ namespace SceneFoundry_SceneFoundry
    public:
 
 
-      glm::vec3 m_initialCameraPosition{0.f};
-      glm::vec3 m_initialCameraRotation{0.f};
+      floating_sequence3 m_initialCameraPosition{0.f};
+      floating_sequence3 m_initialCameraRotation{0.f};
 
       
       immersion();

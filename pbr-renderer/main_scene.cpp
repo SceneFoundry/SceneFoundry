@@ -199,7 +199,7 @@ namespace SceneFoundry_pbr_renderer
       ::cast<SandboxMNKController> pinput = m_pimmersionlayer->m_pengine->m_pinput;
       //double dx = 0, dy = 0;
       //m_pInput->getMouseDelta(dx, dy);
-      //m_controller.mouseCallback(glm::vec2(dx, dy));
+      //m_controller.mouseCallback(floating_sequence2(dx, dy));
       pinput->update(dt, m_pimmersionlayer->m_pengine->m_transform);
 
       pcamera->setPosition(m_pimmersionlayer->m_pengine->m_transform.m_vec3Position);
@@ -222,10 +222,10 @@ namespace SceneFoundry_pbr_renderer
 
       auto view = pcamera->getViewMatrix();
       //globalubo["view"] = m_pgpucontext->defer_remap_impact_matrix(view);
-      //glm::mat4 viewNoTranslation = glm::mat4(glm::mat3(view)); // remove translation
+      //floating_matrix4 viewNoTranslation = floating_matrix4(floating_matrix3(view)); // remove translation
       globalubo["view"] = view;
 
-      auto viewPos = glm::vec4(pcamera->getPosition(), 1.0f);
+      auto viewPos = floating_sequence4(pcamera->getPosition(), 1.0f);
       globalubo["viewPos"] = viewPos;
 
       //auto inverseView = pcamera->getInverseView();

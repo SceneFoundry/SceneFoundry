@@ -63,15 +63,15 @@ namespace SceneFoundry_SceneFoundry
 
       auto pcameraLoaded = øcreate_new<SandboxCamera>();
 
-      //pcameraLoaded->initialize_SandboxCamera(glm::vec3(0.f, 0.f, 3.f));
+      //pcameraLoaded->initialize_SandboxCamera(floating_sequence3(0.f, 0.f, 3.f));
 
       pcameraLoaded->m_pengine = m_pengine;
 
-      //         // glm::vec3 camera = glm::vec3(0.0f, 1.0f *m_pengine->m_fYScale, 3.0f);
-      //glm::vec3 camera = glm::vec3(0.0f, 1.0f, 3.0f);
-      //glm::vec3 target = glm::vec3(0.0f, 0.0f, 0.0f); // Look at origin
-      //// glm::vec3 direction = glm::normalize(target - cameraPos);
-      //// camera camera{ glm::vec3(0.0f, 2.0f, -15.0f), -90.0f, 0.0f };
+      //         // floating_sequence3 camera = floating_sequence3(0.0f, 1.0f *m_pengine->m_fYScale, 3.0f);
+      //floating_sequence3 camera = floating_sequence3(0.0f, 1.0f, 3.0f);
+      //floating_sequence3 target = floating_sequence3(0.0f, 0.0f, 0.0f); // Look at origin
+      //// floating_sequence3 direction = glm::normalize(target - cameraPos);
+      //// camera camera{ floating_sequence3(0.0f, 2.0f, -15.0f), -90.0f, 0.0f };
       //auto pcameraDefault = øcreate<SandboxCamera>();
       //pcameraDefault->m_pengine = m_pimmersionlayer->m_pengine;
       

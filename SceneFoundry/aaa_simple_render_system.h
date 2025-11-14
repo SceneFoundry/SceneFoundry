@@ -14,10 +14,10 @@
 // 	struct global_ubo
 //    {
 //
-// 	   glm::mat4                           projection{ 1.f };
-// 		glm::mat4                           view{ 1.f };
-// 		glm::mat4                           inverseView{ 1.f };
-// 		glm::vec4                           ambientLightColor{ 1.f, 1.f, 1.f, .02f };
+// 	   floating_matrix4                           projection{ 1.f };
+// 		floating_matrix4                           view{ 1.f };
+// 		floating_matrix4                           inverseView{ 1.f };
+// 		floating_sequence4                           ambientLightColor{ 1.f, 1.f, 1.f, .02f };
 // 		::graphics3d::point_light_t         pointLights[::graphics3d::point_light_t::MAX_LIGHTS];
 // 		int                                 numLights;
 //

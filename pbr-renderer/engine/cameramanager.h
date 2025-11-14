@@ -38,9 +38,9 @@ namespace SceneFoundry_pbr_renderer
       void update(float frameTimeDelta);
       void drawDebugPanel();
 
-      glm::vec3 getPosition();
-      glm::mat4 getViewMatrix();
-      glm::mat4 getProjectionMatrix();
+      floating_sequence3 getPosition();
+      floating_matrix4 getViewMatrix();
+      floating_matrix4 getProjectionMatrix();
       // private:
    };
 

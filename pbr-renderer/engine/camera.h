@@ -15,26 +15,26 @@ namespace SceneFoundry_pbr_renderer
       virtual public ::particle
    {
    public:
-      //Camera(glm::vec3 up, glm::vec3 position, float yaw, float pitch, int windowWidth, int windowHeight);
+      //Camera(floating_sequence3 up, floating_sequence3 position, float yaw, float pitch, int windowWidth, int windowHeight);
 
       Camera();
       ~Camera() override;
 
 
-      virtual void initialize_Camera(glm::vec3 up, glm::vec3 position, float yaw, float pitch, int windowWidth, int windowHeight);
+      virtual void initialize_Camera(floating_sequence3 up, floating_sequence3 position, float yaw, float pitch, int windowWidth, int windowHeight);
 
       // void setWindowDimensions(const WindowSize &windowSize);
       void deferSetWindowDimensions(int width, int height);
-      glm::vec3 getPosition();
-      glm::mat4 getViewMatrix();
-      glm::mat4 getProjectionMatrix();
+      floating_sequence3 getPosition();
+      floating_matrix4 getViewMatrix();
+      floating_matrix4 getProjectionMatrix();
       void processActions(float frameTimeDelta, const ::set<KeymapAction> &actions);
       void processMouse(const MousePosition &mousePosition);
       void resetMouse();
       void drawDebugPanel();
 
       // private:
-      glm::vec3 getDirection();
+      floating_sequence3 getDirection();
       float getAspectRatio();
 
    //private:
@@ -45,8 +45,8 @@ namespace SceneFoundry_pbr_renderer
       double mLastMouseY;
 
       // view matrix stuff
-      glm::vec3 mUp;
-      glm::vec3 mPosition;
+      floating_sequence3 mUp;
+      floating_sequence3 mPosition;
       float mYaw;
       float mPitch;
 

@@ -13,7 +13,7 @@ namespace SceneFoundry_SceneFoundry
 
       SandboxCamera::~SandboxCamera() {}
 
-   void SandboxCamera::initialize_SandboxCamera(glm::vec3 position, float yawDeg, float pitchDeg, float zoomDeg) 
+   void SandboxCamera::initialize_SandboxCamera(floating_sequence3 position, float yawDeg, float pitchDeg, float zoomDeg) 
        
    {
       m_vec3Position = position;
@@ -34,18 +34,18 @@ namespace SceneFoundry_SceneFoundry
 
    void SandboxCamera::updateVectors()
    {
-      glm::vec3 front;
+      floating_sequence3 front;
       //front.x = cos(glm::radians(this->yaw())) * cos(glm::radians(this->pitch()));
       //front.y = sin(glm::radians(this->pitch()));
       //front.z = sin(glm::radians(this->yaw())) * cos(glm::radians(this->pitch()));
       front.x = cos(this->yaw()) * cos(this->pitch());
       front.y = sin(this->pitch());
       front.z = sin(this->yaw()) * cos(this->pitch());
-      m_front = glm::normalize(front);
+      m_front = front.normalized();
 
       // Recalculate Right and Up vector
-      m_right = glm::normalize(glm::cross(m_front, m_worldUp)); // Right vector
-      m_up = glm::normalize(glm::cross(m_right, m_front));
+      m_right = m_front.cross(m_worldUp).normalized(); // Right vector
+      m_up = m_right.cross(m_front).normalized();
    }
 
    void SandboxCamera::updateView()
@@ -60,7 +60,7 @@ namespace SceneFoundry_SceneFoundry
       m_projMatrix[1][1] *= -1; // Vulkan Y-flip
    }
 
-   void SandboxCamera::move(glm::vec3 delta)
+   void SandboxCamera::move(floating_sequence3 delta)
    {
       m_vec3Position += delta;
       updateView();
@@ -78,7 +78,7 @@ namespace SceneFoundry_SceneFoundry
 
    void SandboxCamera::setZoom(float zoom) { m_zoom = glm::clamp(zoom, 1.f, 120.f); }
 
-   void SandboxCamera::setRotation(glm::vec3 euler)
+   void SandboxCamera::setRotation(floating_sequence3 euler)
    {
       this->pitch() = euler.x;
       this->yaw() = euler.y;

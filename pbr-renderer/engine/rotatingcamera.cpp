@@ -9,7 +9,7 @@ namespace SceneFoundry_pbr_renderer
 
    float RotatingCamera::getAspectRatio() { return (float)mWindowDimensions[0] / mWindowDimensions[1]; }
 
-   RotatingCamera::RotatingCamera(glm::vec3 up, int windowWidth, int windowHeight) : mUp(up)
+   RotatingCamera::RotatingCamera(floating_sequence3 up, int windowWidth, int windowHeight) : mUp(up)
    {
       mWindowDimensions[0] = windowWidth;
       mWindowDimensions[1] = windowHeight;
@@ -21,13 +21,13 @@ namespace SceneFoundry_pbr_renderer
       mWindowDimensions[1] = height;
    }
 
-   glm::vec3 RotatingCamera::getPosition() { return mPosition; }
+   floating_sequence3 RotatingCamera::getPosition() { return mPosition; }
 
-   glm::mat4 RotatingCamera::getViewMatrix() { return glm::lookAt(mPosition, ::gpu::gltf::origin, mUp); }
+   floating_matrix4 RotatingCamera::getViewMatrix() { return glm::lookAt(mPosition, ::gpu::gltf::origin, mUp); }
 
-   glm::mat4 RotatingCamera::getProjectionMatrix()
+   floating_matrix4 RotatingCamera::getProjectionMatrix()
    {
-      glm::mat4 projection = glm::perspective(glm::radians(mFov), getAspectRatio(), mZNear, mZFar);
+      floating_matrix4 projection = glm::perspective(glm::radians(mFov), getAspectRatio(), mZNear, mZFar);
       return projection;
    }
 

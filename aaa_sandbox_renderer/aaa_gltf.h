@@ -77,7 +77,7 @@ namespace sandbox_renderer
 			float alphaCutoff = 1.0f;
 			float metallicFactor = 1.0f;
 			float roughnessFactor = 1.0f;
-			glm::vec4 baseColorFactor = glm::vec4(1.0f);
+			floating_sequence4 baseColorFactor = floating_sequence4(1.0f);
 			gltf::Texture* baseColorTexture = nullptr;
 			gltf::Texture* metallicRoughnessTexture = nullptr;
 			gltf::Texture* normalTexture = nullptr;
@@ -104,14 +104,14 @@ namespace sandbox_renderer
 			Material& material;
 
 			struct Dimensions {
-				glm::vec3 min = glm::vec3(FLT_MAX);
-				glm::vec3 max = glm::vec3(-FLT_MAX);
-				glm::vec3 size;
-				glm::vec3 center;
+				floating_sequence3 min = floating_sequence3(FLT_MAX);
+				floating_sequence3 max = floating_sequence3(-FLT_MAX);
+				floating_sequence3 size;
+				floating_sequence3 center;
 				float radius;
 			} dimensions;
 
-			void setDimensions(glm::vec3 min, glm::vec3 max);
+			void setDimensions(floating_sequence3 min, floating_sequence3 max);
 			Primitive(uint32_t firstIndex, uint32_t indexCount, Material& material) : firstIndex(firstIndex), indexCount(indexCount), material(material) {};
 		};
 
@@ -133,12 +133,12 @@ namespace sandbox_renderer
 			} uniformBuffer;
 
 			struct UniformBlock {
-				glm::mat4 matrix;
-				glm::mat4 jointMatrix[64]{};
+				floating_matrix4 matrix;
+				floating_matrix4 jointMatrix[64]{};
 				float jointcount{ 0 };
 			} uniformBlock;
 
-			Mesh(device* pdevice, glm::mat4 matrix);
+			Mesh(device* pdevice, floating_matrix4 matrix);
 			~Mesh();
 		};
 
@@ -148,7 +148,7 @@ namespace sandbox_renderer
 		struct Skin {
 			::string name;
 			Node* skeletonRoot = nullptr;
-			::array_base<glm::mat4> inverseBindMatrices;
+			::array_base<floating_matrix4> inverseBindMatrices;
 			::array_base<Node*> joints;
 		};
 
@@ -159,16 +159,16 @@ namespace sandbox_renderer
 			Node* parent;
 			uint32_t index;
 			::array_base<Node*> children;
-			glm::mat4 matrix;
+			floating_matrix4 matrix;
 			::string name;
 			Mesh* mesh;
 			Skin* skin;
 			int32_t skinIndex = -1;
-			glm::vec3 translation{};
-			glm::vec3 scale{ 1.0f };
+			floating_sequence3 translation{};
+			floating_sequence3 scale{ 1.0f };
 			glm::quat rotation{};
-			glm::mat4 localMatrix();
-			glm::mat4 getMatrix();
+			floating_matrix4 localMatrix();
+			floating_matrix4 getMatrix();
 			void update();
 			~Node();
 		};
@@ -190,7 +190,7 @@ namespace sandbox_renderer
 			enum InterpolationType { LINEAR, STEP, CUBICSPLINE };
 			InterpolationType interpolation;
 			::array_base<float> inputs;
-			::array_base<glm::vec4> outputsVec4;
+			::array_base<floating_sequence4> outputsVec4;
 		};
 
 		/*
@@ -210,13 +210,13 @@ namespace sandbox_renderer
 		enum class VertexComponent { Position, Normal, UV, Color, Tangent, Joint0, Weight0 };
 
 		struct Vertex {
-			glm::vec3 pos;
-			glm::vec3 normal;
-			glm::vec2 uv;
-			glm::vec4 color;
-			glm::vec4 joint0;
-			glm::vec4 weight0;
-			glm::vec4 tangent;
+			floating_sequence3 pos;
+			floating_sequence3 normal;
+			floating_sequence2 uv;
+			floating_sequence4 color;
+			floating_sequence4 joint0;
+			floating_sequence4 weight0;
+			floating_sequence4 tangent;
 			static VkVertexInputBindingDescription vertexInputBindingDescription;
 			static ::array_base<VkVertexInputAttributeDescription> vertexInputAttributeDescriptions;
 			static VkPipelineVertexInputStateCreateInfo pipelineVertexInputStateCreateInfo;
@@ -276,10 +276,10 @@ namespace sandbox_renderer
 			::array_base<Animation> m_animations;
 
 			struct Dimensions {
-				glm::vec3 min = glm::vec3(FLT_MAX);
-				glm::vec3 max = glm::vec3(-FLT_MAX);
-				glm::vec3 size;
-				glm::vec3 center;
+				floating_sequence3 min = floating_sequence3(FLT_MAX);
+				floating_sequence3 max = floating_sequence3(-FLT_MAX);
+				floating_sequence3 size;
+				floating_sequence3 center;
 				float radius;
 			} dimensions;
 
@@ -309,7 +309,7 @@ namespace sandbox_renderer
 			void drawNode(Node* node, VkCommandBuffer commandBuffer, uint32_t renderFlags = 0, VkPipelineLayout pipelineLayout = VK_NULL_HANDLE, uint32_t bindImageSet = 1);
 
 
-			void getNodeDimensions(Node* node, glm::vec3& min, glm::vec3& max);
+			void getNodeDimensions(Node* node, floating_sequence3& min, floating_sequence3& max);
 			void getSceneDimensions();
 			void updateAnimation(uint32_t index, float time);
 			Node* findNode(Node* parent, uint32_t index);

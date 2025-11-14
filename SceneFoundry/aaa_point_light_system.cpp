@@ -32,8 +32,8 @@ namespace SceneFoundry_SceneFoundry
 
 
    //struct PointLightPushConstants {
-   //   glm::vec4 position{};
-   //   glm::vec4 color{};
+   //   floating_sequence4 position{};
+   //   floating_sequence4 color{};
    //   float radius;
    //};
 
@@ -162,8 +162,8 @@ namespace SceneFoundry_SceneFoundry
          auto& obj = pscene->m_mapObjects[it->second];
          ::cast < ::graphics3d::point_light > ppointlight = obj;
          //PointLightPushConstants push{};
-         m_pshader->set_seq4("position", glm::vec4(obj->m_transform.translation, 1.f));
-         m_pshader->set_seq4("color", glm::vec4(obj->m_color, ppointlight->m_pointlightcomponent.lightIntensity));
+         m_pshader->set_sequence4("position", floating_sequence4(obj->m_transform.translation, 1.f));
+         m_pshader->set_sequence4("color", floating_sequence4(obj->m_color, ppointlight->m_pointlightcomponent.lightIntensity));
          m_pshader->set_float("radius", obj->m_transform.scale.x);
 
          m_pshader->push_properties();
@@ -206,7 +206,7 @@ namespace SceneFoundry_SceneFoundry
 
       auto& globalubo = pscene->global_ubo();
 
-      auto rotateLight = glm::rotate(glm::mat4(1.f), 0.5f * dt, { 0.f, -1.f, 0.f });
+      auto rotateLight = glm::rotate(floating_matrix4(1.f), 0.5f * dt, { 0.f, -1.f, 0.f });
 
       int lightIndex = 0;
 
@@ -223,13 +223,13 @@ namespace SceneFoundry_SceneFoundry
 
          // update light position
          ppointlight->m_transform.translation =
-            glm::vec3(rotateLight * glm::vec4(ppointlight->m_transform.translation, 1.f));
+            floating_sequence3(rotateLight * floating_sequence4(ppointlight->m_transform.translation, 1.f));
 
          // copy light to ubo
          globalubo["pointLights"][lightIndex]["position"] =
-            glm::vec4(ppointlight->m_transform.translation, 1.f);
+            floating_sequence4(ppointlight->m_transform.translation, 1.f);
          globalubo["pointLights"][lightIndex]["color"] =
-            glm::vec4(obj->m_color, ppointlight->m_pointlightcomponent.lightIntensity);
+            floating_sequence4(obj->m_color, ppointlight->m_pointlightcomponent.lightIntensity);
 
          lightIndex += 1;
 

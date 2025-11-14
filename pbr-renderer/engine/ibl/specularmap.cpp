@@ -30,8 +30,8 @@ void SpecularMap::computePrefilteredEnvMap()
 {
     Timer timer;
 
-    glm::mat4 model = constants::mIndentity4;
-    glm::mat4 cameraAngles[] =
+    floating_matrix4 model = constants::mIndentity4;
+    floating_matrix4 cameraAngles[] =
         {
             glm::lookAt(constants::origin, constants::unitX, -constants::unitY),
             glm::lookAt(constants::origin, -constants::unitX, -constants::unitY),
@@ -40,7 +40,7 @@ void SpecularMap::computePrefilteredEnvMap()
             glm::lookAt(constants::origin, constants::unitZ, -constants::unitY),
             glm::lookAt(constants::origin, -constants::unitZ, -constants::unitY)
         };
-    glm::mat4 projection = glm::perspective(
+    floating_matrix4 projection = glm::perspective(
         glm::radians(90.0f), // 90 degrees to cover one face
         1.0f, // its a square
         0.1f,

@@ -27,7 +27,7 @@ namespace SceneFoundry_SceneFoundry
 
       //void update(float dt, std::shared_ptr<IWindowInput> input, ::graphics3d::transform &transform);
       void update(float dt, ::graphics3d::transform &transform);
-      void mouseCallback(glm::vec2 delta);
+      void mouseCallback(floating_sequence2 delta);
       virtual void _001OnMouseMove(const ::int_point &point);
       virtual void _001OnMouseOut();
       //float getYaw() const { return m_yaw; }
@@ -40,10 +40,10 @@ namespace SceneFoundry_SceneFoundry
       //float m_pitch;
 
       float m_smoothing = 15.f;
-      glm::vec2 m_rawDelta{0.f};
-      glm::vec2 m_smoothDelta{0.f};
+      floating_sequence2 m_rawDelta{0.f};
+      floating_sequence2 m_smoothDelta{0.f};
 
-      glm::vec2 m_mouseDelta{0.f};
+      floating_sequence2 m_mouseDelta{0.f};
    };
 
 

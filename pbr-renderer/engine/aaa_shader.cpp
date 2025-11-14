@@ -113,23 +113,23 @@ void Shader::setFloat(const std::string& name, float value) const {
     glUniform1f(glGetUniformLocation(mId, name.c_str()), value);
 };
 
-void Shader::setVec2(const std::string& name, glm::vec2& value) const {
+void Shader::setVec2(const std::string& name, floating_sequence2& value) const {
     glUniform2f(glGetUniformLocation(mId, name.c_str()), value[0], value[1]);
 }
 
-void Shader::setVec3(const std::string& name, glm::vec3& value) const {
+void Shader::setVec3(const std::string& name, floating_sequence3& value) const {
     glUniform3f(glGetUniformLocation(mId, name.c_str()), value[0], value[1], value[2]);
 }
 
-void Shader::setVec3Array(const std::string& name, std::vector<glm::vec3> values) const {
+void Shader::setVec3Array(const std::string& name, std::vector<floating_sequence3> values) const {
     glUniform3fv(glGetUniformLocation(mId, name.c_str()), values.size(), &values[0][0]);
 }
 
-void Shader::setMat4(const std::string& name, glm::mat4 &value) const {
+void Shader::setMat4(const std::string& name, floating_matrix4 &value) const {
     glUniformMatrix4fv(glGetUniformLocation(mId, name.c_str()), 1, GL_FALSE, &value[0][0]);
 }
 
-void Shader::setModelViewProjectionMatrices(glm::mat4& model, glm::mat4& view, glm::mat4& projection) {
+void Shader::setModelViewProjectionMatrices(floating_matrix4& model, floating_matrix4& view, floating_matrix4& projection) {
     setMat4("model", model);
     setMat4("view", view);
     setMat4("projection", projection);

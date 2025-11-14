@@ -65,7 +65,7 @@ namespace SceneFoundry_pbr_renderer
 
    }
 
-   void SandboxMNKController::mouseCallback(glm::vec2 delta)
+   void SandboxMNKController::mouseCallback(floating_sequence2 delta)
    {
       
       m_rawDelta = delta; 
@@ -105,17 +105,17 @@ namespace SceneFoundry_pbr_renderer
       pitch += deltaPitch;
       pitch = glm::clamp(pitch, glm::radians(-89.f), glm::radians(89.f));
 
-      transform.m_vec3Rotation = glm::vec3(pitch, yaw, 0.f);
+      transform.m_vec3Rotation = floating_sequence3(pitch, yaw, 0.f);
 
       // --- 3) Compute movement basis ---
-      glm::vec3 front{std::cos(yaw) * std::cos(pitch), std::sin(pitch),
+      floating_sequence3 front{std::cos(yaw) * std::cos(pitch), std::sin(pitch),
                       std::sin(yaw) * std::cos(pitch)};
       front = glm::normalize(front);
-      glm::vec3 right = glm::normalize(glm::cross(front, glm::vec3(0.f, 1.f, 0.f)));
-      glm::vec3 up = glm::vec3(0.f, 1.f, 0.f);
+      floating_sequence3 right = glm::normalize(glm::cross(front, floating_sequence3(0.f, 1.f, 0.f)));
+      floating_sequence3 up = floating_sequence3(0.f, 1.f, 0.f);
 
       // --- 4) Apply WASDQE movement ---
-      glm::vec3 dir{0.f};
+      floating_sequence3 dir{0.f};
       if (IsKeyPressed(::user::e_key_w))
          dir += front;
       if (IsKeyPressed(::user::e_key_s))
@@ -137,7 +137,7 @@ namespace SceneFoundry_pbr_renderer
       }
 
       // --- 5) Reset raw delta for next frame ---
-      m_rawDelta = glm::vec2(0.f);
+      m_rawDelta = floating_sequence2(0.f);
    }
 
 

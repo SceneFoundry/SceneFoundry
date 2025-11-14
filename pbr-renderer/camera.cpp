@@ -18,7 +18,7 @@ namespace SceneFoundry_pbr_renderer
 
    }
 
-   void SandboxCamera::initialize_SandboxCamera(glm::vec3 position, float yawDeg, float pitchDeg, float zoomDeg) 
+   void SandboxCamera::initialize_SandboxCamera(floating_sequence3 position, float yawDeg, float pitchDeg, float zoomDeg) 
    {
 
 
@@ -42,7 +42,7 @@ namespace SceneFoundry_pbr_renderer
    void SandboxCamera::updateVectors()
    {
 
-      glm::vec3 front;
+      floating_sequence3 front;
 
       //front.x = cos(glm::radians(this->yaw())) * cos(glm::radians(this->pitch()));
       //front.y = sin(glm::radians(this->pitch()));
@@ -75,7 +75,7 @@ namespace SceneFoundry_pbr_renderer
       m_projMatrix[1][1] *= -1; // Vulkan Y-flip
    }
 
-   void SandboxCamera::move(glm::vec3 delta)
+   void SandboxCamera::move(floating_sequence3 delta)
    {
       m_vec3Position += delta;
       updateView();
@@ -93,7 +93,7 @@ namespace SceneFoundry_pbr_renderer
 
    void SandboxCamera::setZoom(float zoom) { m_zoom = glm::clamp(zoom, 1.f, 120.f); }
 
-   void SandboxCamera::setRotation(glm::vec3 euler)
+   void SandboxCamera::setRotation(floating_sequence3 euler)
    {
       this->pitch() = euler.x;
       this->yaw() = euler.y;

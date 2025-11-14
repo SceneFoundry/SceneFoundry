@@ -6,22 +6,22 @@ Entity::Entity(::pointer<Model> model) : mModel(model)
 
 }
 
-void Entity::setPosition(glm::vec3 position)
+void Entity::setPosition(floating_sequence3 position)
 {
     mPosition = position;
 }
 
-glm::vec3 Entity::getPosition()
+floating_sequence3 Entity::getPosition()
 {
     return mPosition;
 }
 
-void Entity::setScale(glm::vec3 scale)
+void Entity::setScale(floating_sequence3 scale)
 {
     mScale = scale;
 }
 
-glm::vec3 Entity::getScale()
+floating_sequence3 Entity::getScale()
 {
     return mScale;
 }

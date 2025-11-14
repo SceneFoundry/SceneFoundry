@@ -24,8 +24,8 @@
 namespace SceneFoundry_SceneFoundry
 {
 	//struct SimplePushConstantData {
-	//	glm::mat4 modelMatrix{ 1.f };
-	//	glm::mat4 normalMatrix{ 1.f };
+	//	floating_matrix4 modelMatrix{ 1.f };
+	//	floating_matrix4 normalMatrix{ 1.f };
 	//};
 
 	///::gpu::property * simple_

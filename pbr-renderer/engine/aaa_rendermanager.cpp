@@ -109,8 +109,8 @@ namespace SceneFoundry_pbr_renderer
    void RenderManager::renderBloom()
    {
       // Bloom pass
-      glm::vec2 blurDirectionX = glm::vec2(1.0f, 0.0f);
-      glm::vec2 blurDirectionY = glm::vec2(0.0f, 1.0f);
+      floating_sequence2 blurDirectionX = floating_sequence2(1.0f, 0.0f);
+      floating_sequence2 blurDirectionY = floating_sequence2(0.0f, 1.0f);
 
       switch (mBloomDirection)
       {
@@ -200,9 +200,9 @@ namespace SceneFoundry_pbr_renderer
       glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-      glm::vec3 cameraPosition = mCameraManager->getPosition();
-      glm::mat4 projection = mCameraManager->getProjectionMatrix();
-      glm::mat4 view = mCameraManager->getViewMatrix();
+      floating_sequence3 cameraPosition = mCameraManager->getPosition();
+      floating_matrix4 projection = mCameraManager->getProjectionMatrix();
+      floating_matrix4 view = mCameraManager->getViewMatrix();
 
       mPbrShader->use();
 
@@ -228,7 +228,7 @@ namespace SceneFoundry_pbr_renderer
 
       for (auto entity: mScene->mEntities)
       {
-         glm::mat4 model = glm::mat4(1.0f);
+         floating_matrix4 model = floating_matrix4(1.0f);
 
          auto rotationMatrix = glm::toMat4(entity.getOrientation());
          model = rotationMatrix * model;
@@ -243,8 +243,8 @@ namespace SceneFoundry_pbr_renderer
 
       // skybox (draw this last to avoid running fragment shader in places where objects are present
       mSkyboxShader->use();
-      glm::mat4 model = glm::mat4(1.0f);
-      glm::mat4 skyboxView = glm::mat4(glm::mat3(view)); // remove translation so skybox is always surrounding camera
+      floating_matrix4 model = floating_matrix4(1.0f);
+      floating_matrix4 skyboxView = floating_matrix4(floating_matrix3(view)); // remove translation so skybox is always surrounding camera
 
       mSkyboxShader->setModelViewProjectionMatrices(model, skyboxView, projection);
       mSkyboxShader->setInt("skybox", 0); // set skybox sampler to slot 0

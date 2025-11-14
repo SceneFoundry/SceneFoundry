@@ -9,6 +9,6 @@
 // */
 //struct Scene {
 //    std::vector<Entity> mEntities;
-//    std::vector<glm::vec3> mLightPositions;
-//    std::vector<glm::vec3> mLightColors;
+//    std::vector<floating_sequence3> mLightPositions;
+//    std::vector<floating_sequence3> mLightColors;
 //};

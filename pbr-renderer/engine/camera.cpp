@@ -19,14 +19,14 @@ namespace SceneFoundry_pbr_renderer
 
    }
 
-      // Camera::Camera(glm::vec3 up, glm::vec3 position, float yaw, float pitch, int windowWidth, int windowHeight) :
+      // Camera::Camera(floating_sequence3 up, floating_sequence3 position, float yaw, float pitch, int windowWidth, int windowHeight) :
    //    mUp(up), mPosition(position), mYaw(yaw), mPitch(pitch)
    //{
    //   mWindowDimensions[0] = windowWidth;
    //   mWindowDimensions[1] = windowHeight;
    //}
 
-   void Camera::initialize_Camera(glm::vec3 up, glm::vec3 position, float yaw, float pitch, int windowWidth,
+   void Camera::initialize_Camera(floating_sequence3 up, floating_sequence3 position, float yaw, float pitch, int windowWidth,
                                   int windowHeight)
    {
       mUp = up;
@@ -41,13 +41,13 @@ namespace SceneFoundry_pbr_renderer
       mWindowDimensions[1] = windowHeight;
    }
 
-   glm::vec3 Camera::getDirection()
+   floating_sequence3 Camera::getDirection()
    {
       float directionY = sin(mPitch);
       float directionX = cos(mPitch) * cos(mYaw);
       float directionZ = cos(mPitch) * sin(mYaw);
 
-      return glm::normalize(glm::vec3(directionX, directionY, -directionZ));
+      return glm::normalize(floating_sequence3(directionX, directionY, -directionZ));
    }
 
    float Camera::getAspectRatio() { return (float)mWindowDimensions[0] / mWindowDimensions[1]; }
@@ -59,13 +59,13 @@ namespace SceneFoundry_pbr_renderer
       mWindowDimensions[1] = height;
    }
 
-   glm::vec3 Camera::getPosition() { return mPosition; }
+   floating_sequence3 Camera::getPosition() { return mPosition; }
 
-   glm::mat4 Camera::getViewMatrix() { return glm::lookAt(mPosition, mPosition + getDirection(), mUp); }
+   floating_matrix4 Camera::getViewMatrix() { return glm::lookAt(mPosition, mPosition + getDirection(), mUp); }
 
-   glm::mat4 Camera::getProjectionMatrix()
+   floating_matrix4 Camera::getProjectionMatrix()
    {
-      glm::mat4 projection = glm::perspective(glm::radians(mFov), getAspectRatio(), mZNear, mZFar);
+      floating_matrix4 projection = glm::perspective(glm::radians(mFov), getAspectRatio(), mZNear, mZFar);
       return projection;
    }
 

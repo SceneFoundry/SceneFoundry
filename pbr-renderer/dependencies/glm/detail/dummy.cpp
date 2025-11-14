@@ -12,21 +12,21 @@
 
 struct material
 {
-	glm::vec4 emission; // Ecm
-	glm::vec4 ambient; // Acm
-	glm::vec4 diffuse; // Dcm
-	glm::vec4 specular; // Scm
+	floating_sequence4 emission; // Ecm
+	floating_sequence4 ambient; // Acm
+	floating_sequence4 diffuse; // Dcm
+	floating_sequence4 specular; // Scm
 	float shininess; // Srm
 };
 
 struct light
 {
-	glm::vec4 ambient; // Acli
-	glm::vec4 diffuse; // Dcli
-	glm::vec4 specular; // Scli
-	glm::vec4 position; // Ppli
-	glm::vec4 halfVector; // Derived: Hi
-	glm::vec3 spotDirection; // Sdli
+	floating_sequence4 ambient; // Acli
+	floating_sequence4 diffuse; // Dcli
+	floating_sequence4 specular; // Scli
+	floating_sequence4 position; // Ppli
+	floating_sequence4 halfVector; // Derived: Hi
+	floating_sequence3 spotDirection; // Sdli
 	float spotExponent; // Srli
 	float spotCutoff; // Crli
 	// (range: [0.0,90.0], 180.0)
@@ -39,14 +39,14 @@ struct light
 
 
 // Sample 1
-#include <glm/vec3.hpp>// glm::vec3
+#include <glm/vec3.hpp>// floating_sequence3
 #include <glm/geometric.hpp>// glm::cross, glm::normalize
 
-glm::vec3 computeNormal
+floating_sequence3 computeNormal
 (
-	glm::vec3 const & a,
-	glm::vec3 const & b,
-	glm::vec3 const & c
+	floating_sequence3 const & a,
+	floating_sequence3 const & b,
+	floating_sequence3 const & c
 )
 {
 	return glm::normalize(glm::cross(c - a, b - a));
@@ -57,45 +57,45 @@ typedef unsigned int GLuint;
 void glUniformMatrix4fv(GLuint, int, int, float*){}
 
 // Sample 2
-#include <glm/vec3.hpp> // glm::vec3
-#include <glm/vec4.hpp> // glm::vec4, glm::ivec4
-#include <glm/mat4x4.hpp> // glm::mat4
+#include <glm/vec3.hpp> // floating_sequence3
+#include <glm/vec4.hpp> // floating_sequence4, glm::ivec4
+#include <glm/mat4x4.hpp> // floating_matrix4
 #include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/gtc/type_ptr.hpp> // glm::value_ptr
-void func(GLuint LocationMVP, float Translate, glm::vec2 const & Rotate)
+void func(GLuint LocationMVP, float Translate, floating_sequence2 const & Rotate)
 {
-	glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.f);
-	glm::mat4 ViewTranslate = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -Translate));
-	glm::mat4 ViewRotateX = glm::rotate(ViewTranslate, Rotate.y, glm::vec3(-1.0f, 0.0f, 0.0f));
-	glm::mat4 View = glm::rotate(ViewRotateX, Rotate.x, glm::vec3(0.0f, 1.0f, 0.0f));
-	glm::mat4 Model = glm::scale(glm::mat4(1.0f), glm::vec3(0.5f));
-	glm::mat4 MVP = Projection * View * Model;
+	floating_matrix4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.f);
+	floating_matrix4 ViewTranslate = glm::translate(floating_matrix4(1.0f), floating_sequence3(0.0f, 0.0f, -Translate));
+	floating_matrix4 ViewRotateX = glm::rotate(ViewTranslate, Rotate.y, floating_sequence3(-1.0f, 0.0f, 0.0f));
+	floating_matrix4 View = glm::rotate(ViewRotateX, Rotate.x, floating_sequence3(0.0f, 1.0f, 0.0f));
+	floating_matrix4 Model = glm::scale(floating_matrix4(1.0f), floating_sequence3(0.5f));
+	floating_matrix4 MVP = Projection * View * Model;
 	glUniformMatrix4fv(LocationMVP, 1, GL_FALSE, glm::value_ptr(MVP));
 }
 
 // Sample 3
-#include <glm/vec2.hpp>// glm::vec2
+#include <glm/vec2.hpp>// floating_sequence2
 #include <glm/packing.hpp>// glm::packUnorm2x16
 #include <glm/integer.hpp>// glm::uint
 #include <glm/gtc/type_precision.hpp>// glm::i8vec2, glm::i32vec2
 std::size_t const VertexCount = 4;
 // Float quad geometry
-std::size_t const PositionSizeF32 = VertexCount * sizeof(glm::vec2);
-glm::vec2 const PositionDataF32[VertexCount] =
+std::size_t const PositionSizeF32 = VertexCount * sizeof(floating_sequence2);
+floating_sequence2 const PositionDataF32[VertexCount] =
 {
-	glm::vec2(-1.0f,-1.0f),
-	glm::vec2( 1.0f,-1.0f),
-	glm::vec2( 1.0f, 1.0f),
-	glm::vec2(-1.0f, 1.0f)
+	floating_sequence2(-1.0f,-1.0f),
+	floating_sequence2( 1.0f,-1.0f),
+	floating_sequence2( 1.0f, 1.0f),
+	floating_sequence2(-1.0f, 1.0f)
 	};
 // Half-float quad geometry
 std::size_t const PositionSizeF16 = VertexCount * sizeof(glm::uint);
 glm::uint const PositionDataF16[VertexCount] =
 {
-	glm::uint(glm::packUnorm2x16(glm::vec2(-1.0f, -1.0f))),
-	glm::uint(glm::packUnorm2x16(glm::vec2( 1.0f, -1.0f))),
-	glm::uint(glm::packUnorm2x16(glm::vec2( 1.0f, 1.0f))),
-	glm::uint(glm::packUnorm2x16(glm::vec2(-1.0f, 1.0f)))
+	glm::uint(glm::packUnorm2x16(floating_sequence2(-1.0f, -1.0f))),
+	glm::uint(glm::packUnorm2x16(floating_sequence2( 1.0f, -1.0f))),
+	glm::uint(glm::packUnorm2x16(floating_sequence2( 1.0f, 1.0f))),
+	glm::uint(glm::packUnorm2x16(floating_sequence2(-1.0f, 1.0f)))
 };
 // 8 bits signed integer quad geometry
 std::size_t const PositionSizeI8 = VertexCount * sizeof(glm::i8vec2);
@@ -118,28 +118,28 @@ glm::i32vec2 const PositionDataI32[VertexCount] =
 
 struct intersection
 {
-	glm::vec4 position;
-	glm::vec3 normal;
+	floating_sequence4 position;
+	floating_sequence3 normal;
 };
 */
 
 
 /*
 // Sample 4
-#include <glm/vec3.hpp>// glm::vec3
+#include <glm/vec3.hpp>// floating_sequence3
 #include <glm/geometric.hpp>// glm::normalize, glm::dot, glm::reflect
 #include <glm/exponential.hpp>// glm::pow
 #include <glm/gtc/random.hpp>// glm::vecRand3
-glm::vec3 lighting
+floating_sequence3 lighting
 (
 	intersection const & Intersection,
 	material const & Material,
 	light const & Light,
-	glm::vec3 const & View
+	floating_sequence3 const & View
 )
 {
-	glm::vec3 Color(0.0f);
-	glm::vec3 LightVertor(glm::normalize(
+	floating_sequence3 Color(0.0f);
+	floating_sequence3 LightVertor(glm::normalize(
 		Light.position - Intersection.position +
 		glm::vecRand3(0.0f, Light.inaccuracy));
 
@@ -152,7 +152,7 @@ glm::vec3 lighting
 			Color += Light.color() * Material.diffuse * Diffuse;
 		if(Material.isSpecular())
 		{
-			glm::vec3 Reflect(glm::reflect(
+			floating_sequence3 Reflect(glm::reflect(
 				glm::normalize(-LightVector),
 				glm::normalize(Intersection.normal)));
 			float Dot = glm::dot(Reflect, View);
@@ -190,14 +190,14 @@ int main()
 {
 /*
 	glm::vec1 o(1);
-	glm::vec2 a(1);
-	glm::vec3 b(1);
-	glm::vec4 c(1);
+	floating_sequence2 a(1);
+	floating_sequence3 b(1);
+	floating_sequence4 c(1);
 
 	glm::quat q;
 	glm::dualquat p;
 
-	glm::mat4 m(1);
+	floating_matrix4 m(1);
 
 	float a0 = normalizeDotA(a, a);
 	float b0 = normalizeDotB(b, b);

@@ -13,14 +13,14 @@ namespace SceneFoundry_pbr_renderer
    class CLASS_DECL_SCENEFOUNDRY_PBR_RENDERER RotatingCamera : virtual public ::particle
    {
    public:
-      RotatingCamera(glm::vec3 up, int windowWidth, int windowHeight);
+      RotatingCamera(floating_sequence3 up, int windowWidth, int windowHeight);
 
       float mTime = 0.0f;
       float mTimePerCircle = 10;
       float mRadius = 4.0f;
       // view matrix stuff
-      glm::vec3 mUp;
-      glm::vec3 mPosition = glm::vec3(3.0f, 1.0f, 3.0f);
+      floating_sequence3 mUp;
+      floating_sequence3 mPosition = floating_sequence3(3.0f, 1.0f, 3.0f);
       // projection matrix stuff
       float mFov = 45.0f;
       int mWindowDimensions[2] = {800, 600};
@@ -28,14 +28,14 @@ namespace SceneFoundry_pbr_renderer
       float mZFar = 100.0f;
 
       void setWindowDimensions(int width, int height);
-      glm::vec3 getPosition();
-      glm::mat4 getViewMatrix();
-      glm::mat4 getProjectionMatrix();
+      floating_sequence3 getPosition();
+      floating_matrix4 getViewMatrix();
+      floating_matrix4 getProjectionMatrix();
       void update(float frameTimeDelta);
       void drawDebugPanel();
 
       // private:
-      glm::vec3 getDirection();
+      floating_sequence3 getDirection();
       float getAspectRatio();
 
       // private:

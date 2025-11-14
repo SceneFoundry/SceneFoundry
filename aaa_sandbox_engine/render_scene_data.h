@@ -7,14 +7,14 @@ namespace sandbox_engine
 {
 
    struct RenderableMeshInstance {
-      glm::mat4 transform;
+      floating_matrix4 transform;
       uint32_t materialId;
       uint32_t meshId;
    };
 
    struct CameraView {
-      glm::mat4 view;
-      glm::mat4 proj;
+      floating_matrix4 view;
+      floating_matrix4 proj;
    };
 
    struct RenderFrameData {

@@ -71,11 +71,11 @@ namespace SceneFoundry_SceneFoundry
    //
    // ::pointer < ::graphics3d::camera > main_scene::get_default_camera()
    // {
-   //    //glm::vec3 camera = glm::vec3(0.0f, 1.0f *m_pengine->m_fYScale, 3.0f);
-   //    glm::vec3 camera = glm::vec3(0.0f, 1.0f , 3.0f);
-   //    glm::vec3 target = glm::vec3(0.0f, 0.0f, 0.0f); // Look at origin
-   //    //glm::vec3 direction = glm::normalize(target - cameraPos);
-   //    //camera camera{ glm::vec3(0.0f, 2.0f, -15.0f), -90.0f, 0.0f };
+   //    //floating_sequence3 camera = floating_sequence3(0.0f, 1.0f *m_pengine->m_fYScale, 3.0f);
+   //    floating_sequence3 camera = floating_sequence3(0.0f, 1.0f , 3.0f);
+   //    floating_sequence3 target = floating_sequence3(0.0f, 0.0f, 0.0f); // Look at origin
+   //    //floating_sequence3 direction = glm::normalize(target - cameraPos);
+   //    //camera camera{ floating_sequence3(0.0f, 2.0f, -15.0f), -90.0f, 0.0f };
    //    auto pcamera = øcreate < ::graphics3d::camera>();
    //    pcamera->m_pengine = m_pengine;
    //    pcamera->initialize_camera(target, camera);
@@ -211,14 +211,14 @@ namespace SceneFoundry_SceneFoundry
 //         ppointlight->m_color = lightColors[i];
 //
 //         auto rotateLight = glm::rotate(
-//            glm::mat4(1.f),
+//            floating_matrix4(1.f),
 //            (i * glm::two_pi<float>()) / lightColors.size(),
 //            { 0.f, 1.f, 0.f });
 //
 //
 //         ppointlight->m_fLightIntensity = 1.0f;
 //
-//         ppointlight->transform().m_vec3Translation = glm::vec3(rotateLight * glm::vec4(-1.f, 1.7f, 0.5f , 1.f));
+//         ppointlight->transform().m_vec3Translation = floating_sequence3(rotateLight * floating_sequence4(-1.f, 1.7f, 0.5f , 1.f));
 //         //add_object(pointLight);
 //
 //      }
@@ -332,7 +332,7 @@ namespace SceneFoundry_SceneFoundry
       ::cast<SandboxMNKController> pinput = m_pimmersionlayer->m_pengine->m_pinput;
       //double dx = 0, dy = 0;
       //m_pInput->getMouseDelta(dx, dy);
-      //m_controller.mouseCallback(glm::vec2(dx, dy));
+      //m_controller.mouseCallback(floating_sequence2(dx, dy));
       pinput->update(dt, m_pimmersionlayer->m_pengine->m_transform);
 
       pcamera->setPosition(m_pimmersionlayer->m_pengine->m_transform.m_vec3Position);
@@ -354,7 +354,7 @@ namespace SceneFoundry_SceneFoundry
       auto view = pcamera->getViewMatrix();
       globalubo["view"] = view;
 
-      auto viewPos = glm::vec4(pcamera->getPosition(), 1.0f);
+      auto viewPos = floating_sequence4(pcamera->getPosition(), 1.0f);
       globalubo["viewPos"] = viewPos;
 
       //auto inverseView = pcamera->getInverseView();

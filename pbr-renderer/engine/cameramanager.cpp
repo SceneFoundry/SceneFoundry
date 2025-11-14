@@ -33,8 +33,8 @@ namespace SceneFoundry_pbr_renderer
    void CameraManager::startup()
    {
       // camera
-      glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-      glm::vec3 cameraInitialPosition = glm::vec3(0.0f, 0.0f, 3.0f);
+      floating_sequence3 cameraUp = floating_sequence3(0.0f, 1.0f, 0.0f);
+      floating_sequence3 cameraInitialPosition = floating_sequence3(0.0f, 0.0f, 3.0f);
 
       float cameraInitialYaw = 0;
       float cameraInitialPitch = 0;
@@ -83,11 +83,11 @@ namespace SceneFoundry_pbr_renderer
 
    void CameraManager::drawDebugPanel() { m_pcamera->drawDebugPanel(); }
 
-   glm::vec3 CameraManager::getPosition() { return m_pcamera->getPosition(); }
+   floating_sequence3 CameraManager::getPosition() { return m_pcamera->getPosition(); }
 
-   glm::mat4 CameraManager::getViewMatrix() { return m_pcamera->getViewMatrix(); }
+   floating_matrix4 CameraManager::getViewMatrix() { return m_pcamera->getViewMatrix(); }
 
-   glm::mat4 CameraManager::getProjectionMatrix() { return m_pcamera->getProjectionMatrix(); }
+   floating_matrix4 CameraManager::getProjectionMatrix() { return m_pcamera->getProjectionMatrix(); }
 
 
 } // namespace SceneFoundry_pbr_renderer
