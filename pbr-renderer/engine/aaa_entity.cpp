@@ -26,12 +26,12 @@ floating_sequence3 Entity::getScale()
     return mScale;
 }
 
-void Entity::setOrientation(glm::quat orientation)
+void Entity::setOrientation(floating_quaternion orientation)
 {
     mOrientation = orientation;
 }
 
-glm::quat Entity::getOrientation()
+floating_quaternion Entity::getOrientation()
 {
     return mOrientation;
 }
