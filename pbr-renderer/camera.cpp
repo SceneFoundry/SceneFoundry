@@ -75,7 +75,8 @@ namespace SceneFoundry_pbr_renderer
 
    void SandboxCamera::updateProjection(float aspect, float nearZ, float farZ)
    {
-      m_projMatrix = glm::perspective(::radians(m_zoom), aspect, nearZ, farZ);
+      auto pgpucontext = m_pengine->gpu_context(); 
+      m_projMatrix = pgpucontext->perspective(::radians(m_zoom), aspect, nearZ, farZ);
       m_projMatrix[1][1] *= -1; // Vulkan Y-flip
    }
 
