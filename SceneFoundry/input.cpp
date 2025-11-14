@@ -94,7 +94,7 @@ namespace SceneFoundry_SceneFoundry
       // --- 2) Update camera rotation ---
       yaw += deltaYaw;
       pitch += deltaPitch;
-      pitch = glm::clamp(pitch, ::radians(-89.f), ::radians(89.f));
+      pitch = geometry::clamp(pitch, ::radians(-89.f), ::radians(89.f));
 
       transform.m_vec3Rotation = floating_sequence3(pitch, yaw, 0.f);
 

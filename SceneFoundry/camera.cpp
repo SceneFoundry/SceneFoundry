@@ -76,12 +76,12 @@ namespace SceneFoundry_SceneFoundry
       this->yaw() += yawOffset;
       this->pitch() += pitchOffset;
 
-      this->pitch() = glm::clamp(this->pitch(), -89.f, 89.f);
+      this->pitch() = geometry::clamp(this->pitch(), -89.f, 89.f);
       updateVectors();
       updateView();
    }
 
-   void SandboxCamera::setZoom(float zoom) { m_zoom = glm::clamp(zoom, 1.f, 120.f); }
+   void SandboxCamera::setZoom(float zoom) { m_zoom = geometry::clamp(zoom, 1.f, 120.f); }
 
    void SandboxCamera::setRotation(floating_sequence3 euler)
    {
