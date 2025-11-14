@@ -111,8 +111,8 @@ namespace SceneFoundry_pbr_renderer
       // --- 3) Compute movement basis ---
       floating_sequence3 front{std::cos(yaw) * std::cos(pitch), std::sin(pitch),
                       std::sin(yaw) * std::cos(pitch)};
-      front = glm::normalize(front);
-      floating_sequence3 right = glm::normalize(glm::cross(front, floating_sequence3(0.f, 1.f, 0.f)));
+      front = front.normalized();
+      floating_sequence3 right = front.crossed(floating_sequence3(0.f, 1.f, 0.f)).normalized();
       floating_sequence3 up = floating_sequence3(0.f, 1.f, 0.f);
 
       // --- 4) Apply WASDQE movement ---
@@ -130,9 +130,9 @@ namespace SceneFoundry_pbr_renderer
       if (IsKeyPressed(::user::e_key_e))
          dir += up;
 
-      if (glm::length(dir) > 1e-6f)
+      if (dir.length() > 1e-6f)
       {
-         dir = glm::normalize(dir);
+         dir.normalize();
          float speed = m_moveSpeed * (IsKeyPressed(::user::e_key_left_shift) ? 3.f : 1.f);
          transform.m_vec3Position += dir * speed * dt;
       }

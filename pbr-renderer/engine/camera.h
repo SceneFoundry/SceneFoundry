@@ -1,8 +1,9 @@
 #pragma once
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+//#include <glm/glm.hpp>
+//#include <glm/gtc/matrix_transform.hpp>
 #include "imgui/imgui.h"
+#include "bred/graphics3d/camera.h"
 //#include "windowmanager.h"
 
 namespace SceneFoundry_pbr_renderer
@@ -12,7 +13,7 @@ namespace SceneFoundry_pbr_renderer
     * A free flight first-person camera.
     */
    class CLASS_DECL_SCENEFOUNDRY_PBR_RENDERER Camera :
-      virtual public ::particle
+      virtual public ::graphics3d::camera
    {
    public:
       //Camera(floating_sequence3 up, floating_sequence3 position, float yaw, float pitch, int windowWidth, int windowHeight);

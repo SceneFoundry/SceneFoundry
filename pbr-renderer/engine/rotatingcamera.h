@@ -1,8 +1,9 @@
 #pragma once
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+//#include <glm/glm.hpp>
+//#include <glm/gtc/matrix_transform.hpp>
 #include "imgui/imgui.h"
+#include "bred/graphics3d/camera.h"
 
 namespace SceneFoundry_pbr_renderer
 {
@@ -10,7 +11,8 @@ namespace SceneFoundry_pbr_renderer
    /**
     * A camera that rotates in a circle around a point.
     */
-   class CLASS_DECL_SCENEFOUNDRY_PBR_RENDERER RotatingCamera : virtual public ::particle
+   class CLASS_DECL_SCENEFOUNDRY_PBR_RENDERER RotatingCamera : 
+      virtual public ::graphics3d::camera
    {
    public:
       RotatingCamera(floating_sequence3 up, int windowWidth, int windowHeight);

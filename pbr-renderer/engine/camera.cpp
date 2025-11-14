@@ -1,6 +1,7 @@
 #include "framework.h"
 #include "camera.h"
-
+#include "bred/gpu/context.h"
+#include "bred/graphics3d/engine.h"
 #include <algorithm>
 
 namespace SceneFoundry_pbr_renderer
@@ -47,7 +48,7 @@ namespace SceneFoundry_pbr_renderer
       float directionX = cos(mPitch) * cos(mYaw);
       float directionZ = cos(mPitch) * sin(mYaw);
 
-      return glm::normalize(floating_sequence3(directionX, directionY, -directionZ));
+      return floating_sequence3(directionX, directionY, -directionZ).normalized();
    }
 
    float Camera::getAspectRatio() { return (float)mWindowDimensions[0] / mWindowDimensions[1]; }
@@ -61,11 +62,16 @@ namespace SceneFoundry_pbr_renderer
 
    floating_sequence3 Camera::getPosition() { return mPosition; }
 
-   floating_matrix4 Camera::getViewMatrix() { return glm::lookAt(mPosition, mPosition + getDirection(), mUp); }
+   floating_matrix4 Camera::getViewMatrix() 
+   {
+      auto pgpucontext = m_pengine->gpu_context();
+      
+      return pgpucontext->lookAt(mPosition, mPosition + getDirection(), mUp); }
 
    floating_matrix4 Camera::getProjectionMatrix()
    {
-      floating_matrix4 projection = glm::perspective(::radians(mFov), getAspectRatio(), mZNear, mZFar);
+      auto pgpucontext = m_pengine->gpu_context();
+      floating_matrix4 projection = pgpucontext->perspective(::radians(mFov), getAspectRatio(), mZNear, mZFar);
       return projection;
    }
 
@@ -85,12 +91,12 @@ namespace SceneFoundry_pbr_renderer
 
       if (actions.find(KeymapAction::MOVE_LEFT) != actions.end())
       {
-         mPosition -= normalizedSpeed * glm::cross(getDirection(), mUp);
+         mPosition -= normalizedSpeed * getDirection().crossed(mUp);
       }
 
       if (actions.find(KeymapAction::MOVE_RIGHT) != actions.end())
       {
-         mPosition += normalizedSpeed * glm::cross(getDirection(), mUp);
+         mPosition += normalizedSpeed * getDirection().crossed(mUp);
       }
 
       if (actions.find(KeymapAction::MOVE_UP) != actions.end())
@@ -137,12 +143,12 @@ namespace SceneFoundry_pbr_renderer
          ImGui::InputFloat3("up", &mUp.x);
          ImGui::InputFloat3("position", &mPosition.x);
 
-         float yawDegrees = glm::degrees(mYaw);
-         float pitchDegrees = glm::degrees(mPitch);
+         //auto yawDegrees = mYaw.d;
+         //auto pitchDegrees = ::degrees(mPitch);
          float aspectRatio = getAspectRatio();
 
-         ImGui::InputFloat("yaw (degrees)", &yawDegrees);
-         ImGui::InputFloat("pitch (degrees)", &pitchDegrees);
+         //ImGui::InputFloat("yaw (degrees)", &yawDegrees);
+         //ImGui::InputFloat("pitch (degrees)", &pitchDegrees);
 
          ImGui::Separator();
 

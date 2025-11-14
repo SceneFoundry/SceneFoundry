@@ -1,5 +1,7 @@
 #include "framework.h"
 #include "rotatingcamera.h"
+#include "bred/gpu/context.h"
+#include "bred/graphics3d/engine.h"
 
 #include "gpu/gltf/_constant.h"
 
@@ -23,11 +25,16 @@ namespace SceneFoundry_pbr_renderer
 
    floating_sequence3 RotatingCamera::getPosition() { return mPosition; }
 
-   floating_matrix4 RotatingCamera::getViewMatrix() { return glm::lookAt(mPosition, ::gpu::gltf::origin, mUp); }
+   floating_matrix4 RotatingCamera::getViewMatrix() { 
+      auto pgpucontext = m_pengine->gpu_context();
+      
+      return pgpucontext->lookAt(mPosition, ::gpu::gltf::origin, mUp); }
 
    floating_matrix4 RotatingCamera::getProjectionMatrix()
    {
-      floating_matrix4 projection = glm::perspective(::radians(mFov), getAspectRatio(), mZNear, mZFar);
+
+      auto pgpucontext = m_pengine->gpu_context();
+      floating_matrix4 projection = pgpucontext->perspective(::radians(mFov), getAspectRatio(), mZNear, mZFar);
       return projection;
    }
 
