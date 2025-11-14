@@ -11,42 +11,57 @@ namespace SceneFoundry_pbr_renderer
 
    }
 
-      SandboxCamera::~SandboxCamera() {}
+
+   SandboxCamera::~SandboxCamera() 
+   {
+   
+
+   }
 
    void SandboxCamera::initialize_SandboxCamera(glm::vec3 position, float yawDeg, float pitchDeg, float zoomDeg) 
-       
    {
+
+
       m_vec3Position = position;
       
-      m_worldUp = {0.f, -1.f, 0.f};
+      m_worldUp = {0.f, 1.f, 0.f};
       
       yaw() = yawDeg;
       
-      
       pitch() = pitchDeg;
-      
       
       m_zoom = zoomDeg;
 
       updateVectors();
+
       updateView();
+
    }
+
 
    void SandboxCamera::updateVectors()
    {
+
       glm::vec3 front;
+
       //front.x = cos(glm::radians(this->yaw())) * cos(glm::radians(this->pitch()));
       //front.y = sin(glm::radians(this->pitch()));
       //front.z = sin(glm::radians(this->yaw())) * cos(glm::radians(this->pitch()));
+
       front.x = cos(this->yaw()) * cos(this->pitch());
       front.y = sin(this->pitch());
       front.z = sin(this->yaw()) * cos(this->pitch());
+
       m_front = glm::normalize(front);
 
       // Recalculate Right and Up vector
       m_right = glm::normalize(glm::cross(m_front, m_worldUp)); // Right vector
+
       m_up = glm::normalize(glm::cross(m_right, m_front));
+
    }
+
+   // opengl z+ (out of the screen) towards the viewer
 
    void SandboxCamera::updateView()
    {

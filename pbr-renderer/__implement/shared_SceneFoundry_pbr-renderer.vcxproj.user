@@ -3,5 +3,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
     <LocalDebuggerCommandArguments>"C:\Users\camilo\g3d-labs\main\source\app-graphics3d\_matter\continuum\_std\_std\textures\SpaceSkybox\back.png"</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArgumentsHistory>"C:\Users\camilo\g3d-labs\main\source\app-graphics3d\_matter\continuum\_std\_std\textures\SpaceSkybox\back.png"|</LocalDebuggerCommandArgumentsHistory>
   </PropertyGroup>
 </Project>

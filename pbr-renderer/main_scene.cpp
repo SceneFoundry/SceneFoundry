@@ -93,9 +93,9 @@ namespace SceneFoundry_pbr_renderer
       m_pgltfrendersystem->m_bForceDefaultRoughnessFactor = true;
       m_pgltfrendersystem->m_bForceDefaultAmbientOcclusionFactor = true;
       m_pgltfrendersystem->m_bForceDefaultEmission = true;
-      m_pgltfrendersystem->m_seq3DefaultAlbedo = {};
-      m_pgltfrendersystem->m_fDefaultMetallicFactor = 0.0f;
-      m_pgltfrendersystem->m_fDefaultRoughnessFactor = 1.0f;
+      m_pgltfrendersystem->m_seq3DefaultAlbedo = {1.0f, 1.0f, 1.0f};
+      m_pgltfrendersystem->m_fDefaultMetallicFactor = 1.0f;
+      m_pgltfrendersystem->m_fDefaultRoughnessFactor = 0.0f;
       m_pgltfrendersystem->m_fDefaultAmbientOcclusionFactor = 1.0f;
       m_pgltfrendersystem->m_seq3DefaultEmission = {};
 

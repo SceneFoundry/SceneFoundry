@@ -82,10 +82,19 @@ namespace SceneFoundry_pbr_renderer
 
       // --- 1) Smooth raw mouse delta ---
       float alpha = 1.0f - std::exp(-m_smoothing * dt);
+
+      if (alpha < 0.f)
+      {
+
+         information("what?");
+         
+      }
       m_smoothDelta += (m_rawDelta - m_smoothDelta) * alpha;
 
+      //m_smoothDelta = m_rawDelta * alpha;
+
       // convert pixels -> degrees
-      float deltaYaw = m_smoothDelta.x * m_mouseSensitivity;
+      float deltaYaw = -m_smoothDelta.x * m_mouseSensitivity;
       float deltaPitch = -m_smoothDelta.y * m_mouseSensitivity; // invert Y for typical FPS
 
       auto pcamera = m_pengine->m_pimmersionlayer->m_pscene->camera();
