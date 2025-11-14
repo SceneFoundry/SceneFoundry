@@ -36,9 +36,9 @@ namespace SceneFoundry_SceneFoundry
    void SandboxCamera::updateVectors()
    {
       floating_sequence3 front;
-      //front.x = cos(glm::radians(this->yaw())) * cos(glm::radians(this->pitch()));
-      //front.y = sin(glm::radians(this->pitch()));
-      //front.z = sin(glm::radians(this->yaw())) * cos(glm::radians(this->pitch()));
+      //front.x = cos(::radians(this->yaw())) * cos(::radians(this->pitch()));
+      //front.y = sin(::radians(this->pitch()));
+      //front.z = sin(::radians(this->yaw())) * cos(::radians(this->pitch()));
       front.x = cos(this->yaw()) * cos(this->pitch());
       front.y = sin(this->pitch());
       front.z = sin(this->yaw()) * cos(this->pitch());

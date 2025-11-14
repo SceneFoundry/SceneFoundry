@@ -25,7 +25,7 @@ namespace SceneFoundry_SceneFoundry
       m_moveSpeed = moveSpeed;
       m_mouseSensitivity = mouseSensitivity;
       
-      //m_yaw = glm::radians(-90.f);
+      //m_yaw = ::radians(-90.f);
       
       //m_pitch = 0.f ;
    }
@@ -94,7 +94,7 @@ namespace SceneFoundry_SceneFoundry
       // --- 2) Update camera rotation ---
       yaw += deltaYaw;
       pitch += deltaPitch;
-      pitch = glm::clamp(pitch, glm::radians(-89.f), glm::radians(89.f));
+      pitch = glm::clamp(pitch, ::radians(-89.f), ::radians(89.f));
 
       transform.m_vec3Rotation = floating_sequence3(pitch, yaw, 0.f);
 

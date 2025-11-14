@@ -48,7 +48,7 @@ namespace SceneFoundry_pbr_renderer
       auto rot = set.get("rotation", ::float_array_base{0.f, 0.f, 0.f});
 
       m_initialCameraPosition = {pos[0], pos[1], pos[2]};
-      m_initialCameraRotation = {glm::radians(rot[0]), glm::radians(rot[1]), glm::radians(rot[2])};
+      m_initialCameraRotation = {::radians(rot[0]), ::radians(rot[1]), ::radians(rot[2])};
 
       m_pscene->m_bInitialCameraLoaded = true;
 

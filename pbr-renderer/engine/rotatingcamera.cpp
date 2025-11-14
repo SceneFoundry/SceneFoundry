@@ -27,7 +27,7 @@ namespace SceneFoundry_pbr_renderer
 
    floating_matrix4 RotatingCamera::getProjectionMatrix()
    {
-      floating_matrix4 projection = glm::perspective(glm::radians(mFov), getAspectRatio(), mZNear, mZFar);
+      floating_matrix4 projection = glm::perspective(::radians(mFov), getAspectRatio(), mZNear, mZFar);
       return projection;
    }
 

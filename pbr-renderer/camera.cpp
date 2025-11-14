@@ -46,9 +46,9 @@ namespace SceneFoundry_pbr_renderer
 
       floating_sequence3 front;
 
-      //front.x = cos(glm::radians(this->yaw())) * cos(glm::radians(this->pitch()));
-      //front.y = sin(glm::radians(this->pitch()));
-      //front.z = sin(glm::radians(this->yaw())) * cos(glm::radians(this->pitch()));
+      //front.x = cos(::radians(this->yaw())) * cos(::radians(this->pitch()));
+      //front.y = sin(::radians(this->pitch()));
+      //front.z = sin(::radians(this->yaw())) * cos(::radians(this->pitch()));
 
       front.x = cos(this->yaw()) * cos(this->pitch());
       front.y = sin(this->pitch());
@@ -75,7 +75,7 @@ namespace SceneFoundry_pbr_renderer
 
    void SandboxCamera::updateProjection(float aspect, float nearZ, float farZ)
    {
-      m_projMatrix = glm::perspective(glm::radians(m_zoom), aspect, nearZ, farZ);
+      m_projMatrix = glm::perspective(::radians(m_zoom), aspect, nearZ, farZ);
       m_projMatrix[1][1] *= -1; // Vulkan Y-flip
    }
 
