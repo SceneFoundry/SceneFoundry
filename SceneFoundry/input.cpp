@@ -44,7 +44,7 @@ namespace SceneFoundry_SceneFoundry
 
                auto Δ = point - m_pointLast;
 
-               mouseCallback({Δ.cx(), Δ.cy()});
+               mouseCallback({(int) Δ.cx(), (int) Δ.cy()});
             }
 
             m_bMouseOut = false;

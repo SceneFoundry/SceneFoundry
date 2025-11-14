@@ -1,5 +1,7 @@
 #include "framework.h"
 #include "camera.h"
+#include "bred/graphics3d/engine.h"
+#include "bred/gpu/context.h"
 
 
 namespace SceneFoundry_pbr_renderer
@@ -52,12 +54,12 @@ namespace SceneFoundry_pbr_renderer
       front.y = sin(this->pitch());
       front.z = sin(this->yaw()) * cos(this->pitch());
 
-      m_front = glm::normalize(front);
+      m_front = front.normalized();
 
       // Recalculate Right and Up vector
-      m_right = glm::normalize(glm::cross(m_front, m_worldUp)); // Right vector
+      m_right = m_front.crossed(m_worldUp).normalized(); // Right vector
 
-      m_up = glm::normalize(glm::cross(m_right, m_front));
+      m_up = m_right.crossed(m_front).normalized();
 
    }
 
@@ -65,8 +67,10 @@ namespace SceneFoundry_pbr_renderer
 
    void SandboxCamera::updateView()
    {
-      m_viewMatrix = glm::lookAt(m_vec3Position, m_vec3Position + m_front, m_up);
-      m_inverseViewMatrix = glm::inverse(m_viewMatrix);
+
+      auto pgpucontext = m_pengine->gpu_context(); 
+      m_viewMatrix = pgpucontext->lookAt(m_vec3Position, m_vec3Position + m_front, m_up);
+      m_inverseViewMatrix = m_viewMatrix.inversed();
    }
 
    void SandboxCamera::updateProjection(float aspect, float nearZ, float farZ)

@@ -1,6 +1,7 @@
 #include "framework.h"
 #include "camera.h"
-
+#include "bred/graphics3d/engine.h"
+#include "bred/gpu/context.h"
 
 namespace SceneFoundry_SceneFoundry
 {
@@ -44,19 +45,23 @@ namespace SceneFoundry_SceneFoundry
       m_front = front.normalized();
 
       // Recalculate Right and Up vector
-      m_right = m_front.cross(m_worldUp).normalized(); // Right vector
-      m_up = m_right.cross(m_front).normalized();
+      m_right = m_front.crossed(m_worldUp).normalized(); // Right vector
+      m_up = m_right.crossed(m_front).normalized();
    }
 
    void SandboxCamera::updateView()
    {
-      m_viewMatrix = glm::lookAt(m_vec3Position, m_vec3Position + m_front, m_up);
+
+      auto pgpucontext = m_pengine->gpu_context();
+
+      m_viewMatrix = pgpucontext->lookAt(m_vec3Position, m_vec3Position + m_front, m_up);
       m_inverseViewMatrix = m_viewMatrix.inversed();
    }
 
    void SandboxCamera::updateProjection(float aspect, float nearZ, float farZ)
    {
-      m_projMatrix = glm::perspective(glm::radians(m_zoom), aspect, nearZ, farZ);
+      auto pgpucontext = m_pengine->gpu_context();
+      m_projMatrix = pgpucontext->perspective(::radians(m_zoom), aspect, nearZ, farZ);
       m_projMatrix[1][1] *= -1; // Vulkan Y-flip
    }
 
