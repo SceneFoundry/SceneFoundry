@@ -51,7 +51,7 @@ namespace SceneFoundry_SceneFoundry
    void SandboxCamera::updateView()
    {
       m_viewMatrix = glm::lookAt(m_vec3Position, m_vec3Position + m_front, m_up);
-      m_inverseViewMatrix = glm::inverse(m_viewMatrix);
+      m_inverseViewMatrix = m_viewMatrix.inversed();
    }
 
    void SandboxCamera::updateProjection(float aspect, float nearZ, float farZ)
