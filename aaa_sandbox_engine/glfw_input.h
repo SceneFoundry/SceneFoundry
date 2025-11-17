@@ -14,10 +14,6 @@
 //    bool isKeyPressed(SandboxKey key) const override;
 //    bool isMouseButtonPressed(int button) const override;
 //    void getMouseDelta(double& dx, double& dy) override;
-//
-//
-//
-//
 //    inline void setUserPointer(void* ptr) override{
 //        glfwSetWindowUserPointer(m_pwindow, ptr);
 //    }
@@ -70,10 +66,6 @@
 //
 //        self->m_keyCallback(sandboxKey, scancode, sandboxAction, mods);
 //    }
-//
-//
-//
-//
 //};
 
 

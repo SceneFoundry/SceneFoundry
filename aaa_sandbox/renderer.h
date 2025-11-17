@@ -3,7 +3,7 @@
 //#include <cstdint>
 //#include <vulkan/vulkan.h>
 //#include <vector>
-#include <glm/glm.hpp>
+
 #include "SceneFoundry/graphics3d/frame.h"
 
 
