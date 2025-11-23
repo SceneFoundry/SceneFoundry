@@ -79,16 +79,16 @@ namespace SceneFoundry_pbr_renderer
       add_impact_system(
          "main", __initialize_new ::user::single_document_template(
          "main",
-         ::type < document >(),
-         ::type < main_frame >(),
-         ::type < pane_impact >()));
+         ::as_type < document >(),
+         ::as_type < main_frame >(),
+         ::as_type < pane_impact >()));
       
       add_impact_system(
          "impact", __initialize_new::user::single_document_template(
             "impact",
-            ::type < document >(),
-            ::type < main_frame >(),
-            ::type < impact >()));
+            ::as_type < document >(),
+            ::as_type < main_frame >(),
+            ::as_type < impact >()));
 
 #if defined(APPLE_IOS)
 
