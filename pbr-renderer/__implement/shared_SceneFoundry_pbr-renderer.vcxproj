@@ -143,11 +143,125 @@
     <Image Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\operating_system\operating_system-windows\acme_windowing_win32\acme_windowing_win32.vcxproj">
+      <Project>{9273d94e-bf81-41ed-9cb2-83d981450c9b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\operating_system\operating_system-windows\acme_windows\acme_windows.vcxproj">
+      <Project>{cc8e8200-00a9-414e-9829-7ca3f1091add}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\operating_system\operating_system-windows\apex_windows\apex_windows.vcxproj">
+      <Project>{c598e718-55ae-4d6e-81e0-53450fc3a649}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\operating_system\operating_system-windows\aura_windows\aura_windows.vcxproj">
+      <Project>{94c3715a-7fbf-4455-917b-20cb7f40c58c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\operating_system\operating_system-windows\draw2d_gdiplus\draw2d_gdiplus.vcxproj">
+      <Project>{9a5fbfb1-76e6-4f7e-933a-328c1eec95af}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\operating_system\operating_system-windows\innate_ui_win32\innate_ui_win32.vcxproj">
+      <Project>{31f3d4c6-61f7-4e68-8c48-6de00a2d7d78}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\operating_system\operating_system-windows\nano_graphics_gdi\nano_graphics_gdi.vcxproj">
+      <Project>{01c37e3e-ea56-4af4-bf1a-28ac282d9885}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\operating_system\operating_system-windows\node_windows\node_windows.vcxproj">
+      <Project>{c1ccdf2e-9f27-45d3-b67a-b2eeb1754e72}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\operating_system\operating_system-windows\operating_ambient_windows\operating_ambient_windows.vcxproj">
+      <Project>{582d9c3d-77bb-44c9-962b-c4ba36713049}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\operating_system\operating_system-windows\typeface_gdiplus\typeface_gdiplus.vcxproj">
+      <Project>{c02c2026-8b23-4688-baf8-4edaf0b8d918}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\operating_system\operating_system-windows\windowing_win32\windowing_win32.vcxproj">
+      <Project>{77d5757e-2923-40f8-9cc0-a07fa5bcc236}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\operating_system\operating_system-windows\write_text_win32\write_text_win32.vcxproj">
+      <Project>{d6b5b8f3-a524-4e73-8343-c3d5d558ade3}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\operating_system\operating_system-windows_common\acme_windows_common\acme_windows_common.vcxproj">
+      <Project>{eb9dc9c0-0573-4da0-8700-4dbb371773f1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\operating_system\operating_system-windows_common\apex_windows_common\apex_windows_common.vcxproj">
+      <Project>{a094e038-d195-4400-82ce-44a7edf91b78}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\operating_system\operating_system-windows_common\aura_windows_common\aura_windows_common.vcxproj">
+      <Project>{99f5abf0-7377-4cc7-b016-4ca7b365b9f1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\operating_system\operating_system-windows_common\direct2d\direct2d.vcxproj">
+      <Project>{2f21f158-1dd5-43f6-9fad-01fb77a81ec5}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\operating_system\operating_system-windows_common\directx11\directx11.vcxproj">
+      <Project>{c4b37bd9-1ddb-4d98-9740-182ed114cb3a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\operating_system\operating_system-windows_common\draw2d_direct2d\draw2d_direct2d.vcxproj">
+      <Project>{85683956-09f7-4be0-ab37-5a0165168749}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\operating_system\operating_system-windows_common\draw2d_directx11\draw2d_directx11.vcxproj">
+      <Project>{8d9963ec-44f0-4452-ba42-d839f3f9c097}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\operating_system\operating_system-windows_common\gpu_directx11\gpu_directx11.vcxproj">
+      <Project>{f693b649-3301-4d73-9469-f004ea94708d}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\operating_system\operating_system-windows_common\imaging_wic\imaging_wic.vcxproj">
+      <Project>{d79c7ddb-a727-4b91-803e-41c4431693d6}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\operating_system\operating_system-windows_common\write_text_direct2d\write_text_direct2d.vcxproj">
+      <Project>{ca93dd16-0489-4c02-b69d-21c1d3337515}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\operating_system\operating_system-windows_common\write_text_directx11\write_text_directx11.vcxproj">
+      <Project>{57c66a86-ad96-4eba-9902-42d3769e1005}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app-graphics3d\continuum\app_graphics3d_continuum.vcxproj">
+      <Project>{f1161227-5818-45cc-99ba-5e3195ba1a2f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app-graphics3d\draw2d_directx12\draw2d_directx12.vcxproj">
+      <Project>{bb4f1080-0a04-4e3e-8923-e1ad77c9e5d4}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app-graphics3d\draw2d_nanovg\draw2d_nanovg.vcxproj">
+      <Project>{c3f1395f-888d-4bf1-aafa-35db42b483a1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app-graphics3d\draw2d_opengl\draw2d_opengl.vcxproj">
+      <Project>{a6371632-e343-445c-88ee-ed786d5ea47f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app-graphics3d\draw2d_vkvg\draw2d_vkvg.vcxproj">
+      <Project>{e7cc85f8-7072-4916-9259-116e882f0dce}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app-graphics3d\draw2d_vulkan\draw2d_vulkan.vcxproj">
+      <Project>{076c9f8e-50e3-4d37-bd53-a2814f9c8c23}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app-graphics3d\gpu_directx12\gpu_directx12.vcxproj">
+      <Project>{ed8870d6-1c4f-45f2-a162-a021da869f26}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app-graphics3d\gpu_vulkan\gpu_vulkan.vcxproj">
+      <Project>{27c4f9e2-27e4-41e2-a06c-bcd7462ac33e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app-graphics3d\graphics3d\graphics3d.vcxproj">
+      <Project>{beca2c96-6cfd-4793-a2b8-1fce9bd31682}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app-graphics3d\graphics3d_directx11\graphics3d_directx11.vcxproj">
+      <Project>{4709e1f6-a79d-4d63-96cc-cbbc33d07afa}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app-graphics3d\graphics3d_directx12\graphics3d_directx12.vcxproj">
+      <Project>{59fc9234-8643-476f-8e34-040764930335}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app-graphics3d\graphics3d_opengl\graphics3d_opengl.vcxproj">
+      <Project>{928e4e5f-e062-43d3-8073-f3826381a2e1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app-graphics3d\graphics3d_vulkan\graphics3d_vulkan.vcxproj">
+      <Project>{14be1858-637e-4577-a1f3-daed81d5d9df}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app-graphics3d\write_text_directx12\write_text_directx12.vcxproj">
+      <Project>{7290131f-1f1e-49cd-868c-61df4a357dd0}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\app\acme\acme.vcxproj">
       <Project>{638b242f-0f21-41c3-9f66-724660046133}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\..\app\apex\apex.vcxproj">
       <Project>{e000ffaf-392f-4e32-bf51-777ca238991f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app\aqua\aqua.vcxproj">
+      <Project>{1b06fe5f-f783-41a1-ac68-0e02880dbbac}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\..\app\aura\aura.vcxproj">
       <Project>{e000ffaf-392f-4e32-bf51-fd7ed638991f}</Project>
@@ -163,6 +277,42 @@
     </ProjectReference>
     <ProjectReference Include="..\..\..\app\core\core.vcxproj">
       <Project>{29c1eb5b-060e-4021-ae12-d1bcfb1b1359}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app\crypto_openssl\crypto_openssl.vcxproj">
+      <Project>{d08014e6-e329-41cf-81b5-957c290a4aa8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app\database_sqlite3\database_sqlite3.vcxproj">
+      <Project>{f85061d8-22dc-4a8b-85ea-76d330be52cc}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app\draw2d_cairo\draw2d_cairo.vcxproj">
+      <Project>{b5b26a30-a18d-4dc2-bace-48c2de33cd75}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app\draw2d_gpu\draw2d_gpu.vcxproj">
+      <Project>{dcaa9124-f2d7-4e33-9dbb-3e6ec525be92}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app\experience_core\experience_core.vcxproj">
+      <Project>{e2d7833b-9b59-4826-bbdf-c270a2115e86}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app\folder_zip\folder_zip.vcxproj">
+      <Project>{a69cc125-e38a-4f77-9677-8860d43ab3b0}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app\fs_raw_folder_protocol_dropbox\fs_raw_folder_protocol_dropbox.vcxproj">
+      <Project>{30f58257-d1a4-4f3b-855d-5723cc349fef}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app\gpu\gpu.vcxproj">
+      <Project>{d728fd54-84d0-4b93-9d34-43338f285886}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app\gpu_opengl\gpu_opengl.vcxproj">
+      <Project>{b7225cb5-b394-444b-8fff-02acd10175ce}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app\nano2d\nano2d.vcxproj">
+      <Project>{5c621ac9-ff29-484b-83e2-377e051c2cfc}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app\networking_bsd\networking_bsd.vcxproj">
+      <Project>{46d7d9c9-7b52-4dc6-af84-46a5e3cdc43d}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\app\typeface_freetype\typeface_freetype.vcxproj">
+      <Project>{4a113ace-aa09-43e6-856f-890b0a1753b7}</Project>
     </ProjectReference>
     <ProjectReference Include="..\SceneFoundry_pbr-renderer.vcxproj">
       <Project>{69e1baf2-2af6-4e28-9206-7d4958203cd7}</Project>
