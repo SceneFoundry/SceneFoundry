@@ -79,16 +79,16 @@ namespace SceneFoundry_SceneFoundry
       add_impact_system(
          "main", __initialize_new ::user::single_document_template(
          "main",
-         typeid(document ),
+         typeid(document),
          typeid(main_frame ),
          typeid(pane_impact )));
       
       add_impact_system(
          "impact", __initialize_new::user::single_document_template(
             "impact",
-            typeid(document ),
+            typeid(document),
             typeid(main_frame ),
-            typeid(impact )));
+            typeid(impact)));
 
 #if defined(APPLE_IOS)
 
