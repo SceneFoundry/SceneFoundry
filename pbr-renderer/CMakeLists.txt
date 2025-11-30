@@ -4,7 +4,7 @@ project(SceneFoundry_pbr_renderer CXX)
 
 
 #add_subdirectory(dependencies)
-add_subdirectory(engine)
+#add_subdirectory(engine)
 #add_subdirectory(sample)
 
 
