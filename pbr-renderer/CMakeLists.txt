@@ -113,6 +113,7 @@ list(APPEND library_references
    berg
    bred
    core
+   graphics3d
    #sandbox
    #sandbox_renderer
    #sandbox_engine

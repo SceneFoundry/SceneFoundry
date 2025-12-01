@@ -14,6 +14,34 @@ endif()
 add_executable(${PROJECT_NAME} ${application_source})
 
 
+get_filename_component(LOCAL_APP_FOLDER_PATH "${CMAKE_CURRENT_SOURCE_DIR}" DIRECTORY)
+get_filename_component(LOCAL_APP_FOLDER_NAME "${LOCAL_APP_FOLDER_PATH}" NAME)
+
+get_filename_component(LOCAL_ROOT_FOLDER_PATH "${LOCAL_APP_FOLDER_PATH}" DIRECTORY)
+get_filename_component(LOCAL_ROOT_FOLDER_NAME "${LOCAL_ROOT_FOLDER_PATH}" NAME)
+
+message(STATUS "_pbr-renderer LOCAL_ROOT_FOLDER_NAME is ${LOCAL_ROOT_FOLDER_NAME}")
+message(STATUS "_pbr-renderer LOCAL_APP_FOLDER_NAME is ${LOCAL_APP_FOLDER_NAME}")
+
+set(LOCAL_APPID ${LOCAL_ROOT_FOLDER_NAME}/${LOCAL_APP_FOLDER_NAME})
+
+message(STATUS "_pbr-renderer LOCAL_APPID is ${LOCAL_APPID}")
+
+# Create zip
+add_custom_command(
+   OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/../_matter.zip"
+   COMMAND ${APPLICATION_BUILD_HELPER_BINARY} --prepare-application ${LOCAL_APPID}
+   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../../../..
+   DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/../matter.txt"
+)
+
+# Attach .zip as dependency of resource script
+set_source_files_properties(
+   main.rc
+   PROPERTIES
+   OBJECT_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/../_matter.zip"
+)
+
 list(APPEND executable_references
         acme
         apex
