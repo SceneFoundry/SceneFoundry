@@ -922,7 +922,7 @@
     <ClCompile Include="framework.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="global_ubo.cpp" />
+    <ClCompile Include="aaa_global_ubo.cpp" />
     <ClCompile Include="immersion.cpp" />
     <ClCompile Include="impact.cpp" />
     <ClCompile Include="input.cpp" />
@@ -941,7 +941,7 @@
     <ClInclude Include="engine\inputmanager.h" />
     <ClInclude Include="engine\aaa_rendermanager.h" />
     <ClInclude Include="engine\rotatingcamera.h" />
-    <ClInclude Include="global_ubo.h" />
+    <ClInclude Include="aaa_global_ubo.h" />
     <ClInclude Include="immersion.h" />
     <ClInclude Include="impact.h" />
     <ClInclude Include="input.h" />

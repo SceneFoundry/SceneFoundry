@@ -3,7 +3,7 @@
 
 #include "bred/user/user/graphics3d.h"
 #include "berg/user/user/show.h"
-#include "SceneFoundry/pbr-renderer/global_ubo.h"
+#include "bred/graphics3d/global_ubo1.h"
 
 
 namespace SceneFoundry_pbr_renderer
