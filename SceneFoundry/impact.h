@@ -3,7 +3,7 @@
 
 #include "bred/user/user/graphics3d.h"
 #include "berg/user/user/show.h"
-#include "SceneFoundry/SceneFoundry/global_ubo.h"
+//#include "SceneFoundry/SceneFoundry/global_ubo.h"
 
 
 namespace SceneFoundry_SceneFoundry

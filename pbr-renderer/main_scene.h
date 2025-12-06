@@ -26,7 +26,7 @@ namespace SceneFoundry_pbr_renderer
       ::pointer < ::graphics3d::wavefront_obj_render_system >		m_pwavefrontobjrendersystem;
       ::pointer < ::graphics3d::point_light_render_system >			m_ppointlightrendersystem;
       ::pointer < ::graphics3d::scene_render_system >             m_pscenerendersystem;
-      ::pointer < ::graphics3d::skybox_ibl_render_system >			m_pskyboxiblrendersystem;
+      ::pointer < ::graphics3d::skybox_render_system >			   m_pskyboxrendersystem;
 
 
       main_scene();
