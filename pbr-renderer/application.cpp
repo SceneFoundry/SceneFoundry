@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "application.h"
+#include "camera.h"
 #include "main_frame.h"
 #include "document.h"
 #include "impact.h"
@@ -73,6 +74,8 @@ namespace SceneFoundry_pbr_renderer
       factory()->add_factory_item <::SceneFoundry_pbr_renderer::main_frame >();
       factory()->add_factory_item <::SceneFoundry_pbr_renderer::impact >();
       factory()->add_factory_item <::SceneFoundry_pbr_renderer::pane_impact >();
+
+      factory()->add_factory_item<::SceneFoundry_pbr_renderer::camera, ::graphics3d::camera>();
 
       ::core::application::init_instance();
 

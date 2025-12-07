@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "application.h"
+#include "camera.h"
 #include "main_frame.h"
 #include "document.h"
 #include "impact.h"
@@ -73,6 +74,8 @@ namespace SceneFoundry_SceneFoundry
       factory()->add_factory_item <::SceneFoundry_SceneFoundry::main_frame >();
       factory()->add_factory_item <::SceneFoundry_SceneFoundry::impact >();
       factory()->add_factory_item <::SceneFoundry_SceneFoundry::pane_impact >();
+
+      factory()->add_factory_item<::SceneFoundry_SceneFoundry::camera, ::graphics3d::camera>();
 
       ::core::application::init_instance();
 
