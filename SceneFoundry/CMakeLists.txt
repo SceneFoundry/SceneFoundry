@@ -84,8 +84,8 @@ list(APPEND library_source
         document.h
         framework.cpp
         framework.h
-   global_ubo.cpp
-   global_ubo.h
+   #global_ubo.cpp
+   #global_ubo.h
    immersion.cpp
    immersion.h
         impact.cpp
