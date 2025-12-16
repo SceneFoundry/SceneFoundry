@@ -35,30 +35,30 @@
 //
 //       private:
 //          device * m_pgpudevice;
-//          ::map<uint32_t, VkDescriptorSetLayoutBinding> m_bindings{};
+//          ::map<uint32_t, aaaVkDescriptorSetLayoutBinding> m_bindings{};
 //          ::map<uint32_t, VkDescriptorBindingFlags> m_bindingFlags{};
 //       };
 //
 //       sandbox_descriptor_set_layout(
 //          device * pdevice,
-//          const ::array_base<VkDescriptorSetLayoutBinding>& bindingsVec,
-//          VkDescriptorSetLayout layout
+//          const ::array_base<aaaVkDescriptorSetLayoutBinding>& bindingsVec,
+//          aaaVkDescriptorSetLayout layout
 //       );
-//       sandbox_descriptor_set_layout(device * pdevice, VkDescriptorSetLayout layout)
+//       sandbox_descriptor_set_layout(device * pdevice, aaaVkDescriptorSetLayout layout)
 //          : m_pgpudevice{ pdevice }, m_descriptorSetLayout{ layout } {
 //       }
 //       ~sandbox_descriptor_set_layout();
 //       sandbox_descriptor_set_layout(const sandbox_descriptor_set_layout&) = delete;
 //       sandbox_descriptor_set_layout& operator=(const sandbox_descriptor_set_layout&) = delete;
 //
-//       VkDescriptorSetLayout getDescriptorSetLayout() const { return m_descriptorSetLayout; }
+//       aaaVkDescriptorSetLayout getDescriptorSetLayout() const { return m_descriptorSetLayout; }
 //
 //    private:
 //       device * m_pgpudevice;
-//       VkDescriptorSetLayout m_descriptorSetLayout;
+//       aaaVkDescriptorSetLayout m_descriptorSetLayout;
 //       friend class VkcDescriptorWriter;
 //    public:
-//       ::map<uint32_t, VkDescriptorSetLayoutBinding> m_bindings;
+//       ::map<uint32_t, aaaVkDescriptorSetLayoutBinding> m_bindings;
 //
 //
 //
@@ -95,7 +95,7 @@
 //       sandbox_descriptor_pool& operator=(const sandbox_descriptor_pool&) = delete;
 //
 //       bool allocateDescriptor(
-//          const VkDescriptorSetLayout descriptorSetLayout, VkDescriptorSet& descriptor, uint32_t variableDescriptorCount) const;
+//          const aaaVkDescriptorSetLayout descriptorSetLayout, VkDescriptorSet& descriptor, uint32_t variableDescriptorCount) const;
 //
 //       void freeDescriptors(::array_base<VkDescriptorSet>& descriptors) const;
 //

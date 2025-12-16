@@ -24,7 +24,7 @@
 //
 //       ASSERT(m_bindings.count(binding) == 0 && "Binding already in use");
 //
-//       VkDescriptorSetLayoutBinding layoutBinding{};
+//       aaaVkDescriptorSetLayoutBinding layoutBinding{};
 //       layoutBinding.binding = binding;
 //       layoutBinding.descriptorType = descriptorType;
 //       layoutBinding.descriptorCount = count;
@@ -45,7 +45,7 @@
 //       return addBinding(binding, descriptorType, stageFlags, 1, 0);
 //    }
 //    ::pointer<sandbox_descriptor_set_layout> sandbox_descriptor_set_layout::Builder::build() const {
-//       ::array_base<VkDescriptorSetLayoutBinding> setBindings;
+//       ::array_base<aaaVkDescriptorSetLayoutBinding> setBindings;
 //       ::array_base<VkDescriptorBindingFlags> setBindingFlags;
 //
 //       for (const auto& [binding, layoutBinding] : m_bindings) {
@@ -53,19 +53,19 @@
 //          setBindingFlags.add(m_bindingFlags[binding]);
 //       }
 //
-//       VkDescriptorSetLayoutBindingFlagsCreateInfo bindingFlagsInfo{};
+//       aaaVkDescriptorSetLayoutBindingFlagsCreateInfo bindingFlagsInfo{};
 //       bindingFlagsInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO;
 //       bindingFlagsInfo.bindingCount = static_cast<uint32_t>(setBindingFlags.size());
 //       bindingFlagsInfo.pBindingFlags = setBindingFlags.data();
 //
-//       VkDescriptorSetLayoutCreateInfo layoutInfo{};
+//       aaaVkDescriptorSetLayoutCreateInfo layoutInfo{};
 //       layoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
 //       layoutInfo.pNext = &bindingFlagsInfo;
 //       layoutInfo.bindingCount = static_cast<uint32_t>(setBindings.size());
 //       layoutInfo.pBindings = setBindings.data();
 //       layoutInfo.flags = VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT;
 //
-//       VkDescriptorSetLayout layout;
+//       aaaVkDescriptorSetLayout layout;
 //       if (vkCreateDescriptorSetLayout(m_pgpudevice->device(), &layoutInfo, nullptr, &layout) != VK_SUCCESS) {
 //          throw std::runtime_error("failed to create descriptor set layout!");
 //       }
@@ -76,8 +76,8 @@
 //
 //    sandbox_descriptor_set_layout::sandbox_descriptor_set_layout(
 //       device * pdevice,
-//       const ::array_base<VkDescriptorSetLayoutBinding>& bindingsVec,
-//       VkDescriptorSetLayout layout
+//       const ::array_base<aaaVkDescriptorSetLayoutBinding>& bindingsVec,
+//       aaaVkDescriptorSetLayout layout
 //    ) : m_pgpudevice{ pdevice }, m_descriptorSetLayout{ layout } {
 //
 //       for (const auto& binding : bindingsVec) {
@@ -143,7 +143,7 @@
 //       }
 //    }
 //    bool sandbox_descriptor_pool::allocateDescriptor(
-//       const VkDescriptorSetLayout descriptorSetLayout,
+//       const aaaVkDescriptorSetLayout descriptorSetLayout,
 //       VkDescriptorSet& descriptor,
 //       uint32_t variableDescriptorCount
 //    ) const {

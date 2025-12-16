@@ -34,7 +34,7 @@ namespace sandbox_renderer
 	// 	::array_base<VkPushConstantRange> pushConstantRanges;
 	//
 	// 	// Descriptor set layouts if needed
-	// 	::array_base<VkDescriptorSetLayout> descriptorSetLayouts;
+	// 	::array_base<aaaVkDescriptorSetLayout> descriptorSetLayouts;
 	// };
 
 	class CLASS_DECL_SANDBOX_RENDERER pipeline :
