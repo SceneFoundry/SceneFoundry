@@ -6,7 +6,8 @@ project(_SceneFoundry_pbr_renderer CXX)
 list(APPEND application_source main.cpp)
 
 
-if(MSVC)
+if(${WIN32})
+
     list(APPEND application_source ../deployment.rc main.rc)
 endif()
 
@@ -27,6 +28,8 @@ set(LOCAL_APPID ${LOCAL_ROOT_FOLDER_NAME}/${LOCAL_APP_FOLDER_NAME})
 
 message(STATUS "_pbr-renderer LOCAL_APPID is ${LOCAL_APPID}")
 
+if(${WIN32})
+
 # Create zip
 add_custom_command(
    OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/../_matter.zip"
@@ -41,6 +44,8 @@ set_source_files_properties(
    PROPERTIES
    OBJECT_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/../_matter.zip"
 )
+
+endif()
 
 list(APPEND executable_references
         acme
@@ -59,21 +64,9 @@ list(APPEND executable_references
 )
 
 
-if(${LINUX} OR ${__BSD__})
 
+if(${WIN32})
 
-   add_custom_command(
-      OUTPUT ${PROJECT_SOURCE_DIR}/../.link_object/_matter.zip.o
-      COMMAND ${APPLICATION_BUILD_HELPER_BINARY} --prepare-application ${PROJECT_SOURCE_DIR}
-      COMMENT "Generating ${PROJECT_SOURCE_DIR}/../.link_object/_matter.zip.o"
-   )
-
-   target_sources(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/../.link_object/_matter.zip.o)
-
-endif()
-
-
-if (MSVC)
 
 
     target_compile_options(${PROJECT_NAME} PRIVATE "/MD$<$<CONFIG:Debug>:d>")
@@ -101,15 +94,21 @@ add_dependencies(${PROJECT_NAME} crypto_openssl)
 add_dependencies(${PROJECT_NAME} experience_core)
 add_dependencies(${PROJECT_NAME} folder_zip)
 
+if(${WIN32})
+
 add_dependencies(${PROJECT_NAME} draw2d_direct2d)
 add_dependencies(${PROJECT_NAME} write_text_direct2d)
 add_dependencies(${PROJECT_NAME} draw2d_directx11)
 add_dependencies(${PROJECT_NAME} write_text_directx11)
+endif()
 add_dependencies(${PROJECT_NAME} draw2d_opengl)
 add_dependencies(${PROJECT_NAME} draw2d_vulkan)
 
+if(${WIN32})
+
 add_dependencies(${PROJECT_NAME} graphics3d_directx11)
 add_dependencies(${PROJECT_NAME} graphics3d_directx12)
+endif()
 add_dependencies(${PROJECT_NAME} graphics3d_opengl)
 add_dependencies(${PROJECT_NAME} graphics3d_vulkan)
 
