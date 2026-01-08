@@ -74,6 +74,7 @@ namespace SceneFoundry_pbr_renderer
       get_app()->m_ppaneimpact = this;
 
       set_tab("Options", APP_OPTIONS_IMPACT);
+      set_tab("GPU", "options_impact_handler://gpu");
       //set_tab("gcom", GCOM_IMPACT);
       set_tab("hello_multiverse", MAIN_IMPACT);
       set_tab("switcher", MAIN_SWITCHER_IMPACT);
@@ -82,6 +83,8 @@ namespace SceneFoundry_pbr_renderer
 #if 1
       set_tab("Open", FILEMANAGER_IMPACT);
 #endif
+
+      m_mapoptionsimpacthandler.set_at("options_impact_handler://gpu", get_app());
 
 #if DEBUG_GCOM
 

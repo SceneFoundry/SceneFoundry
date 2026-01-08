@@ -1,11 +1,11 @@
 #include "framework.h"
 #include "inputmanager.h"
 #include "acme/platform/session.h"
-#include "aura/user/user/keyboard.h"
-#include "aura/user/user/user.h"
+//#include "aura/user/user/keyboard.h"
+//#include "aura/user/user/user.h"
 #include "bred/user/user/graphics3d.h"
 //#include "glfw3.h"
-#include <imgui/imgui.h>
+//#include <imgui/imgui.h>
 
 //#include "engineconfig.h"
 
@@ -57,20 +57,20 @@ namespace SceneFoundry_pbr_renderer
 
    void InputManager::enableGuiMouse()
    {
-      ImGuiIO &io = ImGui::GetIO();
-      io.ConfigFlags = io.ConfigFlags & !ImGuiConfigFlags_NoMouse;
-   };
+      //ImGuiIO &io = ImGui::GetIO();
+      //io.ConfigFlags = io.ConfigFlags & !ImGuiConfigFlags_NoMouse;
+   }
 
    void InputManager::disableGuiMouse()
    {
-      ImGuiIO &io = ImGui::GetIO();
-      io.ConfigFlags = io.ConfigFlags | ImGuiConfigFlags_NoMouse;
+      //ImGuiIO &io = ImGui::GetIO();
+      //io.ConfigFlags = io.ConfigFlags | ImGuiConfigFlags_NoMouse;
    }
 
    void InputManager::showMouseCursor()
    {
       //glfwSetInputMode(mWindowManager->getWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-   };
+   }
 
    void InputManager::hideMouseCursor()
    {
