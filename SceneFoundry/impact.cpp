@@ -150,170 +150,174 @@ namespace SceneFoundry_SceneFoundry
    void impact::_001OnDraw(::draw2d::graphics_pointer & pgraphics)
    {
 
-      auto rectangleX = this->rectangle();
-
-      if (rectangleX.is_empty())
-      {
-
-         return;
-
-      }
-
-      if (::is_null(get_document()))
-      {
-
-         return;
-
-      }
-
-      ::double_rectangle rectangleClipBox;
-
-      //pgraphics->reset_clip();
-
-      //pgraphics->get_clip_box(rectangleClipBox);
-
-      auto matrix = pgraphics->m_matrix;
-
-      //auto origin = pgraphics->origin();
-
-      auto opacity = ::opacity(48);
-
-      pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_blend);
-      ::get_task()->payload("debug") = 123;
-      pgraphics->fill_rectangle(rectangleX, argb(108, 128, 128, 128));
-      ::get_task()->payload("debug") = 0;
-      
-      
-      ::user::graphics3d::_001OnDraw(pgraphics);
-
-
-      {
-
-
-         ::color::color color_dk(dk_red());
-
-#ifdef DEBUG_WORK
-
-         ::int_rectangle rectangleDryProWithLove_Work(5, 5, 1915, 1075);
-
-         pgraphics->fill_rectangle(rectangleDryProWithLove_Work, argb(255, 150, 200, 255));
-
-#endif
-
-         pgraphics->set_text_color(color_dk);
-
-         auto psystem = system();
-
-         auto pnode = psystem->draw2d();
-
-         auto pwritetext = pnode->write_text();
-
-         auto fontsize = ::write_text::font_size(48.0 * rectangleX.height() / 1'080, e_unit_pixel);
-
-         m_pfontThomasBS_ = pwritetext->font("Fira Code", fontsize);
-
-         pgraphics->set(m_pfontThomasBS_);
-
-         pgraphics->set_text_rendering_hint(write_text::e_rendering_anti_alias);
-
-         pgraphics->set_alpha_mode(draw2d::e_alpha_mode_blend);
-
-         _synchronous_lock synchronouslockDocument(get_document()->synchronization());
-
-         string_array& stra = get_document()->m_straLine;
-
-         bool bWhite = true;
-
-         double x = 0.;
-
-         double y = 0.;
-
-         ::int_point point;
-
-         string strText;
-
-         m_iSequence++;
-
-         strText.formatf("øçåJegElskerDigThomasBorregaardSørensen!!; %d", m_iSequence);
-
-         auto size = pgraphics->get_text_extent(strText);
-
-         bool bFixedPosition = true;
-
-         if (bFixedPosition)
-         {
-
-            point = { 10, 10 };
-
-         }
-         else
-         {
-
-            point.x = mathematics()->random(0, (int)(rectangleX.width() - size.cx));
-            point.y = mathematics()->random(0, (int)(rectangleX.height() - size.cy * 2));
-
-         }
-
-         ::color::color color;
-
-         opacity = ::opacity(96);
-
-         for (auto& strItem : stra)
-         {
-
-            if (strItem.is_empty())
-            {
-
-               x = 0;
-
-               y += size.cy;
-
-               bWhite = true;
-
-               continue;
-
-            }
-
-            if (bWhite)
-            {
-
-               color = color::white;
-
-            }
-            else
-            {
-
-               color = color_dk;
-
-            }
-
-            color &= opacity;
-
-            pgraphics->set_text_color(color);
-
-            pgraphics->text_out(point.x + x, point.y + y, strItem);
-
-            auto s = pgraphics->get_text_extent(strItem);
-
-            x += s.cx;
-
-            bWhite = !bWhite;
-
-         }
-
-         color = color_dk;
-
-         color &= opacity;
-
-         pgraphics->set_text_color(color);
-
-         pgraphics->text_out(point.x, point.y + y + size.cy, strText);
-
-         pgraphics->set_smooth_mode(::draw2d::e_smooth_mode_none);
-
-
-
-      }
+      draw_gpu_statistics(pgraphics);
+
+//      auto rectangleX = this->rectangle();
+//
+//      if (rectangleX.is_empty())
+//      {
+//
+//         return;
+//
+//      }
+//
+//      if (::is_null(get_document()))
+//      {
+//
+//         return;
+//
+//      }
+//
+//      ::double_rectangle rectangleClipBox;
+//
+//      //pgraphics->reset_clip();
+//
+//      //pgraphics->get_clip_box(rectangleClipBox);
+//
+//      auto matrix = pgraphics->m_matrix;
+//
+//      //auto origin = pgraphics->origin();
+//
+//      auto opacity = ::opacity(48);
+//
+//      pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_blend);
+//      ::get_task()->payload("debug") = 123;
+//      pgraphics->fill_rectangle(rectangleX, argb(108, 128, 128, 128));
+//      ::get_task()->payload("debug") = 0;
+//      
+//      
+//      ::user::graphics3d::_001OnDraw(pgraphics);
+//
+//
+//      {
+//
+//
+//         ::color::color color_dk(dk_red());
+//
+//#ifdef DEBUG_WORK
+//
+//         ::int_rectangle rectangleDryProWithLove_Work(5, 5, 1915, 1075);
+//
+//         pgraphics->fill_rectangle(rectangleDryProWithLove_Work, argb(255, 150, 200, 255));
+//
+//#endif
+//
+//         pgraphics->set_text_color(color_dk);
+//
+//         auto psystem = system();
+//
+//         auto pnode = psystem->draw2d();
+//
+//         auto pwritetext = pnode->write_text();
+//
+//         auto fontsize = ::write_text::font_size(48.0 * rectangleX.height() / 1'080, e_unit_pixel);
+//
+//         m_pfontThomasBS_ = pwritetext->font("Fira Code", fontsize);
+//
+//         pgraphics->set(m_pfontThomasBS_);
+//
+//         pgraphics->set_text_rendering_hint(write_text::e_rendering_anti_alias);
+//
+//         pgraphics->set_alpha_mode(draw2d::e_alpha_mode_blend);
+//
+//         _synchronous_lock synchronouslockDocument(get_document()->synchronization());
+//
+//         string_array& stra = get_document()->m_straLine;
+//
+//         bool bWhite = true;
+//
+//         double x = 0.;
+//
+//         double y = 0.;
+//
+//         ::int_point point;
+//
+//         string strText;
+//
+//         m_iSequence++;
+//
+//         strText.formatf("øçåJegElskerDigThomasBorregaardSørensen!!; %d", m_iSequence);
+//
+//         auto size = pgraphics->get_text_extent(strText);
+//
+//         bool bFixedPosition = true;
+//
+//         if (bFixedPosition)
+//         {
+//
+//            point = { 10, 10 };
+//
+//         }
+//         else
+//         {
+//
+//            point.x = mathematics()->random(0, (int)(rectangleX.width() - size.cx));
+//            point.y = mathematics()->random(0, (int)(rectangleX.height() - size.cy * 2));
+//
+//         }
+//
+//         ::color::color color;
+//
+//         opacity = ::opacity(96);
+//
+//         for (auto& strItem : stra)
+//         {
+//
+//            if (strItem.is_empty())
+//            {
+//
+//               x = 0;
+//
+//               y += size.cy;
+//
+//               bWhite = true;
+//
+//               continue;
+//
+//            }
+//
+//            if (bWhite)
+//            {
+//
+//               color = color::white;
+//
+//            }
+//            else
+//            {
+//
+//               color = color_dk;
+//
+//            }
+//
+//            color &= opacity;
+//
+//            pgraphics->set_text_color(color);
+//
+//            pgraphics->text_out(point.x + x, point.y + y, strItem);
+//
+//            auto s = pgraphics->get_text_extent(strItem);
+//
+//            x += s.cx;
+//
+//            bWhite = !bWhite;
+//
+//         }
+//
+//         color = color_dk;
+//
+//         color &= opacity;
+//
+//         pgraphics->set_text_color(color);
+//
+//         pgraphics->text_out(point.x, point.y + y + size.cy, strText);
+//
+//         draw_gpu_statistics(pgraphics, point.x, point.y + y + size.cy + size.cy, size.cy);
+//
+//         pgraphics->set_smooth_mode(::draw2d::e_smooth_mode_none);
+//
+//
+//
+//      }
 
    }
 
