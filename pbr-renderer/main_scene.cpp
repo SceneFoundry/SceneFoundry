@@ -4,22 +4,25 @@
 #include "main_scene.h"
 #include "application.h"
 #include "camera.h"
-#include "global_ubo.h"
 #include "immersion.h"
 #include "impact.h"
 #include "input.h"
+#include "bred/gpu/block.h"
 #include "bred/gpu/context.h"
-#include "bred/graphics3d/render_systems/gltf_render_system.h"
-#include "bred/graphics3d/render_systems/wavefront_obj_render_system.h"
-#include "bred/graphics3d/render_systems/point_light_render_system.h"
-#include "bred/graphics3d/render_systems/scene_render_system.h"
-#include "bred/graphics3d/render_systems/skybox_ibl_render_system.h"
+#include "bred/graphics3d/global_ubo1.h"
+#include "app-graphics3d/graphics3d/render_system/gltf_render_system.h"
+#include "bred/graphics3d/render_system/wavefront_obj_render_system.h"
+#include "bred/graphics3d/render_system/point_light_render_system.h"
+#include "app-graphics3d/graphics3d/render_system/scene_render_system.h"
+#include "bred/graphics3d/render_system/skybox_render_system.h"
 #include "bred/graphics3d/camera.h"
 #include "bred/graphics3d/engine.h"
 #include "bred/graphics3d/point_light.h"
 #include "bred/graphics3d/scene_object.h"
 #include "bred/prodevian/actor.h"
 #include "bred/prodevian/game_object.h"
+
+
 
 
 namespace SceneFoundry_pbr_renderer
@@ -49,8 +52,8 @@ namespace SceneFoundry_pbr_renderer
 
       ::cast<immersion> pimmersion = m_pimmersionlayer;
 
-      pprodevianactor->transform().m_vec3Position = pimmersion->m_initialCameraPosition;
-      pprodevianactor->transform().m_vec3Rotation = pimmersion->m_initialCameraRotation;
+      pprodevianactor->m_sequence3Translation = pimmersion->m_initialCameraPosition;
+      pprodevianactor->m_matrixRotation = pimmersion->m_rotationInitialCamera.as_rotation_matrix();
 
       m_prodevianactora.add(pprodevianactor);
 
@@ -68,10 +71,9 @@ namespace SceneFoundry_pbr_renderer
    void main_scene::on_load_scene(::gpu::context* pgpucontext)
    {
 
-      m_gpupropertiesGlobalUbo.set<::SceneFoundry_pbr_renderer::global_ubo>();
+      //m_gpupropertiesGlobalUbo.set<::graphics3d::global_ubo1>();
 
       loadSceneFile("default_scene");
-
 
       øconstruct(m_pscenerendersystem);
 
@@ -81,31 +83,29 @@ namespace SceneFoundry_pbr_renderer
 
       øconstruct(m_pgltfrendersystem);
 
-
       m_pgltfrendersystem->m_bDisableAlbedo = false;
       m_pgltfrendersystem->m_bDisableMetallicRoughness = false;
       m_pgltfrendersystem->m_bDisableNormal = false;
       m_pgltfrendersystem->m_bDisableAmbientOcclusion = false;
       m_pgltfrendersystem->m_bDisableEmissive = false;
 
-      m_pgltfrendersystem->m_bForceDefaultAlbedo = true;
-      m_pgltfrendersystem->m_bForceDefaultMetallicFactor = true;
-      m_pgltfrendersystem->m_bForceDefaultRoughnessFactor = true;
-      m_pgltfrendersystem->m_bForceDefaultAmbientOcclusionFactor = true;
-      m_pgltfrendersystem->m_bForceDefaultEmission = true;
+      m_pgltfrendersystem->m_bForceDefaultAlbedo = false;
+      m_pgltfrendersystem->m_bForceDefaultMetallicFactor = false;
+      m_pgltfrendersystem->m_bForceDefaultRoughnessFactor = false;
+      m_pgltfrendersystem->m_bForceDefaultAmbientOcclusionFactor = false;
+      m_pgltfrendersystem->m_bForceDefaultEmission = false;
       m_pgltfrendersystem->m_seq3DefaultAlbedo = {1.0f, 1.0f, 1.0f};
-      m_pgltfrendersystem->m_fDefaultMetallicFactor = 1.0f;
+      m_pgltfrendersystem->m_fDefaultMetallicFactor = 0.0f;
       m_pgltfrendersystem->m_fDefaultRoughnessFactor = 0.0f;
       m_pgltfrendersystem->m_fDefaultAmbientOcclusionFactor = 1.0f;
       m_pgltfrendersystem->m_seq3DefaultEmission = {};
-
 
       m_pgltfrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
 
       m_pgltfrendersystem->prepare(pgpucontext);
 
 
-      øconstruct_new(m_pwavefrontobjrendersystem);
+      øconstruct(m_pwavefrontobjrendersystem);
 
       m_pwavefrontobjrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
 
@@ -119,11 +119,11 @@ namespace SceneFoundry_pbr_renderer
 
       m_ppointlightrendersystem->prepare(pgpucontext);
 
-      øconstruct_new(m_pskyboxiblrendersystem);
+      øconstruct(m_pskyboxrendersystem);
 
-      m_pskyboxiblrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
+      m_pskyboxrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
 
-      m_pskyboxiblrendersystem->prepare(pgpucontext);
+      m_pskyboxrendersystem->prepare(pgpucontext);
 
       //    // Try to get skybox object from scene
       //if (auto skyboxOpt = getSkyboxObject())
@@ -176,15 +176,9 @@ namespace SceneFoundry_pbr_renderer
    void main_scene::on_update(::gpu::context* pgpucontext)
    {
 
-      //m_pskyboxiblrendersystem->set_skybox(get_skybox());
+      auto pblockGlobalUbo1 = this->global_ubo1(pgpucontext);
 
-      auto& globalubo = this->global_ubo();
-
-
-
-      //pgpucontext->clear(::argb(.5f, 0.f, 0.f, 0.5f));
-
-      //::graphics3d::GlobalUbo ubo{};
+      auto &globalUbo1=*pblockGlobalUbo1;
 
       auto pimmersion = m_pimmersionlayer;
 
@@ -192,41 +186,54 @@ namespace SceneFoundry_pbr_renderer
 
       auto pgpucamera = pscene->camera();
 
-      ::cast<SandboxCamera> pcamera = pgpucamera;
+      ::cast<::SceneFoundry_pbr_renderer::camera> pcamera = pgpucamera;
 
       auto dt = m_pimmersionlayer->m_pengine->dt();
                    
-      ::cast<SandboxMNKController> pinput = m_pimmersionlayer->m_pengine->m_pinput;
-      //double dx = 0, dy = 0;
-      //m_pInput->getMouseDelta(dx, dy);
-      //m_controller.mouseCallback(floating_sequence2(dx, dy));
-      pinput->update(dt, m_pimmersionlayer->m_pengine->m_transform);
+      ::cast<input> pinput = m_pimmersionlayer->m_pengine->m_pinput;
 
-      pcamera->setPosition(m_pimmersionlayer->m_pengine->m_transform.m_vec3Position);
-      pcamera->setRotation(m_pimmersionlayer->m_pengine->m_transform.m_vec3Rotation);
+      auto &transform = m_pimmersionlayer->m_pengine->m_transform;
 
+      pinput->_017Update(dt, transform);
 
-      //float aspect = h == 0 ? 1.0f : static_cast<float>(w) / h;
+      auto positionTransform = transform.m_sequence3Position;
+
+      pcamera->m_sequence3Position = positionTransform;
+      
+      pcamera->m_rotation = transform.m_rotation;
+
       auto aspect = m_pimmersionlayer->m_pengine->m_pusergraphics3d->getAspectRatio();
-      pcamera->updateProjection(aspect, 0.1f, 300.f);
+
+      pcamera->m_fAspectRatio = aspect;
+
+      pcamera->m_fNearZ = 0.1f;
+
+      pcamera->m_fFarZ = 100.0f;
+
+      pcamera->m_angleFovY = 60.0_f_degrees;
+
+      pcamera->update_vectors();
+
+      pcamera->update();
+
+      auto projection = pcamera->projection();
+      globalUbo1["projection"] = projection;
 
 
-      pcamera->updateVectors();
-      pcamera->updateView();
+      auto impact = pcamera->impact();
+      globalUbo1["view"] = impact;
+
+      ::floating_sequence4 seq4AmbientLightColor(0.2f, 0.2f, 0.2f, 0.2f);
+      globalUbo1["ambientLightColor"] = seq4AmbientLightColor;
+
+      // auto inversedImpact = pcamera->inversed_impact();
+      auto inversedImpact = impact.inversed();
+      globalUbo1["invView"] = inversedImpact;
 
 
-      auto projection = pcamera->getProjectionMatrix();
-      //globalubo["projection"] = m_pgpucontext->defer_clip_remap_projection(projection);
 
-      globalubo["projection"] = projection;
-
-      auto view = pcamera->getViewMatrix();
-      //globalubo["view"] = m_pgpucontext->defer_remap_impact_matrix(view);
-      //floating_matrix4 viewNoTranslation = floating_matrix4(floating_matrix3(view)); // remove translation
-      globalubo["view"] = view;
-
-      auto viewPos = floating_sequence4(pcamera->getPosition(), 1.0f);
-      globalubo["viewPos"] = viewPos;
+      auto cameraPosition = pcamera->position();
+      globalUbo1["cameraPosition"] = cameraPosition;
 
       //auto inverseView = pcamera->getInverseView();
       //globalubo["invView"] = inverseView;
@@ -244,37 +251,30 @@ namespace SceneFoundry_pbr_renderer
    }
 
 
-   //::graphics3d::skybox* main_scene::get_skybox()
-   //{
-
-   //   ::string strSkybox = m_papp->m_strSkybox;
-
-   //   return m_mapSkybox[strSkybox];
-
-   //}
-
-   
    void main_scene::on_render(::gpu::context * pgpucontext)
    {
 
-      //pgpucontext->clear(rgba(0.5f, 0.75f, 1.0f, 1.0f)); // Clear with a light blue color
+      //pgpucontext->clear(pgpucontext->current_target_texture(::gpu::current_frame()), argb(1.0f, 0.5f, 0.75f, 1.0f)); // Clear with a light blue color
+      //pgpucontext->clear(pgpucontext->current_target_texture(::gpu::current_frame()), ::color::transparent); // Clear with a transparent
+      pgpucontext->clear(pgpucontext->current_target_texture(::gpu::current_frame()),argb(0.95f, 0.85f, 0.75f, 0.25f)); // Clear with a transparent
 
-      auto pskyboxiblrendersystem = m_pskyboxiblrendersystem;
+      auto pskyboxrendersystem = m_pskyboxrendersystem;
 
-      if (pskyboxiblrendersystem)
+      if (pskyboxrendersystem)
       {
 
-         pskyboxiblrendersystem->render(pgpucontext, this);
+         pskyboxrendersystem->render(pgpucontext, this);
 
       }
 
-      auto pscenerendersystem = m_pscenerendersystem;
+    /*  auto pscenerendersystem = m_pscenerendersystem;
 
       if (pscenerendersystem)
       {
 
          pscenerendersystem->render(pgpucontext, this);
-      }
+
+      }*/
 
       auto pgltfrendersystem = m_pgltfrendersystem;
 
@@ -287,7 +287,7 @@ namespace SceneFoundry_pbr_renderer
 
       //return;
 
-      auto pwavefrontobjrendersystem = m_pwavefrontobjrendersystem;
+    /*  auto pwavefrontobjrendersystem = m_pwavefrontobjrendersystem;
 
       if (pwavefrontobjrendersystem)
       {
@@ -303,7 +303,9 @@ namespace SceneFoundry_pbr_renderer
 
          ppointlightrendersystem->render(pgpucontext, this);
 
-      }
+      }*/
+
+//      pgpucontext->clear(pgpucontext->current_target_texture(::gpu::current_frame()),argb(0.95f, 0.95f, 0.25f, 0.90f)); // Clear with a transparent
 
    }
 
