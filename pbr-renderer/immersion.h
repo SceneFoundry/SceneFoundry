@@ -18,7 +18,7 @@ namespace SceneFoundry_pbr_renderer
 
 
       floating_sequence3 m_initialCameraPosition{0.f};
-      floating_sequence3 m_initialCameraRotation{0.f};
+      ::graphics3d::floating_rotation m_initialCameraRotation;
 
       
       immersion();

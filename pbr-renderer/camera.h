@@ -8,68 +8,70 @@ namespace SceneFoundry_pbr_renderer
 {
 
 
-   class SandboxCamera : virtual public ::graphics3d::camera
+   class camera : virtual public ::graphics3d::camera
    {
    public:
       
       
-      SandboxCamera();
-      ~ SandboxCamera() override;
+      camera();
+      ~ camera() override;
 
       
-      void initialize_SandboxCamera(floating_sequence3 position, float yawDeg = -90.f, float pitchDeg = 0.f, float zoomDeg = 45.f);
+      void initialize_camera(const ::floating_sequence3 &position,
+                                     const ::graphics3d::floating_rotation &rotation = {-90_degree, 0_degree},
+                                     const floating_angle &zoom = 60_f_degree) override;
 
-      void updateView();
-      void updateProjection(float aspect, float nearZ = 0.1f, float farZ = 100.f);
-
-      void move(floating_sequence3 delta);
-      void rotate(float yawOffset, float pitchOffset);
-      void setZoom(float zoom);
-
-      void updateVectors();
-
-
-      // Getters and setters
-      floating_sequence3 getForwardVector() const { return m_front; }
-      floating_sequence3 getRightVector() const { return m_right; }
-      floating_sequence3 getUpVector() const { return m_up; }
-      floating_matrix4 getViewMatrix() const { return m_viewMatrix; }
-      floating_matrix4 getProjectionMatrix() const { return m_projMatrix; }
-
-      //float getYaw() const { return m_yaw; }
-      //float getPitch() const { return m_pitch; }
-
-
-
-      //void setYaw(float yaw)
-      //{
-      //   m_yaw = yaw;
-      //   updateVectors();
-      //}
-      //void setPitch(float pitch)
-      //{
-      //   m_pitch = pitch;
-      //   updateVectors();
-      //}
-      void setRotation(floating_sequence3 euler);
-
-      void setPosition(const floating_sequence3 &pos) { m_vec3Position = pos; }
-      floating_sequence3 getPosition() const { return m_vec3Position; }
-      floating_matrix4 getInverseViewMatrix() const { return m_inverseViewMatrix; }
-   
-      //floating_sequence3 m_position;
-      floating_sequence3 m_front;
-      floating_sequence3 m_up;
-      floating_sequence3 m_right;
-      floating_sequence3 m_worldUp;
-
-      //float m_yaw;
-      //float m_pitch;
-      float m_zoom;
-
-      floating_matrix4 m_viewMatrix;
-      floating_matrix4 m_projMatrix;
-      floating_matrix4 m_inverseViewMatrix{1.f};
+      // //void updateView();
+      // //void updateProjection(float aspect, float nearZ = 0.1f, float farZ = 100.f);
+      //
+      // //void move(floating_sequence3 delta);
+      // //void rotate(float yawOffset, float pitchOffset);
+      // //void setZoom(float zoom);
+      //
+      // //void updateVectors();
+      //
+      //
+      // // Getters and setters
+      // floating_sequence3 getForwardVector() const { return m_front; }
+      // floating_sequence3 getRightVector() const { return m_right; }
+      // floating_sequence3 getUpVector() const { return m_up; }
+      // floating_matrix4 getViewMatrix() const { return m_viewMatrix; }
+      // floating_matrix4 getProjectionMatrix() const { return m_projMatrix; }
+      //
+      // //float getYaw() const { return m_yaw; }
+      // //float getPitch() const { return m_pitch; }
+      //
+      //
+      //
+      // //void setYaw(float yaw)
+      // //{
+      // //   m_yaw = yaw;
+      // //   updateVectors();
+      // //}
+      // //void setPitch(float pitch)
+      // //{
+      // //   m_pitch = pitch;
+      // //   updateVectors();
+      // //}
+      // void setRotation(floating_sequence3 euler);
+      //
+      // void setPosition(const floating_sequence3 &pos) { m_sequence3Position = pos; }
+      // floating_sequence3 getPosition() const { return m_sequence3Position; }
+      // floating_matrix4 getInverseViewMatrix() const { return m_inverseViewMatrix; }
+      //
+      // //floating_sequence3 m_position;
+      // floating_sequence3 m_front;
+      // floating_sequence3 m_up;
+      // floating_sequence3 m_right;
+      // floating_sequence3 m_worldUp;
+      //
+      // //float m_yaw;
+      // //float m_pitch;
+      // float m_zoom;
+      //
+      // floating_matrix4 m_viewMatrix;
+      // floating_matrix4 m_projMatrix;
+      // floating_matrix4 m_inverseViewMatrix{1.f};
    };
 
 

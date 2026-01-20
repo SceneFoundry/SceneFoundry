@@ -22,10 +22,9 @@ namespace SceneFoundry_pbr_renderer
    ::pointer<::graphics3d::scene_base> immersion::create_main_scene()
    {
 
-      auto pinput = øcreate_new < ::SceneFoundry_pbr_renderer::SandboxMNKController >();
+      auto pinput = øcreate_new < ::SceneFoundry_pbr_renderer::input >();
 
-
-      pinput->initialize_SandboxMNKController();
+      pinput->initialize_input();
       //pinput->m_fMoveSpeed = 3.f;
       //pinput->m_fLookSpeed = 1.5f;
 
@@ -34,10 +33,10 @@ namespace SceneFoundry_pbr_renderer
       // m_pengine->m_pinput->m_pusergraphics3d = m_pengine->m_pusergraphics3d;
       pinput->m_pengine = m_pengine;
 
-
       auto psceneMain = create_scene<main_scene>("main");
 
       return psceneMain;
+
    }
 
 
@@ -48,7 +47,7 @@ namespace SceneFoundry_pbr_renderer
       auto rot = set.get("rotation", ::float_array_base{0.f, 0.f, 0.f});
 
       m_initialCameraPosition = {pos[0], pos[1], pos[2]};
-      m_initialCameraRotation = {::radians(rot[0]), ::radians(rot[1]), ::radians(rot[2])};
+      m_initialCameraRotation = {::degrees(rot[0]), degrees(rot[1])};
 
       m_pscene->m_bInitialCameraLoaded = true;
 
@@ -61,7 +60,7 @@ namespace SceneFoundry_pbr_renderer
    {
 
 
-      auto pcameraLoaded = øcreate_new<SandboxCamera>();
+      auto pcameraLoaded = øcreate_new<::SceneFoundry_pbr_renderer::camera>();
 
       //pcameraLoaded->initialize_SandboxCamera(floating_sequence3(0.f, 0.f, 3.f));
 
@@ -86,10 +85,9 @@ namespace SceneFoundry_pbr_renderer
       //pcameraLoaded->m_pitch = m_initialCameraRotation.x;
 
       //pcameraLoaded->m_yaw = m_initialCameraRotation.y;
-      pcameraLoaded->initialize_SandboxCamera(
+      pcameraLoaded->initialize_camera(
          m_initialCameraPosition, 
-         m_initialCameraRotation.y, 
-         m_initialCameraRotation.x);
+         m_initialCameraRotation);
 
       m_pscene->set_default_camera(pcameraLoaded);
       
