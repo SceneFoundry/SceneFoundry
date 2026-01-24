@@ -17,7 +17,9 @@ namespace SceneFoundry_SceneFoundry
       ~ camera() override;
 
       
-      void initialize_camera(floating_sequence3 position, float yawDeg = -90.f, float pitchDeg = 0.f, float zoomDeg = 45.f);
+      void initialize_camera(const ::floating_sequence3 &position,
+                                     const ::graphics3d::floating_rotation &rotation = {-90_degree, 0_degree},
+                                     const floating_angle &zoom = 60_f_degree);
 
       // void updateView();
       // void updateProjection(float aspect, float nearZ = 0.1f, float farZ = 100.f);

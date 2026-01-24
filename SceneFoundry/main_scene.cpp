@@ -48,8 +48,8 @@ namespace SceneFoundry_SceneFoundry
 
       ::cast<immersion> pimmersion = m_pimmersionlayer;
 
-      pprodevianactor->transform().m_vec3Position = pimmersion->m_initialCameraPosition;
-      pprodevianactor->transform().m_vec3Rotation = pimmersion->m_initialCameraRotation;
+      pprodevianactor->camera()->transform().m_sequence3Position = pimmersion->m_initialCameraPosition;
+      pprodevianactor->camera()->m_rotaion = pimmersion->m_initialCameraRotation;
       // pprodevianactor->onInit();
 
       m_prodevianactora.add(pprodevianactor);
@@ -328,7 +328,7 @@ namespace SceneFoundry_SceneFoundry
 
       auto dt = m_pimmersionlayer->m_pengine->dt();
                    
-      ::cast<SandboxMNKController> pinput = m_pimmersionlayer->m_pengine->m_pinput;
+      ::cast<input> pinput = m_pimmersionlayer->m_pengine->m_pinput;
       //double dx = 0, dy = 0;
       //m_pInput->getMouseDelta(dx, dy);
       //m_controller.mouseCallback(floating_sequence2(dx, dy));
