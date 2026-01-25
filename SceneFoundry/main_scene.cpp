@@ -11,7 +11,9 @@
 #include "app-graphics3d/graphics3d/render_system/gltf_render_system.h"
 #include "bred/graphics3d/render_system/wavefront_obj_render_system.h"
 #include "bred/graphics3d/render_system/point_light_render_system.h"
+#include "bred/graphics3d/render_system/skybox_render_system.h"
 #include "app-graphics3d/graphics3d/render_system/scene_render_system.h"
+#include "bred/gpu/block.h"
 #include "bred/graphics3d/camera.h"
 #include "bred/graphics3d/engine.h"
 #include "bred/graphics3d/point_light.h"
@@ -48,15 +50,14 @@ namespace SceneFoundry_SceneFoundry
 
       ::cast<immersion> pimmersion = m_pimmersionlayer;
 
-      pprodevianactor->camera()->transform().m_sequence3Position = pimmersion->m_initialCameraPosition;
-      pprodevianactor->camera()->m_rotaion = pimmersion->m_initialCameraRotation;
+      pprodevianactor->camera()->m_sequence3Position = pimmersion->m_initialCameraPosition;
+      pprodevianactor->camera()->m_rotation = pimmersion->m_rotationInitialCamera;
       // pprodevianactor->onInit();
 
       m_prodevianactora.add(pprodevianactor);
 
-
       m_papp->m_pmainscene = this;
-v
+
       if (!m_pcameraDefault)
       {
 
@@ -94,7 +95,7 @@ v
    void main_scene::on_load_scene(::gpu::context* pgpucontext)
    {
 
-      m_gpupropertiesGlobalUbo.set<::SceneFoundry_SceneFoundry::global_ubo>();
+      //m_propertiesGlobalUbo.set<::SceneFoundry_SceneFoundry::global_ubo>();
 
       loadSceneFile("default_scene");
 
@@ -250,11 +251,13 @@ v
 
       if (1)
       {
-         øconstruct_new(m_pskyboxiblrendersystem);
 
-         m_pskyboxiblrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
+         øconstruct_new(m_pskyboxrendersystem);
 
-         m_pskyboxiblrendersystem->prepare(pgpucontext);
+         m_pskyboxrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
+
+         m_pskyboxrendersystem->prepare(pgpucontext);
+
       }
 
       //    // Try to get skybox object from scene
@@ -310,9 +313,11 @@ v
 
       //m_pskyboxiblrendersystem->set_skybox(get_skybox());
 
-      auto& globalubo = this->global_ubo();
+      auto pcontext = m_pgpucontext;
 
+      auto pglobalubo = this->global_ubo1(pcontext);
 
+      auto & globalUbo1 = *pglobalubo;
 
       //pgpucontext->clear(::argb(.5f, 0.f, 0.f, 0.5f));
 
@@ -324,7 +329,7 @@ v
 
       auto pgpucamera = pscene->camera();
 
-      ::cast<SandboxCamera> pcamera = pgpucamera;
+      ::cast<::SceneFoundry_SceneFoundry::camera> pcamera = pgpucamera;
 
       auto dt = m_pimmersionlayer->m_pengine->dt();
                    
@@ -332,29 +337,48 @@ v
       //double dx = 0, dy = 0;
       //m_pInput->getMouseDelta(dx, dy);
       //m_controller.mouseCallback(floating_sequence2(dx, dy));
-      pinput->update(dt, m_pimmersionlayer->m_pengine->m_transform);
+      auto &transform = m_pimmersionlayer->m_pengine->m_transform;
 
-      pcamera->setPosition(m_pimmersionlayer->m_pengine->m_transform.m_vec3Position);
-      pcamera->setRotation(m_pimmersionlayer->m_pengine->m_transform.m_vec3Rotation);
+      pinput->_017Update(dt, transform);
 
+      auto positionTransform = transform.m_sequence3Position;
 
-      //float aspect = h == 0 ? 1.0f : static_cast<float>(w) / h;
+      pcamera->m_sequence3Position = positionTransform;
+
+      pcamera->m_rotation = transform.m_rotation;
+
       auto aspect = m_pimmersionlayer->m_pengine->m_pusergraphics3d->getAspectRatio();
-      pcamera->updateProjection(aspect, 0.1f, 300.f);
+
+      pcamera->m_fAspectRatio = aspect;
+
+      pcamera->m_fNearZ = 0.1f;
+
+      pcamera->m_fFarZ = 100.0f;
+
+      pcamera->m_angleFovY = 60.0_f_degrees;
+
+      pcamera->update_vectors();
+
+      pcamera->update();
+
+      auto projection = pcamera->projection();
+      globalUbo1["projection"] = projection;
 
 
-      pcamera->updateVectors();
-      pcamera->updateView();
+      auto impact = pcamera->impact();
+      globalUbo1["view"] = impact;
+
+      ::floating_sequence4 seq4AmbientLightColor(0.2f, 0.2f, 0.2f, 0.2f);
+      globalUbo1["ambientLightColor"] = seq4AmbientLightColor;
+
+      // auto inversedImpact = pcamera->inversed_impact();
+      auto inversedImpact = impact.inversed();
+      globalUbo1["invView"] = inversedImpact;
 
 
-      auto projection = pcamera->getProjectionMatrix();
-      globalubo["projection"] = projection;
 
-      auto view = pcamera->getViewMatrix();
-      globalubo["view"] = view;
-
-      auto viewPos = floating_sequence4(pcamera->getPosition(), 1.0f);
-      globalubo["viewPos"] = viewPos;
+      auto cameraPosition = pcamera->position();
+      globalUbo1["cameraPosition"] = cameraPosition;
 
       //auto inverseView = pcamera->getInverseView();
       //globalubo["invView"] = inverseView;
@@ -367,7 +391,6 @@ v
          m_ppointlightrendersystem->update(pgpucontext, this);
 
       }
-
 
    }
 
@@ -389,12 +412,12 @@ v
 
 if (1)
 {
-   auto pskyboxiblrendersystem = m_pskyboxiblrendersystem;
+   auto pskyboxrendersystem = m_pskyboxrendersystem;
 
-   if (pskyboxiblrendersystem)
+   if (pskyboxrendersystem)
    {
 
-      pskyboxiblrendersystem->render(pgpucontext, this);
+      pskyboxrendersystem->render(pgpucontext, this);
 
    }
 }

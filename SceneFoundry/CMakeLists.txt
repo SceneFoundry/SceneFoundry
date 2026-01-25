@@ -108,9 +108,8 @@ list(APPEND library_references
         berg
         bred
         core
-        #sandbox
-        #sandbox_renderer
-        #sandbox_engine
+         gpu
+        graphics3d
 )
 
 

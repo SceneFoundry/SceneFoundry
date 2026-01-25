@@ -25,7 +25,7 @@ namespace SceneFoundry_SceneFoundry
       auto pinput = øcreate_new < ::SceneFoundry_SceneFoundry::input >();
 
 
-      pinput->initialize_SandboxMNKController();
+      pinput->initialize_input();
       //pinput->m_fMoveSpeed = 3.f;
       //pinput->m_fLookSpeed = 1.5f;
 
@@ -48,12 +48,13 @@ namespace SceneFoundry_SceneFoundry
       auto rot = set.get("rotation", ::float_array_base{0.f, 0.f, 0.f});
 
       m_initialCameraPosition = {pos[0], pos[1], pos[2]};
-      m_initialCameraRotation = {::radians(rot[0]), ::radians(rot[1]), ::radians(rot[2])};
+      m_initialCameraRotation = {rot[0], rot[1], rot[2]};
 
       m_pscene->m_bInitialCameraLoaded = true;
 
       information("Camera position: ({}, {}, {}), rotation (deg): ({}, {}, {})", pos[0], pos[1], pos[2], rot[0], rot[1],
                   rot[2]);
+
    }
 
 
@@ -61,7 +62,7 @@ namespace SceneFoundry_SceneFoundry
    {
 
 
-      auto pcameraLoaded = øcreate_new<SandboxCamera>();
+      auto pcameraLoaded = øcreate_new<SceneFoundry_SceneFoundry::camera>();
 
       //pcameraLoaded->initialize_SandboxCamera(floating_sequence3(0.f, 0.f, 3.f));
 
@@ -86,10 +87,9 @@ namespace SceneFoundry_SceneFoundry
       //pcameraLoaded->m_pitch = m_initialCameraRotation.x;
 
       //pcameraLoaded->m_yaw = m_initialCameraRotation.y;
-      pcameraLoaded->initialize_SandboxCamera(
+      pcameraLoaded->initialize_camera(
          m_initialCameraPosition, 
-         m_initialCameraRotation.y, 
-         m_initialCameraRotation.x);
+         m_rotationInitialCamera);
 
       m_pscene->set_default_camera(pcameraLoaded);
       
