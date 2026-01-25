@@ -56,7 +56,7 @@ namespace SceneFoundry_SceneFoundry
 
 
       m_papp->m_pmainscene = this;
-
+v
       if (!m_pcameraDefault)
       {
 
