@@ -62,6 +62,15 @@ add_dependencies(${PROJECT_NAME} crypto_openssl)
 add_dependencies(${PROJECT_NAME} experience_core)
 add_dependencies(${PROJECT_NAME} folder_zip)
 
+if(${WITH_X11_OPERATING_AMBIENT})
+   add_dependencies(${PROJECT_NAME} operating_ambient_x11)
+endif()
+if(${INCLUDE_OPENGL})
+   add_dependencies(${PROJECT_NAME} typeface_freetype)
+endif()
+
+
+
 if(${WIN32})
 
 add_dependencies(${PROJECT_NAME} draw2d_direct2d)
