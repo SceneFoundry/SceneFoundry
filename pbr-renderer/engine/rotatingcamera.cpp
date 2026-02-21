@@ -2,8 +2,9 @@
 #include "rotatingcamera.h"
 #include "bred/gpu/context.h"
 #include "bred/graphics3d/engine.h"
+#include "bred/graphics3d/_functions.h"
 
-#include "gpu/gltf/_constant.h"
+//#include "gpu/gltf/_constant.h"
 
 
 namespace SceneFoundry_pbr_renderer
@@ -26,15 +27,17 @@ namespace SceneFoundry_pbr_renderer
    floating_sequence3 RotatingCamera::getPosition() { return mPosition; }
 
    floating_matrix4 RotatingCamera::getViewMatrix() { 
-      auto pgpucontext = m_pengine->gpu_context();
+      //auto pgpucontext = m_pengine->gpu_context();
       
-      return pgpucontext->lookAt(mPosition, ::gpu::gltf::origin, mUp); }
+      //return pgpucontext->look_at(mPosition, ::gpu::gltf::origin, mUp); 
+      return ::graphics3d::lookAt(mPosition, ::graphics3d::origin, mUp); 
+   }
 
    floating_matrix4 RotatingCamera::getProjectionMatrix()
    {
 
-      auto pgpucontext = m_pengine->gpu_context();
-      floating_matrix4 projection = pgpucontext->perspective(::radians(mFov), getAspectRatio(), mZNear, mZFar);
+      //auto pgpucontext = m_pengine->gpu_context();
+      floating_matrix4 projection = m_pengine->perspective(::radians(mFov), getAspectRatio(), mZNear, mZFar);
       return projection;
    }
 
@@ -43,7 +46,7 @@ namespace SceneFoundry_pbr_renderer
       mTime += frameTimeDelta;
 
       float percentOfCircle = mTime / mTimePerCircle;
-      float angle = percentOfCircle * 2.0 * ::gpu::gltf::PI;
+      float angle = percentOfCircle * 2.f * πf;
 
       mPosition.x = sin(angle) * mRadius;
       mPosition.z = cos(angle) * mRadius;
@@ -51,23 +54,23 @@ namespace SceneFoundry_pbr_renderer
 
    void RotatingCamera::drawDebugPanel()
    {
-      if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_DefaultOpen))
-      {
-         ImGui::Text("View");
-         ImGui::InputFloat3("up", &mUp.x);
-         ImGui::InputFloat3("position", &mPosition.x);
+      //if (ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_DefaultOpen))
+      //{
+      //   ImGui::Text("View");
+      //   ImGui::InputFloat3("up", &mUp.x);
+      //   ImGui::InputFloat3("position", &mPosition.x);
 
-         float aspectRatio = getAspectRatio();
+      //   float aspectRatio = getAspectRatio();
 
-         ImGui::Separator();
+      //   ImGui::Separator();
 
-         ImGui::Text("Projection");
-         ImGui::SliderFloat("fov (degrees)", &mFov, 0.0f, 180.0f);
-         ImGui::InputInt2("window", mWindowDimensions);
-         ImGui::InputFloat("aspect ratio", &aspectRatio);
-         ImGui::DragFloat("z-plane near", &mZNear, 0.01f, 0.0f, 1000.0f);
-         ImGui::DragFloat("z-plane far", &mZFar, 0.01f, 0.0f, 1000.0f);
-      }
+      //   ImGui::Text("Projection");
+      //   ImGui::SliderFloat("fov (degrees)", &mFov, 0.0f, 180.0f);
+      //   ImGui::InputInt2("window", mWindowDimensions);
+      //   ImGui::InputFloat("aspect ratio", &aspectRatio);
+      //   ImGui::DragFloat("z-plane near", &mZNear, 0.01f, 0.0f, 1000.0f);
+      //   ImGui::DragFloat("z-plane far", &mZFar, 0.01f, 0.0f, 1000.0f);
+      //}
    }
 
 
