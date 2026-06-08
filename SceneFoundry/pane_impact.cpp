@@ -141,7 +141,7 @@ namespace SceneFoundry_SceneFoundry
          if (ptabpaneFileManager != nullptr && ptabpaneFileManager->m_pplaceholder != nullptr)
          {
 
-            ptabpaneFileManager->m_pplaceholder->hide();
+            ptabpaneFileManager->m_pplaceholder->display(::e_display_hide, {});
 
          }
 
@@ -150,7 +150,7 @@ namespace SceneFoundry_SceneFoundry
          if (ptabpaneFontSel != nullptr && ptabpaneFontSel->m_pplaceholder != nullptr)
          {
 
-            ptabpaneFontSel->m_pplaceholder->hide();
+            ptabpaneFontSel->m_pplaceholder->display(::e_display_hide, {});
 
          }
 
@@ -159,7 +159,7 @@ namespace SceneFoundry_SceneFoundry
          if (ptabpaneColorSel != nullptr && ptabpaneColorSel->m_pplaceholder != nullptr)
          {
 
-            ptabpaneColorSel->m_pplaceholder->hide();
+            ptabpaneColorSel->m_pplaceholder->display(::e_display_hide, {});
 
          }
 
@@ -287,7 +287,7 @@ namespace SceneFoundry_SceneFoundry
    void pane_impact::on_create_impact(::user::impact_data * pimpactdata)
    {
 
-      switch (pimpactdata->id().as_int())
+      switch (pimpactdata->id().as_i32())
       {
          //case GCOM_IMPACT:
          //{

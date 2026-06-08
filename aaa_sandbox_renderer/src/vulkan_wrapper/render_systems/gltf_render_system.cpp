@@ -114,7 +114,7 @@ void gltf_render_system::createPipeline(VkRenderPass renderPass) {
     // opaqueConfig.bindingDescriptions = bindings;
     // opaqueConfig.attributeDescriptions = attributes;
 
-    m_opaquePipeline = øcreate_pointer<sandbox_renderer::pipeline>(
+    m_opaquePipeline = createø_pointer<sandbox_renderer::pipeline>(
         //m_pgpudevice, vertSpv, fragSpv, opaqueConfig);
         m_pgpudevice, vertSpv, fragSpv);
 
@@ -141,7 +141,7 @@ void gltf_render_system::createPipeline(VkRenderPass renderPass) {
     //
     // maskConfig.fragSpecInfo = &specInfo;
 
-    m_maskPipeline = øcreate_pointer<sandbox_renderer::pipeline>(
+    m_maskPipeline = createø_pointer<sandbox_renderer::pipeline>(
         //m_pgpudevice, vertSpv, fragSpv, maskConfig);
         m_pgpudevice, vertSpv, fragSpv);
 
@@ -167,7 +167,7 @@ void gltf_render_system::createPipeline(VkRenderPass renderPass) {
     //     VK_COLOR_COMPONENT_B_BIT |
     //     VK_COLOR_COMPONENT_A_BIT;
 
-    m_blendPipeline = øcreate_pointer<sandbox_renderer::pipeline>(
+    m_blendPipeline = createø_pointer<sandbox_renderer::pipeline>(
     m_pgpudevice, vertSpv, fragSpv);
         //m_pgpudevice, vertSpv, fragSpv, blendConfig);
 }

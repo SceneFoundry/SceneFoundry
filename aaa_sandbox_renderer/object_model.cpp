@@ -62,7 +62,7 @@ namespace sandbox_renderer
    // {
    //    Builder builder{};
    //    builder.loadModel(filepath, isSkybox);
-   //    return øcreate_pointer<object_model>(pdevice, builder);
+   //    return createø_pointer<object_model>(pdevice, builder);
    // }
    //
 
@@ -70,7 +70,7 @@ namespace sandbox_renderer
    void object_model::createVertexBuffers(const ::array_base<Vertex>& vertexes)
    {
 
-      øconstruct(m_pmodelbuffer);
+      constructø(m_pmodelbuffer);
 
       m_pmodelbuffer->static_initialize_vertexes(vertexes);
 
@@ -90,7 +90,7 @@ namespace sandbox_renderer
       // stagingBuffer.map();
       // stagingBuffer.writeToBuffer((void*)vertexes.data());
       //
-      // m_vertexBuffer = øcreate_pointer<sandbox_buffer>(
+      // m_vertexBuffer = createø_pointer<sandbox_buffer>(
       //    m_pgpudevice,
       //    vertexSize,
       //    m_vertexCount,
@@ -104,7 +104,7 @@ namespace sandbox_renderer
    void object_model::createIndexBuffers(const ::array_base<uint32_t>& indexes)
    {
 
-      øconstruct(m_pmodelbuffer);
+      constructø(m_pmodelbuffer);
 
       m_pmodelbuffer->static_initialize_indexes(indexes);
 
@@ -126,7 +126,7 @@ namespace sandbox_renderer
       // stagingBuffer.map();
       // stagingBuffer.writeToBuffer((void*)indexes.data());
       //
-      // m_indexBuffer = øcreate_pointer<sandbox_buffer>(
+      // m_indexBuffer = createø_pointer<sandbox_buffer>(
       //    m_pgpudevice,
       //    indexSize,
       //    m_indexCount,

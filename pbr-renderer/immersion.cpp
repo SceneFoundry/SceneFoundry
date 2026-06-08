@@ -22,7 +22,7 @@ namespace SceneFoundry_pbr_renderer
    ::pointer<::graphics3d::scene_base> immersion::create_main_scene()
    {
 
-      auto pinput = øcreate_new < ::SceneFoundry_pbr_renderer::input >();
+      auto pinput = create_newø < ::SceneFoundry_pbr_renderer::input >();
 
       pinput->initialize_input();
       //pinput->m_fMoveSpeed = 3.f;
@@ -43,8 +43,8 @@ namespace SceneFoundry_pbr_renderer
    void immersion::load_camera(const ::property_set &set)
    {
 
-      auto pos = set.get("position", ::float_array_base{0.f, 0.f, 0.f});
-      auto rot = set.get("rotation", ::float_array_base{0.f, 0.f, 0.f});
+      auto pos = set.get("position", ::f32_array_base{0.f, 0.f, 0.f});
+      auto rot = set.get("rotation", ::f32_array_base{0.f, 0.f, 0.f});
 
       m_initialCameraPosition = {pos[0], pos[1], pos[2]};
       m_initialCameraRotation = {::degrees(rot[0]), degrees(rot[1])};
@@ -60,7 +60,7 @@ namespace SceneFoundry_pbr_renderer
    {
 
 
-      auto pcameraLoaded = øcreate_new<::SceneFoundry_pbr_renderer::camera>();
+      auto pcameraLoaded = create_newø<::SceneFoundry_pbr_renderer::camera>();
 
       //pcameraLoaded->initialize_SandboxCamera(floating_sequence3(0.f, 0.f, 3.f));
 
@@ -71,7 +71,7 @@ namespace SceneFoundry_pbr_renderer
       //floating_sequence3 target = floating_sequence3(0.0f, 0.0f, 0.0f); // Look at origin
       //// floating_sequence3 direction = glm::normalize(target - cameraPos);
       //// camera camera{ floating_sequence3(0.0f, 2.0f, -15.0f), -90.0f, 0.0f };
-      //auto pcameraDefault = øcreate<SandboxCamera>();
+      //auto pcameraDefault = createø<SandboxCamera>();
       //pcameraDefault->m_pengine = m_pimmersionlayer->m_pengine;
       
       // pcamera->m_pimpact = m_pimpact;

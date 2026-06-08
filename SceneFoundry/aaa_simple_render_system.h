@@ -87,7 +87,7 @@
 // GPU_PROPERTY("invView", ::gpu::e_type_mat4)
 // GPU_PROPERTY("ambientLightColor", ::gpu::e_type_seq4)
 // GPU_PROPERTY("pointLights", ::gpu_properties<::graphics3d::point_light>(), ::graphics3d::point_light_t::MAX_LIGHTS)
-// GPU_PROPERTY("numLights", ::gpu::e_type_int)
+// GPU_PROPERTY("numLights", ::gpu::e_type_i32)
 // GPU_PROPERTY("padding1", ::gpu::e_type_float)
 // GPU_PROPERTY("padding2", ::gpu::e_type_float)
 // GPU_PROPERTY("padding3", ::gpu::e_type_float)

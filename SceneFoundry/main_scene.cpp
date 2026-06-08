@@ -44,7 +44,7 @@ namespace SceneFoundry_SceneFoundry
 
       //m_pusergraphics3d = m_pengine->m_pusergraphics3d;
 
-      auto pprodevianactor = øcreate_new<::prodevian::actor>();
+      auto pprodevianactor = create_newø<::prodevian::actor>();
 
       pprodevianactor->initialize_prodevian_actor(this);
 
@@ -76,7 +76,7 @@ namespace SceneFoundry_SceneFoundry
    //    floating_sequence3 target = floating_sequence3(0.0f, 0.0f, 0.0f); // Look at origin
    //    //floating_sequence3 direction = glm::normalize(target - cameraPos);
    //    //camera camera{ floating_sequence3(0.0f, 2.0f, -15.0f), -90.0f, 0.0f };
-   //    auto pcamera = øcreate < ::graphics3d::camera>();
+   //    auto pcamera = createø < ::graphics3d::camera>();
    //    pcamera->m_pengine = m_pengine;
    //    pcamera->initialize_camera(target, camera);
    //    //pcamera->m_pimpact = m_pimpact;
@@ -133,14 +133,14 @@ namespace SceneFoundry_SceneFoundry
 //      //  }
 //      //};
 //
-////      m_Skybox = øallocate::graphics3d::sky_box();
+////      m_Skybox = allocateø::graphics3d::sky_box();
 //
 //      for (auto& strSkybox : m_papp->m_straSkybox)
 //      {
 //
 //         auto& pskybox = m_mapSkybox[strSkybox];
 //
-//         ødefer_construct_new(pskybox);
+//         defer_constructø_new(pskybox);
 //
 //         pskybox->initialize_sky_box(m_pengine, strSkybox);
 //
@@ -222,20 +222,20 @@ namespace SceneFoundry_SceneFoundry
 //         //add_object(pointLight);
 //
 //      }
-      øconstruct(m_pscenerendersystem);
+      constructø(m_pscenerendersystem);
 
       m_pscenerendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
 
       m_pscenerendersystem->prepare(pgpucontext);
 
-      øconstruct(m_pgltfrendersystem);
+      constructø(m_pgltfrendersystem);
 
       m_pgltfrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
 
       m_pgltfrendersystem->prepare(pgpucontext);
 
 
-      øconstruct_new(m_pwavefrontobjrendersystem);
+      construct_newø(m_pwavefrontobjrendersystem);
 
       m_pwavefrontobjrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
 
@@ -243,7 +243,7 @@ namespace SceneFoundry_SceneFoundry
       //m_prenderer->getRenderPass(),
       //globalSetLayout->getDescriptorSetLayout() };
 
-      øconstruct_new(m_ppointlightrendersystem);
+      construct_newø(m_ppointlightrendersystem);
 
       m_ppointlightrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
 
@@ -252,7 +252,7 @@ namespace SceneFoundry_SceneFoundry
       if (1)
       {
 
-         øconstruct_new(m_pskyboxrendersystem);
+         construct_newø(m_pskyboxrendersystem);
 
          m_pskyboxrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
 

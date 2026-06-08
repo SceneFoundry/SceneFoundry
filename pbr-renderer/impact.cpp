@@ -31,7 +31,7 @@ namespace SceneFoundry_pbr_renderer
    {
 
       ///m_emouse = ::graphics3d::e_mouse_updateLook;
-      m_flagNonClient -= e_non_client_background;
+      m_enonclient -= ::user::e_non_client_background;
       m_iSequence = 0;
       m_bNeedFullRedrawOnResize = true;
       
@@ -168,7 +168,7 @@ namespace SceneFoundry_pbr_renderer
 //
 //      }
 //
-//      ::double_rectangle rectangleClipBox;
+//      ::f64_rectangle rectangleClipBox;
 //
 //      //pgraphics->reset_clip();
 //
@@ -196,7 +196,7 @@ namespace SceneFoundry_pbr_renderer
 //
 //#ifdef DEBUG_WORK
 //
-//         ::int_rectangle rectangleDryProWithLove_Work(5, 5, 1915, 1075);
+//         ::i32_rectangle rectangleDryProWithLove_Work(5, 5, 1915, 1075);
 //
 //         pgraphics->fill_rectangle(rectangleDryProWithLove_Work, argb(255, 150, 200, 255));
 //
@@ -372,7 +372,7 @@ namespace SceneFoundry_pbr_renderer
 
                } catch (...) {
                   auto pmessagebox = message_box("No file loaded...");
-                  pmessagebox->async();
+                  post(pmessagebox);
                }
                
             });
@@ -406,7 +406,7 @@ namespace SceneFoundry_pbr_renderer
    ::pointer<::prodevian::immersion > impact::create_immersion()
    {
 
-      auto pimmersionSceneFoundry = øcreate_new<SceneFoundry_pbr_renderer::immersion>();
+      auto pimmersionSceneFoundry = create_newø<SceneFoundry_pbr_renderer::immersion>();
 
       return pimmersionSceneFoundry;
 
@@ -434,7 +434,7 @@ namespace SceneFoundry_pbr_renderer
    ::pointer < ::graphics3d::key_map > impact::get_default_key_map()
    {
 
-      auto pmap = øcreate_new < ::graphics3d::key_map>();
+      auto pmap = create_newø < ::graphics3d::key_map>();
       using namespace ::graphics3d;
 
       pmap->map(e_key_moveLeft, ::user::e_key_a);

@@ -70,7 +70,7 @@
 //          throw std::runtime_error("failed to create descriptor set layout!");
 //       }
 //
-//       return øcreate_pointer<sandbox_descriptor_set_layout>(m_pgpudevice, setBindings, layout);
+//       return createø_pointer<sandbox_descriptor_set_layout>(m_pgpudevice, setBindings, layout);
 //    }
 //    // *************** Descriptor Set Layout *********************
 //
@@ -112,7 +112,7 @@
 //    }
 //
 //    ::pointer<::sandbox_renderer::sandbox_descriptor_pool> sandbox_descriptor_pool::Builder::build() const {
-//       return øcreate_pointer<::sandbox_renderer::sandbox_descriptor_pool>(m_pgpudevice, m_maxSets, m_poolFlags, m_poolSizes);
+//       return createø_pointer<::sandbox_renderer::sandbox_descriptor_pool>(m_pgpudevice, m_maxSets, m_poolFlags, m_poolSizes);
 //    }
 //
 //    // *************** Descriptor Pool *********************

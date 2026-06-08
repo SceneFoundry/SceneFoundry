@@ -18,7 +18,7 @@
 //
 //       sandbox_swap_chain(
 //          device * deviceRef,
-//          const ::int_size & size);
+//          const ::i32_size & size);
 //
 //       sandbox_swap_chain(device * pdevice,
 //          VkExtent2D      extent,

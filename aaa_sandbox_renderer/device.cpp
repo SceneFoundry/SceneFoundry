@@ -159,7 +159,7 @@ namespace sandbox_renderer
    //
    //    ::pointer < ::sandbox_renderer::pipeline> ppipeline;
    //
-   //    øconstruct(ppipeline);
+   //    constructø(ppipeline);
    //
    //    return ppipeline;
    //

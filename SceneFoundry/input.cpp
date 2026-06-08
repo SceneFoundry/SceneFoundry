@@ -20,7 +20,7 @@ namespace SceneFoundry_SceneFoundry
       input::~input() {}
 
 
-   void input::initialize_input(float moveSpeed, const float_angle & mouseSensitivity)
+   void input::initialize_input(float moveSpeed, const f32_angle & mouseSensitivity)
    {
       ::graphics3d::input::initialize_input(moveSpeed, mouseSensitivity);;
       //m_moveSpeed = moveSpeed;

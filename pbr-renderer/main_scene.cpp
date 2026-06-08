@@ -46,7 +46,7 @@ namespace SceneFoundry_pbr_renderer
 
       scene_base::on_initialize_particle();
 
-      auto pprodevianactor = øcreate_new<::prodevian::actor>();
+      auto pprodevianactor = create_newø<::prodevian::actor>();
 
       pprodevianactor->initialize_prodevian_actor(this);
 
@@ -75,13 +75,13 @@ namespace SceneFoundry_pbr_renderer
 
       loadSceneFile("default_scene");
 
-      øconstruct(m_pscenerendersystem);
+      constructø(m_pscenerendersystem);
 
       m_pscenerendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
 
       m_pscenerendersystem->prepare(pgpucontext);
 
-      øconstruct(m_pgltfrendersystem);
+      constructø(m_pgltfrendersystem);
 
       m_pgltfrendersystem->m_bDisableAlbedo = false;
       m_pgltfrendersystem->m_bDisableMetallicRoughness = false;
@@ -105,7 +105,7 @@ namespace SceneFoundry_pbr_renderer
       m_pgltfrendersystem->prepare(pgpucontext);
 
 
-      øconstruct(m_pwavefrontobjrendersystem);
+      constructø(m_pwavefrontobjrendersystem);
 
       m_pwavefrontobjrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
 
@@ -113,13 +113,13 @@ namespace SceneFoundry_pbr_renderer
       //m_prenderer->getRenderPass(),
       //globalSetLayout->getDescriptorSetLayout() };
 
-      øconstruct_new(m_ppointlightrendersystem);
+      construct_newø(m_ppointlightrendersystem);
 
       m_ppointlightrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
 
       m_ppointlightrendersystem->prepare(pgpucontext);
 
-      øconstruct(m_pskyboxrendersystem);
+      constructø(m_pskyboxrendersystem);
 
       m_pskyboxrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
 

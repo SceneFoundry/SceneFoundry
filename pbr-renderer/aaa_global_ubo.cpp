@@ -10,7 +10,7 @@
 //GPU_PROPERTY("ambientLightColor", ::gpu::e_type_seq4)
 //GPU_PROPERTY("cameraPosition", ::gpu::e_type_seq3)
 //GPU_PROPERTY("pointLights", ::gpu_properties<::gpu::point_light>(), ::SceneFoundry_pbr_renderer::global_ubo::MAX_LIGHTS)
-//GPU_PROPERTY("numLights", ::gpu::e_type_int)
+//GPU_PROPERTY("numLights", ::gpu::e_type_i32)
 //GPU_PROPERTY("padding1", ::gpu::e_type_float)
 //GPU_PROPERTY("padding2", ::gpu::e_type_float)
 //GPU_PROPERTY("padding3", ::gpu::e_type_float)

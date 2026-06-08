@@ -39,7 +39,7 @@ namespace SceneFoundry_pbr_renderer
       float cameraInitialYaw = 0;
       float cameraInitialPitch = 0;
 
-      m_pcamera = øcreate_new<Camera>();
+      m_pcamera = create_newø<Camera>();
       
       m_pcamera->initialize_Camera(cameraUp, cameraInitialPosition, cameraInitialYaw, cameraInitialPitch,
                                            m_pusergraphics3d->width(), m_pusergraphics3d->height());

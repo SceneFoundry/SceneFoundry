@@ -31,7 +31,7 @@ namespace sandbox_renderer
 		//: m_pgpudevice{ pdevice }
 	{
 
-		øconstruct(m_pshader);
+		constructø(m_pshader);
 
 		m_pshader->initialize_shader(
 			pdevice->m_pgpucontext->m_pgpurenderer,
@@ -59,7 +59,7 @@ namespace sandbox_renderer
 	// 	const ::scoped_string& fragFilepath)
 	// {
 	//
-	// 	øconstruct(m_pshader);
+	// 	constructø(m_pshader);
 	//
 	// 	m_pshader->initialize_shader(
 	// 		pdevice->m_pgpucontext->m_pgpurenderer,

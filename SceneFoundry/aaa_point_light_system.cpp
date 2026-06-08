@@ -54,7 +54,7 @@ namespace SceneFoundry_SceneFoundry
       //createPipelineLayout(globalSetLayout);
       //createPipeline(renderPass);
 
-      ødefer_construct(m_pmodelDummy);
+      defer_constructø(m_pmodelDummy);
 
       // ::graphics3d::model::Builder builderDummy;
 
@@ -125,7 +125,7 @@ namespace SceneFoundry_SceneFoundry
    //   std::string vertShaderPath = "matter://Shaders/SpirV/point_light.vert.spv";
    //   std::string fragShaderPath = "matter://Shaders/SpirV/point_light.frag.spv";
 
-   //   m_ppipeline = øallocate pipeline();
+   //   m_ppipeline = allocateø pipeline();
 
    //   m_ppipeline->initialize_pipeline(
    //      m_pgpucontext,

@@ -200,7 +200,7 @@ namespace SceneFoundry_SceneFoundry
 
       auto pstillTitle = create_label<::user::still>(pparent, "graphics3d continuum Options");
 
-      ødefer_construct(pstillTitle->m_pfont);
+      defer_constructø(pstillTitle->m_pfont);
 
       pstillTitle->m_pfont->create_font(e_font_sans_ui, 24_pt);
 
@@ -335,15 +335,15 @@ namespace SceneFoundry_SceneFoundry
 
       //m_peditYeeColor->set_text(strYeeColor, ::e_source_initialize);
 
-      //auto pstill = øallocate ::user::still();
+      //auto pstill = allocateø ::user::still();
 
-      //øconstruct_new(m_pedit);
+      //construct_newø(m_pedit);
 
-      //øconstruct_new(m_pbuttonClear);
+      //construct_newø(m_pbuttonClear);
 
-      //øconstruct_new(m_pbuttonSend);
+      //construct_newø(m_pbuttonSend);
 
-      //øconstruct_new(m_pstillReceiver);
+      //construct_newø(m_pstillReceiver);
 
       //m_pstill->create_control(this, "still");
 
