@@ -254,9 +254,9 @@ namespace SceneFoundry_pbr_renderer
    void main_scene::on_render(::gpu::context * pgpucontext)
    {
 
-      //pgpucontext->clear(pgpucontext->current_target_texture(::gpu::current_frame()), argb(1.0f, 0.5f, 0.75f, 1.0f)); // Clear with a light blue color
-      //pgpucontext->clear(pgpucontext->current_target_texture(::gpu::current_frame()), ::color::transparent); // Clear with a transparent
-      pgpucontext->clear(pgpucontext->current_target_texture(::gpu::current_frame()),argb(0.95f, 0.85f, 0.75f, 0.25f)); // Clear with a transparent
+      //pgpucontext->clear(pgpucontext->current_target_texture(::gpu::current_layer()), argb(1.0f, 0.5f, 0.75f, 1.0f)); // Clear with a light blue color
+      //pgpucontext->clear(pgpucontext->current_target_texture(::gpu::current_layer()), ::color::transparent); // Clear with a transparent
+      pgpucontext->clear(pgpucontext->current_target_texture(::gpu::current_layer()),argb(0.95f, 0.85f, 0.75f, 0.25f)); // Clear with a transparent
 
       auto pskyboxrendersystem = m_pskyboxrendersystem;
 
@@ -305,7 +305,7 @@ namespace SceneFoundry_pbr_renderer
 
       }*/
 
-//      pgpucontext->clear(pgpucontext->current_target_texture(::gpu::current_frame()),argb(0.95f, 0.95f, 0.25f, 0.90f)); // Clear with a transparent
+//      pgpucontext->clear(pgpucontext->current_target_texture(::gpu::current_layer()),argb(0.95f, 0.95f, 0.25f, 0.90f)); // Clear with a transparent
 
    }
 

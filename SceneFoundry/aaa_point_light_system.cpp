@@ -4,7 +4,7 @@
 #include "bred/gpu/bred_approach.h"
 #include "bred/gpu/command_buffer.h"
 #include "bred/gpu/context.h"
-#include "bred/gpu/frame.h"
+#include "bred/gpu/layer.h"
 #include "bred/gpu/renderer.h"
 #include "bred/gpu/shader.h"
 #include "bred/graphics3d/camera.h"
@@ -168,7 +168,7 @@ namespace SceneFoundry_SceneFoundry
 
          m_pshader->push_properties();
 
-         auto pcommandbuffer = pgpucontext->m_pgpurenderer->getCurrentCommandBuffer2(::gpu::current_frame());
+         auto pcommandbuffer = pgpucontext->m_pgpurenderer->getCurrentCommandBuffer2(::gpu::current_layer());
 
          m_pmodelDummy->bind(pcommandbuffer);
 
@@ -177,7 +177,7 @@ namespace SceneFoundry_SceneFoundry
          m_pmodelDummy->unbind(pcommandbuffer);
 
 
-         //auto pcommandbuffer = pgpucontext->m_pgpurenderer->getCurrentCommandBuffer2(::gpu::current_frame());
+         //auto pcommandbuffer = pgpucontext->m_pgpurenderer->getCurrentCommandBuffer2(::gpu::current_layer());
 
          ////vkCmdPushConstants(
          ////   frameInfo.m_pcommandbuffer,

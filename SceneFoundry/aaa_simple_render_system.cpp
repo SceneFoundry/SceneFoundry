@@ -1,7 +1,7 @@
 #include "framework.h"
 #include "application.h"
 #include "bred/graphics3d/scene.h"
-#include "bred/gpu/frame.h"
+#include "bred/gpu/layer.h"
 #include "bred/gpu/bred_approach.h"
 #include "bred/gpu/context.h"
 #include "bred/gpu/renderer.h"
@@ -83,7 +83,7 @@ namespace SceneFoundry_SceneFoundry
 	void simple_render_system::on_render(::gpu::context * pgpucontext, ::graphics3d::scene* pscene)
 	{
 
-		m_pshader->bind(pgpucontext->current_target_texture(::gpu::current_frame()));
+		m_pshader->bind(pgpucontext->current_target_texture(::gpu::current_layer()));
 
 		for (auto& kv : pscene->m_mapObjects) 
 		{
@@ -117,7 +117,7 @@ namespace SceneFoundry_SceneFoundry
 
 				m_pshader->push_properties();
 
-				auto pcommandbuffer = pgpucontext->m_pgpurenderer->getCurrentCommandBuffer2(::gpu::current_frame());
+				auto pcommandbuffer = pgpucontext->m_pgpurenderer->getCurrentCommandBuffer2(::gpu::current_layer());
 				
 				obj->m_pmodel->bind(pcommandbuffer);
 
