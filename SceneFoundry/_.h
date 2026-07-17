@@ -15,6 +15,9 @@
 namespace SceneFoundry_SceneFoundry
 {
 
+   CLASS_DECL_SCENEFOUNDRY_SCENEFOUNDRY ::pointer_array < ::string_array >
+      parse_comma_separated_file(const ::scoped_string & scopedstrCsv);
+
    class application;
    class pane_impact;
    class document;
