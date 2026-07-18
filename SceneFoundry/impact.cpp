@@ -13,7 +13,7 @@
 #include "aura/graphics/draw2d/draw2d.h"
 #include "apex/database/stream.h"
 #include "main_scene.h"
-
+#include "acme/user/interface/message_box.h"
 
 CLASS_DECL_AURA ::color::color dk_red(); // <3 tbs
 //namespace vkc
@@ -186,7 +186,7 @@ namespace SceneFoundry_SceneFoundry
 //      ::get_task()->payload("debug") = 0;
 //      
 //      
-//      ::user::graphics3d::_001OnDraw(pgraphics);
+      ::user::graphics3d::_001OnDraw(pgraphics);
 //
 //
 //      {

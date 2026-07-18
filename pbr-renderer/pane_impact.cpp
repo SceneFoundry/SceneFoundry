@@ -78,10 +78,10 @@ namespace SceneFoundry_pbr_renderer
       //set_tab("gcom", GCOM_IMPACT);
       set_tab("hello_multiverse", MAIN_IMPACT);
       set_tab("switcher", MAIN_SWITCHER_IMPACT);
-      set_tab("Font", FONTSEL_IMPACT);
-      set_tab("Color", COLORSEL_IMPACT);
+      set_tab("Font", "font_selection_impact");
+      set_tab("Color", "color_selection_impact");
 #if 1
-      set_tab("Open", FILEMANAGER_IMPACT);
+      set_tab("Open", "file_manager_impact");
 #endif
 
       m_mapoptionsimpacthandler.set_at("options_impact_handler://gpu", get_app());
@@ -136,7 +136,7 @@ namespace SceneFoundry_pbr_renderer
          || stra.contains(::as_string((int)MAIN_SWITCHER_IMPACT)))
       {
 
-         auto ptabpaneFileManager = get_tab_by_id(FILEMANAGER_IMPACT);
+         auto ptabpaneFileManager = get_tab_by_id("file_manager_impact");
 
          if (ptabpaneFileManager != nullptr && ptabpaneFileManager->m_pplaceholder != nullptr)
          {
@@ -145,7 +145,7 @@ namespace SceneFoundry_pbr_renderer
 
          }
 
-         auto ptabpaneFontSel = get_tab_by_id(FONTSEL_IMPACT);
+         auto ptabpaneFontSel = get_tab_by_id("font_selection_impact");
 
          if (ptabpaneFontSel != nullptr && ptabpaneFontSel->m_pplaceholder != nullptr)
          {
@@ -154,7 +154,7 @@ namespace SceneFoundry_pbr_renderer
 
          }
 
-         auto ptabpaneColorSel = get_tab_by_id(COLORSEL_IMPACT);
+         auto ptabpaneColorSel = get_tab_by_id("color_selection_impact");
 
          if (ptabpaneColorSel != nullptr && ptabpaneColorSel->m_pplaceholder != nullptr)
          {
@@ -224,7 +224,7 @@ namespace SceneFoundry_pbr_renderer
          }
 
       }
-      else if (get_impact_id() == FONTSEL_IMPACT)
+      else if (get_impact_id() == "font_selection_impact")
       {
 
          auto pinteractionFont = get_font_interaction();
@@ -239,7 +239,7 @@ namespace SceneFoundry_pbr_renderer
          //}
 
       }
-      else if (get_impact_id() == COLORSEL_IMPACT)
+      else if (get_impact_id() == "color_selection_impact")
       {
 
          auto pinteractionColor = get_color_interaction();
@@ -253,7 +253,7 @@ namespace SceneFoundry_pbr_renderer
 
       }
 
-      if (m_pimpactdataOld != nullptr && m_pimpactdataOld->id() == FONTSEL_IMPACT)
+      if (m_pimpactdataOld != nullptr && m_pimpactdataOld->id() == "font_selection_impact")
       {
 
          auto pinteractionFont = get_font_interaction();

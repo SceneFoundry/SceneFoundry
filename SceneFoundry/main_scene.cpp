@@ -50,6 +50,8 @@ namespace SceneFoundry_SceneFoundry
 
       ::cast<immersion> pimmersion = m_pimmersionlayer;
 
+
+
       pprodevianactor->camera()->m_sequence3Position = pimmersion->m_initialCameraPosition;
       pprodevianactor->camera()->m_rotation = pimmersion->m_rotationInitialCamera;
       // pprodevianactor->onInit();
