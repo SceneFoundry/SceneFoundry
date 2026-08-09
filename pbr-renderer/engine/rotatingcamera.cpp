@@ -46,7 +46,7 @@ namespace SceneFoundry_pbr_renderer
       mTime += frameTimeDelta;
 
       float percentOfCircle = mTime / mTimePerCircle;
-      float angle = percentOfCircle * 2.f * πf;
+      float angle = percentOfCircle * 2_πf;
 
       mPosition.x = sin(angle) * mRadius;
       mPosition.z = cos(angle) * mRadius;
