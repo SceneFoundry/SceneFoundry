@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "platform.h"
 #include "application.h"
 #include "camera.h"
 #include "main_frame.h"

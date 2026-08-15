@@ -17,8 +17,8 @@ list(APPEND library_source
         class_set1.h
         entity.h
         #frame_info.h
-        framework.cpp
-        framework.h
+        platform.cpp
+        platform.h
         game_layer.h
         game_object.h
         #key_codes.h
@@ -71,8 +71,8 @@ add_library(static_${PROJECT_NAME} SHARED ${library_source})
 
 if (NOT ${NO_PRECOMPILED_HEADER})
 
-    target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
-    target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
+    target_precompile_headers(${PROJECT_NAME} PRIVATE platform.h)
+    target_precompile_headers(static_${PROJECT_NAME} PRIVATE platform.h)
 
 endif ()
 

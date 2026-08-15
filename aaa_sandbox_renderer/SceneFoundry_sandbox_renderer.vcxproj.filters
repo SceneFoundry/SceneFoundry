@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="framework.cpp">
+    <ClCompile Include="platform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\vk_tools\vk_descriptor_registry.cpp">
@@ -161,7 +161,7 @@
     <ClInclude Include="_.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="framework.h">
+    <ClInclude Include="platform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\vk_tools\vk_descriptor_registry.h">

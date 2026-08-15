@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "platform.h"
 #include "fullscreenquad.h"
 
 #include <glad/glad.h>

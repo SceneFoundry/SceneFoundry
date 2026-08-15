@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "platform.h"
 #include "cameramanager.h"
 #include "camera.h"
 #include "bred/user/user/graphics3d.h"

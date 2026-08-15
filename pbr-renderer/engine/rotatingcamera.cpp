@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "platform.h"
 #include "rotatingcamera.h"
 #include "bred/gpu/context.h"
 #include "bred/graphics3d/engine.h"

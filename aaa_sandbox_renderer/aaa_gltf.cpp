@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "platform.h"
 ///*
 //* Vulkan glTF model and texture loading class based on tinyglTF (https://github.com/syoyo/tinygltf)
 //*

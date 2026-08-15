@@ -781,7 +781,7 @@
     <ClCompile Include="application.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="document.cpp" />
-    <ClCompile Include="framework.cpp">
+    <ClCompile Include="platform.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='StaticDebug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -811,7 +811,7 @@
     <ClInclude Include="pane_impact.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="_.h" />
-    <ClInclude Include="framework.h" />
+    <ClInclude Include="platform.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\app-graphics3d\graphics3d\graphics3d.vcxproj">

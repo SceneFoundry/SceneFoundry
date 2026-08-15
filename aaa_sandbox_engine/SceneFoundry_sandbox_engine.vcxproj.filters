@@ -10,7 +10,7 @@
     <ClCompile Include="src\common\glfw_input.cpp">
       <Filter>Source Files\common</Filter>
     </ClCompile>
-    <ClCompile Include="framework.cpp">
+    <ClCompile Include="platform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,7 +41,7 @@
     <ClInclude Include="include\render_scene_data.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="framework.h">
+    <ClInclude Include="platform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="_.h">

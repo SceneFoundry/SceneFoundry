@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "platform.h"
 #include "camera.h"
 #include "bred/gpu/context.h"
 #include "bred/graphics3d/_functions.h"

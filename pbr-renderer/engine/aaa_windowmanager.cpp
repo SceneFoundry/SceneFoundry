@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "platform.h"
 //#include "windowmanager.h"
 //
 //#include <iostream>

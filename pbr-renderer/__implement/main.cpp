@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "platform.h"
 #define APPLICATION_NAMESPACE SceneFoundry_pbr_renderer
 #include "acme/inline/application/main_executable.inl"
 

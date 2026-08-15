@@ -1,6 +1,6 @@
 // From continuum (V0idsEmbrace@Twitch)
 // by camilo on 2025-05-07 02:18 <3ThomasBorregaardSorensen!!
-#include "framework.h"
+#include "platform.h"
 #include "main_scene.h"
 #include "application.h"
 #include "camera.h"
@@ -9,6 +9,7 @@
 #include "input.h"
 #include "bred/gpu/block.h"
 #include "bred/gpu/context.h"
+#include "bred/gpu/texture_site.h"
 #include "bred/graphics3d/global_ubo1.h"
 #include "app-graphics3d/graphics3d/render_system/gltf_render_system.h"
 #include "bred/graphics3d/render_system/wavefront_obj_render_system.h"
@@ -256,7 +257,7 @@ namespace SceneFoundry_pbr_renderer
 
       //pgpucontext->clear(pgpucontext->current_target_texture(::gpu::current_layer()), argb(1.0f, 0.5f, 0.75f, 1.0f)); // Clear with a light blue color
       //pgpucontext->clear(pgpucontext->current_target_texture(::gpu::current_layer()), ::color::transparent); // Clear with a transparent
-      pgpucontext->clear(pgpucontext->current_target_texture(::gpu::current_layer()),argb(0.95f, 0.85f, 0.75f, 0.25f)); // Clear with a transparent
+      pgpucontext->clear(pgpucontext->current_target_texture(::gpu::current_layer())->gpu_texture(), argb(0.95f, 0.85f, 0.75f, 0.25f)); // Clear with a transparent
 
       auto pskyboxrendersystem = m_pskyboxrendersystem;
 

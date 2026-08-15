@@ -1,4 +1,4 @@
-#include "framework.h"
+#include "platform.h"
 #include "application.h"
 #include "bred/graphics3d/scene.h"
 #include "bred/gpu/layer.h"

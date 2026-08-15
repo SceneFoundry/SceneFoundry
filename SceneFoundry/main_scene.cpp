@@ -1,6 +1,6 @@
 // From continuum (V0idsEmbrace@Twitch)
 // by camilo on 2025-05-07 02:18 <3ThomasBorregaardSorensen!!
-#include "framework.h"
+#include "platform.h"
 #include "main_scene.h"
 #include "application.h"
 #include "camera.h"

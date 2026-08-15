@@ -87,8 +87,8 @@ list(APPEND library_source
    camera.h
    document.cpp
    document.h
-   framework.cpp
-   framework.h
+   platform.cpp
+   platform.h
    #global_ubo.cpp
    #global_ubo.h
    immersion.cpp
@@ -144,8 +144,8 @@ endif()
 
 if (NOT ${NO_PRECOMPILED_HEADER})
 
-   target_precompile_headers(${PROJECT_NAME} PRIVATE framework.h)
-   target_precompile_headers(static_${PROJECT_NAME} PRIVATE framework.h)
+   target_precompile_headers(${PROJECT_NAME} PRIVATE platform.h)
+   target_precompile_headers(static_${PROJECT_NAME} PRIVATE platform.h)
 
 endif ()
 
