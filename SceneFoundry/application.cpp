@@ -200,9 +200,9 @@ namespace SceneFoundry_SceneFoundry
 
       auto pstillTitle = create_label<::user::still>(pparent, "graphics3d continuum Options");
 
-      defer_constructø(pstillTitle->m_pfont);
+      defer_constructø(pstillTitle->m_pwritetextfont);
 
-      pstillTitle->m_pfont->create_font(e_font_sans_ui, 24_pt);
+      pstillTitle->m_pwritetextfont->create_font(e_font_sans_ui, 24_pt);
 
       auto playoutLine = create_line_layout(pparent, e_orientation_horizontal);
 

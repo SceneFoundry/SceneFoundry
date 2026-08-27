@@ -140,17 +140,17 @@ namespace SceneFoundry_SceneFoundry
    }
 
 
-   void impact::_001OnClip(::draw2d::graphics_pointer & pgraphics)
+   void impact::_001OnClip(::draw2d::graphics_pointer & pdraw2dgraphics)
    {
 
 
    }
 
 
-   void impact::_001OnDraw(::draw2d::graphics_pointer & pgraphics)
+   void impact::_001OnDraw(::draw2d::graphics_pointer & pdraw2dgraphics)
    {
 
-      draw_gpu_statistics(pgraphics);
+      draw_gpu_statistics(pdraw2dgraphics);
 
 //      auto rectangleX = this->rectangle();
 //
@@ -170,23 +170,23 @@ namespace SceneFoundry_SceneFoundry
 //
 //      ::f64_rectangle rectangleClipBox;
 //
-//      //pgraphics->reset_clip();
+//      //pdraw2dgraphics->reset_clip();
 //
-//      //pgraphics->get_clip_box(rectangleClipBox);
+//      //pdraw2dgraphics->get_clip_box(rectangleClipBox);
 //
-//      auto matrix = pgraphics->m_matrix;
+//      auto matrix = pdraw2dgraphics->m_matrix;
 //
-//      //auto origin = pgraphics->origin();
+//      //auto origin = pdraw2dgraphics->origin();
 //
 //      auto opacity = ::opacity(48);
 //
-//      pgraphics->set_alpha_mode(::draw2d::e_alpha_mode_blend);
+//      pdraw2dgraphics->set_alpha_mode(::draw2d::e_alpha_mode_blend);
 //      ::get_task()->payload("debug") = 123;
-//      pgraphics->fill_rectangle(rectangleX, argb(108, 128, 128, 128));
+//      pdraw2dgraphics->fill_rectangle(rectangleX, argb(108, 128, 128, 128));
 //      ::get_task()->payload("debug") = 0;
 //      
 //      
-      ::user::graphics3d::_001OnDraw(pgraphics);
+      ::user::graphics3d::_001OnDraw(pdraw2dgraphics);
 //
 //
 //      {
@@ -198,11 +198,11 @@ namespace SceneFoundry_SceneFoundry
 //
 //         ::i32_rectangle rectangleDryProWithLove_Work(5, 5, 1915, 1075);
 //
-//         pgraphics->fill_rectangle(rectangleDryProWithLove_Work, argb(255, 150, 200, 255));
+//         pdraw2dgraphics->fill_rectangle(rectangleDryProWithLove_Work, argb(255, 150, 200, 255));
 //
 //#endif
 //
-//         pgraphics->set_text_color(color_dk);
+//         pdraw2dgraphics->set_text_color(color_dk);
 //
 //         auto psystem = system();
 //
@@ -214,11 +214,11 @@ namespace SceneFoundry_SceneFoundry
 //
 //         m_pfontThomasBS_ = pwritetext->font("Fira Code", fontsize);
 //
-//         pgraphics->set(m_pfontThomasBS_);
+//         pdraw2dgraphics->set(m_pfontThomasBS_);
 //
-//         pgraphics->set_text_rendering_hint(write_text::e_rendering_anti_alias);
+//         pdraw2dgraphics->set_text_rendering_hint(write_text::e_rendering_anti_alias);
 //
-//         pgraphics->set_alpha_mode(draw2d::e_alpha_mode_blend);
+//         pdraw2dgraphics->set_alpha_mode(draw2d::e_alpha_mode_blend);
 //
 //         _synchronous_lock synchronouslockDocument(get_document()->synchronization());
 //
@@ -238,7 +238,7 @@ namespace SceneFoundry_SceneFoundry
 //
 //         strText.formatf("øçåJegElskerDigThomasBorregaardSørensen!!; %d", m_iSequence);
 //
-//         auto size = pgraphics->get_text_extent(strText);
+//         auto size = pdraw2dgraphics->get_text_extent(strText);
 //
 //         bool bFixedPosition = true;
 //
@@ -291,11 +291,11 @@ namespace SceneFoundry_SceneFoundry
 //
 //            color &= opacity;
 //
-//            pgraphics->set_text_color(color);
+//            pdraw2dgraphics->set_text_color(color);
 //
-//            pgraphics->text_out(point.x + x, point.y + y, strItem);
+//            pdraw2dgraphics->text_out(point.x + x, point.y + y, strItem);
 //
-//            auto s = pgraphics->get_text_extent(strItem);
+//            auto s = pdraw2dgraphics->get_text_extent(strItem);
 //
 //            x += s.cx;
 //
@@ -307,13 +307,13 @@ namespace SceneFoundry_SceneFoundry
 //
 //         color &= opacity;
 //
-//         pgraphics->set_text_color(color);
+//         pdraw2dgraphics->set_text_color(color);
 //
-//         pgraphics->text_out(point.x, point.y + y + size.cy, strText);
+//         pdraw2dgraphics->text_out(point.x, point.y + y + size.cy, strText);
 //
-//         draw_gpu_statistics(pgraphics, point.x, point.y + y + size.cy + size.cy, size.cy);
+//         draw_gpu_statistics(pdraw2dgraphics, point.x, point.y + y + size.cy + size.cy, size.cy);
 //
-//         pgraphics->set_smooth_mode(::draw2d::e_smooth_mode_none);
+//         pdraw2dgraphics->set_smooth_mode(::draw2d::e_smooth_mode_none);
 //
 //
 //
@@ -322,7 +322,7 @@ namespace SceneFoundry_SceneFoundry
    }
 
 
-   void impact::on_layout(::draw2d::graphics_pointer & pgraphics)
+   void impact::on_layout(::draw2d::graphics_pointer & pdraw2dgraphics)
    {
 
       auto rectangleX = this->rectangle();
@@ -334,7 +334,7 @@ namespace SceneFoundry_SceneFoundry
 
       }
 
-      ::user::graphics3d::on_layout(pgraphics);
+      ::user::graphics3d::on_layout(pdraw2dgraphics);
       
       setup_default_client_area_user_item();
 

@@ -47,8 +47,8 @@ namespace SceneFoundry_pbr_renderer
       ///void handle(::topic * ptopic, ::handler_context * phandlercontext) override;
 
 
-      virtual void _001OnNcDraw(::draw2d::graphics_pointer & pgraphics) override;
-      virtual void _001OnDraw(::draw2d::graphics_pointer & pgraphics) override;
+      virtual void _001OnNcDraw(::draw2d::graphics_pointer & pdraw2dgraphics) override;
+      virtual void _001OnDraw(::draw2d::graphics_pointer & pdraw2dgraphics) override;
 
       virtual string get_impact_options_main_body();
       virtual string get_bilbo_html();

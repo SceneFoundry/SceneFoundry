@@ -125,8 +125,8 @@ namespace SceneFoundry_pbr_renderer
          mInitialMousePositionSet = true;
       }
 
-      float dX = mLastMouseX - mousePosition.x;
-      float dY = mLastMouseY - mousePosition.y;
+      float dX = (::f32) (mLastMouseX - mousePosition.x);
+      float dY = (::f32) (mLastMouseY - mousePosition.y);
 
       mLastMouseX = mousePosition.x;
       mLastMouseY = mousePosition.y;

@@ -37,9 +37,9 @@ namespace SceneFoundry_SceneFoundry
 
       virtual void install_message_routing(::channel * psender) override;
 
-      virtual void _001OnClip(::draw2d::graphics_pointer & pgraphics) override;
+      virtual void _001OnClip(::draw2d::graphics_pointer & pdraw2dgraphics) override;
 
-      virtual void _001OnDraw(::draw2d::graphics_pointer & pgraphics) override;
+      virtual void _001OnDraw(::draw2d::graphics_pointer & pdraw2dgraphics) override;
 
       void handle(::topic * ptopic, ::handler_context * phandlercontext) override;
 
@@ -48,7 +48,7 @@ namespace SceneFoundry_SceneFoundry
 
       //s::block global_ubo_block() override;
 
-      void on_layout(::draw2d::graphics_pointer & pgraphics) override;
+      void on_layout(::draw2d::graphics_pointer & pdraw2dgraphics) override;
 
       DECLARE_MESSAGE_HANDLER(on_message_create);
       DECLARE_MESSAGE_HANDLER(on_message_destroy);
