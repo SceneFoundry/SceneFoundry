@@ -203,7 +203,7 @@ namespace SceneFoundry_pbr_renderer
 //
 //#endif
 //
-//         pdraw2dgraphics->set_text_color(color_dk);
+//         pdraw2dgraphics->set_solid_color(color_dk);
 //
 //         auto psystem = system();
 //
@@ -292,7 +292,7 @@ namespace SceneFoundry_pbr_renderer
 //
 //            color &= opacity;
 //
-//            pdraw2dgraphics->set_text_color(color);
+//            pdraw2dgraphics->set_solid_color(color);
 //
 //            pdraw2dgraphics->text_out(point.x + x, point.y + y, strItem);
 //
@@ -308,7 +308,7 @@ namespace SceneFoundry_pbr_renderer
 //
 //         color &= opacity;
 //
-//         pdraw2dgraphics->set_text_color(color);
+//         pdraw2dgraphics->set_solid_color(color);
 //
 //         pdraw2dgraphics->text_out(point.x, point.y + y + size.cy, strText);
 //
