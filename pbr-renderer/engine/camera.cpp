@@ -2,7 +2,7 @@
 #include "camera.h"
 #include "bred/gpu/context.h"
 #include "bred/graphics3d/_functions.h"
-#include "bred/graphics3d/engine.h"
+#include "bred/graphics3d/engine_instance.h"
 #include "acme/prototype/geometry/matrix.h"
 #include <algorithm>
 
@@ -66,7 +66,7 @@ namespace SceneFoundry_pbr_renderer
 
    floating_matrix4 Camera::getViewMatrix()
    {
-    //  auto pgpucontext = m_pengine->gpu_context();
+    //  auto pgpucontext = m_pgraphics3dengineinstance->gpu_context();
 
       // return pgpucontext->lookAt(mPosition, mPosition + getDirection(), mUp); }
       return ::graphics3d::lookAt(mPosition, mPosition + getDirection(), mUp);
@@ -75,8 +75,8 @@ namespace SceneFoundry_pbr_renderer
 
    floating_matrix4 Camera::getProjectionMatrix()
    {
-      //auto pgpucontext = m_pengine->gpu_context();
-      floating_matrix4 projection = m_pengine->perspective(::radians(mFov), getAspectRatio(), mZNear, mZFar);
+      //auto pgpucontext = m_pgraphics3dengineinstance->gpu_context();
+      floating_matrix4 projection = m_pgraphics3dengineinstance->perspective(::radians(mFov), getAspectRatio(), mZNear, mZFar);
       return projection;
    }
 

@@ -1,6 +1,6 @@
 #include "platform.h"
 #include "camera.h"
-#include "bred/graphics3d/engine.h"
+#include "bred/graphics3d/engine_instance.h"
 #include "bred/gpu/context.h"
 
 
@@ -68,14 +68,14 @@ namespace SceneFoundry_pbr_renderer
    // void camera::updateView()
    // {
    //
-   //    auto pgpucontext = m_pengine->gpu_context();
+   //    auto pgpucontext = m_pgraphics3dengineinstance->gpu_context();
    //    m_viewMatrix = pgpucontext->lookAt(m_vec3Position, m_vec3Position + m_front, m_up);
    //    m_inverseViewMatrix = m_viewMatrix.inversed();
    // }
    //
    // void SandboxCamera::updateProjection(float aspect, float nearZ, float farZ)
    // {
-   //    auto pgpucontext = m_pengine->gpu_context();
+   //    auto pgpucontext = m_pgraphics3dengineinstance->gpu_context();
    //    m_projMatrix = pgpucontext->perspective(::radians(m_zoom), aspect, nearZ, farZ);
    //    m_projMatrix[1][1] *= -1; // Vulkan Y-flip
    // }

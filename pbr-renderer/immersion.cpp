@@ -28,10 +28,10 @@ namespace SceneFoundry_pbr_renderer
       //pinput->m_fMoveSpeed = 3.f;
       //pinput->m_fLookSpeed = 1.5f;
 
-      m_pengine->m_pinput = pinput;
+      m_pgraphics3dengineinstance->m_pinput = pinput;
 
-      // m_pengine->m_pinput->m_pusergraphics3d = m_pengine->m_pusergraphics3d;
-      pinput->m_pengine = m_pengine;
+      // m_pgraphics3dengineinstance->m_pinput->m_pusergraphics3d = m_pgraphics3dengineinstance->m_pusergraphics3d;
+      pinput->m_pgraphics3dengineinstance = m_pgraphics3dengineinstance;
 
       auto psceneMain = create_scene<main_scene>("main");
 
@@ -64,21 +64,21 @@ namespace SceneFoundry_pbr_renderer
 
       //pcameraLoaded->initialize_SandboxCamera(floating_sequence3(0.f, 0.f, 3.f));
 
-      pcameraLoaded->m_pengine = m_pengine;
+      pcameraLoaded->m_pgraphics3dengineinstance = m_pgraphics3dengineinstance;
 
-      //         // floating_sequence3 camera = floating_sequence3(0.0f, 1.0f *m_pengine->m_fYScale, 3.0f);
+      //         // floating_sequence3 camera = floating_sequence3(0.0f, 1.0f *m_pgraphics3dengineinstance->m_fYScale, 3.0f);
       //floating_sequence3 camera = floating_sequence3(0.0f, 1.0f, 3.0f);
       //floating_sequence3 target = floating_sequence3(0.0f, 0.0f, 0.0f); // Look at origin
       //// floating_sequence3 direction = glm::normalize(target - cameraPos);
       //// camera camera{ floating_sequence3(0.0f, 2.0f, -15.0f), -90.0f, 0.0f };
       //auto pcameraDefault = createø<SandboxCamera>();
-      //pcameraDefault->m_pengine = m_pimmersionlayer->m_pengine;
+      //pcameraDefault->m_pgraphics3dengineinstance = m_pimmersionlayer->m_pgraphics3dengineinstance;
       
       // pcamera->m_pimpact = m_pimpact;
 
       
 
-      // pcameraDefault->m_pengine = m_pimmersionlayer->m_pengine;
+      // pcameraDefault->m_pgraphics3dengineinstance = m_pimmersionlayer->m_pgraphics3dengineinstance;
 
       //pcameraLoaded->m_position = m_initialCameraPosition;
 

@@ -151,7 +151,7 @@ namespace SceneFoundry_pbr_renderer
    void impact::_001OnDraw(::draw2d::graphics_pointer & pdraw2dgraphics)
    {
 
-      draw_gpu_statistics(pdraw2dgraphics);
+      draw_gpu_statistics(0, "pbr-renderer", pdraw2dgraphics);
 
 //      auto rectangleX = this->rectangle();
 //

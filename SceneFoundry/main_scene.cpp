@@ -15,7 +15,7 @@
 #include "app-graphics3d/graphics3d/render_system/scene_render_system.h"
 #include "bred/gpu/block.h"
 #include "bred/graphics3d/camera.h"
-#include "bred/graphics3d/engine.h"
+#include "bred/graphics3d/engine_instance.h"
 #include "bred/graphics3d/point_light.h"
 #include "bred/graphics3d/scene_object.h"
 #include "bred/prodevian/actor.h"
@@ -42,7 +42,7 @@ namespace SceneFoundry_SceneFoundry
 
       scene_base::on_initialize_particle();
 
-      //m_pusergraphics3d = m_pengine->m_pusergraphics3d;
+      //m_pusergraphics3d = m_pgraphics3dengineinstance->m_pusergraphics3d;
 
       auto pprodevianactor = create_newø<::prodevian::actor>();
 
@@ -73,13 +73,13 @@ namespace SceneFoundry_SceneFoundry
    //
    // ::pointer < ::graphics3d::camera > main_scene::get_default_camera()
    // {
-   //    //floating_sequence3 camera = floating_sequence3(0.0f, 1.0f *m_pengine->m_fYScale, 3.0f);
+   //    //floating_sequence3 camera = floating_sequence3(0.0f, 1.0f *m_pgraphics3dengineinstance->m_fYScale, 3.0f);
    //    floating_sequence3 camera = floating_sequence3(0.0f, 1.0f , 3.0f);
    //    floating_sequence3 target = floating_sequence3(0.0f, 0.0f, 0.0f); // Look at origin
    //    //floating_sequence3 direction = glm::normalize(target - cameraPos);
    //    //camera camera{ floating_sequence3(0.0f, 2.0f, -15.0f), -90.0f, 0.0f };
    //    auto pcamera = createø < ::graphics3d::camera>();
-   //    pcamera->m_pengine = m_pengine;
+   //    pcamera->m_pgraphics3dengineinstance = m_pgraphics3dengineinstance;
    //    pcamera->initialize_camera(target, camera);
    //    //pcamera->m_pimpact = m_pimpact;
    //    return pcamera;
@@ -99,7 +99,7 @@ namespace SceneFoundry_SceneFoundry
 
       //m_propertiesGlobalUbo.set<::SceneFoundry_SceneFoundry::global_ubo>();
 
-      loadSceneFile("default_scene");
+      loadSceneFile("default_scene", pgpucontext);
 
 
 //
@@ -144,7 +144,7 @@ namespace SceneFoundry_SceneFoundry
 //
 //         defer_constructø_new(pskybox);
 //
-//         pskybox->initialize_sky_box(m_pengine, strSkybox);
+//         pskybox->initialize_sky_box(m_pgraphics3dengineinstance, strSkybox);
 //
 //      }
 //
@@ -152,7 +152,7 @@ namespace SceneFoundry_SceneFoundry
 //
 //      float fXScale;
 //
-//      fXScale = m_pengine->m_fYScale;
+//      fXScale = m_pgraphics3dengineinstance->m_fYScale;
 //
 //      {
 //
@@ -226,20 +226,20 @@ namespace SceneFoundry_SceneFoundry
 //      }
       constructø(m_pscenerendersystem);
 
-      m_pscenerendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
+      m_pscenerendersystem->initialize_render_system(m_pimmersionlayer->m_pgraphics3dengineinstance);
 
       m_pscenerendersystem->prepare(pgpucontext);
 
       constructø(m_pgltfrendersystem);
 
-      m_pgltfrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
+      m_pgltfrendersystem->initialize_render_system(m_pimmersionlayer->m_pgraphics3dengineinstance);
 
       m_pgltfrendersystem->prepare(pgpucontext);
 
 
       construct_newø(m_pwavefrontobjrendersystem);
 
-      m_pwavefrontobjrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
+      m_pwavefrontobjrendersystem->initialize_render_system(m_pimmersionlayer->m_pgraphics3dengineinstance);
 
       m_pwavefrontobjrendersystem->prepare(pgpucontext);
       //m_prenderer->getRenderPass(),
@@ -247,7 +247,7 @@ namespace SceneFoundry_SceneFoundry
 
       construct_newø(m_ppointlightrendersystem);
 
-      m_ppointlightrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
+      m_ppointlightrendersystem->initialize_render_system(m_pimmersionlayer->m_pgraphics3dengineinstance);
 
       m_ppointlightrendersystem->prepare(pgpucontext);
 
@@ -256,7 +256,7 @@ namespace SceneFoundry_SceneFoundry
 
          construct_newø(m_pskyboxrendersystem);
 
-         m_pskyboxrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
+         m_pskyboxrendersystem->initialize_render_system(m_pimmersionlayer->m_pgraphics3dengineinstance);
 
          m_pskyboxrendersystem->prepare(pgpucontext);
 
@@ -333,13 +333,13 @@ namespace SceneFoundry_SceneFoundry
 
       ::cast<::SceneFoundry_SceneFoundry::camera> pcamera = pgpucamera;
 
-      auto dt = m_pimmersionlayer->m_pengine->dt();
+      auto dt = m_pimmersionlayer->m_pgraphics3dengineinstance->dt();
                    
-      ::cast<input> pinput = m_pimmersionlayer->m_pengine->m_pinput;
+      ::cast<input> pinput = m_pimmersionlayer->m_pgraphics3dengineinstance->m_pinput;
       //double dx = 0, dy = 0;
       //m_pInput->getMouseDelta(dx, dy);
       //m_controller.mouseCallback(floating_sequence2(dx, dy));
-      auto &transform = m_pimmersionlayer->m_pengine->m_transform;
+      auto &transform = m_pimmersionlayer->m_pgraphics3dengineinstance->m_transform;
 
       pinput->_017Update(dt, transform);
 
@@ -349,7 +349,7 @@ namespace SceneFoundry_SceneFoundry
 
       pcamera->m_rotation = transform.m_rotation;
 
-      auto aspect = m_pimmersionlayer->m_pengine->m_pusergraphics3d->getAspectRatio();
+      auto aspect = m_pimmersionlayer->m_pgraphics3dengineinstance->m_pusergraphics3d->getAspectRatio();
 
       pcamera->m_fAspectRatio = aspect;
 

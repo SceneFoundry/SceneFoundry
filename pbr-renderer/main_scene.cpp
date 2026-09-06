@@ -17,7 +17,7 @@
 #include "app-graphics3d/graphics3d/render_system/scene_render_system.h"
 #include "bred/graphics3d/render_system/skybox_render_system.h"
 #include "bred/graphics3d/camera.h"
-#include "bred/graphics3d/engine.h"
+#include "bred/graphics3d/engine_instance.h"
 #include "bred/graphics3d/point_light.h"
 #include "bred/graphics3d/scene_object.h"
 #include "bred/prodevian/actor.h"
@@ -74,11 +74,11 @@ namespace SceneFoundry_pbr_renderer
 
       //m_gpupropertiesGlobalUbo.set<::graphics3d::global_ubo1>();
 
-      loadSceneFile("default_scene");
+      loadSceneFile("default_scene", pgpucontext);
 
       constructø(m_pscenerendersystem);
 
-      m_pscenerendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
+      m_pscenerendersystem->initialize_render_system(m_pimmersionlayer->m_pgraphics3dengineinstance);
 
       m_pscenerendersystem->prepare(pgpucontext);
 
@@ -101,14 +101,14 @@ namespace SceneFoundry_pbr_renderer
       m_pgltfrendersystem->m_fDefaultAmbientOcclusionFactor = 1.0f;
       m_pgltfrendersystem->m_seq3DefaultEmission = {};
 
-      m_pgltfrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
+      m_pgltfrendersystem->initialize_render_system(m_pimmersionlayer->m_pgraphics3dengineinstance);
 
       m_pgltfrendersystem->prepare(pgpucontext);
 
 
       constructø(m_pwavefrontobjrendersystem);
 
-      m_pwavefrontobjrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
+      m_pwavefrontobjrendersystem->initialize_render_system(m_pimmersionlayer->m_pgraphics3dengineinstance);
 
       m_pwavefrontobjrendersystem->prepare(pgpucontext);
       //m_prenderer->getRenderPass(),
@@ -116,13 +116,13 @@ namespace SceneFoundry_pbr_renderer
 
       construct_newø(m_ppointlightrendersystem);
 
-      m_ppointlightrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
+      m_ppointlightrendersystem->initialize_render_system(m_pimmersionlayer->m_pgraphics3dengineinstance);
 
       m_ppointlightrendersystem->prepare(pgpucontext);
 
       constructø(m_pskyboxrendersystem);
 
-      m_pskyboxrendersystem->initialize_render_system(m_pimmersionlayer->m_pengine);
+      m_pskyboxrendersystem->initialize_render_system(m_pimmersionlayer->m_pgraphics3dengineinstance);
 
       m_pskyboxrendersystem->prepare(pgpucontext);
 
@@ -189,11 +189,11 @@ namespace SceneFoundry_pbr_renderer
 
       ::cast<::SceneFoundry_pbr_renderer::camera> pcamera = pgpucamera;
 
-      auto dt = m_pimmersionlayer->m_pengine->dt();
+      auto dt = m_pimmersionlayer->m_pgraphics3dengineinstance->dt();
                    
-      ::cast<input> pinput = m_pimmersionlayer->m_pengine->m_pinput;
+      ::cast<input> pinput = m_pimmersionlayer->m_pgraphics3dengineinstance->m_pinput;
 
-      auto &transform = m_pimmersionlayer->m_pengine->m_transform;
+      auto &transform = m_pimmersionlayer->m_pgraphics3dengineinstance->m_transform;
 
       pinput->_017Update(dt, transform);
 
@@ -203,7 +203,7 @@ namespace SceneFoundry_pbr_renderer
       
       pcamera->m_rotation = transform.m_rotation;
 
-      auto aspect = m_pimmersionlayer->m_pengine->m_pusergraphics3d->getAspectRatio();
+      auto aspect = m_pimmersionlayer->m_pgraphics3dengineinstance->m_pusergraphics3d->getAspectRatio();
 
       pcamera->m_fAspectRatio = aspect;
 

@@ -1,7 +1,7 @@
 // player_input.cpp
 #include "platform.h"
 #include "input.h"
-#include "bred/graphics3d/engine.h"
+#include "bred/graphics3d/engine_instance.h"
 #include "bred/graphics3d/immersion_layer.h"
 #include "bred/graphics3d/scene_base.h"
 #include "acme/prototype/geometry/_.h"
@@ -100,7 +100,7 @@ namespace SceneFoundry_pbr_renderer
    //    float deltaYaw = -m_smoothDelta.x * m_mouseSensitivity;
    //    float deltaPitch = -m_smoothDelta.y * m_mouseSensitivity; // invert Y for typical FPS
    //
-   //    auto pcamera = m_pengine->m_pimmersionlayer->m_pscene->camera();
+   //    auto pcamera = m_pgraphics3dengineinstance->m_pimmersionlayer->m_pscene->camera();
    //    auto &yaw = pcamera->yaw();
    //    auto &pitch = pcamera->pitch();
    //    // --- 2) Update camera rotation ---

@@ -150,7 +150,7 @@ namespace SceneFoundry_SceneFoundry
    void impact::_001OnDraw(::draw2d::graphics_pointer & pdraw2dgraphics)
    {
 
-      draw_gpu_statistics(pdraw2dgraphics);
+      draw_gpu_statistics(0, "SceneFoundry", pdraw2dgraphics);
 
 //      auto rectangleX = this->rectangle();
 //
